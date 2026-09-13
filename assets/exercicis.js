@@ -29,7 +29,16 @@
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(dades => {
       const tema = dades.temes.find(t => t.num === numTema);
-      if (!tema) { cont.innerHTML = '<p class="nota">No hi ha exercicis per a aquest tema.</p>'; return; }
+      if (!tema) {
+        document.getElementById('titol').textContent = 'Properament';
+        document.getElementById('subtitol').textContent =
+          'Aquest tema encara s\'està revisant.';
+        document.querySelector('.barra-ex').hidden = true;
+        document.title = 'Properament · Matemàtiques · INS Pere Vives';
+        cont.innerHTML = '<p class="nota">Les activitats d\'aquest tema encara no estan ' +
+          'publicades. <a href="batx.html">Torna als temes</a> per veure què hi ha disponible.</p>';
+        return;
+      }
 
       const tots = tema.seccions.reduce((a, s) => a.concat(s.exercicis), []);
       document.title = tema.nom + ' · Activitats · Matemàtiques · INS Pere Vives';

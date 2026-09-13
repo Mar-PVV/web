@@ -10,8 +10,13 @@ de 3r d'ESO i 1r de batxillerat.
 
 ## Què és
 
-Un catàleg obert de material. Portada → tries curs → tries tema → descarregues
-el PDF. Res més: ni seguiment, ni zona privada, ni material d'avaluació.
+Portada → tries curs → tries tema → fas les activitats en línia, amb les solucions
+desplegables, i te'n pots descarregar el PDF.
+
+**Ara mateix només es publica el tema 1 de batxillerat.** 3r d'ESO surt com a
+*properament* (l'alumnat té el material al Classroom) i els altres temes de
+batxillerat també, fins que estiguin revisats. **Els apunts no es publiquen**:
+l'alumnat els copia a classe.
 
 ---
 
@@ -38,20 +43,17 @@ ser públics**. L'script [`publica.sh`](publica.sh) els hi copia.
 ```
 web/
 ├── index.html          portada · tria de curs
-├── 3eso.html           temes i material de 3r d'ESO
-├── batx.html           temes i material de 1r de batxillerat
-├── exercicis.html      exercicis en línia (1r BTX) · ?tema=N
+├── batx.html           selector de temes de 1r de batxillerat
+├── exercicis.html      activitats d'un tema · ?tema=N
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
-│   ├── web.js          munta la llista de temes
-│   ├── exercicis.js    munta la pàgina d'exercicis
+│   ├── web.js          munta el selector de temes
+│   ├── exercicis.js    munta la pàgina d'activitats
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
 │   └── logo.png
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
-│   ├── 3eso/<tema>/
-│   └── batx/<tema>/
-├── publica.sh          copia els PDF i regenera dades.js
+├── publica.sh          decideix què es publica, copia els PDF i regenera dades.js
 └── genera-exercicis.py converteix les activitats .tex en JSON
 ```
 
@@ -75,16 +77,22 @@ GitHub torna a construir la Page automàticament (triga 1-2 minuts).
 
 ### Canviar què es publica
 
-A dalt de `publica.sh`:
+Tot es decideix a les primeres línies de `publica.sh`:
 
 ```bash
-TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
-TIPUS_BATX=("Apunts" "Activitats")
+PUBLICA_3ESO=0                  # 0 = 3r d'ESO surt com a "properament"
+TEMES_BATX="1"                  # quins temes de batxillerat es publiquen
+TIPUS_BATX=("Activitats")       # quins documents, i en quin ordre
 ```
 
-L'ordre de la llista és l'ordre en què surten els documents a la web. Tot el que
-no hi consti **es queda al repositori privat**: exàmens, Els essencials, Quadern
-pas a pas, Aprofundiment, Thinking Classroom, material d'avaluació i les fonts `.tex`.
+**Per obrir un tema nou**, afegeix-hi el número: `TEMES_BATX="1 2"`. Per obrir-los
+tots, deixa-ho buit: `TEMES_BATX=""`.
+
+Això no és només cosmètic: el que no es publica **no es copia al repositori públic**.
+Els PDF i els exercicis d'un tema marcat com a properament no hi són, així que ningú
+no hi pot arribar encara que endevini l'adreça. Els apunts, els exàmens, Els
+essencials, el Quadern pas a pas, l'Aprofundiment, el Thinking Classroom, el material
+d'avaluació i les fonts `.tex` es queden sempre als repositoris privats.
 
 ### Com troba els PDF
 

@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matemàtiques · INS Pere Vives · Curs 26-27</title>
-<meta name="description" content="Materials de matemàtiques de 3r d'ESO i 1r de batxillerat. Mar Vidal Segura, INS Pere Vives.">
+<meta name="description" content="Materials de matemàtiques de 1r de batxillerat. Mar Vidal Segura, INS Pere Vives.">
 <link rel="icon" href="assets/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/estil.css">
 </head>
 <body data-curs="">
+
 <header class="capcalera">
   <div class="embolcall">
     <a class="marca" href="index.html">
@@ -21,59 +22,58 @@
     </a>
     <nav class="nav">
       <a href="index.html" aria-current="page">Inici</a>
-      <a href="3eso.html">3r d'ESO</a>
       <a href="batx.html">1r de batxillerat</a>
     </nav>
   </div>
 </header>
+
 <main class="embolcall">
   <div class="hero">
     <h1>Materials de <em>matemàtiques</em></h1>
-    <p>Apunts, activitats i quaderns de treball de 3r d'ESO i 1r de batxillerat, en accés obert.</p>
+    <p>Activitats per fer en línia, amb les solucions a mà i el PDF per descarregar.</p>
   </div>
 
   <div class="tria">
-    <a class="tria-card" href="3eso.html">
-      <span class="tria-banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
-      <span class="tria-cos">
-        <span class="tria-etiqueta" style="background:#EAF1F6;color:#39698C">Secundària</span>
-        <h2>3r d'ESO</h2>
-        <p>Nombres racionals, àlgebra, funcions, estadística i geometria.</p>
-        <span class="tria-peu"><span id="n-3eso">9 temes</span><strong>Veure el material →</strong></span>
-      </span>
-    </a>
-
     <a class="tria-card" href="batx.html">
       <span class="tria-banda" style="background:linear-gradient(90deg,#FFD576,#FFAC78,#F99EB5)"></span>
       <span class="tria-cos">
         <span class="tria-etiqueta" style="background:#E9F5EF;color:#3A7A55">Batxillerat</span>
         <h2>1r de batxillerat</h2>
         <p>Matemàtiques cientificotecnològiques: successions, funcions, límits, trigonometria i probabilitat.</p>
-        <span class="tria-peu"><span id="n-batx">8 temes</span><strong>Veure el material →</strong></span>
+        <span class="tria-peu"><span id="n-batx">7 temes</span><strong>Veure els temes →</strong></span>
       </span>
     </a>
+
+    <div class="tria-card aviat">
+      <span class="tria-banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
+      <span class="tria-cos">
+        <span class="tria-etiqueta" style="background:#EAF1F6;color:#39698C">Secundària</span>
+        <h2>3r d'ESO</h2>
+        <p>Nombres racionals, àlgebra, funcions, estadística i geometria.</p>
+        <span class="tria-peu"><span class="etiqueta-aviat">Properament</span></span>
+      </span>
+    </div>
   </div>
 </main>
+
 <footer class="peu">
   <div class="embolcall">
     <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
     <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> · actualitzat el <span id="actualitzat">—</span></span>
   </div>
 </footer>
+
 <script src="assets/dades.js"></script>
 <script>
   (function () {
     if (!window.DADES) return;
-    const posa = (id, clau) => {
-      const c = DADES.cursos[clau]; const el = document.getElementById(id);
-      if (!c || !el) return;
-      const t = c.temes.length;
-      const d = c.temes.reduce((s, x) => s + x.docs.length, 0);
-      el.textContent = t + ' temes · ' + d + ' documents';
-    };
-    posa('n-3eso', '3eso'); posa('n-batx', 'batx');
-    const el = document.getElementById('actualitzat');
-    if (el && DADES.generat) el.textContent = DADES.generat;
+    const c = DADES.cursos.batx, el = document.getElementById('n-batx');
+    if (c && el) {
+      const oberts = c.temes.filter(t => !t.properament).length;
+      el.textContent = c.temes.length + ' temes · ' + oberts + ' disponible' + (oberts === 1 ? '' : 's');
+    }
+    const a = document.getElementById('actualitzat');
+    if (a && DADES.generat) a.textContent = DADES.generat;
   })();
 </script>
 </body>

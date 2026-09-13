@@ -19,6 +19,8 @@ REPO = os.path.join(BASE, "1BTX_26-27")
 SORTIDA = os.path.join(os.path.dirname(__file__), "assets", "exercicis-batx.json")
 
 avisos = []
+# Només es generen els temes que publica.sh marca com a públics (TEMES_BATX).
+TEMES_PUBLICS = {int(x) for x in os.environ.get("TEMES_BATX", "").split() if x.strip()}
 
 # ── LaTeX → HTML (només la part de text; les mates no es toquen) ────────────
 
@@ -219,6 +221,9 @@ def main():
     for carpeta in sorted(os.listdir(REPO)):
         m = re.match(r"^([1-9])\s+(.+)$", carpeta)
         if not m or not os.path.isdir(os.path.join(REPO, carpeta)):
+            continue
+        if TEMES_PUBLICS and int(m.group(1)) not in TEMES_PUBLICS:
+            print("  · %s %s: properament (no es publica)" % (m.group(1), m.group(2)))
             continue
         seccions = llegeix_tema(REPO, carpeta)
         if seccions is None:

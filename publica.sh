@@ -19,14 +19,21 @@ DRY=0; [ "${1:-}" = "--dry" ] && DRY=1
 # ── Què es publica ───────────────────────────────────────────────────────────
 # Afegeix o treu tipus de document d'aquestes llistes. L'ordre és el que
 # sortirà a la web. Tot el que no hi surti es queda als repositoris privats.
+#   PUBLICA_3ESO=0  → 3r d'ESO surt com a "properament" i no se'n publica res.
+#   TEMES_BATX      → els números de tema de batxillerat que es publiquen.
+#                     Els altres surten com a "properament" i els seus PDF i
+#                     exercicis NO pugen al repositori públic.
+PUBLICA_3ESO=0
+TEMES_BATX="1"
 TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
-TIPUS_BATX=("Apunts" "Activitats")
+TIPUS_BATX=("Activitats")
 
 echo "▸ Exercicis en línia (1r BTX)"
-if [ $DRY -eq 0 ]; then python3 "$(dirname "$0")/genera-exercicis.py"; fi
+if [ $DRY -eq 0 ]; then TEMES_BATX="$TEMES_BATX" python3 "$(dirname "$0")/genera-exercicis.py"; fi
 echo ""
 echo "▸ PDF per tema"
 
+PUBLICA_3ESO="$PUBLICA_3ESO" TEMES_BATX="$TEMES_BATX" \
 python3 - "$BASE" "$WEB" "$DRY" "${#TIPUS_3ESO[@]}" "${TIPUS_3ESO[@]}" "${TIPUS_BATX[@]}" <<'PY'
 import json, os, re, shutil, sys
 from datetime import date
@@ -38,6 +45,8 @@ CURSOS = {
     "3eso": {"repo": "3ESO_26-27", "nom": "3r d'ESO"},
     "batx": {"repo": "1BTX_26-27", "nom": "1r de batxillerat"},
 }
+PUBLICA_3ESO = os.environ.get("PUBLICA_3ESO", "1") == "1"
+TEMES_BATX = {int(x) for x in os.environ.get("TEMES_BATX", "").split() if x.strip()}
 COLORS = ["#A8CEFA", "#FFE2FF", "#FFAC78", "#7AD5CC", "#FFD576",
           "#CAE8C8", "#E8E2FF", "#F99EB5", "#FFD6C9"]
 
@@ -64,6 +73,10 @@ if os.path.isfile(ex_json):
             enLinia[("batx", t["num"])] = sum(len(x["exercicis"]) for x in t["seccions"])
 
 for clau, info in CURSOS.items():
+    if clau == "3eso" and not PUBLICA_3ESO:
+        dades["cursos"][clau] = {"nom": info["nom"], "properament": True, "temes": []}
+        print("  · 3r d'ESO: properament (no se'n publica res)")
+        continue
     arrel = os.path.join(base, info["repo"])
     temes = []
     if not os.path.isdir(arrel):
@@ -86,8 +99,9 @@ for clau, info in CURSOS.items():
                     continue
                 trobats.setdefault(f.split(" - ")[0], os.path.join(dirpath, f))
 
+        public = clau != "batx" or not TEMES_BATX or num in TEMES_BATX
         docs = []
-        for t in tipus[clau]:
+        for t in (tipus[clau] if public else []):
             src = trobats.get(t)
             if not src:
                 continue
@@ -102,10 +116,13 @@ for clau, info in CURSOS.items():
 
         tema = {"num": num, "nom": nom,
                 "color": COLORS[(num - 1) % len(COLORS)], "docs": docs}
-        if enLinia.get((clau, num)):
+        if not public:
+            tema["properament"] = True
+        if public and enLinia.get((clau, num)):
             tema["enLinia"] = enLinia[(clau, num)]
         temes.append(tema)
-        estat = ", ".join(d["tipus"] for d in docs) or "sense material publicable"
+        estat = ("properament" if not public
+                 else ", ".join(d["tipus"] for d in docs) or "sense material publicable")
         print(f"  · {num} {nom}: {estat}")
 
     dades["cursos"][clau] = {"nom": info["nom"], "temes": temes}
