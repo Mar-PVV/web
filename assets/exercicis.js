@@ -64,45 +64,39 @@
       // ── Columna lateral ────────────────────────────────────────────────
       const compta = n => tots.filter(e => e.nivell === n).length;
       lateral.innerHTML = `
-        <div class="bloc-lateral">
-          <h2>Dificultat</h2>
-          <div class="filtres">
-            ${NIVELLS.map(v => `
-              <button class="filtre" data-nivell="${v.n}" aria-pressed="true">
-                <span class="punts"><span style="color:var(${v.var})">${'●'.repeat(v.n)}</span><span style="color:var(--punt-buit)">${'●'.repeat(3 - v.n)}</span></span>
-                <span class="nom">${v.nom}</span>
-                <span class="compta">${compta(v.n)}</span>
-              </button>`).join('')}
-          </div>
-        </div>
-        <div class="bloc-lateral">
-          <h2 class="lateral-mobil"><button class="obre-index" aria-expanded="false" aria-controls="index-sec">Seccions</button></h2>
-          <h2 class="nomes-escriptori">Seccions</h2>
-          <ul class="index-sec" id="index-sec">
-            ${tema.seccions.map((s, i) => `
-              <li><a href="#sec-${i}" data-sec="${i}">
-                <span>${s.titol}</span>
-                <span class="compta">${s.exercicis.length}</span>
-              </a></li>`).join('')}
-          </ul>
+        <div class="fila-eines">
+          <details class="desplegable" id="menu-sec">
+            <summary class="boto">
+              <span class="etiq">Secció</span>
+              <span class="sec-actual">${tema.seccions[0].titol}</span>
+            </summary>
+            <ul class="index-sec menu-flotant">
+              ${tema.seccions.map((s, i) => `
+                <li><a href="#sec-${i}" data-sec="${i}">
+                  <span>${s.titol}</span><span class="compta">${s.exercicis.length}</span>
+                </a></li>`).join('')}
+            </ul>
+          </details>
+          <span class="separador"></span>
+          <span class="etiqueta-grup">Dificultat</span>
+          ${NIVELLS.map(v => `
+            <button class="filtre" data-nivell="${v.n}" aria-pressed="true">
+              <span class="punts"><span style="color:var(${v.var})">${'●'.repeat(v.n)}</span><span style="color:var(--punt-buit)">${'●'.repeat(3 - v.n)}</span></span>
+              <span class="nom">${v.nom}</span>
+              <span class="compta">${compta(v.n)}</span>
+            </button>`).join('')}
         </div>`;
 
-      // amaga el títol duplicat segons la mida
-      const aplicaMida = () => {
-        const petit = window.matchMedia('(max-width: 900px)').matches;
-        lateral.querySelector('.nomes-escriptori').hidden = petit;
-        const ul = document.getElementById('index-sec');
-        const btn = lateral.querySelector('.obre-index');
-        ul.hidden = petit && btn.getAttribute('aria-expanded') !== 'true';
-      };
-      lateral.querySelector('.obre-index').addEventListener('click', e => {
-        const b = e.currentTarget;
-        const obert = b.getAttribute('aria-expanded') === 'true';
-        b.setAttribute('aria-expanded', String(!obert));
-        document.getElementById('index-sec').hidden = obert;
+      const menu = document.getElementById('menu-sec');
+      const etiquetaSec = lateral.querySelector('.sec-actual');
+      lateral.querySelectorAll('.menu-flotant a').forEach(a =>
+        a.addEventListener('click', () => { menu.open = false; }));
+      document.addEventListener('click', e => {
+        if (menu.open && !menu.contains(e.target)) menu.open = false;
       });
-      window.addEventListener('resize', aplicaMida);
-      aplicaMida();
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && menu.open) menu.open = false;
+      });
 
       // ── Filtre per dificultat ──────────────────────────────────────────
       const actius = new Set([1, 2, 3]);
@@ -152,8 +146,10 @@
       });
 
       // ── Secció activa mentre es fa scroll ──────────────────────────────
-      const marca = i => enllacos.forEach((a, k) =>
-        a.setAttribute('aria-current', String(k === i)));
+      const marca = i => {
+        enllacos.forEach((a, k) => a.setAttribute('aria-current', String(k === i)));
+        etiquetaSec.textContent = tema.seccions[i].titol;
+      };
       marca(0);
       const obs = new IntersectionObserver(entrades => {
         const dins = entrades.filter(e => e.isIntersecting)
