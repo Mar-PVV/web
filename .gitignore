@@ -1,0 +1,41 @@
+# ── Auxiliars de LaTeX ────────────────────────────────────────────────
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.xdy
+*.bcf
+*.run.xml
+*.sols
+*.resp
+texput.log
+
+# ── PDFs de compilació sense nom definitiu ────────────────────────────
+# El PDF bo es diu "<Tipus> - <Tema>.pdf". main.pdf i solucions.pdf són
+# el resultat cru de latexmk i no s'han de versionar.
+main.pdf
+solucions.pdf
+
+# ── macOS / editors ───────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+._*
+.fuse_hidden*
+*.swp
+*~

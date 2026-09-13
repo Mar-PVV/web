@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Operacions amb Fraccions · T1</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+    body { font-family: 'Work Sans', sans-serif; }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+    h1, h2, h3, .heading { font-family: 'Poppins', sans-serif; }
+    .timer-danger { color: #A32D2D !important; animation: pulse .5s infinite alternate; }
+    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+    .opt-btn { transition: all .2s; }
+    .opt-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .progress-fill { transition: width .4s ease; }
+    .katex { font-size: 1.3em; }
+    .toggle-btn { position: relative; width: 3.5rem; height: 2rem; border-radius: 9999px; cursor: pointer; transition: background .2s; display: flex; align-items: center; border: none; padding: 0; }
+    .toggle-btn .knob { position: absolute; top: 3px; left: 3px; width: 1.625rem; height: 1.625rem; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; display: flex; align-items: center; justify-content: center; }
+    .toggle-btn.active .knob { transform: translateX(1.5rem); }
+    #inp-num::placeholder { color: #9ca3af; }
+    #inp-classe.placeholder { color: #9ca3af; }
+
+    /* ── Bottom sheet feedback ── */
+    #feedback {
+      position: fixed; bottom: 0; left: 50%; z-index: 40;
+      width: calc(100% - 32px); max-width: 640px;
+      padding: 18px 20px 28px;
+      border-radius: 24px 24px 0 0;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.13);
+      transform: translateX(-50%) translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.34,1.1,0.64,1);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    #feedback.visible { transform: translateX(-50%) translateY(0); }
+    #screen-quiz { padding-bottom: 0 !important; }
+
+    /* ── Espai sota capçalera fixa ── */
+    #screen-quiz, #screen-final { padding-top: 140px; }
+    #screen-login { padding-top: 130px; }
+
+    /* KaTeX overflow on narrow screens */
+    #q-text .katex-display, #fb-explanation .katex-display,
+    #fb-solution-val .katex-display { overflow-x: auto; overflow-y: hidden; }
+    #q-text { overflow-x: auto; }
+
+    @media (max-width: 480px) {
+      /* Header */
+      #quiz-header { padding: 14px 18px 12px !important; }
+      #screen-quiz, #screen-final { padding-top: 110px; }
+      #screen-login { padding-top: 100px; }
+
+      /* Login card */
+      #login-card { padding: 20px 16px !important; margin: 0 8px !important; }
+
+      /* Quiz screen */
+      #screen-quiz { padding-left: 12px !important; padding-right: 12px !important; padding-bottom: 20px !important; }
+      #screen-final { padding-left: 12px !important; padding-right: 12px !important; padding-bottom: 20px !important; }
+
+      /* Question card */
+      #question-card { padding: 16px !important; }
+      #q-text { font-size: 16px !important; }
+      .katex { font-size: 1.1em; }
+
+      /* Options: always single column on small screens */
+      #q-options { grid-template-columns: 1fr !important; }
+
+      /* Final screen */
+      #screen-final > div { padding: 20px 16px !important; }
+      #final-score { font-size: 3rem !important; }
+    }
+
+    @media (max-width: 360px) {
+      #login-card { padding: 16px 12px !important; }
+      .katex { font-size: 1em; }
+    }
+  </style>
+</head>
+<body class="min-h-screen w-full" style="background:#F8F7F4;transition:background .3s;">
+
+<!-- LLICÈNCIA (fixa baix centre) -->
+<p style="position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:11px;color:#C9C9C5;z-index:50;pointer-events:none;">© Curs 2026-27 · Mar Vidal Segura · CC BY-NC-SA 4.0</p>
+
+<!-- CAPÇALERA (idèntica a tema-1) -->
+<div id="quiz-header" style="position:fixed;top:0;left:0;right:0;z-index:50;background:#A8CEFA;padding:20px 36px 18px;overflow:hidden;">
+  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Poppins',sans-serif;font-weight:800;font-size:72px;color:rgba(0,0,0,0.08);line-height:1;pointer-events:none;user-select:none;">1</div>
+  <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-family:'Poppins',sans-serif;font-size:clamp(20px,2.6vw,32px);font-weight:800;color:#042C53;line-height:1.1;">Test · Operacions amb fraccions</div>
+      <p style="font-size:11px;color:#042C53;opacity:0.55;margin-top:4px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Tema 1 · Nombres racionals · 3r ESO</p>
+    </div>
+    <a id="btn-tornar-tema" href="../../Web - Dashboard i Activitats Interactives/tema-1.html"
+      style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;
+             color:#042C53;background:rgba(255,255,255,0.45);border:none;border-radius:20px;
+             padding:5px 14px;text-decoration:none;flex-shrink:0;
+             transition:background 0.15s;backdrop-filter:blur(4px);"
+      onmouseover="this.style.background='rgba(255,255,255,0.72)'"
+      onmouseout="this.style.background='rgba(255,255,255,0.45)'">← Tornar</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ LOGIN -->
+<div id="screen-login" class="flex items-center justify-center p-4 min-h-screen relative">
+  <div id="login-card" class="w-full max-w-xl rounded-3xl p-8 shadow-lg" style="background:#fff;display:flex;flex-direction:column;gap:16px;">
+    <div style="background:#F0F6FF;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;">
+      <p style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:#042C53;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Com funciona</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;">Respondràs <strong>10 preguntes</strong> d'operacions amb fraccions: sumes, restes, multiplicacions i divisions. Pot aparèixer algun problema curt.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;">Cada pregunta té <strong>4 opcions</strong>. Tria la correcta.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;">⚠️ <strong>Simplifica sempre</strong> la fracció al màxim abans de triar la resposta.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;"><strong>Prova:</strong> sense límit de temps, per practicar.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;"><strong>Enviar:</strong> amb compte enrere de <strong><span id="instr-timer">20</span> segons</strong> per pregunta i nota real.</p>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex flex-col gap-1" style="flex:1;">
+        <label class="font-medium" for="inp-num" style="color:#2B2B2B;font-size:15px;">Número de llista</label>
+        <input id="inp-num" type="number" min="1" max="30" placeholder="1–30"
+          style="width:100%;height:48px;border-radius:16px;border:2px solid #e5e7eb;padding:0 16px;font-size:16px;background:#fff;box-sizing:border-box;outline:none;font-family:inherit;color:#2B2B2B;">
+      </div>
+      <div class="flex flex-col gap-1" style="flex:1;">
+        <label class="font-medium" for="inp-classe" style="color:#2B2B2B;font-size:15px;">Classe</label>
+        <select id="inp-classe" onchange="this.style.color=this.value?'#2B2B2B':'#9ca3af'"
+          style="width:100%;height:48px;border-radius:16px;border:2px solid #e5e7eb;padding:0 16px;font-size:16px;background:#fff;box-sizing:border-box;outline:none;font-family:inherit;color:#9ca3af;appearance:none;-webkit-appearance:none;">
+          <option value="">— Tria —</option>
+          <option value="E3A">E3A</option>
+          <option value="E3B">E3B</option>
+          <option value="E3C">E3C</option>
+          <option value="E3D">E3D</option>
+        </select>
+      </div>
+    </div>
+    <!-- Mode toggle -->
+    <div class="flex items-center justify-center gap-3">
+      <span title="Prova"><i data-lucide="pencil" id="icon-prova" style="width:22px;height:22px;color:#7C93E8"></i></span>
+      <button type="button" id="tipus-toggle" class="toggle-btn" style="background:#7C93E8" onclick="toggleTipus()">
+        <span class="knob"></span>
+      </button>
+      <span title="Enviar"><i data-lucide="send" id="icon-enviar" style="width:22px;height:22px;color:#bbb"></i></span>
+    </div>
+    <p id="tipus-label" class="text-center text-sm font-medium text-[#7C93E8]">Prova</p>
+    <button class="w-full py-4 rounded-2xl text-xl font-bold heading" onclick="startQuiz()"
+      style="background:#23B5A8;color:#fff;font-size:16px;">Comença</button>
+    <p id="login-error" class="text-[#A32D2D] text-center text-sm hidden"></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ QUIZ -->
+<div id="screen-quiz" class="hidden w-full max-w-2xl mx-auto p-4 py-8 space-y-6 relative">
+  <div class="flex items-center justify-between">
+    <div class="flex flex-col items-center">
+      <span class="text-sm text-[#8A8A86]">Pregunta</span>
+      <span id="q-counter" class="heading text-2xl font-bold" style="color:#23B5A8;line-height:1.1;"></span>
+    </div>
+    <div id="timer-display" class="heading text-2xl font-bold" style="color:#23B5A8;display:none">20</div>
+    <div class="flex flex-col text-right">
+      <span class="text-sm text-[#8A8A86]">Punts</span>
+      <div id="score-display" class="heading text-2xl font-bold" style="color:#F7C13B;line-height:1.1;">0<span style="font-size:14px;color:#C9C9C5;font-weight:500;">/10</span></div>
+    </div>
+  </div>
+  <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+    <div id="progress-bar" class="progress-fill h-full bg-[#23B5A8] rounded-full" style="width:0%"></div>
+  </div>
+  <div id="question-card" class="rounded-3xl p-6 space-y-5 shadow" style="background:#fff">
+    <p id="q-hint" class="text-sm text-[#7C93E8] font-medium hidden"></p>
+    <div id="q-text" class="heading text-xl font-bold text-[#2B2B2B] leading-relaxed text-center"></div>
+    <div id="q-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+  </div>
+  <div id="feedback">
+    <div class="flex items-center gap-3">
+      <div id="fb-icon"></div>
+      <p id="fb-text" class="font-bold heading text-lg"></p>
+      <div id="fb-solution" class="hidden text-sm ml-1" style="color:#8A8A86;">Resultat: <span id="fb-solution-val" class="inline-block"></span></div>
+    </div>
+    <p id="fb-explanation" class="text-sm leading-relaxed" style="color:#2B2B2B;"></p>
+    <p id="fb-simplify" class="hidden text-sm font-medium" style="color:#B45309;">Recorda simplificar el resultat final.</p>
+    <button id="fb-next" class="w-full py-3 rounded-2xl text-white font-bold heading" style="background:#23B5A8"
+      onclick="nextQuestion()">Següent →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ FINAL -->
+<div id="screen-final" class="hidden flex items-center justify-center p-4 min-h-screen">
+  <div class="w-full max-w-md rounded-3xl p-8 space-y-6 text-center shadow-lg" style="background:#fff">
+    <h2 class="heading text-2xl font-bold flex items-center justify-center gap-2" style="color:#23B5A8;"><i data-lucide="trophy" style="width:28px;height:28px;"></i> Resultat final</h2>
+    <p id="final-score" class="text-5xl heading font-extrabold text-[#F7C13B]"></p>
+    <p id="final-msg" class="text-lg"></p>
+    <div id="final-remaining" class="rounded-2xl p-4 text-sm space-y-1" style="background:#E0F7F5"></div>
+    <div id="final-summary" class="bg-white rounded-2xl p-4 border-2" style="border-color:rgba(35,181,168,.25)">
+      <h3 class="font-bold mb-2 flex items-center justify-center gap-1" style="color:#23B5A8"><i data-lucide="list" style="width:18px;height:18px;"></i> Resum de resultats</h3>
+      <div id="final-summary-content" class="text-sm space-y-1"></div>
+    </div>
+    <button class="w-full py-4 rounded-2xl text-xl font-bold heading" onclick="restart()"
+      style="background:#23B5A8;color:#fff;font-size:16px;">Torna a jugar</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ PANELL DOCENT -->
+<div id="screen-teacher" class="hidden w-full max-w-4xl mx-auto p-5 py-10 min-h-screen" style="padding-top:80px;">
+
+  <!-- Capçalera -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h2 class="heading font-bold text-[#23B5A8]" style="font-size:22px;">Panell Docent</h2>
+      <p style="font-size:13px;color:#8A8A86;">Test · Operacions amb fraccions</p>
+    </div>
+    <button onclick="closeTeacher()"
+      style="padding:8px 18px;border-radius:12px;background:#f1f5f9;color:#64748b;font-size:13px;font-weight:600;border:none;cursor:pointer;">
+      Tanca
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div class="flex gap-3 mb-6 flex-wrap">
+    <div id="stat-total" style="flex:1;min-width:120px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 1px 4px rgba(0,0,0,.07);">
+      <p style="font-size:11px;color:#8A8A86;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Total</p>
+      <p id="stat-total-n" class="heading" style="font-size:26px;font-weight:800;color:#23B5A8;">0</p>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 1px 4px rgba(0,0,0,.07);">
+      <p style="font-size:11px;color:#8A8A86;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Enviats</p>
+      <p id="stat-enviats-n" class="heading" style="font-size:26px;font-weight:800;color:#F47B5B;">0</p>
+    </div>
+    <div style="flex:1;min-width:120px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 1px 4px rgba(0,0,0,.07);">
+      <p style="font-size:11px;color:#8A8A86;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Proves</p>
+      <p id="stat-proves-n" class="heading" style="font-size:26px;font-weight:800;color:#7C93E8;">0</p>
+    </div>
+  </div>
+
+  <!-- Filtres + accions -->
+  <div class="flex flex-wrap gap-2 items-center mb-4">
+    <select id="filter-classe" onchange="this.style.color=this.value?'#2B2B2B':'#9ca3af';applyFilter()"
+      style="height:38px;border-radius:10px;border:1.5px solid #e5e7eb;padding:0 12px;font-size:13px;background:#fff;color:#9ca3af;appearance:none;-webkit-appearance:none;font-family:inherit;">
+      <option value="">Totes les classes</option>
+      <option value="E3A">E3A</option>
+      <option value="E3B">E3B</option>
+      <option value="E3C">E3C</option>
+      <option value="E3D">E3D</option>
+    </select>
+    <input id="filter-num" type="number" placeholder="Núm. llista" onchange="applyFilter()" oninput="applyFilter()"
+      style="height:38px;border-radius:10px;border:1.5px solid #e5e7eb;padding:0 12px;font-size:13px;background:#fff;width:110px;font-family:inherit;">
+    <select id="filter-tipus" onchange="this.style.color=this.value?'#2B2B2B':'#9ca3af';applyFilter()"
+      style="height:38px;border-radius:10px;border:1.5px solid #e5e7eb;padding:0 12px;font-size:13px;background:#fff;color:#9ca3af;appearance:none;-webkit-appearance:none;font-family:inherit;">
+      <option value="">Tots els tipus</option>
+      <option value="enviar">Enviar</option>
+      <option value="prova">Prova</option>
+    </select>
+    <div style="flex:1;"></div>
+    <button onclick="exportCSV()"
+      style="height:38px;padding:0 14px;border-radius:10px;background:#23B5A8;color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;">
+      Exporta CSV
+    </button>
+    <button onclick="clearAll()"
+      style="height:38px;padding:0 14px;border-radius:10px;background:#FEE2E2;color:#A32D2D;font-size:13px;font-weight:600;border:none;cursor:pointer;">
+      Esborra tot
+    </button>
+  </div>
+
+  <!-- Resum filtrat -->
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;padding:0 2px;flex-wrap:wrap;">
+    <p id="teacher-count" style="font-size:13px;color:#8A8A86;"></p>
+    <div id="teacher-avg" style="display:none;background:#fff;border-radius:8px;padding:5px 12px;font-size:13px;color:#2B2B2B;box-shadow:0 1px 3px rgba(0,0,0,.07);"></div>
+  </div>
+
+  <!-- Taula de resultats -->
+  <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr style="background:#f8fafc;border-bottom:2px solid #e5e7eb;">
+            <th class="p-3 text-left" style="color:#8A8A86;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Classe</th>
+            <th class="p-3 text-left" style="color:#8A8A86;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Núm</th>
+            <th class="p-3 text-left" style="color:#8A8A86;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Tipus</th>
+            <th class="p-3 text-left" style="color:#8A8A86;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Puntuació</th>
+            <th class="p-3 text-left" style="color:#8A8A86;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;">Data i hora</th>
+          </tr>
+        </thead>
+        <tbody id="teacher-body"></tbody>
+      </table>
+    </div>
+    <p id="teacher-empty" class="hidden text-center py-10" style="color:#C9C9C5;font-size:14px;">Cap resultat</p>
+  </div>
+
+  <!-- Configuració: 3 pestanyes -->
+  <div style="margin-top:24px;background:#fff;border-radius:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);" id="cfg-section">
+
+    <!-- Pestanyes principals -->
+    <div style="display:flex;border-bottom:2px solid #f1f5f9;">
+      <button onclick="switchMainTab('timer')" id="maintab-btn-timer"
+        style="flex:1;padding:14px 8px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:700;color:#23B5A8;border-bottom:2px solid #23B5A8;margin-bottom:-2px;font-family:inherit;">
+        Temps per pregunta
+      </button>
+      <button onclick="switchMainTab('tancament')" id="maintab-btn-tancament"
+        style="flex:1;padding:14px 8px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:#8A8A86;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:inherit;">
+        Tancament d'enviaments
+      </button>
+      <button onclick="switchMainTab('alumnes')" id="maintab-btn-alumnes"
+        style="flex:1;padding:14px 8px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:#8A8A86;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:inherit;">
+        Per alumne
+      </button>
+    </div>
+
+    <!-- TAB 1: Temps per pregunta -->
+    <div id="maintab-timer" style="padding:20px 24px;">
+      <p style="font-size:12px;color:#8A8A86;margin-bottom:14px;">S'aplica a totes les classes i alumnes.</p>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div>
+          <label style="font-size:12px;color:#8A8A86;font-weight:600;display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;">Segons per pregunta</label>
+          <input type="number" id="cfg-timer" min="5" max="120" value="20"
+            style="width:80px;height:40px;border-radius:10px;border:1.5px solid #e5e7eb;padding:0 10px;font-size:18px;text-align:center;font-family:inherit;">
+        </div>
+        <button onclick="saveAllConfigs()"
+          style="margin-top:18px;height:40px;padding:0 20px;border-radius:10px;background:#23B5A8;color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;">
+          Desa
+        </button>
+        <p id="cfg-msg-top" class="hidden" style="margin-top:18px;font-size:13px;color:#3A7A55;font-weight:500;">✓ Desat</p>
+      </div>
+    </div>
+
+    <!-- TAB 2: Tancament d'enviaments -->
+    <div id="maintab-tancament" style="display:none;padding:20px 24px;">
+      <p style="font-size:12px;color:#8A8A86;margin-bottom:18px;">Quan una classe té els enviaments tancats, els alumnes només poden fer proves (sense nota).</p>
+      <div style="display:flex;flex-direction:column;gap:12px;" id="tancament-cards"></div>
+      <div style="margin-top:16px;display:flex;gap:8px;">
+        <button onclick="tancamentTots(true)"
+          style="padding:7px 14px;border-radius:8px;background:#FEE2E2;color:#A32D2D;font-size:12px;font-weight:600;border:none;cursor:pointer;">
+          Tanca tots
+        </button>
+        <button onclick="tancamentTots(false)"
+          style="padding:7px 14px;border-radius:8px;background:#D1FAE5;color:#3A7A55;font-size:12px;font-weight:600;border:none;cursor:pointer;">
+          Obre tots
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 3: Per alumne -->
+    <div id="maintab-alumnes" style="display:none;padding:20px 24px;">
+      <!-- Sub-tabs de classe -->
+      <div style="display:flex;gap:6px;margin-bottom:14px;">
+        <button onclick="switchCfgTab('E3A')" id="cfg-btn-E3A"
+          style="padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:#23B5A8;color:#fff;">E3A</button>
+        <button onclick="switchCfgTab('E3B')" id="cfg-btn-E3B"
+          style="padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:#f1f5f9;color:#64748b;">E3B</button>
+        <button onclick="switchCfgTab('E3C')" id="cfg-btn-E3C"
+          style="padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:#f1f5f9;color:#64748b;">E3C</button>
+        <button onclick="switchCfgTab('E3D')" id="cfg-btn-E3D"
+          style="padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:#f1f5f9;color:#64748b;">E3D</button>
+      </div>
+      <div style="overflow-x:auto;border-radius:10px;border:1px solid #f1f5f9;">
+        <div id="cfg-tab-E3A"></div>
+        <div id="cfg-tab-E3B" style="display:none;"></div>
+        <div id="cfg-tab-E3C" style="display:none;"></div>
+        <div id="cfg-tab-E3D" style="display:none;"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:16px;">
+        <button onclick="saveAllConfigs()"
+          style="height:38px;padding:0 20px;border-radius:10px;background:#23B5A8;color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;">
+          Desa configuració
+        </button>
+        <p id="cfg-msg" class="hidden" style="font-size:13px;color:#3A7A55;font-weight:500;">✓ Desat</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taula cfg oculta (necessària per JS intern) -->
+  <table class="hidden" id="cfg-table"><tbody id="cfg-table-body"></tbody></table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ MODAL PIN -->
+<div id="pin-modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-3xl p-6 w-full max-w-xs space-y-4">
+    <h3 class="heading font-bold text-center text-[#23B5A8]">PIN docent</h3>
+    <input id="pin-input" type="password" maxlength="4"
+      class="w-full text-center text-2xl tracking-widest rounded-xl border-2 px-4 py-3" placeholder="····">
+    <p id="pin-error" class="text-[#A32D2D] text-sm text-center hidden">PIN incorrecte</p>
+    <div class="flex gap-2">
+      <button class="flex-1 py-2 rounded-xl bg-gray-200 font-medium" onclick="closePinModal()">Cancel·la</button>
+      <button class="flex-1 py-2 rounded-xl bg-[#23B5A8] text-white font-medium" onclick="checkPin()">Entra</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ MODAL ESBORRAR -->
+<div id="delete-modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-3xl p-6 w-full max-w-xs space-y-4 text-center">
+    <p class="font-bold text-lg">Segur que vols esborrar-ho tot?</p>
+    <div class="flex gap-2">
+      <button class="flex-1 py-2 rounded-xl bg-gray-200 font-medium"
+        onclick="document.getElementById('delete-modal').classList.add('hidden')">No</button>
+      <button class="flex-1 py-2 rounded-xl bg-[#A32D2D] text-white font-medium"
+        onclick="confirmClear()">Sí, esborra</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// dataSdk — localStorage (substitueix la SDK de Canva)
+// ═══════════════════════════════════════════════════════════════════════════
+window.dataSdk = (() => {
+  const KEY = 'quiz_t1_fraccions';
+  let _handler = null;
+  function _load() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) { return []; } }
+  function _save(data) {
+    localStorage.setItem(KEY, JSON.stringify(data));
+    if (_handler) _handler.onDataChanged(data);
+  }
+  return {
+    init(h) { _handler = h; h.onDataChanged(_load()); return Promise.resolve(); },
+    create(r) {
+      const d = _load();
+      r._id = Date.now() + '_' + Math.random().toString(36).slice(2);
+      d.push(r); _save(d); return Promise.resolve(r);
+    },
+    update(r) {
+      const d = _load();
+      const i = d.findIndex(x => x._id === r._id);
+      if (i >= 0) d[i] = r; else d.push(r);
+      _save(d); return Promise.resolve(r);
+    },
+    delete(r) {
+      const d = _load();
+      _save(d.filter(x => x._id !== r._id)); return Promise.resolve();
+    }
+  };
+})();
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Preguntes
+// ═══════════════════════════════════════════════════════════════════════════
+const ALL_QUESTIONS = [
+  {level:1,latex:'\\dfrac{1}{3} + \\dfrac{1}{6}',options:['\\dfrac{1}{2}','\\dfrac{2}{9}','\\dfrac{1}{9}','\\dfrac{2}{6}'],correct:0,explanation:'mcm(3,6)=6 → 2/6 + 1/6 = 3/6 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{4} - \\dfrac{1}{2}',options:['\\dfrac{1}{4}','\\dfrac{1}{2}','\\dfrac{2}{4}','\\dfrac{1}{8}'],correct:0,explanation:'mcm(4,2)=4 → 3/4 − 2/4 = 1/4',isProblema:false},
+  {level:1,latex:'\\dfrac{2}{5} \\cdot \\dfrac{3}{4}',options:['\\dfrac{3}{10}','\\dfrac{5}{9}','\\dfrac{6}{9}','\\dfrac{2}{20}'],correct:0,explanation:'(2×3)/(5×4) = 6/20 = 3/10',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{4} \\div \\dfrac{2}{3}',options:['\\dfrac{9}{8}','\\dfrac{6}{12}','\\dfrac{2}{4}','\\dfrac{8}{9}'],correct:0,explanation:'3/4 × 3/2 = 9/8',isProblema:false},
+  {level:1,latex:'\\dfrac{2}{3} + \\dfrac{1}{4}',options:['\\dfrac{11}{12}','\\dfrac{3}{7}','\\dfrac{3}{12}','\\dfrac{8}{12}'],correct:0,explanation:'mcm(3,4)=12 → 8/12 + 3/12 = 11/12',isProblema:false},
+  {level:1,latex:'\\dfrac{5}{6} - \\dfrac{1}{3}',options:['\\dfrac{1}{2}','\\dfrac{4}{6}','\\dfrac{2}{3}','\\dfrac{4}{3}'],correct:0,explanation:'mcm(6,3)=6 → 5/6 − 2/6 = 3/6 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{10} + \\dfrac{2}{15}',options:['\\dfrac{13}{30}','\\dfrac{5}{25}','\\dfrac{1}{5}','\\dfrac{5}{15}'],correct:0,explanation:'mcm(10,15)=30 → 9/30 + 4/30 = 13/30',isProblema:false},
+  {level:1,latex:'\\dfrac{5}{6} - \\dfrac{3}{4}',options:['\\dfrac{1}{12}','\\dfrac{2}{2}','\\dfrac{1}{6}','\\dfrac{7}{12}'],correct:0,explanation:'mcm(6,4)=12 → 10/12 − 9/12 = 1/12',isProblema:false},
+  {level:1,latex:'\\dfrac{2}{3} \\cdot \\dfrac{9}{4}',options:['\\dfrac{3}{2}','\\dfrac{18}{12}','\\dfrac{11}{12}','\\dfrac{6}{7}'],correct:0,explanation:'(2×9)/(3×4) = 18/12 = 3/2',isProblema:false},
+  {level:1,latex:'\\dfrac{5}{8} \\div \\dfrac{5}{2}',options:['\\dfrac{1}{4}','\\dfrac{25}{16}','\\dfrac{5}{4}','\\dfrac{2}{8}'],correct:0,explanation:'5/8 × 2/5 = 10/40 = 1/4',isProblema:false},
+  {level:1,latex:'\\dfrac{7}{12} + \\dfrac{1}{4}',options:['\\dfrac{5}{6}','\\dfrac{8}{16}','\\dfrac{2}{3}','\\dfrac{10}{12}'],correct:0,explanation:'mcm(12,4)=12 → 7/12 + 3/12 = 10/12 = 5/6',isProblema:false},
+  {level:1,latex:'\\dfrac{4}{9} - \\dfrac{1}{3}',options:['\\dfrac{1}{9}','\\dfrac{3}{6}','\\dfrac{1}{3}','\\dfrac{5}{9}'],correct:0,explanation:'mcm(9,3)=9 → 4/9 − 3/9 = 1/9',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{5} \\cdot \\dfrac{10}{9}',options:['\\dfrac{2}{3}','\\dfrac{30}{45}','\\dfrac{1}{3}','\\dfrac{13}{14}'],correct:0,explanation:'(3×10)/(5×9) = 30/45 = 2/3',isProblema:false},
+  {level:1,latex:'\\dfrac{7}{8} \\div \\dfrac{7}{4}',options:['\\dfrac{1}{2}','\\dfrac{49}{32}','\\dfrac{7}{2}','\\dfrac{4}{8}'],correct:0,explanation:'7/8 × 4/7 = 28/56 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{1}{2} + \\dfrac{2}{3} - \\dfrac{1}{6}',options:['1','\\dfrac{5}{6}','\\dfrac{2}{3}','\\dfrac{7}{6}'],correct:0,explanation:'mcm(2,3,6)=6 → 3/6+4/6−1/6 = 6/6 = 1',isProblema:false},
+  {level:1,latex:'\\dfrac{-3}{5} \\cdot \\dfrac{10}{9}',options:['-\\dfrac{2}{3}','\\dfrac{2}{3}','-\\dfrac{30}{45}','\\dfrac{7}{14}'],correct:0,explanation:'(−3×10)/(5×9) = −30/45 = −2/3',isProblema:false},
+  {level:1,latex:'\\dfrac{4}{7} + \\dfrac{3}{14}',options:['\\dfrac{11}{14}','\\dfrac{7}{21}','\\dfrac{1}{2}','\\dfrac{7}{14}'],correct:0,explanation:'mcm(7,14)=14 → 8/14 + 3/14 = 11/14',isProblema:false},
+  {level:1,latex:'\\dfrac{9}{10} - \\dfrac{2}{5}',options:['\\dfrac{1}{2}','\\dfrac{7}{10}','\\dfrac{7}{5}','\\dfrac{11}{10}'],correct:0,explanation:'mcm(10,5)=10 → 9/10 − 4/10 = 5/10 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{2}{7} \\cdot \\dfrac{14}{3}',options:['\\dfrac{4}{3}','\\dfrac{28}{21}','\\dfrac{2}{3}','\\dfrac{16}{21}'],correct:0,explanation:'(2×14)/(7×3) = 28/21 = 4/3',isProblema:false},
+  {level:1,latex:'\\dfrac{5}{6} \\div \\dfrac{10}{3}',options:['\\dfrac{1}{4}','\\dfrac{50}{18}','\\dfrac{15}{60}','\\dfrac{1}{2}'],correct:0,explanation:'5/6 × 3/10 = 15/60 = 1/4',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{8} + \\dfrac{5}{12}',options:['\\dfrac{19}{24}','\\dfrac{8}{20}','\\dfrac{1}{2}','\\dfrac{15}{24}'],correct:0,explanation:'mcm(8,12)=24 → 9/24+10/24 = 19/24',isProblema:false},
+  {level:1,latex:'\\dfrac{11}{15} - \\dfrac{2}{5}',options:['\\dfrac{1}{3}','\\dfrac{9}{10}','\\dfrac{5}{15}','\\dfrac{3}{10}'],correct:0,explanation:'mcm(15,5)=15 → 11/15 − 6/15 = 5/15 = 1/3',isProblema:false},
+  {level:1,latex:'\\dfrac{4}{5} \\cdot \\dfrac{5}{8}',options:['\\dfrac{1}{2}','\\dfrac{20}{40}','\\dfrac{9}{13}','\\dfrac{4}{8}'],correct:0,explanation:'(4×5)/(5×8) = 20/40 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{6}{7} \\div \\dfrac{3}{14}',options:['4','\\dfrac{18}{98}','\\dfrac{6}{3}','\\dfrac{84}{21}'],correct:0,explanation:'6/7 × 14/3 = 84/21 = 4',isProblema:false},
+  {level:1,latex:'\\dfrac{-2}{3} + \\dfrac{5}{6}',options:['\\dfrac{1}{6}','\\dfrac{3}{9}','\\dfrac{7}{6}','-\\dfrac{1}{6}'],correct:0,explanation:'mcm(3,6)=6 → −4/6 + 5/6 = 1/6',isProblema:false},
+  {level:1,latex:'\\dfrac{1}{4} + \\dfrac{1}{6}',options:['\\dfrac{5}{12}','\\dfrac{2}{10}','\\dfrac{1}{5}','\\dfrac{7}{12}'],correct:0,explanation:'mcm(4,6)=12 → 3/12+2/12 = 5/12',isProblema:false},
+  {level:1,latex:'\\dfrac{7}{9} - \\dfrac{1}{3}',options:['\\dfrac{4}{9}','\\dfrac{6}{6}','\\dfrac{2}{3}','\\dfrac{2}{9}'],correct:0,explanation:'mcm(9,3)=9 → 7/9 − 3/9 = 4/9',isProblema:false},
+  {level:1,latex:'\\dfrac{5}{4} \\cdot \\dfrac{2}{5}',options:['\\dfrac{1}{2}','\\dfrac{10}{20}','\\dfrac{7}{9}','\\dfrac{2}{4}'],correct:0,explanation:'(5×2)/(4×5) = 10/20 = 1/2',isProblema:false},
+  {level:1,latex:'\\dfrac{8}{9} \\div \\dfrac{4}{3}',options:['\\dfrac{2}{3}','\\dfrac{32}{27}','\\dfrac{12}{9}','\\dfrac{24}{36}'],correct:0,explanation:'8/9 × 3/4 = 24/36 = 2/3',isProblema:false},
+  {level:1,latex:'\\dfrac{3}{4} + \\dfrac{5}{8} - \\dfrac{1}{2}',options:['\\dfrac{7}{8}','\\dfrac{3}{8}','1','\\dfrac{9}{8}'],correct:0,explanation:'mcm(4,8,2)=8 → 6/8+5/8−4/8 = 7/8',isProblema:false},
+  {level:2,latex:'\\dfrac{1}{2} + \\dfrac{3}{4} \\cdot \\dfrac{2}{3}',options:['1','\\dfrac{5}{6}','\\dfrac{7}{12}','\\dfrac{3}{4}'],correct:0,explanation:'Primer producte: 3/4 × 2/3 = 1/2. Després: 1/2 + 1/2 = 1',isProblema:false},
+  {level:2,latex:'\\left(\\dfrac{1}{2} + \\dfrac{1}{3}\\right) \\cdot \\dfrac{6}{5}',options:['1','\\dfrac{5}{6}','\\dfrac{6}{5}','\\dfrac{2}{5}'],correct:0,explanation:'Parèntesi: 5/6. Després: 5/6 × 6/5 = 1',isProblema:false},
+  {level:2,latex:'\\dfrac{5}{6} - \\dfrac{1}{4} \\div \\dfrac{1}{2}',options:['\\dfrac{1}{3}','\\dfrac{7}{12}','\\dfrac{5}{12}','\\dfrac{1}{6}'],correct:0,explanation:'Divisió: 1/4 ÷ 1/2 = 1/2. Després: 5/6 − 1/2 = 1/3',isProblema:false},
+  {level:2,latex:'\\dfrac{2}{3} \\cdot \\dfrac{3}{4} + \\dfrac{1}{6}',options:['\\dfrac{2}{3}','\\dfrac{1}{2}','\\dfrac{7}{12}','\\dfrac{5}{6}'],correct:0,explanation:'Producte: 1/2. Després: 1/2+1/6 = 2/3',isProblema:false},
+  {level:2,latex:'\\left(\\dfrac{3}{4} - \\dfrac{1}{2}\\right) \\div \\dfrac{1}{3}',options:['\\dfrac{3}{4}','\\dfrac{1}{12}','\\dfrac{1}{4}','\\dfrac{3}{2}'],correct:0,explanation:'Parèntesi: 1/4. Divisió: 1/4×3 = 3/4',isProblema:false},
+  {level:2,latex:'\\dfrac{1}{3} \\div \\dfrac{2}{9} + \\dfrac{1}{2}',options:['2','\\dfrac{3}{2}','\\dfrac{5}{6}','\\dfrac{7}{6}'],correct:0,explanation:'Divisió: 1/3×9/2 = 3/2. Després: 3/2+1/2 = 2',isProblema:false},
+  {level:2,latex:'\\dfrac{7}{8} - \\dfrac{1}{2} \\cdot \\dfrac{3}{4}',options:['\\dfrac{1}{2}','\\dfrac{5}{8}','\\dfrac{3}{8}','\\dfrac{7}{32}'],correct:0,explanation:'Producte: 3/8. Després: 7/8−3/8 = 1/2',isProblema:false},
+  {level:2,latex:'\\left(\\dfrac{2}{3}\\right)^2 + \\dfrac{5}{9}',options:['1','\\dfrac{4}{9}','\\dfrac{9}{9}','\\dfrac{7}{9}'],correct:0,explanation:'(2/3)² = 4/9. Després: 4/9+5/9 = 1',isProblema:false},
+  {level:2,latex:'\\dfrac{1}{2} \\div \\dfrac{3}{4} \\cdot \\dfrac{3}{5}',options:['\\dfrac{2}{5}','\\dfrac{5}{6}','\\dfrac{9}{20}','\\dfrac{1}{5}'],correct:0,explanation:'1/2÷3/4 = 2/3. Després: 2/3×3/5 = 2/5',isProblema:false},
+  {level:2,latex:'\\left(\\dfrac{5}{6} - \\dfrac{1}{3}\\right) \\cdot \\dfrac{6}{5}',options:['\\dfrac{3}{5}','1','\\dfrac{1}{2}','\\dfrac{4}{5}'],correct:0,explanation:'Parèntesi: 1/2. Després: 1/2×6/5 = 3/5',isProblema:false},
+  {level:2,latex:'\\dfrac{3}{5} + \\dfrac{2}{5} \\div \\dfrac{4}{3}',options:['\\dfrac{9}{10}','\\dfrac{3}{4}','1','\\dfrac{7}{10}'],correct:0,explanation:'Divisió: 2/5×3/4 = 3/10. Després: 3/5+3/10 = 9/10',isProblema:false},
+  {level:2,latex:'\\left(\\dfrac{1}{4} + \\dfrac{1}{2}\\right)^2',options:['\\dfrac{9}{16}','\\dfrac{3}{4}','\\dfrac{1}{2}','\\dfrac{5}{8}'],correct:0,explanation:'Parèntesi: 3/4. Potència: 9/16',isProblema:false},
+  // Problemes
+  {level:1,latex:'',text:'Una pizza es talla en 8 parts. La Marta menja 3/8 i el Pau 1/4. Quina fracció queda?',options:['\\dfrac{3}{8}','\\dfrac{5}{8}','\\dfrac{1}{2}','\\dfrac{2}{8}'],correct:0,explanation:'El Pau menja 2/8. Han menjat 5/8. Queda 3/8',isProblema:true},
+  {level:1,latex:'',text:"Un bidó conté 60 litres. Se n'utilitzen 2/5. Quants litres queden?",options:['36','24','40','20'],correct:0,explanation:'2/5 de 60 = 24 gastats. Queden 36',isProblema:true},
+  {level:1,latex:'',text:'La Maria ha llegit 3/4 d\'un llibre de 240 pàgines. Quantes pàgines li falten?',options:['60','180','80','120'],correct:0,explanation:'3/4 de 240 = 180 llegides. Falten 60',isProblema:true},
+  {level:1,latex:'',text:"Un pastís es reparteix: 1/3 per l'Anna i 1/4 per en Marc. Quina part queda?",options:['\\dfrac{5}{12}','\\dfrac{7}{12}','\\dfrac{1}{2}','\\dfrac{1}{6}'],correct:0,explanation:'Han agafat 7/12. Queda 5/12',isProblema:true},
+  {level:2,latex:'',text:"Un jersei costa 45€ amb un descompte del 20%. Quin és el preu final?",options:['36€','40€','35€','38€'],correct:0,explanation:'20% de 45 = 9. Preu final: 36€',isProblema:true},
+  {level:1,latex:'',text:"Un dipòsit de 120 litres està ple a 5/6. Quants litres hi ha?",options:['100','96','110','80'],correct:0,explanation:'5/6 de 120 = 100',isProblema:true},
+  {level:2,latex:'',text:"La Laia gasta 1/3 dels seus estalvis i després 1/4 del que li queda. Quina fracció li queda?",options:['\\dfrac{1}{2}','\\dfrac{5}{12}','\\dfrac{1}{3}','\\dfrac{7}{12}'],correct:0,explanation:'Gasta 1/3, queda 2/3. Després gasta 1/6. Li queda 1/2',isProblema:true},
+  {level:1,latex:'',text:"En Joan té 3/5 d'una barra de pa. En dóna la meitat al seu germà. Quina fracció li queda?",options:['\\dfrac{3}{10}','\\dfrac{3}{5}','\\dfrac{1}{5}','\\dfrac{2}{5}'],correct:0,explanation:'La meitat de 3/5 = 3/10',isProblema:true},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Preguntes pas a pas (del Quadern pas a pas · Nombres racionals)
+// ═══════════════════════════════════════════════════════════════════════════
+const PAS_A_PAS_QUESTIONS = [
+  // — Simplificar —
+  {label:'Simplifica:',latex:'\\dfrac{2}{4}',options:['\\dfrac{1}{2}','\\dfrac{2}{3}','\\dfrac{4}{2}','\\dfrac{1}{4}'],correct:0,explanation:'Divideix a dalt i a baix per 2 → 1/2'},
+  {label:'Simplifica:',latex:'\\dfrac{6}{9}',options:['\\dfrac{2}{3}','\\dfrac{3}{4}','\\dfrac{1}{2}','\\dfrac{4}{6}'],correct:0,explanation:'Divideix a dalt i a baix per 3 → 2/3'},
+  {label:'Simplifica:',latex:'\\dfrac{4}{8}',options:['\\dfrac{1}{2}','\\dfrac{2}{4}','\\dfrac{1}{4}','\\dfrac{3}{8}'],correct:0,explanation:'Divideix a dalt i a baix per 4 → 1/2'},
+  {label:'Simplifica:',latex:'\\dfrac{10}{15}',options:['\\dfrac{2}{3}','\\dfrac{5}{3}','\\dfrac{1}{2}','\\dfrac{3}{5}'],correct:0,explanation:'Divideix a dalt i a baix per 5 → 2/3'},
+  // — Sumar: mateix denominador —
+  {label:'Suma. El nombre de baix no canvia:',latex:'\\dfrac{1}{4} + \\dfrac{2}{4}',options:['\\dfrac{3}{4}','\\dfrac{3}{8}','\\dfrac{2}{4}','\\dfrac{1}{2}'],correct:0,explanation:'Suma numeradors: 1+2=3. Denominador no canvia → 3/4'},
+  {label:'Suma. El nombre de baix no canvia:',latex:'\\dfrac{2}{7} + \\dfrac{3}{7}',options:['\\dfrac{5}{7}','\\dfrac{5}{14}','\\dfrac{1}{7}','\\dfrac{6}{7}'],correct:0,explanation:'Suma numeradors: 2+3=5. Denominador no canvia → 5/7'},
+  {label:'Suma. El nombre de baix no canvia:',latex:'\\dfrac{1}{6} + \\dfrac{4}{6}',options:['\\dfrac{5}{6}','\\dfrac{5}{12}','\\dfrac{4}{6}','\\dfrac{3}{6}'],correct:0,explanation:'Suma numeradors: 1+4=5. Denominador no canvia → 5/6'},
+  // — Restar: mateix denominador —
+  {label:'Resta. El nombre de baix no canvia:',latex:'\\dfrac{4}{5} - \\dfrac{1}{5}',options:['\\dfrac{3}{5}','\\dfrac{3}{10}','\\dfrac{5}{5}','\\dfrac{4}{5}'],correct:0,explanation:'Resta numeradors: 4−1=3 → 3/5'},
+  {label:'Resta. El nombre de baix no canvia:',latex:'\\dfrac{5}{8} - \\dfrac{2}{8}',options:['\\dfrac{3}{8}','\\dfrac{3}{16}','\\dfrac{7}{8}','\\dfrac{2}{8}'],correct:0,explanation:'Resta numeradors: 5−2=3 → 3/8'},
+  {label:'Resta. El nombre de baix no canvia:',latex:'\dfrac{7}{9} - \dfrac{4}{9}',options:['\dfrac{1}{3}','\dfrac{3}{18}','\dfrac{3}{9}','\dfrac{11}{9}'],correct:0,explanation:'Resta numeradors: 7−4=3. Simplifica: 3/9 = 1/3',simplify:true},
+  // — Sumar: denominadors senzills —
+  {label:'Suma. Primer canvia una fracció:',latex:'\\dfrac{1}{2} + \\dfrac{1}{8}',options:['\\dfrac{5}{8}','\\dfrac{2}{10}','\\dfrac{1}{4}','\\dfrac{3}{8}'],correct:0,explanation:'1/2 = 4/8, llavors 4/8 + 1/8 = 5/8'},
+  {label:'Suma. Primer canvia una fracció:',latex:'\\dfrac{1}{3} + \\dfrac{1}{6}',options:['\\dfrac{1}{2}','\\dfrac{2}{9}','\\dfrac{3}{6}','\\dfrac{1}{6}'],correct:0,explanation:'1/3 = 2/6, llavors 2/6 + 1/6 = 3/6 = 1/2',simplify:true},
+  {label:'Suma. Primer canvia una fracció:',latex:'\\dfrac{1}{4} + \\dfrac{1}{2}',options:['\\dfrac{3}{4}','\\dfrac{2}{6}','\\dfrac{1}{4}','\\dfrac{2}{4}'],correct:0,explanation:'1/2 = 2/4, llavors 1/4 + 2/4 = 3/4'},
+  // — Restar: denominadors senzills —
+  {label:'Resta. Primer canvia una fracció:',latex:'\\dfrac{3}{4} - \\dfrac{1}{2}',options:['\\dfrac{1}{4}','\\dfrac{2}{2}','\\dfrac{1}{2}','\\dfrac{2}{4}'],correct:0,explanation:'1/2 = 2/4, llavors 3/4 − 2/4 = 1/4'},
+  {label:'Resta. Primer canvia una fracció:',latex:'\\dfrac{5}{6} - \\dfrac{1}{3}',options:['\\dfrac{1}{2}','\\dfrac{4}{3}','\\dfrac{4}{6}','\\dfrac{3}{6}'],correct:0,explanation:'1/3 = 2/6, llavors 5/6 − 2/6 = 3/6 = 1/2',simplify:true},
+  // — Multiplicar en línia recta —
+  {label:'Multiplica en línia recta:',latex:'\\dfrac{1}{2} \\cdot \\dfrac{1}{3}',options:['\\dfrac{1}{6}','\\dfrac{2}{6}','\\dfrac{1}{5}','\\dfrac{2}{5}'],correct:0,explanation:'Numeradors: 1×1=1. Denominadors: 2×3=6 → 1/6'},
+  {label:'Multiplica en línia recta:',latex:'\\dfrac{2}{5} \\cdot \\dfrac{1}{3}',options:['\\dfrac{2}{15}','\\dfrac{3}{8}','\\dfrac{2}{8}','\\dfrac{1}{5}'],correct:0,explanation:'Numeradors: 2×1=2. Denominadors: 5×3=15 → 2/15'},
+  {label:'Multiplica en línia recta:',latex:'\\dfrac{3}{4} \\cdot \\dfrac{1}{2}',options:['\\dfrac{3}{8}','\\dfrac{4}{6}','\\dfrac{3}{6}','\\dfrac{1}{4}'],correct:0,explanation:'Numeradors: 3×1=3. Denominadors: 4×2=8 → 3/8'},
+  // — Multiplicar i simplificar —
+  {label:'Multiplica i simplifica:',latex:'\\dfrac{2}{3} \\cdot \\dfrac{3}{4}',options:['\\dfrac{1}{2}','\\dfrac{6}{12}','\\dfrac{5}{7}','\\dfrac{2}{4}'],correct:0,explanation:'2×3=6, 3×4=12. Simplifica: 6/12 = 1/2',simplify:true},
+  {label:'Multiplica i simplifica:',latex:'\\dfrac{1}{2} \\cdot \\dfrac{2}{5}',options:['\\dfrac{1}{5}','\\dfrac{2}{10}','\\dfrac{3}{7}','\\dfrac{1}{10}'],correct:0,explanation:'1×2=2, 2×5=10. Simplifica: 2/10 = 1/5',simplify:true},
+  // — Dividir en creu —
+  {label:'Divideix multiplicant en creu:',latex:'\\dfrac{1}{3} \\div \\dfrac{2}{5}',options:['\\dfrac{5}{6}','\\dfrac{2}{15}','\\dfrac{3}{5}','\\dfrac{1}{6}'],correct:0,explanation:'Dalt: 1×5=5. Baix: 3×2=6 → 5/6'},
+  {label:'Divideix multiplicant en creu:',latex:'\\dfrac{1}{2} \\div \\dfrac{1}{4}',options:['2','\\dfrac{1}{8}','\\dfrac{4}{2}','\\dfrac{1}{4}'],correct:0,explanation:'Dalt: 1×4=4. Baix: 2×1=2. Simplifica: 4/2 = 2',simplify:true},
+  {label:'Divideix multiplicant en creu:',latex:'\\dfrac{2}{5} \\div \\dfrac{3}{4}',options:['\\dfrac{8}{15}','\\dfrac{6}{20}','\\dfrac{5}{12}','\\dfrac{10}{12}'],correct:0,explanation:'Dalt: 2×4=8. Baix: 5×3=15 → 8/15'},
+  // — Distingir × i ÷ —
+  {label:"Fixa't en el signe. Multiplica:",latex:'\\dfrac{1}{2} \\cdot \\dfrac{1}{5}',options:['\\dfrac{1}{10}','\\dfrac{5}{2}','\\dfrac{2}{5}','\\dfrac{1}{3}'],correct:0,explanation:'Multiplicació en línia recta: 1×1=1, 2×5=10 → 1/10'},
+  {label:"Fixa't en el signe. Divideix:",latex:'\\dfrac{1}{2} \\div \\dfrac{1}{5}',options:['\\dfrac{5}{2}','\\dfrac{1}{10}','\\dfrac{2}{5}','\\dfrac{2}{1}'],correct:0,explanation:'Divisió en creu: 1×5=5, 2×1=2 → 5/2'},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Estat global
+// ═══════════════════════════════════════════════════════════════════════════
+let studentData = { classe: '', num_llista: 0, mode: 'normal', tipus: 'prova' };
+let currentQ = 0, score = 0, questions = [], timerInterval = null, timeLeft = 20;
+let allRecords = [], errors = [], answers = [];
+let studentConfigs = {};
+let timerSeconds = 20;
+const DEFAULT_CFG = { max_prova: 3, max_enviar: 1, pas_a_pas: false };
+let currentTipus = 'prova';
+
+function getStudentConfig(classe, num) {
+  const key = classe + '_' + num;
+  if (studentConfigs[key]) return studentConfigs[key];
+  const classKey = classe + '_0';
+  if (studentConfigs[classKey]) return studentConfigs[classKey];
+  return DEFAULT_CFG;
+}
+
+const dataHandler = {
+  onDataChanged(data) {
+    allRecords = data;
+    studentConfigs = {};
+    data.filter(r => r.mode === 'config').forEach(r => {
+      const key = (r.classe || '') + '_' + (r.num_llista || 0);
+      let pas = false;
+      try { const d = JSON.parse(r.detall || '{}'); pas = !!d.pas_a_pas; } catch(e) {}
+      studentConfigs[key] = { max_prova: r.total_correctes || 3, max_enviar: r.total_preguntes || 1, pas_a_pas: pas, timer_seconds: r.timer_seconds || 20 };
+    });
+    // Actualitza el display de segons a les instruccions
+    const timerSpan = document.getElementById('instr-timer');
+    if (timerSpan) {
+      const saved = Object.values(studentConfigs).find(c => c.timer_seconds);
+      timerSpan.textContent = saved ? saved.timer_seconds : 20;
+    }
+  }
+};
+
+(async () => { await window.dataSdk.init(dataHandler); })();
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Login
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleTipus() {
+  const btn = document.getElementById('tipus-toggle');
+  const isActive = btn.classList.contains('active');
+  if (isActive) {
+    btn.classList.remove('active'); btn.style.background = '#7C93E8';
+    currentTipus = 'prova';
+    document.getElementById('tipus-label').textContent = 'Prova';
+    document.getElementById('tipus-label').style.color = '#7C93E8';
+    document.getElementById('icon-prova').style.color = '#7C93E8';
+    document.getElementById('icon-enviar').style.color = '#bbb';
+    document.body.style.background = '#F1EBFA';
+  } else {
+    btn.classList.add('active'); btn.style.background = '#F47B5B';
+    currentTipus = 'enviar';
+    document.getElementById('tipus-label').textContent = 'Enviar';
+    document.getElementById('tipus-label').style.color = '#F47B5B';
+    document.getElementById('icon-prova').style.color = '#bbb';
+    document.getElementById('icon-enviar').style.color = '#F47B5B';
+    document.body.style.background = '#FCEEE7';
+  }
+}
+
+function getAttemptCounts(classe, num, tipus) {
+  return allRecords.filter(r => r.classe === classe && r.num_llista === num && r.tipus === tipus && r.mode !== 'config').length;
+}
+
+function startQuiz() {
+  const num = parseInt(document.getElementById('inp-num').value);
+  const classe = document.getElementById('inp-classe').value;
+  const tipus = currentTipus;
+  const errEl = document.getElementById('login-error');
+  if (!num || num < 1 || num > 30 || !classe) {
+    errEl.textContent = 'Introdueix un número (1–30) i la classe.';
+    errEl.classList.remove('hidden'); return;
+  }
+  if (tipus === 'enviar' && isEnviamentTancat(classe)) {
+    errEl.innerHTML = `Els enviaments de <strong>${classe}</strong> estan tancats.<br>Fes servir el mode Prova.`;
+    errEl.classList.remove('hidden'); return;
+  }
+  const cfg = getStudentConfig(classe, num);
+  const used = getAttemptCounts(classe, num, tipus);
+  const max = tipus === 'prova' ? cfg.max_prova : cfg.max_enviar;
+  if (used >= max) {
+    errEl.innerHTML = `Has esgotat els ${max} intents de ${tipus === 'prova' ? 'prova' : 'enviament'}.<br>Parla amb la professora.`;
+    errEl.classList.remove('hidden'); return;
+  }
+  errEl.classList.add('hidden');
+  const isPas = cfg.pas_a_pas;
+  studentData = { classe, num_llista: num, mode: isPas ? 'pas_a_pas' : 'normal', tipus };
+  timerSeconds = studentConfigs[classe + '_0']?.timer_seconds || 20;
+  let pool = isPas ? [...PAS_A_PAS_QUESTIONS] : [...ALL_QUESTIONS];
+  pool.sort(() => Math.random() - 0.5);
+  const problemes = pool.filter(q => q.isProblema), noProblemes = pool.filter(q => !q.isProblema);
+  questions = [];
+  if (problemes.length > 0) {
+    questions.push(problemes[0]);
+    const rest = [...noProblemes, ...problemes.slice(1)];
+    rest.sort(() => Math.random() - 0.5);
+    questions.push(...rest.slice(0, 9));
+  } else {
+    questions = pool.slice(0, 10);
+  }
+  questions.sort(() => Math.random() - 0.5);
+  currentQ = 0; score = 0; errors = []; answers = [];
+  document.getElementById('btn-tornar-tema').style.display = 'none';
+  document.getElementById('screen-login').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  document.body.style.background = '#F8F7F4';
+  showQuestion();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Quiz
+// ═══════════════════════════════════════════════════════════════════════════
+function renderKatex(el, latex, display = true) { katex.render(latex, el, { throwOnError: false, displayMode: display }); }
+
+// Renders mixed text + $...$ math segments into an element
+function renderMixed(el, text) {
+  el.innerHTML = '';
+  if (!text) return;
+  // If contains $...$ delimiters, split and render math parts separately
+  if (text.includes('$')) {
+    const parts = text.split(/\$([^$]+)\$/g);
+    // parts: [text, math, text, math, ...]
+    parts.forEach((part, i) => {
+      if (!part) return;
+      if (i % 2 === 1) {
+        const span = document.createElement('span');
+        try { katex.render(part, span, { throwOnError: false, displayMode: false }); }
+        catch(e) { span.textContent = part; }
+        el.appendChild(span);
+      } else {
+        el.appendChild(document.createTextNode(part.replace(/×/g, '·')));
+      }
+    });
+  } else if (text.includes('\\')) {
+    // Pure LaTeX expression
+    try { katex.render(text, el, { throwOnError: false, displayMode: false }); }
+    catch(e) { el.textContent = text.replace(/×/g, '·'); }
+  } else {
+    // Plain text
+    el.textContent = text.replace(/×/g, '·');
+  }
+}
+
+function shuffleOptions(q) {
+  const indices = [0, 1, 2, 3];
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return { shuffled: indices.map(i => q.options[i]), correctIdx: indices.indexOf(q.correct) };
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  const { shuffled, correctIdx } = shuffleOptions(q);
+  q._shuffled = shuffled; q._correctIdx = correctIdx;
+  document.getElementById('q-counter').innerHTML = `${currentQ + 1}<span style="font-size:14px;color:#C9C9C5;font-weight:500;">/10</span>`;
+  document.getElementById('score-display').innerHTML = `${score}<span style="font-size:14px;color:#C9C9C5;font-weight:500;">/10</span>`;
+  document.getElementById('progress-bar').style.width = `${(currentQ / 10) * 100}%`;
+  document.getElementById('feedback').classList.remove('visible');
+  document.getElementById('question-card').classList.remove('hidden');
+  const timerEl = document.getElementById('timer-display');
+  timerEl.style.display = studentData.tipus === 'prova' ? 'none' : 'block';
+  const qTextEl = document.getElementById('q-text'); qTextEl.innerHTML = '';
+  if (q.isProblema) {
+    qTextEl.textContent = q.text;
+  } else {
+    const label = document.createElement('div');
+    label.textContent = q.label || 'Calcula:';
+    label.className = 'text-sm text-[#8A8A86] mb-2';
+    qTextEl.appendChild(label);
+    const span = document.createElement('div');
+    qTextEl.appendChild(span); renderKatex(span, q.latex);
+  }
+  document.getElementById('q-hint').classList.add('hidden');
+  const optDiv = document.getElementById('q-options'); optDiv.innerHTML = '';
+  const colors = ['#FBF5E9', '#E9F5EF', '#E8F2FC', '#F1EBFA'];
+  shuffled.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn rounded-2xl p-4 text-lg font-semibold border-2 border-transparent text-[#2B2B2B] flex items-center justify-center';
+    btn.style.backgroundColor = colors[i % 4];
+    // Render with KaTeX if: has LaTeX command OR is a pure number; otherwise plain text
+    const isMath = opt.includes('\\') || /^-?\d+(\.\d+)?$/.test(opt.trim());
+    if (isMath) renderKatex(btn, opt, false); else btn.textContent = opt;
+    btn.onclick = () => answer(i); optDiv.appendChild(btn);
+  });
+  timeLeft = timerSeconds; timerEl.textContent = timerSeconds;
+  timerEl.classList.remove('timer-danger');
+  clearInterval(timerInterval);
+  if (studentData.tipus !== 'prova') {
+    timerInterval = setInterval(() => {
+      timeLeft--; timerEl.textContent = timeLeft;
+      if (timeLeft <= 5) timerEl.classList.add('timer-danger');
+      if (timeLeft <= 0) { clearInterval(timerInterval); answer(-1); }
+    }, 1000);
+  }
+}
+
+function answer(idx) {
+  clearInterval(timerInterval);
+  const q = questions[currentQ];
+  const correct = idx === q._correctIdx;
+  if (correct) score++;
+  document.querySelectorAll('#q-options button').forEach((b, i) => {
+    b.disabled = true;
+    if (i === q._correctIdx) b.style.border = '3px solid #3A7A55';
+    else if (i === idx && !correct) b.style.border = '3px solid #A32D2D';
+  });
+  const fb = document.getElementById('feedback');
+  fb.style.backgroundColor = correct ? '#E9F5EF' : '#FCEEE7';
+  fb.style.color = correct ? '#1A4731' : '#7A1F1F';
+  requestAnimationFrame(() => fb.classList.add('visible'));
+  const iconEl = document.getElementById('fb-icon');
+  iconEl.innerHTML = correct
+    ? '<i data-lucide="check-circle" style="width:40px;height:40px;color:#22c55e;"></i>'
+    : '<i data-lucide="x-circle" style="width:40px;height:40px;color:#ef4444;"></i>';
+  lucide.createIcons({ nodes: [iconEl] });
+  document.getElementById('fb-text').textContent = correct ? 'Correcte! +1 punt' : 'Incorrecte.';
+  const expEl = document.getElementById('fb-explanation');
+  renderMixed(expEl, q.explanation);
+  const solEl = document.getElementById('fb-solution');
+  const solValEl = document.getElementById('fb-solution-val');
+  if (!correct && q.options && q.correct !== undefined) {
+    solEl.classList.remove('hidden');
+    solValEl.textContent = '';
+    try { katex.render(q.options[q.correct], solValEl, { throwOnError: false, displayMode: false }); }
+    catch(e) { solValEl.textContent = q.options[q.correct]; }
+  } else { solEl.classList.add('hidden'); }
+  const simplifyEl = document.getElementById('fb-simplify');
+  if (q.simplify) simplifyEl.classList.remove('hidden');
+  else simplifyEl.classList.add('hidden');
+  if (!correct) errors.push({ q: q.isProblema ? q.text.substring(0, 50) : q.latex, correcta: q.options[q.correct] });
+  answers.push({ pregunta: q.isProblema ? q.text.substring(0, 60) : q.latex, correcte: correct, punts: correct ? 1 : 0 });
+}
+
+function nextQuestion() { currentQ++; if (currentQ >= 10) showFinal(); else showQuestion(); }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Final
+// ═══════════════════════════════════════════════════════════════════════════
+async function showFinal() {
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-final').classList.remove('hidden');
+  document.getElementById('final-score').textContent = `${score} / 10`;
+  let msg = '';
+  if (score >= 8) msg = 'Excel·lent! Domines les fraccions!';
+  else if (score >= 5) msg = 'Bona feina! Segueix practicant.';
+  else msg = 'No et rendeixis! Repassa i torna-ho a intentar.';
+  document.getElementById('final-msg').textContent = msg;
+  // Desa el registre PRIMER perquè aparegui al resum
+  const record = {
+    classe: studentData.classe, num_llista: studentData.num_llista,
+    mode: studentData.mode, tipus: studentData.tipus, puntuacio: score,
+    total_correctes: answers.filter(a => a.correcte).length, total_preguntes: 10,
+    timer_seconds: timerSeconds,
+    detall: studentData.tipus === 'enviar' ? JSON.stringify(answers) : '',
+    data_hora: new Date().toISOString()
+  };
+  await window.dataSdk.create(record);
+  // Desa a localStorage perquè el portal professora ho pugui llegir (Etapa 1)
+  if (studentData.tipus === 'enviar') {
+    const LS_KEY = 'quiz_results_t1ai2';
+    let prev = []; try { prev = JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) {}
+    prev.push({ numLlista: studentData.num_llista, classe: studentData.classe, score: score, total: 10, date: record.data_hora });
+    localStorage.setItem(LS_KEY, JSON.stringify(prev));
+  }
+  const cfg = getStudentConfig(studentData.classe, studentData.num_llista);
+  const usedProva = getAttemptCounts(studentData.classe, studentData.num_llista, 'prova');
+  const usedEnviar = getAttemptCounts(studentData.classe, studentData.num_llista, 'enviar');
+  const remProva = Math.max(0, cfg.max_prova - usedProva);
+  const remEnviar = Math.max(0, cfg.max_enviar - usedEnviar);
+  document.getElementById('final-remaining').innerHTML =
+    `<p>Intents de <strong>prova</strong> restants: <strong>${remProva}</strong></p>
+     <p>Intents per <strong>enviar</strong> restants: <strong>${remEnviar}</strong></p>`;
+  const summaryContent = document.getElementById('final-summary-content'); summaryContent.innerHTML = '';
+  const records = allRecords.filter(r => r.classe === studentData.classe && r.num_llista === studentData.num_llista && r.mode !== 'config');
+  records.sort((a, b) => (a.data_hora || '').localeCompare(b.data_hora || ''));
+  records.forEach((r, i) => {
+    const d = r.data_hora ? new Date(r.data_hora).toLocaleString('ca') : '—';
+    const p = document.createElement('p');
+    const badge = r.tipus === 'enviar'
+      ? '<span style="background:#E0F7F5;color:#23B5A8;border-radius:6px;padding:1px 6px;font-size:11px;font-weight:700;">ENVIAR</span>'
+      : '<span style="background:#F1EBFA;color:#7C93E8;border-radius:6px;padding:1px 6px;font-size:11px;font-weight:700;">PROVA</span>';
+    p.innerHTML = `${i + 1}. ${badge} ${r.puntuacio}/10 — ${d}`;
+    summaryContent.appendChild(p);
+  });
+}
+
+function restart() {
+  document.getElementById('screen-final').classList.add('hidden');
+  document.getElementById('screen-login').classList.remove('hidden');
+  document.getElementById('btn-tornar-tema').style.display = 'inline-flex';
+  document.body.style.background = '#F8F7F4';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Panell docent
+// ═══════════════════════════════════════════════════════════════════════════
+function openPinModal() {
+  document.getElementById('pin-modal').classList.remove('hidden');
+  document.getElementById('pin-input').value = '';
+  document.getElementById('pin-error').classList.add('hidden');
+}
+function closePinModal() { document.getElementById('pin-modal').classList.add('hidden'); }
+function checkPin() {
+  if (document.getElementById('pin-input').value === '2627') {
+    closePinModal(); showTeacher();
+  } else {
+    document.getElementById('pin-error').classList.remove('hidden');
+  }
+}
+
+function showTeacher() {
+  document.querySelectorAll('[id^="screen-"]').forEach(s => s.classList.add('hidden'));
+  document.getElementById('screen-teacher').classList.remove('hidden');
+  document.body.style.background = '#F2F8F8';
+  // reset filtres
+  document.getElementById('filter-classe').value = '';
+  document.getElementById('filter-classe').style.color = '#9ca3af';
+  document.getElementById('filter-num').value = '';
+  document.getElementById('filter-tipus').value = '';
+  document.getElementById('filter-tipus').style.color = '#9ca3af';
+  renderTeacher(allRecords.filter(r => r.mode !== 'config'));
+  renderConfigTable();
+  // Carrega timer desat
+  const savedTimer = Object.values(studentConfigs).find(c => c.timer_seconds);
+  if (savedTimer) document.getElementById('cfg-timer').value = savedTimer.timer_seconds;
+}
+function closeTeacher() {
+  document.getElementById('screen-teacher').classList.add('hidden');
+  document.getElementById('screen-login').classList.remove('hidden');
+  document.body.style.background = currentTipus === 'enviar' ? '#FCEEE7' : '#F1EBFA';
+}
+
+function renderConfigTable() {
+  ['E3A','E3B','E3C','E3D'].forEach(cl => renderClassCfgTable(cl));
+}
+
+function cfgToggle(btn) {
+  const on = btn.dataset.on === 'true';
+  btn.dataset.on = (!on).toString();
+  btn.style.background = !on ? '#7C93E8' : '#e5e7eb';
+  btn.querySelector('span').style.transform = !on ? 'translateX(20px)' : '';
+}
+
+function applyDefaultToAll(cl) {
+  const prova  = document.getElementById('cfg-'+cl+'-0-prova').value;
+  const enviar = document.getElementById('cfg-'+cl+'-0-enviar').value;
+  const pasBtn = document.getElementById('cfg-'+cl+'-0-pas');
+  const pas    = pasBtn.dataset.on === 'true';
+  for (let i = 1; i <= 30; i++) {
+    document.getElementById('cfg-'+cl+'-'+i+'-prova').value  = prova;
+    document.getElementById('cfg-'+cl+'-'+i+'-enviar').value = enviar;
+    const b = document.getElementById('cfg-'+cl+'-'+i+'-pas');
+    b.dataset.on = pas.toString();
+    b.style.background = pas ? '#7C93E8' : '#e5e7eb';
+    b.querySelector('span').style.transform = pas ? 'translateX(20px)' : '';
+  }
+}
+
+function renderClassCfgTable(cl) {
+  const container = document.getElementById('cfg-tab-' + cl);
+  const INP = (id, val) => `<input type="number" id="${id}" min="0" max="99" value="${val}"
+    style="width:54px;height:32px;border-radius:8px;border:1.5px solid #e5e7eb;padding:0 6px;font-size:13px;text-align:center;font-family:inherit;">`;
+  const TOG = (id, on) => {
+    const bg  = on ? '#7C93E8' : '#e5e7eb';
+    const tx  = on ? 'translateX(20px)' : '';
+    return `<button type="button" id="${id}" data-on="${on}" onclick="cfgToggle(this)"
+      style="position:relative;width:44px;height:24px;border-radius:999px;background:${bg};border:none;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;vertical-align:middle;">
+      <span style="position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s;transform:${tx};"></span>
+    </button>`;
+  };
+  const thStyle = 'padding:8px 10px;font-size:11px;color:#8A8A86;font-weight:600;text-transform:uppercase;letter-spacing:.04em;text-align:center;';
+  const tdStyle = 'padding:6px 10px;text-align:center;';
+
+  let html = `<table style="width:100%;border-collapse:collapse;">
+    <thead><tr style="background:#f8fafc;border-bottom:2px solid #e5e7eb;">
+      <th style="${thStyle}text-align:left;">Alumne</th>
+      <th style="${thStyle}">Int. Prova</th>
+      <th style="${thStyle}">Int. Enviar</th>
+      <th style="${thStyle}">Pas a pas</th>
+    </tr></thead><tbody>`;
+
+  // Fila 0 = aplicar a tots
+  const d0 = studentConfigs[cl+'_0'] || { max_prova: 3, max_enviar: 1, pas_a_pas: false };
+  html += `<tr style="background:#f0fdf4;border-bottom:2px solid #e5e7eb;">
+    <td style="${tdStyle}text-align:left;padding-left:12px;">
+      <button type="button" onclick="applyDefaultToAll('${cl}')"
+        style="font-size:12px;font-weight:700;color:#3A7A55;background:#d1fae5;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;">
+        Aplicar a tots
+      </button>
+    </td>
+    <td style="${tdStyle}">${INP('cfg-'+cl+'-0-prova', d0.max_prova)}</td>
+    <td style="${tdStyle}">${INP('cfg-'+cl+'-0-enviar', d0.max_enviar)}</td>
+    <td style="${tdStyle}">${TOG('cfg-'+cl+'-0-pas', d0.pas_a_pas)}</td>
+  </tr>`;
+
+  for (let i = 1; i <= 30; i++) {
+    const cfg = studentConfigs[cl+'_'+i] || d0;
+    html += `<tr style="background:#fff;border-bottom:1px solid #f1f5f9;">
+      <td style="${tdStyle}text-align:left;font-size:13px;color:#2B2B2B;padding-left:12px;">${i}</td>
+      <td style="${tdStyle}">${INP('cfg-'+cl+'-'+i+'-prova', cfg.max_prova)}</td>
+      <td style="${tdStyle}">${INP('cfg-'+cl+'-'+i+'-enviar', cfg.max_enviar)}</td>
+      <td style="${tdStyle}">${TOG('cfg-'+cl+'-'+i+'-pas', cfg.pas_a_pas)}</td>
+    </tr>`;
+  }
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ─── Pestanyes principals de configuració ───────────────────────────────────
+function switchMainTab(tab) {
+  ['timer','tancament','alumnes'].forEach(t => {
+    document.getElementById('maintab-'+t).style.display = t===tab ? '' : 'none';
+    const btn = document.getElementById('maintab-btn-'+t);
+    btn.style.color = t===tab ? '#23B5A8' : '#8A8A86';
+    btn.style.fontWeight = t===tab ? '700' : '600';
+    btn.style.borderBottomColor = t===tab ? '#23B5A8' : 'transparent';
+  });
+  if (tab === 'tancament') renderTancament();
+}
+
+// ─── Tancament d'enviaments ──────────────────────────────────────────────────
+const TANCAMENT_KEY = 'quiz_t1_tancament';
+
+function _loadTancament() {
+  const raw = JSON.parse(localStorage.getItem(TANCAMENT_KEY) || '{}');
+  // migra format antic (boolean) al nou ({ manual, dataLimit })
+  const out = {};
+  ['E3A','E3B','E3C','E3D'].forEach(cl => {
+    const v = raw[cl];
+    if (v === null || v === undefined) out[cl] = { manual: false, dataLimit: '' };
+    else if (typeof v === 'boolean') out[cl] = { manual: v, dataLimit: '' };
+    else out[cl] = v;
+  });
+  return out;
+}
+let tancamentState = _loadTancament();
+
+function saveTancament() {
+  localStorage.setItem(TANCAMENT_KEY, JSON.stringify(tancamentState));
+}
+
+function isEnviamentTancat(classe) {
+  const s = tancamentState[classe] || {};
+  if (s.manual) return true;
+  if (s.dataLimit) return new Date() >= new Date(s.dataLimit);
+  return false;
+}
+
+function _estatTancament(cl) {
+  const s = tancamentState[cl] || {};
+  if (s.manual) return { tancat: true, text: 'Tancat manualment', color: '#A32D2D' };
+  if (s.dataLimit) {
+    const d = new Date(s.dataLimit);
+    if (new Date() >= d) return { tancat: true, text: 'Tancat des del ' + d.toLocaleString('ca', {dateStyle:'short',timeStyle:'short'}), color: '#A32D2D' };
+    return { tancat: false, text: 'Es tancarà el ' + d.toLocaleString('ca', {dateStyle:'short',timeStyle:'short'}), color: '#B45309' };
+  }
+  return { tancat: false, text: 'Obert', color: '#3A7A55' };
+}
+
+function renderTancament() {
+  const container = document.getElementById('tancament-cards');
+  container.innerHTML = '';
+  ['E3A','E3B','E3C','E3D'].forEach(cl => {
+    const s = tancamentState[cl] || { manual: false, dataLimit: '' };
+    const estat = _estatTancament(cl);
+    const card = document.createElement('div');
+    card.style.cssText = 'background:#f8fafc;border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;';
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <p style="font-size:15px;font-weight:700;color:#2B2B2B;">${cl}</p>
+          <p id="tancament-estat-${cl}" style="font-size:12px;margin-top:2px;font-weight:600;color:${estat.color};">${estat.text}</p>
+        </div>
+        <button type="button" id="tancament-tog-${cl}" data-on="${s.manual}" onclick="toggleTancamentManual('${cl}')"
+          style="position:relative;width:52px;height:28px;border-radius:999px;background:${s.manual?'#F47B5B':'#e5e7eb'};border:none;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;flex-shrink:0;">
+          <span style="position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s;transform:${s.manual?'translateX(24px)':''}"></span>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <label style="font-size:12px;color:#8A8A86;font-weight:600;white-space:nowrap;">Tancament automàtic:</label>
+        ${s.dataLimit
+          ? `<input type="datetime-local" id="tancament-data-${cl}" value="${s.dataLimit}"
+              onchange="setTancamentData('${cl}', this.value)"
+              style="height:34px;border-radius:8px;border:1.5px solid #e5e7eb;padding:0 8px;font-size:12px;font-family:inherit;background:#fff;">
+             <button onclick="setTancamentData('${cl}','')"
+              style="font-size:11px;color:#8A8A86;background:none;border:none;cursor:pointer;text-decoration:underline;">
+              Esborra data
+             </button>`
+          : `<button onclick="mostrarInputData('${cl}')" id="tancament-afegir-${cl}"
+              style="height:34px;padding:0 14px;border-radius:8px;border:1.5px dashed #e5e7eb;background:#fff;font-size:12px;color:#9ca3af;cursor:pointer;font-family:inherit;">
+              + Afegir data i hora
+             </button>
+             <input type="datetime-local" id="tancament-data-${cl}" value=""
+              onchange="setTancamentData('${cl}', this.value)"
+              style="display:none;height:34px;border-radius:8px;border:1.5px solid #e5e7eb;padding:0 8px;font-size:12px;font-family:inherit;background:#fff;">`
+        }
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function toggleTancamentManual(cl) {
+  tancamentState[cl].manual = !tancamentState[cl].manual;
+  saveTancament();
+  renderTancament();
+}
+
+function mostrarInputData(cl) {
+  document.getElementById('tancament-afegir-'+cl).style.display = 'none';
+  const inp = document.getElementById('tancament-data-'+cl);
+  inp.style.display = '';
+  inp.focus();
+}
+
+function setTancamentData(cl, val) {
+  tancamentState[cl].dataLimit = val;
+  saveTancament();
+  renderTancament();
+}
+
+function tancamentTots(tancar) {
+  ['E3A','E3B','E3C','E3D'].forEach(cl => { tancamentState[cl].manual = tancar; });
+  saveTancament();
+  renderTancament();
+}
+
+// ─── Sub-tabs per classe (configuració per alumne) ───────────────────────────
+function switchCfgTab(cl) {
+  ['E3A','E3B','E3C','E3D'].forEach(c => {
+    document.getElementById('cfg-tab-'+c).style.display = c===cl ? '' : 'none';
+    const btn = document.getElementById('cfg-btn-'+c);
+    btn.style.background = c===cl ? '#23B5A8' : '#f1f5f9';
+    btn.style.color = c===cl ? '#fff' : '#64748b';
+  });
+}
+
+async function saveAllConfigs() {
+  const timerVal = parseInt(document.getElementById('cfg-timer').value) || 20;
+  timerSeconds = timerVal;
+  const classes = ['E3A','E3B','E3C','E3D'];
+  for (const cl of classes) {
+    const d0prova  = parseInt(document.getElementById('cfg-'+cl+'-0-prova')?.value) || 3;
+    const d0enviar = parseInt(document.getElementById('cfg-'+cl+'-0-enviar')?.value) || 1;
+    const d0pas    = document.getElementById('cfg-'+cl+'-0-pas')?.dataset.on === 'true';
+    for (let num = 0; num <= 30; num++) {
+      const elP = document.getElementById('cfg-'+cl+'-'+num+'-prova');
+      const elE = document.getElementById('cfg-'+cl+'-'+num+'-enviar');
+      const elPas = document.getElementById('cfg-'+cl+'-'+num+'-pas');
+      if (!elP) continue;
+      const maxProva  = parseInt(elP.value) || d0prova;
+      const maxEnviar = parseInt(elE.value) || d0enviar;
+      const pasAPas   = elPas?.dataset.on === 'true';
+      // Alumnes amb valors idèntics al per defecte i sense registre previ → no cal desar
+      const isDefault = num > 0 && maxProva === d0prova && maxEnviar === d0enviar && pasAPas === d0pas;
+      const existing = allRecords.find(r => r.mode === 'config' && r.classe === cl && r.num_llista === num);
+      if (isDefault && !existing) continue; // no cal crear registre idèntic al defecte
+      studentConfigs[cl+'_'+num] = { max_prova: maxProva, max_enviar: maxEnviar, pas_a_pas: pasAPas, timer_seconds: timerVal };
+      const detall = JSON.stringify({ pas_a_pas: pasAPas, timer_seconds: timerVal });
+      if (existing) {
+        await window.dataSdk.update({ ...existing, total_correctes: maxProva, total_preguntes: maxEnviar, timer_seconds: timerVal, detall });
+      } else {
+        await window.dataSdk.create({ classe: cl, num_llista: num, mode: 'config', tipus: 'config', puntuacio: 0, total_correctes: maxProva, total_preguntes: maxEnviar, timer_seconds: timerVal, detall, data_hora: new Date().toISOString() });
+      }
+    }
+  }
+  // Reconstrueix les taules per reflectir nous overrides
+  renderConfigTable();
+  ['cfg-msg','cfg-msg-top'].forEach(id => {
+    const msg = document.getElementById(id);
+    if (!msg) return;
+    msg.classList.remove('hidden');
+    setTimeout(() => msg.classList.add('hidden'), 2000);
+  });
+}
+
+function renderTeacher(data) {
+  const body = document.getElementById('teacher-body'); body.innerHTML = '';
+  const tests = data.filter(r => r.tipus === 'enviar' || r.tipus === 'prova');
+  tests.sort((a, b) => (b.data_hora || '').localeCompare(a.data_hora || ''));
+  const all = allRecords.filter(r => r.tipus === 'enviar' || r.tipus === 'prova');
+  const enviats = all.filter(r => r.tipus === 'enviar');
+  const proves = all.filter(r => r.tipus === 'prova');
+  document.getElementById('stat-total-n').textContent = all.length;
+  document.getElementById('stat-enviats-n').textContent = enviats.length;
+  document.getElementById('stat-proves-n').textContent = proves.length;
+  // Mitjana dels tests filtrats
+  const avg = tests.length
+    ? (tests.reduce((s,r) => s + (r.puntuacio||0), 0) / tests.length).toFixed(1)
+    : null;
+  document.getElementById('teacher-count').textContent = `${tests.length} resultat${tests.length!==1?'s':''}`;
+  const avgEl = document.getElementById('teacher-avg');
+  if (avg) {
+    avgEl.innerHTML = `Mitjana: <strong style="color:#23B5A8;">${avg}/10</strong>`;
+    avgEl.style.display = '';
+  } else {
+    avgEl.style.display = 'none';
+  }
+  const empty = document.getElementById('teacher-empty');
+  if (tests.length === 0) { empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  tests.forEach(r => {
+    const isEnviar = r.tipus === 'enviar';
+    const badge = isEnviar
+      ? `<span style="background:#FEE9E3;color:#F47B5B;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">Enviar</span>`
+      : `<span style="background:#ECEFFE;color:#7C93E8;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;">Prova</span>`;
+    const score = r.puntuacio ?? 0;
+    const scoreColor = score >= 7 ? '#3A7A55' : score >= 5 ? '#B45309' : '#A32D2D';
+    body.innerHTML += `<tr style="border-bottom:1px solid #f1f5f9;">
+      <td class="p-3" style="font-weight:600;">${r.classe || '—'}</td>
+      <td class="p-3" style="color:#8A8A86;">${r.num_llista || '—'}</td>
+      <td class="p-3">${badge}</td>
+      <td class="p-3" style="font-weight:700;color:${scoreColor};">${score}/10</td>
+      <td class="p-3" style="color:#8A8A86;font-size:12px;">${r.data_hora ? new Date(r.data_hora).toLocaleString('ca') : '—'}</td>
+    </tr>`;
+  });
+}
+
+function applyFilter() {
+  const fc = document.getElementById('filter-classe').value;
+  const fn = document.getElementById('filter-num').value;
+  const ft = document.getElementById('filter-tipus').value;
+  let filtered = allRecords.filter(r => r.mode !== 'config');
+  if (fc) filtered = filtered.filter(r => r.classe === fc);
+  if (fn) filtered = filtered.filter(r => r.num_llista == fn);
+  if (ft) filtered = filtered.filter(r => r.tipus === ft);
+  renderTeacher(filtered);
+}
+
+function exportCSV() {
+  const fc = document.getElementById('filter-classe').value;
+  const fn = document.getElementById('filter-num').value;
+  const ft = document.getElementById('filter-tipus').value;
+  let tests = allRecords.filter(r => r.tipus === 'enviar' || r.tipus === 'prova');
+  if (fc) tests = tests.filter(r => r.classe === fc);
+  if (fn) tests = tests.filter(r => r.num_llista == fn);
+  if (ft) tests = tests.filter(r => r.tipus === ft);
+  tests.sort((a,b) => (b.data_hora||'').localeCompare(a.data_hora||''));
+  if (tests.length === 0) {
+    alert('No hi ha resultats per exportar.\n\nTotal a allRecords: ' + allRecords.length + '\nRegistres: ' + JSON.stringify(allRecords.slice(0,2)));
+    return;
+  }
+  const BOM = '﻿'; // perquè Excel llegeixi bé l'UTF-8
+  const headers = 'Classe,Núm,Tipus,Puntuació,Data\n';
+  const rows = tests.map(r => `"${r.classe||''}",${r.num_llista||''},"${r.tipus||''}",${r.puntuacio??0},"${r.data_hora||''}"`).join('\n');
+  const csv = BOM + headers + rows;
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'resultats_fraccions.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function clearAll() { document.getElementById('delete-modal').classList.remove('hidden'); }
+
+async function confirmClear() {
+  document.getElementById('delete-modal').classList.add('hidden');
+  for (const r of [...allRecords]) await window.dataSdk.delete(r);
+  renderTeacher([]);
+}
+
+document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
+</script>
+</body>
+</html>

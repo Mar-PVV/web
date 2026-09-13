@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrels · T1</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Work Sans', sans-serif; background: #F8F7F4; }
+    h1,h2,h3,.heading { font-family: 'Poppins', sans-serif; }
+
+    .frac { display:inline-flex; flex-direction:column; align-items:center; line-height:1.1; vertical-align:middle; gap:1px; }
+    .frac .fn { border-bottom:2px solid currentColor; padding:0 5px 1px; display:block; text-align:center; }
+    .frac .fd { padding:1px 5px 0; display:block; text-align:center; }
+
+    /* Radical sign via CSS border */
+    .rad { display:inline-flex; align-items:center; font-size:inherit; font-family:'Poppins',sans-serif; font-weight:800; gap:2px; }
+    .rad-sym { font-size:1.3em; line-height:1; }
+    .rad-arg { border-top:2.5px solid currentColor; padding:2px 6px 0; }
+
+    .act-card-hub { border-radius:20px; padding:20px; cursor:pointer; transition:transform .15s, box-shadow .15s; display:flex; align-items:center; gap:16px; }
+    .act-card-hub:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.10); }
+
+    .opt-btn { padding:14px 10px; border-radius:14px; border:2px solid #e5e7eb; background:#fff; cursor:pointer; font-size:1rem; transition:all .15s; text-align:center; display:flex; align-items:center; justify-content:center; min-height:64px; font-family:'Poppins',sans-serif; font-weight:700; line-height:1.3; }
+    .opt-btn:hover:not(:disabled) { border-color:#A8CEFA; background:#EEF5FF; }
+    .opt-btn.correct { border-color:#22c55e !important; background:#F0FDF4 !important; }
+    .opt-btn.wrong   { border-color:#ef4444 !important; background:#FFF0F0 !important; }
+    .opt-btn:disabled { cursor:default; }
+
+    .fb-sheet { position:fixed; bottom:0; left:50%; z-index:40; width:calc(100% - 32px); max-width:620px; padding:18px 20px 32px; border-radius:24px 24px 0 0; box-shadow:0 -4px 24px rgba(0,0,0,.13); transform:translateX(-50%) translateY(110%); transition:transform .3s cubic-bezier(.34,1.1,.64,1); display:flex; flex-direction:column; gap:10px; }
+    .fb-sheet.visible { transform:translateX(-50%) translateY(0); }
+
+    .progress-bar { height:6px; border-radius:9999px; background:#e5e7eb; }
+    .progress-fill { height:100%; border-radius:9999px; transition:width .4s; }
+
+    #screen-login { padding-top:130px; }
+    #screen-hub, #screen-a1, #screen-a2, #screen-a3 { padding-top:100px; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<p style="position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:11px;color:#C9C9C5;z-index:50;pointer-events:none;">© Curs 2026-27 · Mar Vidal Segura · CC BY-NC-SA 4.0</p>
+
+<!-- CAPÇALERA -->
+<div id="quiz-header" style="position:fixed;top:0;left:0;right:0;z-index:50;background:#A8CEFA;padding:20px 36px 18px;overflow:hidden;">
+  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Poppins',sans-serif;font-weight:800;font-size:72px;color:rgba(0,0,0,0.08);line-height:1;pointer-events:none;user-select:none;">1</div>
+  <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-family:'Poppins',sans-serif;font-size:clamp(18px,2.6vw,28px);font-weight:800;color:#042C53;line-height:1.1;">Arrels de nombres racionals</div>
+      <p style="font-size:11px;color:#042C53;opacity:0.55;margin-top:4px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Tema 1 · Nombres racionals · 3r ESO</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div id="hdr-alumne" style="font-size:12px;font-weight:700;color:#042C53;opacity:.7;"></div>
+      <a href="../../Web - Dashboard i Activitats Interactives/tema-1.html"
+        style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#042C53;background:rgba(255,255,255,0.45);border-radius:20px;padding:5px 14px;text-decoration:none;transition:background .15s;"
+        onmouseover="this.style.background='rgba(255,255,255,.72)'" onmouseout="this.style.background='rgba(255,255,255,.45)'">← Tornar</a>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="screen-login" class="flex items-center justify-center p-4 min-h-screen">
+  <div id="login-card" class="w-full max-w-xl rounded-3xl p-8 shadow-lg" style="background:#fff;display:flex;flex-direction:column;gap:16px;">
+    <div style="background:#F0F6FF;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;">
+      <p style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:#042C53;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Com funciona</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;">Faràs <strong>3 activitats</strong> sobre arrels. Pots fer-les en qualsevol ordre.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;"><strong>Activitat 1:</strong> Calcula l'arrel quadrada d'enters (inclou radicands negatius).</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;"><strong>Activitat 2:</strong> Calcula l'arrel quadrada de fraccions.</p>
+      <p style="font-size:15px;color:#4A5568;line-height:1.7;"><strong>Activitat 3:</strong> Calcula arrels cúbiques (inclou negatius).</p>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex flex-col gap-1" style="flex:1;">
+        <label class="font-medium" for="inp-num" style="color:#2B2B2B;font-size:15px;">Número de llista</label>
+        <input id="inp-num" type="number" min="1" max="30" placeholder="1–30"
+          style="width:100%;height:48px;border-radius:16px;border:2px solid #e5e7eb;padding:0 16px;font-size:16px;background:#fff;box-sizing:border-box;outline:none;font-family:inherit;color:#2B2B2B;"
+          onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="flex flex-col gap-1" style="flex:1;">
+        <label class="font-medium" for="inp-classe" style="color:#2B2B2B;font-size:15px;">Classe</label>
+        <select id="inp-classe" onchange="this.style.color=this.value?'#2B2B2B':'#9ca3af'"
+          style="width:100%;height:48px;border-radius:16px;border:2px solid #e5e7eb;padding:0 16px;font-size:16px;background:#fff;box-sizing:border-box;outline:none;font-family:inherit;color:#9ca3af;appearance:none;">
+          <option value="">— Tria —</option>
+          <option value="E3A">E3A</option>
+          <option value="E3B">E3B</option>
+          <option value="E3C">E3C</option>
+          <option value="E3D">E3D</option>
+        </select>
+      </div>
+    </div>
+    <button class="w-full py-4 rounded-2xl font-bold heading" onclick="doLogin()"
+      style="background:#23B5A8;color:#fff;font-size:16px;border:none;cursor:pointer;">Comença →</button>
+    <p id="login-error" style="color:#A32D2D;text-align:center;font-size:13px;display:none;">Omple tots els camps.</p>
+  </div>
+</div>
+
+<!-- HUB -->
+<div id="screen-hub" style="display:none;min-height:100vh;padding-bottom:40px;">
+  <div style="max-width:520px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;">
+    <div>
+      <div class="heading" style="font-size:20px;font-weight:800;color:#042C53;">3 activitats</div>
+      <p style="font-size:13px;color:#8A8A86;margin-top:2px;">Fes-les totes per veure la nota final.</p>
+    </div>
+    <div class="act-card-hub" style="background:#EEF5FF;" onclick="startA(1)">
+      <div style="width:44px;height:44px;border-radius:14px;background:#A8CEFA;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:18px;color:#042C53;flex-shrink:0;">1</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;color:#042C53;font-size:15px;">Arrel quadrada d'enters</div>
+        <div style="font-size:12px;color:#8A8A86;margin-top:2px;">Inclou radicands negatius i zero · 15 preguntes</div>
+        <div id="hub-a1-status" style="margin-top:6px;display:none;"></div>
+      </div>
+      <div id="hub-a1-arrow" style="font-size:20px;color:#A8CEFA;font-weight:700;">→</div>
+    </div>
+    <div class="act-card-hub" style="background:#F0FDF4;" onclick="startA(2)">
+      <div style="width:44px;height:44px;border-radius:14px;background:#B0F0D4;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:18px;color:#04342C;flex-shrink:0;">2</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;color:#042C53;font-size:15px;">Arrel quadrada de fraccions</div>
+        <div style="font-size:12px;color:#8A8A86;margin-top:2px;">√(a/b) = √a / √b · 12 preguntes</div>
+        <div id="hub-a2-status" style="margin-top:6px;display:none;"></div>
+      </div>
+      <div id="hub-a2-arrow" style="font-size:20px;color:#B0F0D4;font-weight:700;">→</div>
+    </div>
+    <div class="act-card-hub" style="background:#FFFBF0;" onclick="startA(3)">
+      <div style="width:44px;height:44px;border-radius:14px;background:#FFD576;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:18px;color:#412402;flex-shrink:0;">3</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;color:#042C53;font-size:15px;">Arrels cúbiques</div>
+        <div style="font-size:12px;color:#8A8A86;margin-top:2px;">Inclou nombres negatius i fraccions · 12 preguntes</div>
+        <div id="hub-a3-status" style="margin-top:6px;display:none;"></div>
+      </div>
+      <div id="hub-a3-arrow" style="font-size:20px;color:#FFD576;font-weight:700;">→</div>
+    </div>
+    <div id="hub-final" style="display:none;background:#fff;border-radius:20px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);text-align:center;">
+      <div class="heading" style="font-size:12px;color:#8A8A86;font-weight:700;text-transform:uppercase;letter-spacing:.07em;">Nota final</div>
+      <div id="hub-final-nota" class="heading" style="font-size:60px;font-weight:800;color:#042C53;line-height:1;margin:8px 0;"></div>
+      <p id="hub-final-msg" style="font-size:13px;color:#8A8A86;"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITAT 1 -->
+<div id="screen-a1" style="display:none;min-height:100vh;padding-bottom:150px;">
+  <div style="max-width:540px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div class="heading" style="font-size:16px;font-weight:800;color:#042C53;">Activitat 1 · Arrel quadrada</div>
+        <p style="font-size:12px;color:#8A8A86;margin-top:1px;">Calcula l'arrel quadrada</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:#8A8A86;">Pregunta</div>
+        <div id="a1-ctr" class="heading" style="font-size:20px;font-weight:800;color:#3B82F6;"></div>
+      </div>
+    </div>
+    <div class="progress-bar"><div id="a1-bar" class="progress-fill" style="background:#A8CEFA;width:0%;"></div></div>
+    <div style="background:#fff;border-radius:24px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:center;">
+      <p style="font-size:11px;color:#8A8A86;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:20px;">Calcula (si existeix en ℚ)</p>
+      <div id="a1-q" style="font-size:2.4rem;font-weight:800;color:#042C53;font-family:'Poppins',sans-serif;min-height:72px;display:flex;align-items:center;justify-content:center;"></div>
+    </div>
+    <div id="a1-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  </div>
+  <div id="fb-a1" class="fb-sheet">
+    <div style="display:flex;align-items:center;gap:10px;"><span id="fb-a1-icon" style="font-size:24px;"></span><div id="fb-a1-title" class="heading" style="font-size:17px;font-weight:700;"></div></div>
+    <p id="fb-a1-exp" style="font-size:14px;color:#2B2B2B;line-height:1.6;"></p>
+    <button onclick="nextQ()" style="width:100%;padding:13px;border-radius:16px;background:#A8CEFA;color:#042C53;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;">Següent →</button>
+  </div>
+</div>
+
+<!-- ACTIVITAT 2 -->
+<div id="screen-a2" style="display:none;min-height:100vh;padding-bottom:150px;">
+  <div style="max-width:540px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div class="heading" style="font-size:16px;font-weight:800;color:#042C53;">Activitat 2 · Arrel de fracció</div>
+        <p style="font-size:12px;color:#8A8A86;margin-top:1px;">Recorda: √(a/b) = √a / √b</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:#8A8A86;">Pregunta</div>
+        <div id="a2-ctr" class="heading" style="font-size:20px;font-weight:800;color:#22c55e;"></div>
+      </div>
+    </div>
+    <div class="progress-bar"><div id="a2-bar" class="progress-fill" style="background:#B0F0D4;width:0%;"></div></div>
+    <div style="background:#fff;border-radius:24px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:center;">
+      <p style="font-size:11px;color:#8A8A86;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Calcula l'arrel quadrada</p>
+      <div id="a2-q" style="font-size:2rem;font-weight:800;color:#042C53;font-family:'Poppins',sans-serif;min-height:72px;display:flex;align-items:center;justify-content:center;"></div>
+    </div>
+    <div id="a2-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  </div>
+  <div id="fb-a2" class="fb-sheet">
+    <div style="display:flex;align-items:center;gap:10px;"><span id="fb-a2-icon" style="font-size:24px;"></span><div id="fb-a2-title" class="heading" style="font-size:17px;font-weight:700;"></div></div>
+    <p id="fb-a2-exp" style="font-size:14px;color:#2B2B2B;line-height:1.6;"></p>
+    <button onclick="nextQ()" style="width:100%;padding:13px;border-radius:16px;background:#B0F0D4;color:#04342C;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;">Següent →</button>
+  </div>
+</div>
+
+<!-- ACTIVITAT 3 -->
+<div id="screen-a3" style="display:none;min-height:100vh;padding-bottom:150px;">
+  <div style="max-width:540px;margin:0 auto;padding:20px 16px;display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div class="heading" style="font-size:16px;font-weight:800;color:#042C53;">Activitat 3 · Arrel cúbica</div>
+        <p style="font-size:12px;color:#8A8A86;margin-top:1px;">Recorda: ∛a = b ↔ b³ = a (única solució)</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;color:#8A8A86;">Pregunta</div>
+        <div id="a3-ctr" class="heading" style="font-size:20px;font-weight:800;color:#f59e0b;"></div>
+      </div>
+    </div>
+    <div class="progress-bar"><div id="a3-bar" class="progress-fill" style="background:#FFD576;width:0%;"></div></div>
+    <div style="background:#fff;border-radius:24px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:center;">
+      <p style="font-size:11px;color:#8A8A86;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;">Calcula l'arrel cúbica</p>
+      <div id="a3-q" style="font-size:2.2rem;font-weight:800;color:#042C53;font-family:'Poppins',sans-serif;min-height:72px;display:flex;align-items:center;justify-content:center;"></div>
+    </div>
+    <div id="a3-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  </div>
+  <div id="fb-a3" class="fb-sheet">
+    <div style="display:flex;align-items:center;gap:10px;"><span id="fb-a3-icon" style="font-size:24px;"></span><div id="fb-a3-title" class="heading" style="font-size:17px;font-weight:700;"></div></div>
+    <p id="fb-a3-exp" style="font-size:14px;color:#2B2B2B;line-height:1.6;"></p>
+    <button onclick="nextQ()" style="width:100%;padding:13px;border-radius:16px;background:#FFD576;color:#412402;font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;">Següent →</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════
+// UTILS
+// ══════════════════════════════
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){const j=0|Math.random()*(i+1);[b[i],b[j]]=[b[j],b[i]];}return b;}
+function pickN(a,n){return shuffle(a).slice(0,n);}
+
+function frac(n,d){return `<span class="frac"><span class="fn">${n}</span><span class="fd">${d}</span></span>`;}
+
+// Render √n (as HTML)
+function sqrtInt(n){
+  const sign=n<0?'−':'';
+  const abs=Math.abs(n);
+  return `<span class="rad"><span class="rad-sym">√</span><span class="rad-arg">${sign}${abs}</span></span>`;
+}
+// Render √(a/b)
+function sqrtFrac(a,b){
+  return `<span class="rad"><span class="rad-sym">√</span><span class="rad-arg">${frac(a,b)}</span></span>`;
+}
+// Render ∛n
+function cbrtDisp(n,d){
+  if(d){
+    const sign=n<0?'−':''; const an=Math.abs(n);
+    return `<span class="rad"><sup style="font-size:.55em;margin-right:2px;">3</sup><span class="rad-sym">√</span><span class="rad-arg">${frac(an,d)}</span></span>`;
+  }
+  const sign=n<0?'−':''; const abs=Math.abs(n);
+  return `<span class="rad"><sup style="font-size:.55em;margin-right:2px;">3</sup><span class="rad-sym">√</span><span class="rad-arg">${sign}${abs}</span></span>`;
+}
+
+// ±n/d display
+function pm(n,d){ return d?`±${frac(n,d)}`:`±${n}`; }
+// Fraction option
+function fopt(n,d,sign){ return sign==='pm'?pm(n,d): sign?`${sign}${d?frac(n,d):n}`:`${d?frac(n,d):n}`; }
+
+const SCREENS=['screen-login','screen-hub','screen-a1','screen-a2','screen-a3'];
+function showScreen(id){
+  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
+  const t=document.getElementById(id);
+  if(t)t.style.display=(id==='screen-login')?'flex':'block';
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════
+// LOGIN
+// ══════════════════════════════
+let alumne={}, scores={a1:null,a2:null,a3:null};
+function doLogin(){
+  const num=document.getElementById('inp-num').value.trim();
+  const cl=document.getElementById('inp-classe').value;
+  const err=document.getElementById('login-error');
+  if(!num||!cl){err.style.display='block';return;}
+  err.style.display='none';
+  alumne={classe:cl,num};
+  document.getElementById('hdr-alumne').textContent=`${cl} · Núm. ${num}`;
+  showScreen('screen-hub');
+}
+
+// ══════════════════════════════
+// HUB
+// ══════════════════════════════
+function updateHub(){
+  [1,2,3].forEach(i=>{
+    const s=scores[`a${i}`];
+    if(s===null)return;
+    const nota=(s*10).toFixed(1);
+    const col=s>=0.9?'#16a34a':s>=0.5?'#d97706':'#dc2626';
+    const stat=document.getElementById(`hub-a${i}-status`);
+    stat.innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:#E9F5EF;color:${col};padding:3px 10px;border-radius:20px;">✓ Completada · ${nota}/10</span>`;
+    stat.style.display='block';
+    const arrow=document.getElementById(`hub-a${i}-arrow`);
+    arrow.textContent='✓';arrow.style.color=col;
+  });
+  if(scores.a1!==null&&scores.a2!==null&&scores.a3!==null){
+    const avg=((scores.a1+scores.a2+scores.a3)/3*10);
+    document.getElementById('hub-final').style.display='block';
+    document.getElementById('hub-final-nota').textContent=avg.toFixed(1)+'/10';
+    const msg=avg>=9?'Excel·lent! 🎉':avg>=7?'Molt bé! 👏':avg>=5?'Aprovat. Segueix practicant 💪':'Cal repassar. Torna-ho a intentar.';
+    document.getElementById('hub-final-msg').textContent=msg;
+  }
+}
+function startA(n){if(n===1)initA1();else if(n===2)initA2();else initA3();}
+
+// ══════════════════════════════
+// MCQ ENGINE
+// ══════════════════════════════
+let CUR={queue:[],idx:0,correct:0,total:0,actId:'',barId:'',ctrId:'',fbId:'',endFn:null,answered:false};
+
+function startMCQ(queue,total,actId,barId,ctrId,fbId,endFn){
+  CUR={queue,idx:0,correct:0,total,actId,barId,ctrId,fbId,endFn,answered:false};
+  showScreen(actId);
+  renderQ();
+}
+
+function renderQ(){
+  CUR.answered=false;
+  const q=CUR.queue[CUR.idx];
+  document.getElementById(CUR.ctrId).textContent=`${CUR.idx+1}/${CUR.total}`;
+  document.getElementById(CUR.barId).style.width=`${(CUR.idx/CUR.total)*100}%`;
+  document.getElementById(q.qId).innerHTML=q.qHtml;
+
+  const shuffled=shuffle(q.opts.map(o=>({...o})));
+  const corrIdx=shuffled.findIndex(o=>o.correct);
+
+  const grid=document.getElementById(q.optsId);
+  grid.innerHTML='';
+  shuffled.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn'; btn.innerHTML=o.html;
+    btn.onclick=()=>selectOpt(i,corrIdx,shuffled,q);
+    grid.appendChild(btn);
+  });
+  document.getElementById(CUR.fbId).classList.remove('visible');
+}
+
+function selectOpt(idx,corrIdx,shuffled,q){
+  if(CUR.answered)return;
+  CUR.answered=true;
+  const ok=idx===corrIdx;
+  if(ok)CUR.correct++;
+  const btns=document.querySelectorAll(`#${q.optsId} .opt-btn`);
+  btns.forEach((b,i)=>{b.disabled=true;if(i===corrIdx)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');});
+  const fb=document.getElementById(CUR.fbId);
+  fb.style.background=ok?'#F0FDF4':'#FFF0F0';
+  document.getElementById(CUR.fbId+'-icon').textContent=ok?'✅':'❌';
+  document.getElementById(CUR.fbId+'-title').textContent=ok?'Correcte!':'Incorrecte';
+  document.getElementById(CUR.fbId+'-title').style.color=ok?'#16a34a':'#dc2626';
+  document.getElementById(CUR.fbId+'-exp').innerHTML=ok?q.expOk:q.expWrong;
+  fb.classList.add('visible');
+}
+
+function nextQ(){
+  document.getElementById(CUR.fbId).classList.remove('visible');
+  CUR.idx++;
+  if(CUR.idx<CUR.total)setTimeout(renderQ,300);
+  else CUR.endFn(CUR.correct/CUR.total);
+}
+
+// ══════════════════════════════
+// ACTIVITAT 1 — ARREL QUADRADA D'ENTERS
+// ══════════════════════════════
+// c: correct answer HTML, w: 3 wrong answer HTMLs, qH: question HTML, exp: explanation
+const POOL_A1_DATA=[
+  {qH:sqrtInt(4),   c:'±2', w:['2','-2','4'],        exp:'√4 = ±2, ja que 2² = (−2)² = 4. El radicand és positiu → <strong>dues arrels</strong>.'},
+  {qH:sqrtInt(9),   c:'±3', w:['3','-3','9'],        exp:'√9 = ±3, ja que 3² = (−3)² = 9.'},
+  {qH:sqrtInt(16),  c:'±4', w:['4','-4','8'],        exp:'√16 = ±4, ja que 4² = (−4)² = 16.'},
+  {qH:sqrtInt(25),  c:'±5', w:['5','-5','25'],       exp:'√25 = ±5, ja que 5² = (−5)² = 25.'},
+  {qH:sqrtInt(36),  c:'±6', w:['6','-6','12'],       exp:'√36 = ±6, ja que 6² = (−6)² = 36.'},
+  {qH:sqrtInt(49),  c:'±7', w:['7','-7','49'],       exp:'√49 = ±7, ja que 7² = (−7)² = 49.'},
+  {qH:sqrtInt(64),  c:'±8', w:['8','-8','32'],       exp:'√64 = ±8, ja que 8² = (−8)² = 64.'},
+  {qH:sqrtInt(81),  c:'±9', w:['9','-9','81'],       exp:'√81 = ±9, ja que 9² = (−9)² = 81.'},
+  {qH:sqrtInt(100), c:'±10',w:['10','-10','100'],    exp:'√100 = ±10, ja que 10² = (−10)² = 100.'},
+  {qH:sqrtInt(121), c:'±11',w:['11','-11','121'],    exp:'√121 = ±11, ja que 11² = (−11)² = 121.'},
+  {qH:sqrtInt(144), c:'±12',w:['12','-12','72'],     exp:'√144 = ±12, ja que 12² = (−12)² = 144.'},
+  {qH:sqrtInt(0),   c:'0',  w:['±1','1','No existeix en ℚ'], exp:'√0 = 0, l\'única arrel del zero és el propi zero.'},
+  {qH:sqrtInt(-4),  c:'No existeix en ℚ', w:['±2','2','-2'],  exp:'El radicand és <strong>negatiu</strong>: cap nombre al quadrat no pot donar −4. <strong>No existeix en ℚ</strong>.'},
+  {qH:sqrtInt(-9),  c:'No existeix en ℚ', w:['±3','3','-3'],  exp:'El radicand és <strong>negatiu</strong>: √(−9) no existeix en ℚ.'},
+  {qH:sqrtInt(-25), c:'No existeix en ℚ', w:['±5','5','-5'],  exp:'El radicand és <strong>negatiu</strong>: √(−25) no existeix en ℚ.'},
+  {qH:sqrtInt(169), c:'±13',w:['13','-13','169'],    exp:'√169 = ±13, ja que 13² = (−13)² = 169.'},
+  {qH:sqrtInt(196), c:'±14',w:['14','-14','196'],    exp:'√196 = ±14, ja que 14² = (−14)² = 196.'},
+  {qH:sqrtInt(225), c:'±15',w:['15','-15','225'],    exp:'√225 = ±15, ja que 15² = (−15)² = 225.'},
+  {qH:sqrtInt(-16), c:'No existeix en ℚ', w:['±4','4','-4'],  exp:'El radicand és <strong>negatiu</strong>: √(−16) no existeix en ℚ.'},
+  {qH:sqrtInt(1),   c:'±1', w:['1','-1','0'],        exp:'√1 = ±1, ja que 1² = (−1)² = 1.'},
+];
+
+function initA1(){
+  const queue=pickN(POOL_A1_DATA,15).map(item=>({
+    qId:'a1-q', optsId:'a1-opts', qHtml:item.qH,
+    opts:[
+      {html:item.c,correct:true},
+      {html:item.w[0],correct:false},
+      {html:item.w[1],correct:false},
+      {html:item.w[2],correct:false},
+    ],
+    expOk:`Correcte! ${item.exp}`,
+    expWrong:`La resposta és <strong>${item.c}</strong>. ${item.exp}`,
+  }));
+  startMCQ(queue,15,'screen-a1','a1-bar','a1-ctr','fb-a1',s=>{scores.a1=s;updateHub();showScreen('screen-hub');});
+}
+
+// ══════════════════════════════
+// ACTIVITAT 2 — ARREL DE FRACCIÓ
+// ══════════════════════════════
+// {qH, c_n, c_d (0=integer), c_sign ('±','','-'), w: [[n,d,sign]x3]}
+const POOL_A2_DATA=[
+  {qH:sqrtFrac(1,4),   cn:1,cd:2,cs:'±', w:[[1,2,''],[1,2,'-'],[1,4,'±']]},
+  {qH:sqrtFrac(4,9),   cn:2,cd:3,cs:'±', w:[[2,3,''],[2,9,'±'],[4,9,'±']]},
+  {qH:sqrtFrac(9,16),  cn:3,cd:4,cs:'±', w:[[3,4,''],[3,8,'±'],[9,16,'±']]},
+  {qH:sqrtFrac(25,36), cn:5,cd:6,cs:'±', w:[[5,6,''],[5,36,'±'],[25,36,'±']]},
+  {qH:sqrtFrac(1,9),   cn:1,cd:3,cs:'±', w:[[1,3,''],[1,9,'±'],[3,1,'±']]},
+  {qH:sqrtFrac(4,25),  cn:2,cd:5,cs:'±', w:[[2,5,''],[4,25,'±'],[2,25,'±']]},
+  {qH:sqrtFrac(16,81), cn:4,cd:9,cs:'±', w:[[4,9,''],[4,81,'±'],[8,9,'±']]},
+  {qH:sqrtFrac(9,100), cn:3,cd:10,cs:'±',w:[[3,10,''],[9,100,'±'],[3,100,'±']]},
+  {qH:sqrtFrac(49,100),cn:7,cd:10,cs:'±',w:[[7,10,''],[7,100,'±'],[49,100,'±']]},
+  {qH:sqrtFrac(1,16),  cn:1,cd:4,cs:'±', w:[[1,4,''],[1,16,'±'],[4,1,'±']]},
+  {qH:sqrtFrac(25,4),  cn:5,cd:2,cs:'±', w:[[5,2,''],[25,4,'±'],[5,4,'±']]},
+  {qH:sqrtFrac(36,49), cn:6,cd:7,cs:'±', w:[[6,7,''],[36,49,'±'],[6,49,'±']]},
+  {qH:sqrtFrac(16,25), cn:4,cd:5,cs:'±', w:[[4,5,''],[4,25,'±'],[16,25,'±']]},
+  {qH:sqrtFrac(9,4),   cn:3,cd:2,cs:'±', w:[[3,2,''],[9,4,'±'],[3,4,'±']]},
+  {qH:sqrtFrac(81,100),cn:9,cd:10,cs:'±',w:[[9,10,''],[81,100,'±'],[9,100,'±']]},
+];
+
+function makeOpt(n,d,sign){
+  const fh=d?frac(n,d):String(n);
+  if(sign==='±') return `±${fh}`;
+  if(sign==='-') return `−${fh}`;
+  return fh;
+}
+
+function initA2(){
+  const queue=pickN(POOL_A2_DATA,12).map(item=>{
+    const cHtml=makeOpt(item.cn,item.cd,item.cs);
+    const ns=`√${item.cn} = ${item.cs}${item.cn}`;
+    return {
+      qId:'a2-q', optsId:'a2-opts', qHtml:item.qH,
+      opts:[
+        {html:cHtml,correct:true},
+        {html:makeOpt(item.w[0][0],item.w[0][1],item.w[0][2]),correct:false},
+        {html:makeOpt(item.w[1][0],item.w[1][1],item.w[1][2]),correct:false},
+        {html:makeOpt(item.w[2][0],item.w[2][1],item.w[2][2]),correct:false},
+      ],
+      expOk:`Correcte! Arrel del numerador i del denominador per separat: la resposta és <strong>${cHtml}</strong>.`,
+      expWrong:`Cal fer √numerador / √denominador. La resposta és <strong>${cHtml}</strong>. Recorda: l'arrel d'una fracció és l'arrel del numerador dividida per l'arrel del denominador.`,
+    };
+  });
+  startMCQ(queue,12,'screen-a2','a2-bar','a2-ctr','fb-a2',s=>{scores.a2=s;updateHub();showScreen('screen-hub');});
+}
+
+// ══════════════════════════════
+// ACTIVITAT 3 — ARREL CÚBICA
+// ══════════════════════════════
+const POOL_A3_DATA=[
+  {qH:cbrtDisp(1),   c:'1',  w:['-1','3','1/3'],    exp:'1³ = 1 → ∛1 = <strong>1</strong>. L\'arrel cúbica sempre té una única solució.'},
+  {qH:cbrtDisp(8),   c:'2',  w:['-2','4','8/3'],    exp:'2³ = 8 → ∛8 = <strong>2</strong>.'},
+  {qH:cbrtDisp(27),  c:'3',  w:['-3','9','27/3'],   exp:'3³ = 27 → ∛27 = <strong>3</strong>.'},
+  {qH:cbrtDisp(64),  c:'4',  w:['-4','8','16'],     exp:'4³ = 64 → ∛64 = <strong>4</strong>.'},
+  {qH:cbrtDisp(125), c:'5',  w:['-5','25','15'],    exp:'5³ = 125 → ∛125 = <strong>5</strong>.'},
+  {qH:cbrtDisp(-1),  c:'−1', w:['1','-3','No existeix en ℚ'], exp:'(−1)³ = −1 → ∛(−1) = <strong>−1</strong>. Les arrels cúbiques de negatius sí que existeixen!'},
+  {qH:cbrtDisp(-8),  c:'−2', w:['2','-4','-8/3'],  exp:'(−2)³ = −8 → ∛(−8) = <strong>−2</strong>.'},
+  {qH:cbrtDisp(-27), c:'−3', w:['3','-9','-27/3'], exp:'(−3)³ = −27 → ∛(−27) = <strong>−3</strong>.'},
+  {qH:cbrtDisp(-64), c:'−4', w:['4','-8','-16'],   exp:'(−4)³ = −64 → ∛(−64) = <strong>−4</strong>.'},
+  {qH:cbrtDisp(-125),c:'−5', w:['5','-25','-15'],  exp:'(−5)³ = −125 → ∛(−125) = <strong>−5</strong>.'},
+  {qH:cbrtDisp(1,8),  c:frac(1,2), w:[frac(1,4),frac(3,8),frac(1,6)], exp:`${frac(1,2)}³ = ${frac(1,8)} → ∛${frac(1,8)} = <strong>${frac(1,2)}</strong>.`},
+  {qH:cbrtDisp(8,27), c:frac(2,3), w:[frac(2,9),frac(8,27),frac(4,9)], exp:`${frac(2,3)}³ = ${frac(8,27)} → ∛${frac(8,27)} = <strong>${frac(2,3)}</strong>.`},
+  {qH:cbrtDisp(1,27), c:frac(1,3), w:[frac(1,9),frac(3,1),frac(1,6)], exp:`${frac(1,3)}³ = ${frac(1,27)} → ∛${frac(1,27)} = <strong>${frac(1,3)}</strong>.`},
+  {qH:cbrtDisp(27,8), c:frac(3,2), w:[frac(9,4),frac(3,4),frac(27,8)], exp:`${frac(3,2)}³ = ${frac(27,8)} → ∛${frac(27,8)} = <strong>${frac(3,2)}</strong>.`},
+  {qH:cbrtDisp(-8,27),c:`−${frac(2,3)}`, w:[frac(2,3),`−${frac(8,27)}`,`−${frac(2,9)}`], exp:`(−${frac(2,3)})³ = −${frac(8,27)} → ∛(−${frac(8,27)}) = <strong>−${frac(2,3)}</strong>.`},
+];
+
+function initA3(){
+  const queue=pickN(POOL_A3_DATA,12).map(item=>({
+    qId:'a3-q', optsId:'a3-opts', qHtml:item.qH,
+    opts:[
+      {html:item.c,correct:true},
+      {html:item.w[0],correct:false},
+      {html:item.w[1],correct:false},
+      {html:item.w[2],correct:false},
+    ],
+    expOk:`Correcte! ${item.exp}`,
+    expWrong:`La resposta és <strong>${item.c}</strong>. ${item.exp}`,
+  }));
+  startMCQ(queue,12,'screen-a3','a3-bar','a3-ctr','fb-a3',s=>{scores.a3=s;updateHub();showScreen('screen-hub');});
+}
+</script>
+</body>
+</html>
