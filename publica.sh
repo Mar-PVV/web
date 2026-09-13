@@ -1,100 +1,101 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────────────────
-#  publica.sh — copia els PDF publicables dels repos privats al repo web públic
+#  publica.sh — prepara la web pública a partir dels repositoris privats
 #
-#  Els repos 3ESO_26-27 i 1BTX_26-27 són PRIVATS: la GitHub Page no hi pot
-#  accedir. Aquest script copia només els PDF que han de ser públics dins de
-#  web/pdf/, que sí que es publica.
+#  Els repos 3ESO_26-27 i 1BTX_26-27 són PRIVATS: una GitHub Page no hi pot
+#  accedir. Aquest script hi busca els PDF publicables, els copia a web/pdf/
+#  i genera web/assets/dades.js, que és el que fa servir la web per muntar
+#  la llista de temes. Si afegeixes un document nou, torna a executar-lo.
 #
-#  Ús:   ./publica.sh            (copia i mostra el resum)
-#        ./publica.sh --dry      (només mostra què copiaria)
+#  Ús:  ./publica.sh          copia i genera
+#       ./publica.sh --dry    mostra què faria, sense tocar res
 # ─────────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
 BASE="$(cd "$(dirname "$0")/.." && pwd)"
 WEB="$BASE/web"
-DRY=0
-[ "${1:-}" = "--dry" ] && DRY=1
+DRY=0; [ "${1:-}" = "--dry" ] && DRY=1
 
 # ── Què es publica ───────────────────────────────────────────────────────────
-# Afegeix o treu tipus d'aquestes llistes per canviar què surt a la web.
-TIPUS_3ESO=("Apunts" "Activitats" "Quadern de classe")
-TIPUS_1BTX=("Apunts" "Activitats")
-# Posa PUBLICA_SOLUCIONS=1 si vols publicar també els solucionaris.
-PUBLICA_SOLUCIONS=0
+# Afegeix o treu tipus de document d'aquestes llistes. L'ordre és el que
+# sortirà a la web. Tot el que no hi surti es queda als repositoris privats.
+TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
+TIPUS_BATX=("Apunts" "Activitats")
 
-copiats=0
-saltats=0
+python3 - "$BASE" "$WEB" "$DRY" "${#TIPUS_3ESO[@]}" "${TIPUS_3ESO[@]}" "${TIPUS_BATX[@]}" <<'PY'
+import json, os, re, shutil, sys
+from datetime import date
 
-copia_curs () {
-  local repo="$1" destdir="$2"; shift 2
-  local tipus=("$@")
-  [ -d "$BASE/$repo" ] || { echo "  ⚠️  no trobo $repo"; return; }
+base, web, dry, n3 = sys.argv[1], sys.argv[2], sys.argv[3] == "1", int(sys.argv[4])
+tipus = {"3eso": sys.argv[5:5 + n3], "batx": sys.argv[5 + n3:]}
 
-  for tema in "$BASE/$repo"/[1-9]*/; do
-    [ -d "$tema" ] || continue
-    local nom; nom="$(basename "$tema")"
-    for t in "${tipus[@]}"; do
-      while IFS= read -r -d '' pdf; do
-        local out="$WEB/pdf/$destdir/$nom/$(basename "$pdf")"
-        if [ $DRY -eq 1 ]; then
-          echo "  · $destdir/$nom/$(basename "$pdf")"
-        else
-          mkdir -p "$(dirname "$out")"
-          cp "$pdf" "$out"
-        fi
-        copiats=$((copiats+1))
-      done < <(find "$tema" -maxdepth 3 -name "$t - *.pdf" -not -path "*/original*" -print0)
-    done
-    if [ "$PUBLICA_SOLUCIONS" = "1" ]; then
-      while IFS= read -r -d '' pdf; do
-        local out="$WEB/pdf/$destdir/$nom/$(basename "$pdf")"
-        [ $DRY -eq 1 ] || { mkdir -p "$(dirname "$out")"; cp "$pdf" "$out"; }
-        copiats=$((copiats+1))
-      done < <(find "$tema" -maxdepth 3 -name "Solucions - *.pdf" -not -path "*/original*" -print0)
-    fi
-  done
+CURSOS = {
+    "3eso": {"repo": "3ESO_26-27", "nom": "3r d'ESO"},
+    "batx": {"repo": "1BTX_26-27", "nom": "1r de batxillerat"},
 }
+COLORS = ["#A8CEFA", "#FFE2FF", "#FFAC78", "#7AD5CC", "#FFD576",
+          "#CAE8C8", "#E8E2FF", "#F99EB5", "#FFD6C9"]
 
-copia_interactives () {
-  local repo="$1" destdir="$2"
-  [ -d "$BASE/$repo" ] || return
-  while IFS= read -r -d '' f; do
-    local tema; tema="$(basename "$(dirname "$(dirname "$f")")")"
-    local out="$WEB/interactives/$destdir/$tema/$(basename "$f")"
-    if [ $DRY -eq 1 ]; then echo "  · interactives/$destdir/$tema/$(basename "$f")"
-    else mkdir -p "$(dirname "$out")"; cp "$f" "$out"; fi
-    copiats=$((copiats+1))
-  done < <(find "$BASE/$repo"/[1-9]*/"8 Activitats interactives" -name "*.html" -print0 2>/dev/null)
-}
+def mida(n):
+    return f"{n/1048576:.1f} MB".replace(".", ",") if n >= 1048576 else f"{max(1, round(n/1024))} kB"
 
+dades = {"generat": date.today().strftime("%d/%m/%Y"), "cursos": {}}
+total = 0
 
-copia_avaluacio () {
-  local repo="$1" destdir="$2"
-  [ -d "$BASE/$repo/0 Avaluació" ] || return
-  while IFS= read -r -d '' pdf; do
-    local out="$WEB/pdf/$destdir/avaluacio/$(basename "$pdf")"
-    if [ $DRY -eq 1 ]; then echo "  · $destdir/avaluacio/$(basename "$pdf")"
-    else mkdir -p "$(dirname "$out")"; cp "$pdf" "$out"; fi
-    copiats=$((copiats+1))
-  done < <(find "$BASE/$repo/0 Avaluació" -name "*.pdf" ! -name "main.pdf" -print0)
-}
+for clau, info in CURSOS.items():
+    arrel = os.path.join(base, info["repo"])
+    temes = []
+    if not os.path.isdir(arrel):
+        print(f"  ⚠️  no trobo {info['repo']}")
+        dades["cursos"][clau] = {"nom": info["nom"], "temes": temes}
+        continue
 
-echo "════════════════════════════════════════════════"
-echo "  Publicant material → web/"
-[ $DRY -eq 1 ] && echo "  (simulació: no es copia res)"
-echo "════════════════════════════════════════════════"
+    for carpeta in sorted(os.listdir(arrel)):
+        m = re.match(r"^([1-9])\s+(.+)$", carpeta)
+        if not m or not os.path.isdir(os.path.join(arrel, carpeta)):
+            continue
+        num, nom = int(m.group(1)), m.group(2)
+
+        # tots els PDF del tema, indexats pel tipus (el text abans del primer " - ")
+        trobats = {}
+        for dirpath, dirnames, filenames in os.walk(os.path.join(arrel, carpeta)):
+            dirnames[:] = [d for d in dirnames if not d.startswith("original")]
+            for f in filenames:
+                if not f.endswith(".pdf") or " - " not in f:
+                    continue
+                trobats.setdefault(f.split(" - ")[0], os.path.join(dirpath, f))
+
+        docs = []
+        for t in tipus[clau]:
+            src = trobats.get(t)
+            if not src:
+                continue
+            rel = f"pdf/{clau}/{carpeta}/{os.path.basename(src)}"
+            dst = os.path.join(web, rel)
+            if not dry:
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                shutil.copy2(src, dst)
+            etiqueta = "Activitats" if t == "Activitats amb solucions" else t
+            docs.append({"tipus": etiqueta, "fitxer": rel, "mida": mida(os.path.getsize(src))})
+            total += 1
+
+        temes.append({"num": num, "nom": nom,
+                      "color": COLORS[(num - 1) % len(COLORS)], "docs": docs})
+        estat = ", ".join(d["tipus"] for d in docs) or "sense material publicable"
+        print(f"  · {num} {nom}: {estat}")
+
+    dades["cursos"][clau] = {"nom": info["nom"], "temes": temes}
+
+js = "/* Generat per publica.sh — no editar a mà */\nwindow.DADES = " + \
+     json.dumps(dades, ensure_ascii=False, indent=2) + ";\n"
+if not dry:
+    os.makedirs(os.path.join(web, "assets"), exist_ok=True)
+    with open(os.path.join(web, "assets", "dades.js"), "w", encoding="utf-8") as fh:
+        fh.write(js)
+
+print()
+print(f"✓ {total} PDF publicats" + (" (simulació: no s'ha copiat res)" if dry else ""))
+PY
+
 echo ""
-echo "▸ 3r ESO  (${TIPUS_3ESO[*]})"
-copia_curs "3ESO_26-27" "3eso" "${TIPUS_3ESO[@]}"
-echo "▸ 1r BTX  (${TIPUS_1BTX[*]})"
-copia_curs "1BTX_26-27" "1btx" "${TIPUS_1BTX[@]}"
-echo "▸ Criteris d'avaluació"
-copia_avaluacio "3ESO_26-27" "3eso"
-copia_avaluacio "1BTX_26-27" "1btx"
-echo "▸ Activitats interactives"
-copia_interactives "3ESO_26-27" "3eso"
-echo ""
-echo "✓ $copiats fitxers publicats a web/pdf i web/interactives"
-[ $DRY -eq 1 ] || echo ""
-[ $DRY -eq 1 ] || echo "Ara: cd \"$WEB\" && git add -A && git commit -m 'Actualitza material' && git push"
+[ $DRY -eq 1 ] || echo "Ara:  cd \"$WEB\" && git add -A && git commit -m 'Actualitza material' && git push"

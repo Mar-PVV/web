@@ -1,26 +1,33 @@
-# Web · Matemàtiques · Mar Vidal Segura
+# Web · Matemàtiques · INS Pere Vives
 
-Repositori **públic** que publica la GitHub Page amb el material de matemàtiques
-de l'INS Pere Vives (3r d'ESO i 1r de batxillerat).
+Repositori **públic** que publica la GitHub Page amb els materials de matemàtiques
+de 3r d'ESO i 1r de batxillerat.
 
-**Autoria:** Mar Vidal Segura · Departament de Matemàtiques
+**Autoria:** Mar Vidal Segura · Departament de Matemàtiques · INS Pere Vives
 **Llicència del material:** CC BY-NC-SA 4.0
+
+---
+
+## Què és
+
+Un catàleg obert de material. Portada → tries curs → tries tema → descarregues
+el PDF. Res més: ni seguiment, ni zona privada, ni material d'avaluació.
 
 ---
 
 ## Per què existeix aquest repositori
 
 Els repositoris de material (`3ESO_26-27` i `1BTX_26-27`) són **privats**: hi ha
-els `.tex`, els exàmens i el material de treball. Una GitHub Page **només pot servir
-fitxers del seu propi repositori**, així que no pot enllaçar res d'un repo privat
-(els visitants rebrien un 404).
+els `.tex`, els exàmens i tot el material de treball. Una GitHub Page **només pot
+servir fitxers del seu propi repositori**, així que no pot enllaçar res d'un repo
+privat (els visitants rebrien un 404).
 
-La solució és aquest repositori públic, que conté **només els PDF que han de ser
-públics**. L'script [`publica.sh`](publica.sh) els copia dels repos privats.
+Per això existeix aquest repositori públic, que conté **només els PDF que han de
+ser públics**. L'script [`publica.sh`](publica.sh) els hi copia.
 
 ```
    3ESO_26-27 (privat)  ─┐
-                         ├─→  publica.sh  ─→  web/pdf/  ─→  GitHub Page (pública)
+                         ├─→  publica.sh  ─→  web/  ─→  GitHub Page (pública)
    1BTX_26-27 (privat)  ─┘
 ```
 
@@ -30,22 +37,23 @@ públics**. L'script [`publica.sh`](publica.sh) els copia dels repos privats.
 
 ```
 web/
-├── index.html              PORTADA · Portal Professora (els dos cursos)
-├── professor-3eso.html     portal de 3r d'ESO
-├── professor-batx.html     portal de 1r de batxillerat
-├── alumnes/                zona de l'alumnat
-│   ├── index.html          hub d'activitats interactives
-│   └── tema-1.html … tema-9.html
-├── interactives/           les activitats interactives (HTML)
-│   └── 3eso/<tema>/
-├── pdf/                    ← generat per publica.sh (no editar a mà)
-│   ├── 3eso/<tema>/        Apunts, Activitats, Quadern de classe
-│   ├── 3eso/avaluacio/
-│   ├── 1btx/<tema>/        Apunts, Activitats
-│   └── 1btx/avaluacio/
-├── docs/                   documentació del projecte web
+├── index.html          portada · tria de curs
+├── 3eso.html           temes i material de 3r d'ESO
+├── batx.html           temes i material de 1r de batxillerat
+├── assets/
+│   ├── estil.css       full d'estil (imatge de marca)
+│   ├── web.js          munta la llista de temes
+│   ├── dades.js        ← GENERAT per publica.sh · no editar a mà
+│   └── logo.png
+├── pdf/                ← GENERAT per publica.sh · no editar a mà
+│   ├── 3eso/<tema>/
+│   └── batx/<tema>/
 └── publica.sh
 ```
+
+Les tres pàgines no tenen cap tema escrit a dins: es munten a partir de
+`assets/dades.js`, que `publica.sh` genera llegint els repositoris. Afegir un
+document nou és crear el PDF al repo privat i tornar a executar l'script.
 
 ---
 
@@ -54,8 +62,8 @@ web/
 Des de la carpeta `web/`:
 
 ```bash
-./publica.sh --dry     # veure què copiaria, sense tocar res
-./publica.sh           # copiar els PDF actualitzats
+./publica.sh --dry     # veure què faria, sense tocar res
+./publica.sh           # copiar els PDF i regenerar dades.js
 git add -A && git commit -m "Actualitza material" && git push
 ```
 
@@ -66,32 +74,40 @@ GitHub torna a construir la Page automàticament (triga 1-2 minuts).
 A dalt de `publica.sh`:
 
 ```bash
-TIPUS_3ESO=("Apunts" "Activitats" "Quadern de classe")
-TIPUS_1BTX=("Apunts" "Activitats")
-PUBLICA_SOLUCIONS=0     # posa 1 per publicar també els solucionaris
+TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
+TIPUS_BATX=("Apunts" "Activitats")
 ```
 
-Tot el que no surti en aquestes llistes **es queda als repos privats**: exàmens,
-Els essencials, Quadern pas a pas, Aprofundiment, Thinking Classroom, fonts `.tex`.
+L'ordre de la llista és l'ordre en què surten els documents a la web. Tot el que
+no hi consti **es queda al repositori privat**: exàmens, Els essencials, Quadern
+pas a pas, Aprofundiment, Thinking Classroom, material d'avaluació i les fonts `.tex`.
+
+### Com troba els PDF
+
+Busca dins de cada carpeta de tema (`1 Nombres racionals/`, …) qualsevol PDF
+anomenat `<Tipus> - <Tema>.pdf`, sigui a la subcarpeta que sigui. Per això és
+important mantenir la nomenclatura dels PDF als repositoris de material.
+Les carpetes `original*/` s'ignoren.
 
 ---
 
-## Públic de la web
+## Imatge de marca
 
-| Qui | Què hi busca |
+| | |
 |---|---|
-| Alumnat de 1r de batxillerat | apunts i activitats per consultar a casa |
-| Altres docents del centre | veure i reutilitzar el material (CC BY-NC-SA) |
-| Jo mateixa | tauler de seguiment dels dos cursos |
+| Color d'identitat | blau acer `#39698C` |
+| Fons | `#F8F7F4` · targetes `#FFFFFF` |
+| Títols | Poppins (600/700/800) |
+| Text | Work Sans (400/500/600) |
+| Color de cada tema | la paleta de `0 Estil i plantilles/Imatge de marca/` |
 
-L'alumnat de 3r d'ESO rep el material pel **Classroom**; aquí hi és sobretot
-perquè el puguin consultar altres docents.
+El full d'estil és `assets/estil.css` i les variables de color són a `:root`.
 
 ---
 
 ## Activar la GitHub Page
 
 1. Puja aquest repositori a GitHub com a **públic**.
-2. *Settings → Pages → Source: Deploy from a branch → `main` / `(root)`*.
+2. *Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save.*
 3. La web quedarà a `https://mar-pvv.github.io/web/`
-   (si el repositori es diu `mar-pvv.github.io`, la URL serà `https://mar-pvv.github.io/`).
+   (si el repositori es diu `Mar-PVV.github.io`, la URL serà `https://mar-pvv.github.io/`).
