@@ -44,6 +44,14 @@ COLORS = ["#A8CEFA", "#FFE2FF", "#FFAC78", "#7AD5CC", "#FFD576",
 def mida(n):
     return f"{n/1048576:.1f} MB".replace(".", ",") if n >= 1048576 else f"{max(1, round(n/1024))} kB"
 
+# neteja els PDF antics (noms de tema que ja no existeixen)
+if not dry:
+    import shutil as _sh
+    for c in CURSOS:
+        d = os.path.join(web, "pdf", c)
+        if os.path.isdir(d):
+            _sh.rmtree(d)
+
 dades = {"generat": date.today().strftime("%d/%m/%Y"), "cursos": {}}
 total = 0
 

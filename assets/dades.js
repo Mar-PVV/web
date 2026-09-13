@@ -210,35 +210,35 @@ window.DADES = {
       "temes": [
         {
           "num": 1,
-          "nom": "Successions",
+          "nom": "Successions i límits de successions",
           "color": "#A8CEFA",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/1 Successions/Apunts - Successions.pdf",
-              "mida": "425 kB"
+              "fitxer": "pdf/batx/1 Successions i límits de successions/Apunts - Successions i límits de successions.pdf",
+              "mida": "26 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/1 Successions/Activitats - Successions.pdf",
-              "mida": "137 kB"
+              "fitxer": "pdf/batx/1 Successions i límits de successions/Activitats - Successions i límits de successions.pdf",
+              "mida": "138 kB"
             }
           ],
           "enLinia": 12
         },
         {
           "num": 2,
-          "nom": "Funcions i domini",
+          "nom": "Funcions",
           "color": "#FFE2FF",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/2 Funcions i domini/Apunts - Funcions i domini.pdf",
+              "fitxer": "pdf/batx/2 Funcions/Apunts - Funcions.pdf",
               "mida": "270 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/2 Funcions i domini/Activitats - Funcions i domini.pdf",
+              "fitxer": "pdf/batx/2 Funcions/Activitats - Funcions.pdf",
               "mida": "231 kB"
             }
           ],
@@ -246,107 +246,89 @@ window.DADES = {
         },
         {
           "num": 3,
-          "nom": "Límits de funcions",
+          "nom": "Límits i continuïtat de funcions",
           "color": "#FFAC78",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/3 Límits de funcions/Apunts - Límits de funcions.pdf",
-              "mida": "240 kB"
+              "fitxer": "pdf/batx/3 Límits i continuïtat de funcions/Apunts - Límits i continuïtat de funcions.pdf",
+              "mida": "304 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/3 Límits de funcions/Activitats - Límits de funcions.pdf",
-              "mida": "160 kB"
+              "fitxer": "pdf/batx/3 Límits i continuïtat de funcions/Activitats - Límits i continuïtat de funcions.pdf",
+              "mida": "188 kB"
             }
           ],
-          "enLinia": 15
+          "enLinia": 28
         },
         {
           "num": 4,
-          "nom": "Continuïtat i representació",
+          "nom": "Funcions exponencials i logarítmiques",
           "color": "#7AD5CC",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/4 Continuïtat i representació/Apunts - Continuïtat i representació.pdf",
-              "mida": "220 kB"
-            },
-            {
-              "tipus": "Activitats",
-              "fitxer": "pdf/batx/4 Continuïtat i representació/Activitats - Continuïtat i representació.pdf",
-              "mida": "143 kB"
-            }
-          ],
-          "enLinia": 13
-        },
-        {
-          "num": 5,
-          "nom": "Exponencials i logaritmes",
-          "color": "#FFD576",
-          "docs": [
-            {
-              "tipus": "Apunts",
-              "fitxer": "pdf/batx/5 Exponencials i logaritmes/Apunts - Exponencials i logaritmes.pdf",
+              "fitxer": "pdf/batx/4 Funcions exponencials i logarítmiques/Apunts - Funcions exponencials i logarítmiques.pdf",
               "mida": "211 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/5 Exponencials i logaritmes/Activitats - Exponencials i logaritmes.pdf",
-              "mida": "168 kB"
+              "fitxer": "pdf/batx/4 Funcions exponencials i logarítmiques/Activitats - Funcions exponencials i logarítmiques.pdf",
+              "mida": "2 kB"
             }
           ],
           "enLinia": 18
         },
         {
-          "num": 6,
-          "nom": "Trigonometria",
-          "color": "#CAE8C8",
+          "num": 5,
+          "nom": "Funcions trigonomètriques",
+          "color": "#FFD576",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/6 Trigonometria/Apunts - Trigonometria.pdf",
+              "fitxer": "pdf/batx/5 Funcions trigonomètriques/Apunts - Funcions trigonomètriques.pdf",
               "mida": "216 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/6 Trigonometria/Activitats - Trigonometria.pdf",
+              "fitxer": "pdf/batx/5 Funcions trigonomètriques/Activitats - Funcions trigonomètriques.pdf",
               "mida": "141 kB"
             }
           ],
           "enLinia": 15
         },
         {
-          "num": 7,
-          "nom": "Rectes en el pla",
-          "color": "#E8E2FF",
+          "num": 6,
+          "nom": "Vectors i rectes en el pla",
+          "color": "#CAE8C8",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/7 Rectes en el pla/Apunts - Rectes en el pla.pdf",
+              "fitxer": "pdf/batx/6 Vectors i rectes en el pla/Apunts - Vectors i rectes en el pla.pdf",
               "mida": "167 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/7 Rectes en el pla/Activitats - Rectes en el pla.pdf",
+              "fitxer": "pdf/batx/6 Vectors i rectes en el pla/Activitats - Vectors i rectes en el pla.pdf",
               "mida": "165 kB"
             }
           ],
           "enLinia": 20
         },
         {
-          "num": 8,
+          "num": 7,
           "nom": "Probabilitat",
-          "color": "#F99EB5",
+          "color": "#E8E2FF",
           "docs": [
             {
               "tipus": "Apunts",
-              "fitxer": "pdf/batx/8 Probabilitat/Apunts - Probabilitat.pdf",
-              "mida": "188 kB"
+              "fitxer": "pdf/batx/7 Probabilitat/Apunts - Probabilitat.pdf",
+              "mida": "187 kB"
             },
             {
               "tipus": "Activitats",
-              "fitxer": "pdf/batx/8 Probabilitat/Activitats - Probabilitat.pdf",
+              "fitxer": "pdf/batx/7 Probabilitat/Activitats - Probabilitat.pdf",
               "mida": "144 kB"
             }
           ],

@@ -2,8 +2,8 @@
  "temes": [
   {
    "num": 1,
-   "nom": "Successions",
-   "carpeta": "1 Successions",
+   "nom": "Successions i límits de successions",
+   "carpeta": "1 Successions i límits de successions",
    "seccions": [
     {
      "titol": "Concepte de successió",
@@ -236,8 +236,8 @@
   },
   {
    "num": 2,
-   "nom": "Funcions i domini",
-   "carpeta": "2 Funcions i domini",
+   "nom": "Funcions",
+   "carpeta": "2 Funcions",
    "seccions": [
     {
      "titol": "Concepte de funció",
@@ -871,8 +871,8 @@
   },
   {
    "num": 3,
-   "nom": "Límits de funcions",
-   "carpeta": "3 Límits de funcions",
+   "nom": "Límits i continuïtat de funcions",
+   "carpeta": "3 Límits i continuïtat de funcions",
    "seccions": [
     {
      "titol": "Límit d'una funció a l'infinit",
@@ -1146,19 +1146,12 @@
        "solucioParts": []
       }
      ]
-    }
-   ]
-  },
-  {
-   "num": 4,
-   "nom": "Continuïtat i representació",
-   "carpeta": "4 Continuïtat i representació",
-   "seccions": [
+    },
     {
      "titol": "Assímptotes",
      "exercicis": [
       {
-       "num": 1,
+       "num": 16,
        "nivell": 1,
        "enunciat": "Troba les assímptotes verticals (AV) de les funcions racionals:",
        "parts": [
@@ -1180,7 +1173,7 @@
        ]
       },
       {
-       "num": 2,
+       "num": 17,
        "nivell": 1,
        "enunciat": "Troba les assímptotes horitzontals (AH):",
        "parts": [
@@ -1202,7 +1195,7 @@
        ]
       },
       {
-       "num": 3,
+       "num": 18,
        "nivell": 2,
        "enunciat": "Troba les assímptotes obliqües (AO) de les funcions (fes la divisió polinòmica):",
        "parts": [
@@ -1220,7 +1213,7 @@
        ]
       },
       {
-       "num": 4,
+       "num": 19,
        "nivell": 2,
        "enunciat": "Determina <strong>totes</strong> les assímptotes (AV, AH, AO) de les funcions:",
        "parts": [
@@ -1236,7 +1229,7 @@
        ]
       },
       {
-       "num": 5,
+       "num": 20,
        "nivell": 3,
        "enunciat": "<em>(Repte)</em> Demostra que la funció $f(x)=\\dfrac{x^2+1}{x}$ és simètrica respecte a l'assímptota obliqua $y=x$ (és a dir, que $f(x)-x$ i $x-f(x)$ donen el mateix en valor absolut a cada costat). Comprova-ho calculant els límits $\\lim_{x\\to+\\infty}[f(x)-x]$ i $\\lim_{x\\to-\\infty}[f(x)-x]$.",
        "parts": [],
@@ -1249,7 +1242,7 @@
      "titol": "Estudi del signe d'una funció",
      "exercicis": [
       {
-       "num": 6,
+       "num": 21,
        "nivell": 1,
        "enunciat": "Estudia el signe de les funcions lineals i quadràtiques:",
        "parts": [
@@ -1267,7 +1260,7 @@
        ]
       },
       {
-       "num": 7,
+       "num": 22,
        "nivell": 2,
        "enunciat": "Estudia el signe de les funcions racionals (fes la taula de signes):",
        "parts": [
@@ -1285,7 +1278,7 @@
        ]
       },
       {
-       "num": 8,
+       "num": 23,
        "nivell": 2,
        "enunciat": "Estudia el signe i determina en quins intervals $f(x) > 0$:",
        "parts": [
@@ -1299,7 +1292,7 @@
        ]
       },
       {
-       "num": 9,
+       "num": 24,
        "nivell": 3,
        "enunciat": "<em>(Repte)</em> Determina per a quins valors de $x$ es compleix la inequació:",
        "parts": [
@@ -1318,7 +1311,7 @@
      "titol": "Representació gràfica d'una funció",
      "exercicis": [
       {
-       "num": 10,
+       "num": 25,
        "nivell": 1,
        "enunciat": "Per a cada funció, troba: domini, assímptotes, punts amb els eixos i signe. No cal dibuixar la gràfica.",
        "parts": [
@@ -1332,7 +1325,7 @@
        ]
       },
       {
-       "num": 11,
+       "num": 26,
        "nivell": 2,
        "enunciat": "Fes la representació gràfica completa (seguint els 7 passos del mètode):",
        "parts": [
@@ -1346,7 +1339,7 @@
        ]
       },
       {
-       "num": 12,
+       "num": 27,
        "nivell": 2,
        "enunciat": "Fes la representació gràfica completa de:",
        "parts": [
@@ -1360,7 +1353,7 @@
        ]
       },
       {
-       "num": 13,
+       "num": 28,
        "nivell": 3,
        "enunciat": "<em>(Repte)</em> Fes la representació gràfica completa de: \\[\nf(x) = \\frac{x^2-3x+2}{x^2-4}\n\\] Determina tots els elements (domini, discontinuïtats, assímptotes, punts, signe) i esbossa la gràfica.",
        "parts": [],
@@ -1372,9 +1365,9 @@
    ]
   },
   {
-   "num": 5,
-   "nom": "Exponencials i logaritmes",
-   "carpeta": "5 Exponencials i logaritmes",
+   "num": 4,
+   "nom": "Funcions exponencials i logarítmiques",
+   "carpeta": "4 Funcions exponencials i logarítmiques",
    "seccions": [
     {
      "titol": "La funció exponencial",
@@ -1713,9 +1706,9 @@
    ]
   },
   {
-   "num": 6,
-   "nom": "Trigonometria",
-   "carpeta": "6 Trigonometria",
+   "num": 5,
+   "nom": "Funcions trigonomètriques",
+   "carpeta": "5 Funcions trigonomètriques",
    "seccions": [
     {
      "titol": "La circumferència goniomètrica",
@@ -2019,9 +2012,9 @@
    ]
   },
   {
-   "num": 7,
-   "nom": "Rectes en el pla",
-   "carpeta": "7 Rectes en el pla",
+   "num": 6,
+   "nom": "Vectors i rectes en el pla",
+   "carpeta": "6 Vectors i rectes en el pla",
    "seccions": [
     {
      "titol": "Vectors en el pla",
@@ -2356,9 +2349,9 @@
    ]
   },
   {
-   "num": 8,
+   "num": 7,
    "nom": "Probabilitat",
-   "carpeta": "8 Probabilitat",
+   "carpeta": "7 Probabilitat",
    "seccions": [
     {
      "titol": "Probabilitat condicionada",
