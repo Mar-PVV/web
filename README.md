@@ -30,12 +30,13 @@ públics**. L'script [`publica.sh`](publica.sh) els copia dels repos privats.
 
 ```
 web/
-├── index.html              portada
-├── professor.html          tauler personal (els dos cursos)
+├── index.html              PORTADA · Portal Professora (els dos cursos)
 ├── professor-3eso.html     portal de 3r d'ESO
 ├── professor-batx.html     portal de 1r de batxillerat
-├── tema-1.html … tema-9.html   pàgines de tema de 3r d'ESO
-├── interactives/           activitats interactives (HTML)
+├── alumnes/                zona de l'alumnat
+│   ├── index.html          hub d'activitats interactives
+│   └── tema-1.html … tema-9.html
+├── interactives/           les activitats interactives (HTML)
 │   └── 3eso/<tema>/
 ├── pdf/                    ← generat per publica.sh (no editar a mà)
 │   ├── 3eso/<tema>/        Apunts, Activitats, Quadern de classe
