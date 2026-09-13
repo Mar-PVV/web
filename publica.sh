@@ -138,5 +138,11 @@ print()
 print(f"✓ {total} PDF publicats" + (" (simulació: no s'ha copiat res)" if dry else ""))
 PY
 
+if [ $DRY -eq 0 ]; then
+  echo ""
+  echo "▸ Empremta de versió als assets"
+  python3 "$(dirname "$0")/versiona.py"
+fi
+
 echo ""
 [ $DRY -eq 1 ] || echo "Ara:  cd \"$WEB\" && git add -A && git commit -m 'Actualitza material' && git push"

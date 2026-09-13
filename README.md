@@ -75,6 +75,20 @@ git add -A && git commit -m "Actualitza material" && git push
 
 GitHub torna a construir la Page automàticament (triga 1-2 minuts).
 
+### Si sembla que la web no s'ha actualitzat
+
+`publica.sh` posa una **empremta de versió** a cada asset
+(`assets/estil.css?v=a6cfcc15`), que canvia quan el fitxer canvia. Això obliga
+el navegador a demanar la versió nova del CSS i del JavaScript en comptes de
+servir la que té desada.
+
+L'HTML, però, el navegador també se'l guarda una estona. Si acabes de publicar
+i encara veus la versió antiga:
+
+- **Mac · Chrome:** ⌘ + ⇧ + R · **Safari:** ⌘ + ⌥ + R
+- O obre-la en una finestra privada, que és la manera fiable de veure què hi ha
+  realment publicat.
+
 ### Canviar què es publica
 
 Tot es decideix a les primeres línies de `publica.sh`:
