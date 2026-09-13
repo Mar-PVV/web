@@ -31,12 +31,6 @@
       : `<div class="tema-targeta tt-inactiva" aria-disabled="true">${cos}</div>`;
   }).join('');
 
-  const oberts = dades.temes.filter(t => !t.properament).length;
-  const sub = document.getElementById('subtitol-curs');
-  if (sub && oberts < dades.temes.length) {
-    sub.textContent = 'De moment hi ha ' + (oberts === 1 ? 'el tema 1' : oberts + ' temes')
-      + '. La resta aniran sortint a mesura que els revisi.';
-  }
 })();
 
 (function () {

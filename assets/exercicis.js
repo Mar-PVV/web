@@ -44,7 +44,7 @@
       document.title = tema.nom + ' · Activitats · Matemàtiques · INS Pere Vives';
       document.getElementById('titol').textContent = tema.nom;
       document.getElementById('subtitol').textContent =
-        tots.length + ' exercicis · obre la solució quan l\'hagis provat';
+        tots.length + ' exercicis · Obre la solució quan l\'hagis provat';
       ENLLAC_PDF.href = 'pdf/batx/' + tema.carpeta + '/Activitats - ' + tema.nom + '.pdf';
 
       // ── Contingut ───────────────────────────────────────────────────────
