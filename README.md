@@ -105,6 +105,9 @@ No és un document a part: `genera-exercicis.py` llegeix els mateixos `.tex` de
 El LaTeX continua sent l'única font — si canvies un exercici al `.tex`, torna a
 executar `publica.sh` i la web queda actualitzada.
 
+- Columna lateral amb l'**índex de seccions** (hi pots saltar directament; la secció
+  on ets queda marcada mentre fas scroll) i un **filtre per dificultat** que amaga els
+  exercicis dels nivells que desmarquis, sense canviar-ne la numeració.
 - Respecta el `main.tex`: si hi tens una secció comentada, tampoc no surt a la web
   (i l'script t'ho avisa).
 - La numeració i els punts de nivell (●○○ bàsic · ●●○ mitjà · ●●● repte) són els
