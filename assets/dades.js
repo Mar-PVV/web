@@ -223,7 +223,8 @@ window.DADES = {
               "fitxer": "pdf/batx/1 Successions/Activitats - Successions.pdf",
               "mida": "137 kB"
             }
-          ]
+          ],
+          "enLinia": 12
         },
         {
           "num": 2,
@@ -240,7 +241,8 @@ window.DADES = {
               "fitxer": "pdf/batx/2 Funcions i domini/Activitats - Funcions i domini.pdf",
               "mida": "231 kB"
             }
-          ]
+          ],
+          "enLinia": 34
         },
         {
           "num": 3,
@@ -257,7 +259,8 @@ window.DADES = {
               "fitxer": "pdf/batx/3 Límits de funcions/Activitats - Límits de funcions.pdf",
               "mida": "160 kB"
             }
-          ]
+          ],
+          "enLinia": 15
         },
         {
           "num": 4,
@@ -274,7 +277,8 @@ window.DADES = {
               "fitxer": "pdf/batx/4 Continuïtat i representació/Activitats - Continuïtat i representació.pdf",
               "mida": "143 kB"
             }
-          ]
+          ],
+          "enLinia": 13
         },
         {
           "num": 5,
@@ -291,7 +295,8 @@ window.DADES = {
               "fitxer": "pdf/batx/5 Exponencials i logaritmes/Activitats - Exponencials i logaritmes.pdf",
               "mida": "168 kB"
             }
-          ]
+          ],
+          "enLinia": 18
         },
         {
           "num": 6,
@@ -308,7 +313,8 @@ window.DADES = {
               "fitxer": "pdf/batx/6 Trigonometria/Activitats - Trigonometria.pdf",
               "mida": "141 kB"
             }
-          ]
+          ],
+          "enLinia": 15
         },
         {
           "num": 7,
@@ -325,7 +331,8 @@ window.DADES = {
               "fitxer": "pdf/batx/7 Rectes en el pla/Activitats - Rectes en el pla.pdf",
               "mida": "165 kB"
             }
-          ]
+          ],
+          "enLinia": 20
         },
         {
           "num": 8,
@@ -342,7 +349,8 @@ window.DADES = {
               "fitxer": "pdf/batx/8 Probabilitat/Activitats - Probabilitat.pdf",
               "mida": "144 kB"
             }
-          ]
+          ],
+          "enLinia": 15
         }
       ]
     }

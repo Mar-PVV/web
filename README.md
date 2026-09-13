@@ -40,15 +40,19 @@ web/
 ├── index.html          portada · tria de curs
 ├── 3eso.html           temes i material de 3r d'ESO
 ├── batx.html           temes i material de 1r de batxillerat
+├── exercicis.html      exercicis en línia (1r BTX) · ?tema=N
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
 │   ├── web.js          munta la llista de temes
-│   ├── dades.js        ← GENERAT per publica.sh · no editar a mà
+│   ├── exercicis.js    munta la pàgina d'exercicis
+│   ├── dades.js              ← GENERAT · no editar a mà
+│   ├── exercicis-batx.json   ← GENERAT · no editar a mà
 │   └── logo.png
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
 │   ├── 3eso/<tema>/
 │   └── batx/<tema>/
-└── publica.sh
+├── publica.sh          copia els PDF i regenera dades.js
+└── genera-exercicis.py converteix les activitats .tex en JSON
 ```
 
 Les tres pàgines no tenen cap tema escrit a dins: es munten a partir de
@@ -88,6 +92,27 @@ Busca dins de cada carpeta de tema (`1 Nombres racionals/`, …) qualsevol PDF
 anomenat `<Tipus> - <Tema>.pdf`, sigui a la subcarpeta que sigui. Per això és
 important mantenir la nomenclatura dels PDF als repositoris de material.
 Les carpetes `original*/` s'ignoren.
+
+---
+
+## Exercicis en línia (1r de batxillerat)
+
+Cada tema de batxillerat té, a més del PDF, una versió per fer a la pantalla amb
+les **solucions desplegables**: `exercicis.html?tema=N`.
+
+No és un document a part: `genera-exercicis.py` llegeix els mateixos `.tex` de
+`2 Activitats/` i en treu l'enunciat, els apartats i la solució de cada exercici.
+El LaTeX continua sent l'única font — si canvies un exercici al `.tex`, torna a
+executar `publica.sh` i la web queda actualitzada.
+
+- Respecta el `main.tex`: si hi tens una secció comentada, tampoc no surt a la web
+  (i l'script t'ho avisa).
+- La numeració i els punts de nivell (●○○ bàsic · ●●○ mitjà · ●●● repte) són els
+  mateixos que al PDF.
+- Les fórmules les pinta **MathJax**; el macro `\Lim` està definit a `exercicis.html`.
+  Si en crees de nous a `estil1btx.sty`, afegeix-los allà (`MathJax.tex.macros`).
+- Els gràfics fets amb TikZ/pgfplots no es poden dibuixar a la web: al seu lloc hi
+  surt un avís que remet al PDF.
 
 ---
 

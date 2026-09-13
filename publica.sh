@@ -22,6 +22,11 @@ DRY=0; [ "${1:-}" = "--dry" ] && DRY=1
 TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
 TIPUS_BATX=("Apunts" "Activitats")
 
+echo "▸ Exercicis en línia (1r BTX)"
+if [ $DRY -eq 0 ]; then python3 "$(dirname "$0")/genera-exercicis.py"; fi
+echo ""
+echo "▸ PDF per tema"
+
 python3 - "$BASE" "$WEB" "$DRY" "${#TIPUS_3ESO[@]}" "${TIPUS_3ESO[@]}" "${TIPUS_BATX[@]}" <<'PY'
 import json, os, re, shutil, sys
 from datetime import date
@@ -41,6 +46,14 @@ def mida(n):
 
 dades = {"generat": date.today().strftime("%d/%m/%Y"), "cursos": {}}
 total = 0
+
+# quins temes tenen exercicis en línia (els genera genera-exercicis.py)
+enLinia = {}
+ex_json = os.path.join(web, "assets", "exercicis-batx.json")
+if os.path.isfile(ex_json):
+    with open(ex_json, encoding="utf-8") as fh:
+        for t in json.load(fh)["temes"]:
+            enLinia[("batx", t["num"])] = sum(len(x["exercicis"]) for x in t["seccions"])
 
 for clau, info in CURSOS.items():
     arrel = os.path.join(base, info["repo"])
@@ -79,8 +92,11 @@ for clau, info in CURSOS.items():
             docs.append({"tipus": etiqueta, "fitxer": rel, "mida": mida(os.path.getsize(src))})
             total += 1
 
-        temes.append({"num": num, "nom": nom,
-                      "color": COLORS[(num - 1) % len(COLORS)], "docs": docs})
+        tema = {"num": num, "nom": nom,
+                "color": COLORS[(num - 1) % len(COLORS)], "docs": docs}
+        if enLinia.get((clau, num)):
+            tema["enLinia"] = enLinia[(clau, num)]
+        temes.append(tema)
         estat = ", ".join(d["tipus"] for d in docs) or "sense material publicable"
         print(f"  · {num} {nom}: {estat}")
 

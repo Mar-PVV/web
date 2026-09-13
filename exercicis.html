@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activitats · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Activitats de matemàtiques de 1r de batxillerat, amb les solucions desplegables.">
+<link rel="icon" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css">
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      macros: { Lim: ['\\lim\\limits_{n\\to+\\infty}', 0] }
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body data-curs="batx">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="3eso.html">3r d'ESO</a>
+      <a href="batx.html" aria-current="page">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall">
+  <div class="titol-curs">
+    <h1 id="titol">Activitats</h1>
+    <p id="subtitol">Carregant…</p>
+  </div>
+
+  <div class="barra-ex">
+    <a class="boto" href="batx.html">← Tots els temes</a>
+    <button class="boto" id="totes" hidden>Mostra totes les solucions</button>
+    <span class="creix"></span>
+    <a class="boto boto-principal" id="baixa" href="batx.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+      </svg>
+      Descarregar el PDF
+    </a>
+  </div>
+
+  <div id="contingut"></div>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/exercicis.js"></script>
+</body>
+</html>

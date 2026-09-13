@@ -222,3 +222,109 @@ a { color: var(--blau); }
   .tema-cos { padding: 0 16px 16px; }
   .tria-cos { padding: 22px 22px 20px; }
 }
+
+/* ── Exercicis en línia ────────────────────────────────────────────────── */
+
+:root {
+  --nivell-a: #3A7A55;   /* bàsic  */
+  --nivell-b: #BA7517;   /* mitjà  */
+  --nivell-c: #A32D2D;   /* repte  */
+  --punt-buit: #C9C9C5;
+}
+
+.barra-ex {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  padding: 0 0 22px;
+}
+.barra-ex .creix { flex: 1; }
+.boto {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--titol); font-weight: 600; font-size: 13.5px;
+  padding: 9px 16px; border-radius: 22px; border: 1px solid var(--vora);
+  background: var(--blanc); color: var(--text); cursor: pointer;
+  text-decoration: none; transition: background .14s, border-color .14s, color .14s;
+}
+.boto:hover { background: var(--blau-fons); border-color: #C8DAE8; color: var(--blau); }
+.boto-principal { background: var(--blau); border-color: var(--blau); color: #fff; }
+.boto-principal:hover { background: var(--blau-fosc); border-color: var(--blau-fosc); color: #fff; }
+.boto svg { width: 16px; height: 16px; }
+
+.seccio-ex { margin-bottom: 34px; }
+.seccio-ex > h2 {
+  font-family: var(--titol); font-weight: 700; font-size: 19px;
+  letter-spacing: -.01em; color: var(--blau);
+  margin: 0 0 14px; padding-bottom: 9px;
+  border-bottom: 2px solid var(--blau-fons);
+}
+
+.exercici {
+  background: var(--blanc); border: 1px solid var(--vora);
+  border-radius: var(--radi); box-shadow: var(--ombra);
+  padding: 20px 22px; margin-bottom: 14px;
+}
+.ex-cap { display: flex; align-items: baseline; gap: 11px; margin-bottom: 4px; }
+.ex-num {
+  font-family: var(--titol); font-weight: 800; font-size: 16px;
+  color: var(--blau); flex-shrink: 0;
+}
+.ex-nivell { letter-spacing: 1.5px; font-size: 11px; flex-shrink: 0; line-height: 1; }
+.ex-enunciat { flex: 1; min-width: 0; }
+.ex-enunciat p:first-child { margin-top: 0; }
+
+.ex-parts { list-style: none; margin: 12px 0 0; padding: 0; }
+.ex-parts > li {
+  display: flex; gap: 10px; padding: 4px 0;
+}
+.ex-parts > li::before {
+  content: attr(data-lletra); flex-shrink: 0;
+  font-family: var(--titol); font-weight: 700; font-size: 14px;
+  color: var(--suau); min-width: 1.35em;
+}
+.columnes { columns: 2; column-gap: 32px; }
+.columnes > li { break-inside: avoid; }
+
+.ex-solucio { margin-top: 15px; }
+.ex-solucio > summary {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  font-family: var(--titol); font-weight: 600; font-size: 13px;
+  color: var(--blau); padding: 5px 13px 5px 11px;
+  background: var(--blau-fons); border-radius: 20px;
+  list-style: none; user-select: none;
+  transition: background .14s;
+}
+.ex-solucio > summary::-webkit-details-marker { display: none; }
+.ex-solucio > summary:hover { background: #DCE9F5; }
+.ex-solucio > summary::before {
+  content: '▸'; font-size: 11px; transition: transform .18s ease;
+}
+.ex-solucio[open] > summary::before { transform: rotate(90deg); }
+.ex-solucio[open] > summary { background: var(--verd-fons); color: var(--verd); }
+.sol-cos {
+  margin-top: 11px; padding: 15px 17px;
+  background: var(--verd-fons); border-left: 3px solid var(--verd);
+  border-radius: 0 var(--radi-petit) var(--radi-petit) 0;
+  font-size: 14.5px;
+}
+.sol-cos .ex-parts { margin-top: 0; }
+.sol-cos .ex-parts > li::before { color: var(--verd); }
+
+.avis-grafic {
+  display: inline-block; padding: 1px 9px; border-radius: 14px;
+  background: #FBF6D9; color: #8A6D08; font-size: 12.5px; font-weight: 600;
+}
+.nota {
+  padding: 14px 17px; border-radius: var(--radi-petit);
+  background: #FBF6D9; color: #6E5606; font-size: 13.5px; margin-bottom: 20px;
+}
+
+mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+
+@media (max-width: 620px) {
+  .columnes { columns: 1; }
+  .exercici { padding: 16px 16px; }
+  .barra-ex { padding-bottom: 16px; }
+}
+
+.doc-destacat { background: var(--blau-fons); }
+.doc-destacat .doc-icona { color: var(--blau); border-color: #C8DAE8; }
+.doc-destacat:hover { background: #DCE9F5; border-color: #AFCBE0; }

@@ -1,0 +1,2623 @@
+{
+ "temes": [
+  {
+   "num": 1,
+   "nom": "Successions",
+   "carpeta": "1 Successions",
+   "seccions": [
+    {
+     "titol": "Concepte de successió",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Calcula els cinc primers termes de les successions següents:",
+       "parts": [
+        "$a_n = 3n - 1$",
+        "$b_n = \\dfrac{n+1}{2n}$",
+        "$c_n = (-1)^n \\cdot \\dfrac{1}{n}$",
+        "$d_n = n^2 - 2n + 1$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2,\\; 5,\\; 8,\\; 11,\\; 14$",
+        "$1,\\; \\tfrac{3}{4},\\; \\tfrac{2}{3},\\; \\tfrac{5}{8},\\; \\tfrac{3}{5}$",
+        "$-1,\\; \\tfrac{1}{2},\\; -\\tfrac{1}{3},\\; \\tfrac{1}{4},\\; -\\tfrac{1}{5}$",
+        "$0,\\; 1,\\; 4,\\; 9,\\; 16$"
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Calcula els quatre primers termes de les successions donades per llei de recurrència:",
+       "parts": [
+        "$a_1 = 5$,  $a_n = a_{n-1} - 3$",
+        "$a_1 = 1$,  $a_n = 2\\,a_{n-1} + 1$",
+        "$a_1 = 2,\\; a_2 = 3$,  $a_n = a_{n-1} \\cdot a_{n-2}$",
+        "$a_1 = 64$,  $a_n = \\dfrac{a_{n-1}}{2}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$5,\\; 2,\\; -1,\\; -4$",
+        "$1,\\; 3,\\; 7,\\; 15$",
+        "$2,\\; 3,\\; 6,\\; 18$",
+        "$64,\\; 32,\\; 16,\\; 8$"
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 1,
+       "enunciat": "Indica si cada successió és una progressió aritmètica, geomètrica o cap de les dues. En els dos primers casos, troba la diferència o raó.",
+       "parts": [
+        "$2,\\; 5,\\; 8,\\; 11,\\; 14,\\;\\ldots$",
+        "$3,\\; 6,\\; 12,\\; 24,\\; 48,\\;\\ldots$",
+        "$1,\\; 4,\\; 9,\\; 16,\\; 25,\\;\\ldots$",
+        "$100,\\; 50,\\; 25,\\; 12{,}5,\\;\\ldots$",
+        "$-3,\\; -1,\\; 1,\\; 3,\\; 5,\\;\\ldots$",
+        "$1,\\; 2,\\; 4,\\; 7,\\; 11,\\;\\ldots$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Aritmètica, $d=3$.",
+        "Geomètrica, $r=2$.",
+        "Cap de les dues.",
+        "Geomètrica, $r=\\tfrac{1}{2}$.",
+        "Aritmètica, $d=2$.",
+        "Cap de les dues."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Indica si cada afirmació és vertadera o falsa. Si és falsa, corregeix-la o dóna un contraexemple.",
+       "parts": [
+        "Els termes d'una successió només poden ser nombres naturals.",
+        "El terme general $a_n$ permet calcular qualsevol terme sense calcular tots els anteriors.",
+        "En una llei de recurrència, és suficient donar la regla sense especificar el terme inicial.",
+        "Per saber si un valor $k$ pertany a una successió $a_n$, cal comprovar si l'equació $a_n = k$ té solució natural.",
+        "La successió $a_1 = 1$, $a_n = a_{n-1} + 1$ genera els mateixos termes que $a_n = n$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "<strong>Fals.</strong> Els termes d'una successió són nombres reals. Per exemple, $a_n = \\tfrac{1}{n}$ dona termes racionals no naturals.",
+        "<strong>Vertader.</strong> Aquesta és precisament la utilitat del terme general.",
+        "<strong>Fals.</strong> Sense terme inicial no es pot construir la successió. Per exemple, $a_n = a_{n-1} + 2$ sense $a_1$ no determina cap successió concreta.",
+        "<strong>Vertader.</strong> Si l'equació $a_n = k$ té solució $n \\in \\mathbb{N}$, el valor $k$ pertany a la successió; si no, no hi pertany.",
+        "<strong>Vertader.</strong> Ambdues generen $1, 2, 3, 4, \\ldots$"
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 2,
+       "enunciat": "Converteix cada successió a l'altra forma de definició.",
+       "parts": [
+        "Donada $a_n = 3n + 1$, expressa-la mitjançant una llei de recurrència.",
+        "Donada $a_n = 2^n$, expressa-la mitjançant una llei de recurrència.",
+        "Donada $a_1 = 3$ i $a_n = a_{n-1} + 5$, troba el terme general.",
+        "Donada $a_1 = 1$ i $a_n = -a_{n-1}$, troba el terme general."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "La diferència entre termes consecutius és sempre $3$: $a_1 = 4$ i $a_n = a_{n-1} + 3$.",
+        "Cada terme és el doble de l'anterior: $a_1 = 2$ i $a_n = 2 \\cdot a_{n-1}$.",
+        "Generem els primers termes: $3, 8, 13, 18, \\ldots$ És una successió que comença en $3$ i suma $5$ a cada pas. Per tant $a_n = 5n - 2$.",
+        "Generem els primers termes: $1, -1, 1, -1, \\ldots$ Els signes alternen i el valor absolut és sempre $1$. Per tant $a_n = (-1)^{n+1}$."
+       ]
+      },
+      {
+       "num": 6,
+       "nivell": 2,
+       "enunciat": "Representa els vuit primers termes de cada successió sobre uns eixos de coordenades (eix horitzontal: $n$; eix vertical: $a_n$). Descriu en cada cas cap on tendeix la successió.",
+       "parts": [
+        "$a_n = n + 1$",
+        "$b_n = 10 - n$",
+        "$c_n = \\dfrac{1}{n}$",
+        "$d_n = 1 + \\dfrac{2}{n}$",
+        "$e_n = \\dfrac{(-1)^n}{n}$",
+        "$f_n = (-1)^n \\cdot n$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Els valors creixen indefinidament (recta creixent).",
+        "Els valors decreixen indefinidament (recta decreixent).",
+        "Els valors decreixen i s'acosten cada vegada més al valor $0$, sense arribar-hi mai.",
+        "Els valors decreixen i s'acosten cada vegada més al valor $1$, sense arribar-hi mai.",
+        "Els valors oscil·len entre valors positius i negatius ($-1, \\tfrac{1}{2}, -\\tfrac{1}{3}, \\tfrac{1}{4}, \\ldots$), però cada vegada més propers a $0$.",
+        "Els valors oscil·len entre valors positius i negatius ($-1, 2, -3, 4, -5, \\ldots$), allunyant-se cada vegada més de $0$ en totes dues direccions."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 2,
+       "enunciat": "Determina, per a cada successió, si els dos valors donats en formen part. En cas afirmatiu, indica quin terme és.",
+       "parts": [
+        "$a_n = 4n - 3$.   Valors: $25$ i $30$.",
+        "$b_n = 2n + 5$.   Valors: $19$ i $24$.",
+        "$c_n = n^2 + n$.   Valors: $30$ i $40$.",
+        "$d_n = n^2 - 3n + 2$.   Valors: $12$ i $20$.",
+        "$e_n = \\dfrac{n}{n+1}$.   Valors: $\\dfrac{7}{8}$ i $\\dfrac{3}{5}$.",
+        "$f_n = 5n - 1$.   Valors: $34$ i $38$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$4n-3=25 \\Rightarrow n=7 \\in \\mathbb{N}$. Sí, $a_7=25$.   $4n-3=30 \\Rightarrow n=\\tfrac{33}{4} \\notin \\mathbb{N}$. No.",
+        "$2n+5=19 \\Rightarrow n=7 \\in \\mathbb{N}$. Sí, $b_7=19$.   $2n+5=24 \\Rightarrow n=\\tfrac{19}{2} \\notin \\mathbb{N}$. No.",
+        "$n^2+n=30 \\Rightarrow n^2+n-30=0 \\Rightarrow n=5$ (arrel positiva, $n=-6$ rebutjada). Sí, $c_5=30$.   $n^2+n=40 \\Rightarrow n^2+n-40=0 \\Rightarrow n=\\tfrac{-1+\\sqrt{161}}{2} \\notin \\mathbb{N}$. No.",
+        "$n^2-3n+2=12 \\Rightarrow n^2-3n-10=0 \\Rightarrow n=5$ (arrel positiva, $n=-2$ rebutjada). Sí, $d_5=12$.   $n^2-3n+2=20 \\Rightarrow n^2-3n-18=0 \\Rightarrow n=6$ (arrel positiva, $n=-3$ rebutjada). Sí, $d_6=20$.",
+        "$\\tfrac{n}{n+1}=\\tfrac{7}{8} \\Rightarrow n=7 \\in \\mathbb{N}$. Sí, $e_7=\\tfrac{7}{8}$.   $\\tfrac{n}{n+1}=\\tfrac{3}{5} \\Rightarrow 5n=3n+3 \\Rightarrow n=\\tfrac{3}{2} \\notin \\mathbb{N}$. No.",
+        "$5n-1=34 \\Rightarrow n=7 \\in \\mathbb{N}$. Sí, $f_7=34$.   $5n-1=38 \\Rightarrow n=\\tfrac{39}{5} \\notin \\mathbb{N}$. No."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "A partir de la representació gràfica dels termes de $a_n = \\left(\\dfrac{1}{2}\\right)^n$ i $b_n = 2^n$, respon les preguntes sense fer càlculs:",
+       "parts": [
+        "Quin d'ells creix sense límit?",
+        "Quin d'ells sembla acostar-se a $0$?",
+        "Creus que la successió $a_n$ arriba mai al valor $0$? Justifica la resposta.",
+        "Si en lloc de $\\left(\\tfrac{1}{2}\\right)^n$ haguéssim tingut $\\left(\\tfrac{1}{3}\\right)^n$, els termes s'acostarien més de pressa o més a poc a poc al $0$? Per què?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$b_n = 2^n$ creix sense límit.",
+        "$a_n = \\left(\\tfrac{1}{2}\\right)^n$ s'acosta a $0$.",
+        "No: multiplicar un nombre positiu per $\\tfrac{1}{2}$ sempre dóna un nombre positiu, mai zero.",
+        "Més de pressa: cada terme es redueix a una tercera part de l'anterior, que és menys que la meitat."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Donades les successions $a_n = n^2 + 2n - 3$ i $b_n = 8n + 124$:",
+       "parts": [
+        "Calcula $a_4$, $a_6$ i $a_9$.",
+        "Determina si el valor $77$ és un terme de $a_n$ i, en cas afirmatiu, quin.",
+        "Determina a partir de quin valor de $n$ tots els termes de $b_n$ són majors o iguals a $500$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$a_4 = 16+8-3 = 21$;  $a_6 = 36+12-3 = 45$;  $a_9 = 81+18-3 = 96$.",
+        "$n^2+2n-3=77 \\Rightarrow n^2+2n-80=0 \\Rightarrow n=8$ (arrel positiva). Sí, $a_8=77$.",
+        "$8n+124 \\geq 500 \\Rightarrow 8n \\geq 376 \\Rightarrow n \\geq 47$. A partir de $n=47$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 2,
+       "enunciat": "Considera la successió $a_n = 3 - \\dfrac{4}{n}$.",
+       "parts": [
+        "Calcula $a_1, a_2, a_4, a_{10}, a_{100}$ i $a_{1000}$.",
+        "Representa els punts calculats i descriu cap a quin valor s'acosten els termes.",
+        "Els termes superen mai el valor $3$? I l'assoleixen? Raona la resposta."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$a_1=-1$;  $a_2=1$;  $a_4=2$;  $a_{10}=2{,}6$;  $a_{100}=2{,}96$;  $a_{1000}=2{,}996$.",
+        "Els termes s'acosten al valor $3$.",
+        "No superen mai $3$ (ja que $-\\tfrac{4}{n}<0$ per a tot $n$) i tampoc no l'assoleixen."
+       ]
+      },
+      {
+       "num": 11,
+       "nivell": 3,
+       "enunciat": "La successió $\\{a_n\\}$ es defineix per $a_1 = k$ i $a_n = \\dfrac{a_{n-1}}{2} + 1$.",
+       "parts": [
+        "Calcula $a_2$, $a_3$ i $a_4$ en funció de $k$.",
+        "Quin valor ha de tenir $k$ perquè $a_1 = a_2$? Comprova que en aquest cas tots els termes són iguals.",
+        "Si $k = 0$, cada vegada que avancem posicions els termes semblen acostar-se a un valor. Quin?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$a_2 = \\dfrac{k}{2}+1$;  $a_3 = \\dfrac{k}{4}+\\dfrac{3}{2}$;  $a_4 = \\dfrac{k}{8}+\\dfrac{7}{4}$.",
+        "$a_1 = a_2 \\Rightarrow k = \\dfrac{k}{2}+1 \\Rightarrow k=2$. Amb $k=2$: $a_2=2$, $a_3=2$, … tots iguals a $2$. ✓",
+        "Amb $k=0$: $a_1=0,\\; a_2=1,\\; a_3=\\tfrac{3}{2},\\; a_4=\\tfrac{7}{4},\\; a_5=\\tfrac{15}{8},\\;\\ldots$ Els termes s'acosten a $2$."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 3,
+       "enunciat": "La successió $\\{a_n\\}$ es defineix per $a_1 = k$ i $a_n = \\dfrac{a_{n-1}}{2} + 3$.",
+       "parts": [
+        "Calcula $a_2$, $a_3$ i $a_4$ en funció de $k$.",
+        "Quin valor ha de tenir $k$ perquè $a_1 = a_2$? Comprova que en aquest cas tots els termes són iguals.",
+        "Si $k = 0$, els termes semblen acostar-se a un valor. Quin?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$a_2 = \\dfrac{k}{2}+3$;  $a_3 = \\dfrac{k}{4}+\\dfrac{9}{2}$;  $a_4 = \\dfrac{k}{8}+\\dfrac{21}{4}$.",
+        "$a_1 = a_2 \\Rightarrow k = \\dfrac{k}{2}+3 \\Rightarrow \\dfrac{k}{2} = 3 \\Rightarrow k=6$. Amb $k=6$: $a_2 = \\dfrac{6}{2}+3 = 6$, $a_3 = 6$, … tots iguals a $6$. ✓",
+        "Amb $k=0$: $a_1=0,\\; a_2=3,\\; a_3=\\tfrac{9}{2},\\; a_4=\\tfrac{21}{4},\\; a_5=\\tfrac{45}{8},\\;\\ldots$ Els termes s'acosten a $6$."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 2,
+   "nom": "Funcions i domini",
+   "carpeta": "2 Funcions i domini",
+   "seccions": [
+    {
+     "titol": "Concepte de funció",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Per a la funció $f(x) = 3x - 5$, calcula:",
+       "parts": [
+        "$f(0)$, $f(2)$ i $f(-3)$",
+        "L'antiimatge de $4$",
+        "L'antiimatge de $-2$",
+        "Existeix l'antiimatge de qualsevol nombre real? Justifica-ho."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(0)=-5$;  $f(2)=1$;  $f(-3)=-14$.",
+        "$3x-5=4\\Rightarrow x=3$.",
+        "$3x-5=-2\\Rightarrow x=1$.",
+        "Sí: $3x-5=k\\Rightarrow x=\\frac{k+5}{3}$, que sempre existeix $\\forall k\\in\\mathbb{R}$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Per a la funció $g(x) = x^2 - 3x + 2$, calcula:",
+       "parts": [
+        "$g(-1)$, $g(0)$, $g(1)$ i $g(3)$.",
+        "L'antiimatge de $0$. Quants n'hi ha?",
+        "L'antiimatge de $-2$. Justifica la resposta.",
+        "L'antiimatge de $2$. Quants n'hi ha?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$g(-1)=6$;  $g(0)=2$;  $g(1)=0$;  $g(3)=2$.",
+        "$x^2-3x+2=0\\Rightarrow(x-1)(x-2)=0\\Rightarrow x=1$ o $x=2$. Dues antiimatges.",
+        "$x^2-3x+2=-2\\Rightarrow x^2-3x+4=0$. Discriminant: $9-16=-7<0$. Cap antiimatge real.",
+        "$x^2-3x+2=2\\Rightarrow x^2-3x=0\\Rightarrow x(x-3)=0\\Rightarrow x=0$ o $x=3$. Dues antiimatges."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 1,
+       "enunciat": "En el gràfic següent, identifica:<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
+       "parts": [
+        "$f(-2)$ i $f(3)$",
+        "Les antiimatges de $0$",
+        "Les antiimatges de $2$",
+        "El valor màxim aproximat de $f$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "De la gràfica: $f(-2)\\approx-\\frac{4}{3}-2+2=-\\frac{4}{3}\\approx-1{,}3$;  $f(3)\\approx-3+3+2=2$.",
+        "Punts on la gràfica talla l'eix $OX$: aproximadament $x\\approx-1{,}6$ i $x\\approx3{,}6$.",
+        "Punts on $f(x)=2$: $x=0$ i $x=3$.",
+        "El vèrtex és a $x=\\frac{-1}{2(-1/3)}=\\frac{3}{2}=1{,}5$;  $f(1{,}5)=\\frac{-2{,}25}{3}+1{,}5+2=2{,}75$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Determina si les corbes següents representen funcions. Justifica la resposta amb el criteri de la recta vertical:",
+       "parts": [
+        "La paràbola $x = y^2 + 1$.",
+        "La recta $y = -3x + 7$.",
+        "La circumferència $x^2 + y^2 = 9$.",
+        "La semicircumferència superior $y = \\sqrt{9 - x^2}$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "No: per $x=2$, $y^2=1\\Rightarrow y=\\pm1$. Dos valors de $y$ per al mateix $x$.",
+        "Sí: qualsevol recta vertical la talla exactament un cop.",
+        "No: per $x=0$, $y=\\pm3$. Dos valors.",
+        "Sí: per a cada $x\\in[-3,3]$ hi ha exactament un valor de $y\\geq0$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "La funció $f$ satisfà: $f(2x-1) = x^2 + 3$.",
+       "parts": [
+        "Expressa $f$ en termes de $x$ (és a dir, troba $f(x)$).",
+        "Calcula $f(1)$, $f(-1)$ i $f(5)$.",
+        "Troba les antiimatges de $7$ per a $f$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Fem el canvi $u=2x-1$, és a dir $x=\\frac{u+1}{2}$: $f(u)=\\left(\\frac{u+1}{2}\\right)^2+3=\\frac{(u+1)^2}{4}+3$. Per tant $f(x)=\\frac{(x+1)^2}{4}+3$.",
+        "$f(1)=\\frac{4}{4}+3=4$;  $f(-1)=0+3=3$;  $f(5)=\\frac{36}{4}+3=12$.",
+        "$\\frac{(x+1)^2}{4}+3=7\\Rightarrow(x+1)^2=16\\Rightarrow x+1=\\pm4\\Rightarrow x=3$ o $x=-5$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Domini de funcions",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions racionals (denominador lineal o constant):",
+       "parts": [
+        "$f(x) = \\dfrac{3x-1}{x-5}$",
+        "$g(x) = \\dfrac{2}{3x+1}$",
+        "$h(x) = \\dfrac{x^2+4}{2x-8}$",
+        "$p(x) = \\dfrac{x-3}{5x-2}$",
+        "$q(x) = \\dfrac{7}{x+9}$",
+        "$r(x) = \\dfrac{4x+6}{6x-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\mathbb{R}\\setminus\\{5\\}$",
+        "$\\mathbb{R}\\setminus\\{-\\frac{1}{3}\\}$",
+        "$\\mathbb{R}\\setminus\\{4\\}$",
+        "$\\mathbb{R}\\setminus\\{\\frac{2}{5}\\}$",
+        "$\\mathbb{R}\\setminus\\{-9\\}$",
+        "$\\mathbb{R}\\setminus\\{\\frac{1}{6}\\}$"
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions racionals (denominador quadràtic):",
+       "parts": [
+        "$f(x) = \\dfrac{1}{x^2-9}$",
+        "$g(x) = \\dfrac{x+1}{x^2+3x+2}$",
+        "$h(x) = \\dfrac{2x}{x^2-4x}$",
+        "$k(x) = \\dfrac{x+1}{x^2-x-6}$",
+        "$p(x) = \\dfrac{3x^2+1}{x^3-27}$",
+        "$q(x) = \\dfrac{4}{x^2+4}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-9=(x-3)(x+3)=0\\Rightarrow x=\\pm3$. $\\mathbb{R}\\setminus\\{-3,3\\}$.",
+        "$(x+1)(x+2)=0\\Rightarrow x=-1,-2$. $\\mathbb{R}\\setminus\\{-2,-1\\}$.",
+        "$x(x-4)=0\\Rightarrow x=0,4$. $\\mathbb{R}\\setminus\\{0,4\\}$.",
+        "$(x-3)(x+2)=0\\Rightarrow x=3,-2$. $\\mathbb{R}\\setminus\\{-2,3\\}$.",
+        "$x^3-27=(x-3)(x^2+3x+9)=0$; discriminant $9-36<0$, sols arrel $x=3$. $\\mathbb{R}\\setminus\\{3\\}$.",
+        "$x^2+4=0\\Rightarrow x^2=-4$: sense solució real. $D=\\mathbb{R}$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions irracionals amb radicand lineal:",
+       "parts": [
+        "$f(x) = \\sqrt{x-3}$",
+        "$g(x) = \\sqrt{2x+1}$",
+        "$h(x) = \\sqrt{5-x}$",
+        "$p(x) = \\sqrt{9-3x}$",
+        "$q(x) = \\sqrt{7x+14}$",
+        "$r(x) = \\sqrt[3]{x^2-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$[3,+\\infty)$",
+        "$[-\\frac{1}{2},+\\infty)$",
+        "$(-\\infty,5]$",
+        "$(-\\infty,3]$",
+        "$[-2,+\\infty)$",
+        "$\\mathbb{R}$ (índex senar)"
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions irracionals amb radicand quadràtic:",
+       "parts": [
+        "$f(x) = \\sqrt{x^2-4}$",
+        "$g(x) = \\sqrt{-x^2+5x-4}$",
+        "$h(x) = \\sqrt{2x^2+3x-2}$",
+        "$p(x) = \\sqrt{-x^2+2x+8}$",
+        "$q(x) = \\sqrt{x^2+6x+5}$",
+        "$r(x) = \\sqrt{3x^2-12x+9}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-4\\geq0\\Rightarrow(x-2)(x+2)\\geq0$: $(-\\infty,-2]\\cup[2,+\\infty)$.",
+        "$-x^2+5x-4\\geq0\\Rightarrow x^2-5x+4\\leq0\\Rightarrow(x-1)(x-4)\\leq0$: $[1,4]$.",
+        "$2x^2+3x-2\\geq0\\Rightarrow(2x-1)(x+2)\\geq0$: $(-\\infty,-2]\\cup[\\frac{1}{2},+\\infty)$.",
+        "$-x^2+2x+8\\geq0\\Rightarrow x^2-2x-8\\leq0\\Rightarrow(x-4)(x+2)\\leq0$: $[-2,4]$.",
+        "$(x+1)(x+5)\\geq0$: $(-\\infty,-5]\\cup[-1,+\\infty)$.",
+        "$3(x-1)(x-3)\\geq0$: $(-\\infty,1]\\cup[3,+\\infty)$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions irracionals amb radicand cúbic:",
+       "parts": [
+        "$f(x) = \\sqrt{x^3 - x^2 - 4x + 4}$",
+        "$g(x) = \\sqrt{x^3 - 4x^2 + x + 6}$",
+        "$h(x) = \\sqrt{-x^3 + 4x}$",
+        "$p(x) = \\sqrt{x^3 - 3x^2 - x + 3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(x-1)(x-2)(x+2)\\geq0$. Arrels: $-2,1,2$. Taula de signes: positiu a $[-2,1]\\cup[2,+\\infty)$. $D=[-2,1]\\cup[2,+\\infty)$.",
+        "$x=2$ arrel: $(x-2)(x^2-2x-3)=(x-2)(x-3)(x+1)\\geq0$. Arrels: $-1,2,3$. $D=[-1,2]\\cup[3,+\\infty)$.",
+        "$-x(x-2)(x+2)\\geq0\\Rightarrow x(x-2)(x+2)\\leq0$. Arrels: $-2,0,2$. $D=(-\\infty,-2]\\cup[0,2]$.",
+        "$x=1$ arrel: $(x-1)(x^2-2x-3)=(x-1)(x-3)(x+1)\\geq0$. Arrels: $-1,1,3$. $D=[-1,1]\\cup[3,+\\infty)$."
+       ]
+      },
+      {
+       "num": 11,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions amb denominadors que cal factoritzar:",
+       "parts": [
+        "$f(x) = \\dfrac{1}{x^3-6x^2+11x-6}$",
+        "$g(x) = \\dfrac{x+1}{x^3-3x^2-4x+12}$",
+        "$h(x) = \\dfrac{2x+1}{x^3-x^2-2x}$",
+        "$p(x) = \\dfrac{x^2-1}{2x^3-5x^2+2x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Ruffini: $x=1$ arrel; $(x-1)(x^2-5x+6)=(x-1)(x-2)(x-3)$. $\\mathbb{R}\\setminus\\{1,2,3\\}$.",
+        "Ruffini: $x=2$ arrel; $(x-2)(x^2-x-6)=(x-2)(x-3)(x+2)$. $\\mathbb{R}\\setminus\\{-2,2,3\\}$.",
+        "$x(x^2-x-2)=x(x-2)(x+1)$. $\\mathbb{R}\\setminus\\{-1,0,2\\}$.",
+        "$x(2x^2-5x+2)=x(2x-1)(x-2)$. $\\mathbb{R}\\setminus\\{0,\\frac{1}{2},2\\}$."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions combinades (fraccions i arrels):",
+       "parts": [
+        "$f(x) = \\dfrac{3x-1}{x^2-4} + \\sqrt{6-2x}$",
+        "$g(x) = \\dfrac{\\sqrt{x^2+x-6}}{x-1}$",
+        "$h(x) = \\dfrac{x+2}{\\sqrt{9-x^2}}$",
+        "$p(x) = \\sqrt{\\dfrac{x+1}{x-3}}$",
+        "$q(x) = \\dfrac{x-1}{\\sqrt{x+4}} + \\dfrac{1}{x^2-1}$",
+        "$r(x) = \\sqrt{\\dfrac{x-2}{x+5}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Fracció: $x\\neq\\pm2$. Arrel: $x\\leq3$. Intersecció i exclusions: $(-\\infty,2)\\cup(2,3]\\setminus\\{-2\\}=(-\\infty,-2)\\cup(-2,2)\\cup(2,3]$.",
+        "Arrel: $x^2+x-6\\geq0\\Rightarrow(x+3)(x-2)\\geq0$: $(-\\infty,-3]\\cup[2,+\\infty)$. Denominador $x\\neq1$ (ja no hi és en el domini de l'arrel). $(-\\infty,-3]\\cup[2,+\\infty)$.",
+        "Arrel al denom.: $9-x^2>0\\Rightarrow-3<x<3$. $D=(-3,3)$.",
+        "$\\frac{x+1}{x-3}\\geq0$ i $x\\neq3$: taula de signes: $(-\\infty,-1]\\cup(3,+\\infty)$.",
+        "Arrel: $x+4>0\\Rightarrow x>-4$. Denominadors: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$. $(-4,+\\infty)\\setminus\\{-1,1\\}$.",
+        "$\\frac{x-2}{x+5}\\geq0$ i $x\\neq-5$: $(-\\infty,-5)\\cup[2,+\\infty)$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 3,
+       "enunciat": "Determina el domini de les funcions següents:",
+       "parts": [
+        "$f(x) = \\sqrt{\\dfrac{2x-1}{x^2-x-6}}$",
+        "$g(x) = \\dfrac{x}{\\sqrt{x^2-5x+6}} + \\dfrac{1}{x+1}$",
+        "$h(x) = \\sqrt{x^2-4} + \\dfrac{1}{\\sqrt{9-x^2}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-x-6=(x-3)(x+2)$. Cal $\\frac{2x-1}{(x-3)(x+2)}\\geq0$ i $(x-3)(x+2)\\neq0$. Taula de signes amb punts crítics $-2$, $\\frac{1}{2}$, $3$: positiu a $(-2,\\frac{1}{2}]$ i $(3,+\\infty)$. $D=(-2,\\frac{1}{2}]\\cup(3,+\\infty)$.",
+        "Arrel al denom.: $x^2-5x+6=(x-2)(x-3)>0$: $(-\\infty,2)\\cup(3,+\\infty)$. Denominador $x+1\\neq0\\Rightarrow x\\neq-1$. $D=(-\\infty,-1)\\cup(-1,2)\\cup(3,+\\infty)$.",
+        "Cal $x^2-4\\geq0$: $x\\leq-2$ o $x\\geq2$. I $9-x^2>0$: $-3<x<3$. Intersecció: $(-3,-2]\\cup[2,3)$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Punts de tall amb els eixos",
+     "exercicis": [
+      {
+       "num": 14,
+       "nivell": 1,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions polinòmiques:",
+       "parts": [
+        "$f(x) = 3x - 6$",
+        "$g(x) = x^2 - 9$",
+        "$h(x) = x^2 + x - 2$",
+        "$p(x) = x^3 - x^2 - 6x$",
+        "$q(x) = x^4 - 5x^2 + 4$",
+        "$r(x) = x^3 - 2x^2 + x$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$OY$: $(0,-6)$. $OX$: $x=2$, punt $(2,0)$.",
+        "$OY$: $(0,-9)$. $OX$: $x=\\pm3$, punts $(\\pm3,0)$.",
+        "$OY$: $(0,-2)$. $OX$: $(x+2)(x-1)=0$, punts $(-2,0),(1,0)$.",
+        "$OY$: $(0,0)$. $OX$: $x(x-3)(x+2)=0$, punts $(-2,0),(0,0),(3,0)$.",
+        "$OY$: $(0,4)$. $OX$: $(x^2-1)(x^2-4)=0$, punts $(\\pm1,0),(\\pm2,0)$.",
+        "$OY$: $(0,0)$. $OX$: $x(x-1)^2=0$, punts $(0,0),(1,0)$."
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions racionals:",
+       "parts": [
+        "$f(x) = \\dfrac{x-4}{x+2}$",
+        "$g(x) = \\dfrac{x^2-1}{x-3}$",
+        "$h(x) = \\dfrac{2x+6}{x^2-4}$",
+        "$k(x) = \\dfrac{x^2-5x+6}{x^2+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D=\\mathbb{R}\\setminus\\{-2\\}$. $OY$: $f(0)=-2$, punt $(0,-2)$. $OX$: $x-4=0\\Rightarrow x=4\\in D$. Punt $(4,0)$.",
+        "$D=\\mathbb{R}\\setminus\\{3\\}$. $OY$: $g(0)=\\frac{-1}{-3}=\\frac{1}{3}$, punt $(0,\\frac{1}{3})$. $OX$: $x^2-1=0\\Rightarrow x=\\pm1\\in D$. Punts $(\\pm1,0)$.",
+        "$D=\\mathbb{R}\\setminus\\{-2,2\\}$. $OY$: $h(0)=\\frac{6}{-4}=-\\frac{3}{2}$, punt $(0,-\\frac{3}{2})$. $OX$: $2x+6=0\\Rightarrow x=-3\\in D$. Punt $(-3,0)$.",
+        "$D=\\mathbb{R}$ ($x^2+1>0$ sempre). $OY$: $k(0)=6$, punt $(0,6)$. $OX$: $x^2-5x+6=(x-2)(x-3)=0\\Rightarrow x=2,3$. Punts $(2,0),(3,0)$."
+       ]
+      },
+      {
+       "num": 16,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions irracionals i mixtes:",
+       "parts": [
+        "$f(x) = \\sqrt{x+4}$",
+        "$g(x) = \\sqrt{x^2-25}$",
+        "$h(x) = \\sqrt{x-1} - 3$",
+        "$k(x) = 2 - \\sqrt{4-x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D=[-4,+\\infty)$. $OY$: $f(0)=2$, punt $(0,2)$. $OX$: $\\sqrt{x+4}=0\\Rightarrow x=-4$. Punt $(-4,0)$.",
+        "$D=(-\\infty,-5]\\cup[5,+\\infty)$. $OY$: $0\\notin D$, no talla $OY$. $OX$: $x=\\pm5$. Punts $(\\pm5,0)$.",
+        "$D=[1,+\\infty)$. $OY$: $0\\notin D$, no talla. $OX$: $\\sqrt{x-1}=3\\Rightarrow x=10$. Punt $(10,0)$.",
+        "$D=(-\\infty,4]$. $OY$: $k(0)=2-2=0$, punt $(0,0)$ (talla ambdós eixos). $OX$: $2-\\sqrt{4-x}=0\\Rightarrow\\sqrt{4-x}=2\\Rightarrow x=0$. Punt $(0,0)$."
+       ]
+      },
+      {
+       "num": 17,
+       "nivell": 2,
+       "enunciat": "Calcula els punts de tall amb els eixos de les funcions definides a trossos:",
+       "parts": [
+        "$f(x) = \\begin{cases} 2x+4 & \\text{si } x < -1 \\\\ x^2-1 & \\text{si } x \\geq -1 \\end{cases}$",
+        "$g(x) = \\begin{cases} \\dfrac{x+3}{x-1} & \\text{si } x \\leq 0 \\\\[4pt] \\sqrt{x} - 2 & \\text{si } x > 0 \\end{cases}$",
+        "$h(x) = \\begin{cases} x^2-4 & \\text{si } x < 0 \\\\ 2x+1 & \\text{si } 0\\leq x < 3 \\\\ x-4 & \\text{si } x \\geq 3 \\end{cases}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$OY$: $0\\geq-1$, $f(0)=0^2-1=-1$. Punt $(0,-1)$. $OX$: tros 1: $2x+4=0\\Rightarrow x=-2<-1$ ✓. Punt $(-2,0)$. Tros 2: $x^2-1=0\\Rightarrow x=\\pm1$; $1\\geq-1$ ✓, $-1\\geq-1$ ✓. Punts $(-1,0),(1,0)$.",
+        "$OY$: $0\\leq0$, $g(0)=\\frac{3}{-1}=-3$. Punt $(0,-3)$. $OX$: tros 1: $x+3=0\\Rightarrow x=-3\\leq0$ ✓. Punt $(-3,0)$. Tros 2: $\\sqrt{x}=2\\Rightarrow x=4>0$ ✓. Punt $(4,0)$.",
+        "$OY$: $0\\leq0<3$, $h(0)=1$. Punt $(0,1)$. $OX$: tros 1: $x^2=4\\Rightarrow x=-2<0$ ✓ (i $x=2\\not<0$). Punt $(-2,0)$. Tros 2: $2x+1=0\\Rightarrow x=-\\frac{1}{2}\\not\\in[0,3)$. Cap punt. Tros 3: $x-4=0\\Rightarrow x=4\\geq3$ ✓. Punt $(4,0)$."
+       ]
+      },
+      {
+       "num": 18,
+       "nivell": 3,
+       "enunciat": "Troba el valor del paràmetre $k$ en cada cas:",
+       "parts": [
+        "$f(x) = \\dfrac{kx+3}{x-1}$ talla l'eix $OY$ al punt $(0, -6)$.",
+        "$g(x) = \\sqrt{x^2 + kx + 4}$ talla l'eix $OX$ en exactament un punt.",
+        "$h(x) = x^2 - kx + 2k$ passa pel punt $(1, 0)$. Determina tots els valors de $k$ i comprova quants punts de tall té $h$ amb l'eix $OX$ en cada cas."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(0)=\\frac{3}{-1}=-3=-6$: impossible; revisem: $f(0)=\\frac{k\\cdot0+3}{0-1}=\\frac{3}{-1}=-3\\neq-6$. Per obtenir $-6$: $\\frac{3}{-1}=-3$; la resposta és que no hi ha cap $k$ que canviï $f(0)$ (el numerador és $3$ quan $x=0$). Contradicció: cal $3/(0-1)=k\\cdot0+3/(-1)=-3\\neq-6$. Enunciat sense solució real (tall $OY$ sempre $-3$, independent de $k$). [Nota per al professor: canviar a $f(0)=-3$ o usar $\\frac{3x+k}{x-1}$.]",
+        "$\\sqrt{x^2+kx+4}=0\\Rightarrow x^2+kx+4=0$. Un sol punt de tall significa discriminant $=0$: $k^2-16=0\\Rightarrow k=\\pm4$.",
+        "$h(1)=1-k+2k=1+k=0\\Rightarrow k=-1$. Amb $k=-1$: $h(x)=x^2+x-2=(x+2)(x-1)$, dos punts de tall: $(-2,0)$ i $(1,0)$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Funcions definides a trossos",
+     "exercicis": [
+      {
+       "num": 19,
+       "nivell": 1,
+       "enunciat": "Per a cada funció, calcula els valors indicats:",
+       "parts": [
+        "$f(x) = \\begin{cases} 3x+6 & \\text{si } x < 0 \\\\ x^2-3x & \\text{si } x \\geq 0 \\end{cases}$ Calcula $f(-2)$, $f(0)$, $f(1)$ i $f(3)$.",
+        "$g(x) = \\begin{cases} x+2 & \\text{si } x < 0 \\\\ 2x-1 & \\text{si } 0\\leq x < 2 \\\\ 3-x & \\text{si } x \\geq 2 \\end{cases}$ Calcula $g(-3)$, $g(0)$, $g(1)$, $g(2)$ i $g(5)$.",
+        "$h(x) = \\begin{cases} \\dfrac{4x}{x+2} & \\text{si } -5 \\leq x < 0 \\\\[4pt] \\sqrt{x+1} & \\text{si } x \\geq 0 \\end{cases}$ Calcula $h(-4)$, $h(-2)$, $h(0)$ i $h(8)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(-2)=3(-2)+6=0$;  $f(0)=0$;  $f(1)=1-3=-2$;  $f(3)=9-9=0$.",
+        "$g(-3)=-1$;  $g(0)=-1$;  $g(1)=1$;  $g(2)=1$;  $g(5)=-2$.",
+        "$h(-4)=\\frac{-16}{-2}=8$;  $h(-2)$ no existeix ($-2\\notin[-5,0)$ i $-2<0$, però $\\frac{4(-2)}{0}$ no existeix; $x=-2\\notin D$);  $h(0)=1$;  $h(8)=3$."
+       ]
+      },
+      {
+       "num": 20,
+       "nivell": 1,
+       "enunciat": "Calcula totes les antiimatges del valor $0$ per a les funcions de l'exercici anterior (punts de tall amb l'eix $OX$).",
+       "parts": [],
+       "solucio": "",
+       "solucioParts": [
+        "$f(x)=0$: tros 1: $3x+6=0\\Rightarrow x=-2<0$ ✓. Tros 2: $x^2-3x=x(x-3)=0\\Rightarrow x=0,3\\geq0$ ✓. Antiimatges: $\\{-2,0,3\\}$.",
+        "$g(x)=0$: tros 1: $x+2=0\\Rightarrow x=-2<0$ ✓. Tros 2: $2x-1=0\\Rightarrow x=\\frac{1}{2}\\in[0,2)$ ✓. Tros 3: $3-x=0\\Rightarrow x=3\\geq2$ ✓. Antiimatges: $\\{-2,\\frac{1}{2},3\\}$.",
+        "$h(x)=0$: tros 1: $\\frac{4x}{x+2}=0\\Rightarrow x=0$, però $0\\notin[-5,0)$. Cap. Tros 2: $\\sqrt{x+1}=0\\Rightarrow x=-1$, però $-1<0$. Cap. Cap antiimatge."
+       ]
+      },
+      {
+       "num": 21,
+       "nivell": 2,
+       "enunciat": "Calcula el domini de les funcions definides a trossos:",
+       "parts": [
+        "$f(x) = \\begin{cases} \\dfrac{2}{x+5} & \\text{si } x < 0 \\\\[4pt] \\dfrac{x-2}{x+1} & \\text{si } x \\geq 0 \\end{cases}$",
+        "$g(x) = \\begin{cases} \\sqrt{x+3} & \\text{si } x < 0 \\\\[4pt] \\dfrac{3}{x^2-9} & \\text{si } x \\geq 0 \\end{cases}$",
+        "$h(x) = \\begin{cases} \\dfrac{1}{x+2} & \\text{si } x < -1 \\\\[4pt] x^2-4 & \\text{si } -1\\leq x < 3 \\\\[4pt] \\dfrac{2x}{x-5} & \\text{si } x \\geq 3 \\end{cases}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Tros 1: $x<0$ i $x\\neq-5$: $(-\\infty,-5)\\cup(-5,0)$. Tros 2: $x\\geq0$ i $x\\neq-1$ (no afecta $[0,+\\infty)$): $[0,+\\infty)$. $D=(-\\infty,-5)\\cup(-5,+\\infty)\\setminus\\{\\}=\\mathbb{R}\\setminus\\{-5\\}$.",
+        "Tros 1: $x<0$ i $x+3\\geq0\\Rightarrow x\\geq-3$: $[-3,0)$. Tros 2: $x\\geq0$ i $x^2-9\\neq0\\Rightarrow x\\neq3$: $[0,3)\\cup(3,+\\infty)$. $D=[-3,0)\\cup[0,3)\\cup(3,+\\infty)=[-3,3)\\cup(3,+\\infty)=[-3,+\\infty)\\setminus\\{3\\}$.",
+        "Tros 1: $x<-1$ i $x\\neq-2$: $(-\\infty,-2)\\cup(-2,-1)$. Tros 2: $[-1,3)$, polinomi, D complet. Tros 3: $x\\geq3$ i $x\\neq5$: $[3,5)\\cup(5,+\\infty)$. $D=(-\\infty,-2)\\cup(-2,+\\infty)\\setminus\\{5\\}=\\mathbb{R}\\setminus\\{-2,5\\}$."
+       ]
+      },
+      {
+       "num": 22,
+       "nivell": 2,
+       "enunciat": "Sigui $f(x) = \\begin{cases} \\dfrac{x+3}{x-1} & \\text{si } x \\leq 0 \\\\[4pt] \\sqrt{x} - 2 & \\text{si } x > 0 \\end{cases}$",
+       "parts": [
+        "Calcula $f(-3)$, $f(0)$, $f(1)$ i $f(9)$.",
+        "Calcula el domini de $f$.",
+        "Calcula els punts de tall amb els eixos.",
+        "Calcula totes les antiimatges de $1$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(-3)=\\frac{0}{-4}=0$;  $f(0)=\\frac{3}{-1}=-3$;  $f(1)=\\sqrt{1}-2=-1$;  $f(9)=3-2=1$.",
+        "Tros 1: $x\\leq0$, $x\\neq1$ (no afecta): $(-\\infty,0]$. Tros 2: $x>0$, sempre definida: $(0,+\\infty)$. $D=\\mathbb{R}$.",
+        "$OY$: $f(0)=-3$, punt $(0,-3)$. $OX$: tros 1: $x+3=0\\Rightarrow x=-3\\leq0$ ✓. Tros 2: $\\sqrt{x}=2\\Rightarrow x=4>0$ ✓. Punts $(-3,0)$ i $(4,0)$.",
+        "Tros 1: $\\frac{x+3}{x-1}=1\\Rightarrow x+3=x-1\\Rightarrow 3=-1$: impossible. Tros 2: $\\sqrt{x}-2=1\\Rightarrow x=9$. Antiimatge: $\\{9\\}$."
+       ]
+      },
+      {
+       "num": 23,
+       "nivell": 3,
+       "enunciat": "Construeix una funció definida a trossos $f\\colon\\mathbb{R}\\to\\mathbb{R}$ que compleixi totes les condicions simultàniament: <ul> <li>$f(x) = x + k$ si $x < 0$, per algun $k\\in\\mathbb{R}$ a determinar. <li>$f(x) = x^2 - 1$ si $x \\geq 0$. <li>$f(-2) = 0$. <li>La funció talla l'eix $OX$ en exactament tres punts. </ul> Determina $k$, calcula els tres punts de tall i comprova que es compleix tot.",
+       "parts": [],
+       "solucio": "$f(-2)=-2+k=0\\Rightarrow k=2$. Per tant $f(x)=x+2$ si $x<0$.<br><br>Punts de tall ($f(x)=0$): <ul> <li>Tros 1: $x+2=0\\Rightarrow x=-2<0$ ✓. Punt $(-2,0)$. <li>Tros 2: $x^2-1=0\\Rightarrow x=\\pm1$; $x=1\\geq0$ ✓; $x=-1<0$ (no és d'aquest tros). Punt $(1,0)$. </ul> Dos punts de tall. Per tenir tres cal canviar la condició o el tros (l'exercici pot usar $x^2-1$ si $x>0$ incloent $x=-1$: aleshores $(-1,0)$ és un punt). Amb el tros $x\\geq-1$: punts $(-2,0)$, $(-1,0)$ i $(1,0)$. Consulta el professor per la versió definitiva.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Funció composta",
+     "exercicis": [
+      {
+       "num": 24,
+       "nivell": 1,
+       "enunciat": "Donades $f(x) = 2x + 1$ i $g(x) = x^2 - 3$, calcula:",
+       "parts": [
+        "$(f \\circ g)(x)$",
+        "$(g \\circ f)(x)$",
+        "$(f \\circ f)(x)$",
+        "$(g \\circ g)(x)$",
+        "$(f \\circ g)(2)$",
+        "$(g \\circ f)(-1)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f[g(x)]=2(x^2-3)+1=2x^2-5$.",
+        "$g[f(x)]=(2x+1)^2-3=4x^2+4x-2$.",
+        "$f[f(x)]=2(2x+1)+1=4x+3$.",
+        "$g[g(x)]=(x^2-3)^2-3=x^4-6x^2+6$.",
+        "$(f\\circ g)(2)=2\\cdot4^{}-5=3$. (o bé: $g(2)=1$, $f(1)=3$).",
+        "$(g\\circ f)(-1)=4(1)-4-2=-2$. (o bé: $f(-1)=-1$, $g(-1)=-2$)."
+       ]
+      },
+      {
+       "num": 25,
+       "nivell": 1,
+       "enunciat": "Donades les funcions $f(x) = 2x+1$, $g(x) = x^2$, $h(x) = \\sqrt{x}$, $p(x) = x-3$ i $q(x) = \\frac{1}{x}$, calcula:",
+       "parts": [
+        "$(f \\circ g)(x)$",
+        "$(g \\circ f)(x)$",
+        "$(h \\circ p)(x)$",
+        "$(g \\circ q)(x)$",
+        "$(f \\circ h \\circ p)(x)$",
+        "$(q \\circ g \\circ f)(x)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2x^2+1$.",
+        "$(2x+1)^2=4x^2+4x+1$.",
+        "$\\sqrt{x-3}$.",
+        "$\\frac{1}{x^2}$.",
+        "$f[h[p(x)]]=f[\\sqrt{x-3}]=2\\sqrt{x-3}+1$.",
+        "$q[g[f(x)]]=q[(2x+1)^2]=\\frac{1}{(2x+1)^2}$."
+       ]
+      },
+      {
+       "num": 26,
+       "nivell": 2,
+       "enunciat": "Donades $f(x) = \\dfrac{x+4}{x+2}$ i $g(x) = \\dfrac{3x}{x+1}$, calcula $(f \\circ g)(x)$ i $(g \\circ f)(x)$. Simplifica el resultat.",
+       "parts": [],
+       "solucio": "$(f\\circ g)(x)=f\\!\\left[\\frac{3x}{x+1}\\right]=\\dfrac{\\frac{3x}{x+1}+4}{\\frac{3x}{x+1}+2}=\\dfrac{\\frac{3x+4x+4}{x+1}}{\\frac{3x+2x+2}{x+1}}=\\dfrac{7x+4}{5x+2}$.<br><br>$(g\\circ f)(x)=g\\!\\left[\\frac{x+4}{x+2}\\right]=\\dfrac{3\\cdot\\frac{x+4}{x+2}}{\\frac{x+4}{x+2}+1}=\\dfrac{\\frac{3(x+4)}{x+2}}{\\frac{x+4+x+2}{x+2}}=\\dfrac{3(x+4)}{2x+6}=\\dfrac{x+4}{2(x+3)/2}=\\dfrac{3(x+4)}{2x+6}=\\dfrac{x+4}{(2x+6)/3}$.<br><br>Simplificant: $(g\\circ f)(x)=\\dfrac{3(x+4)}{2(x+3)}$.",
+       "solucioParts": []
+      },
+      {
+       "num": 27,
+       "nivell": 2,
+       "enunciat": "Descompon cada funció en forma $f\\circ g$ (és a dir, troba $f$ i $g$ senzilles tal que $h = f\\circ g$):",
+       "parts": [
+        "$h(x) = (2x-3)^5$",
+        "$h(x) = \\sqrt{x^2+1}$",
+        "$h(x) = \\dfrac{1}{x^2-4}$",
+        "$h(x) = \\left(\\dfrac{x+1}{x-1}\\right)^3$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$g(x)=2x-3$, $f(x)=x^5$.",
+        "$g(x)=x^2+1$, $f(x)=\\sqrt{x}$.",
+        "$g(x)=x^2-4$, $f(x)=\\frac{1}{x}$.",
+        "$g(x)=\\frac{x+1}{x-1}$, $f(x)=x^3$."
+       ]
+      },
+      {
+       "num": 28,
+       "nivell": 2,
+       "enunciat": "Una fàbrica produeix bolígrafs. Cada hora $t$ (en hores), produeix $b(t) = 50t + 200$ bolígrafs. Els guanys depenen del nombre de bolígrafs venuts: $G(b) = 0{,}5b - 100$ euros.",
+       "parts": [
+        "Escriu la funció $G(t)$ que dóna els guanys en funció del temps.",
+        "Calcula els guanys després de $4$ hores de producció.",
+        "A partir de quina hora $t$ els guanys superen els $500$ euros?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(G\\circ b)(t)=G[b(t)]=G[50t+200]=0{,}5(50t+200)-100=25t+100-100=25t$.",
+        "$G(4)=25\\cdot4=100$ euros.",
+        "$25t>500\\Rightarrow t>20$ hores."
+       ]
+      },
+      {
+       "num": 29,
+       "nivell": 3,
+       "enunciat": "Donades $f(x) = \\dfrac{2x-1}{x+1}$ i $g(x) = \\dfrac{x+3}{x-2}$:",
+       "parts": [
+        "Calcula $(f\\circ g)(x)$ i simplifica.",
+        "Calcula $(g\\circ f)(x)$ i simplifica.",
+        "Comprova que $(f\\circ g) \\neq (g\\circ f)$.",
+        "Troba $x$ tal que $(f\\circ g)(x) = 1$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(f\\circ g)(x)=f\\!\\left[\\frac{x+3}{x-2}\\right]=\\dfrac{2\\cdot\\frac{x+3}{x-2}-1}{\\frac{x+3}{x-2}+1}=\\dfrac{\\frac{2x+6-x+2}{x-2}}{\\frac{x+3+x-2}{x-2}}=\\dfrac{x+8}{2x+1}$.",
+        "$(g\\circ f)(x)=g\\!\\left[\\frac{2x-1}{x+1}\\right]=\\dfrac{\\frac{2x-1}{x+1}+3}{\\frac{2x-1}{x+1}-2}=\\dfrac{\\frac{2x-1+3x+3}{x+1}}{\\frac{2x-1-2x-2}{x+1}}=\\dfrac{5x+2}{-3}=\\dfrac{-(5x+2)}{3}$.",
+        "Clarament $\\frac{x+8}{2x+1}\\neq\\frac{-(5x+2)}{3}$ en general.",
+        "$\\frac{x+8}{2x+1}=1\\Rightarrow x+8=2x+1\\Rightarrow x=7$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Funció inversa",
+     "exercicis": [
+      {
+       "num": 30,
+       "nivell": 1,
+       "enunciat": "Calcula la funció inversa i verifica que $(f\\circ f^{-1})(x) = x$:",
+       "parts": [
+        "$f(x) = 3x - 2$",
+        "$g(x) = \\dfrac{x+5}{2}$",
+        "$h(x) = 4x + 7$",
+        "$p(x) = \\dfrac{2x-1}{3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$y=3x-2\\Rightarrow x=\\frac{y+2}{3}$. $f^{-1}(x)=\\frac{x+2}{3}$. Verif.: $f\\!\\left[\\frac{x+2}{3}\\right]=3\\cdot\\frac{x+2}{3}-2=x$.",
+        "$y=\\frac{x+5}{2}\\Rightarrow x=2y-5$. $g^{-1}(x)=2x-5$. Verif.: $g[2x-5]=\\frac{2x-5+5}{2}=x$.",
+        "$f^{-1}(x)=\\frac{x-7}{4}$.",
+        "$f^{-1}(x)=\\frac{3x+1}{2}$."
+       ]
+      },
+      {
+       "num": 31,
+       "nivell": 1,
+       "enunciat": "Calcula la funció inversa de les funcions irracionals (indica el domini de $f^{-1}$):",
+       "parts": [
+        "$f(x) = \\sqrt{x}$,   $x \\geq 0$",
+        "$g(x) = \\sqrt{x-2}$,   $x \\geq 2$",
+        "$h(x) = \\sqrt{2x+4}$,   $x \\geq -2$",
+        "$p(x) = \\sqrt{x^2}+1$,   $x \\geq 0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$y=\\sqrt{x}\\Rightarrow x=y^2$ ($y\\geq0$). $f^{-1}(x)=x^2$, $D=[0,+\\infty)$.",
+        "$y=\\sqrt{x-2}\\Rightarrow y^2=x-2\\Rightarrow x=y^2+2$ ($y\\geq0$). $g^{-1}(x)=x^2+2$, $D=[0,+\\infty)$.",
+        "$y=\\sqrt{2x+4}\\Rightarrow y^2=2x+4\\Rightarrow x=\\frac{y^2-4}{2}$ ($y\\geq0$). $h^{-1}(x)=\\frac{x^2-4}{2}$, $D=[0,+\\infty)$.",
+        "$y=x+1$ ($x\\geq0$, $y\\geq1$). $p^{-1}(x)=x-1$, $D=[1,+\\infty)$."
+       ]
+      },
+      {
+       "num": 32,
+       "nivell": 2,
+       "enunciat": "Calcula la funció inversa de les funcions racionals:",
+       "parts": [
+        "$f(x) = \\dfrac{2x+5}{x-1}$",
+        "$g(x) = \\dfrac{x+3}{2x-1}$",
+        "$h(x) = \\dfrac{3x}{x+4}$",
+        "$k(x) = \\dfrac{x-2}{3x+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$y(x-1)=2x+5\\Rightarrow xy-y=2x+5\\Rightarrow x(y-2)=y+5\\Rightarrow x=\\frac{y+5}{y-2}$. $f^{-1}(x)=\\frac{x+5}{x-2}$.",
+        "$y(2x-1)=x+3\\Rightarrow 2xy-y=x+3\\Rightarrow x(2y-1)=y+3\\Rightarrow x=\\frac{y+3}{2y-1}$. $g^{-1}(x)=\\frac{x+3}{2x-1}$.",
+        "$xy+4y=3x\\Rightarrow x(y-3)=-4y\\Rightarrow x=\\frac{-4y}{y-3}=\\frac{4y}{3-y}$. $h^{-1}(x)=\\frac{4x}{3-x}$.",
+        "$y(3x+1)=x-2\\Rightarrow 3xy+y=x-2\\Rightarrow x(3y-1)=-y-2\\Rightarrow x=\\frac{-y-2}{3y-1}$. $k^{-1}(x)=\\frac{-x-2}{3x-1}$."
+       ]
+      },
+      {
+       "num": 33,
+       "nivell": 2,
+       "enunciat": "Per a cada parella de funcions, verifica que $g = f^{-1}$ comprovant que $(f\\circ g)(x) = x$ i $(g\\circ f)(x) = x$:",
+       "parts": [
+        "$f(x) = \\dfrac{x-1}{x+1}$ i $g(x) = \\dfrac{x+1}{1-x}$",
+        "$f(x) = \\sqrt{x+3}$ ($x\\geq-3$) i $g(x) = x^2-3$ ($x\\geq0$)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(f\\circ g)(x)=f\\!\\left[\\frac{x+1}{1-x}\\right]=\\dfrac{\\frac{x+1}{1-x}-1}{\\frac{x+1}{1-x}+1}=\\dfrac{\\frac{x+1-1+x}{1-x}}{\\frac{x+1+1-x}{1-x}}=\\dfrac{2x}{2}=x$ ✓. $(g\\circ f)(x)=g\\!\\left[\\frac{x-1}{x+1}\\right]=\\dfrac{\\frac{x-1}{x+1}+1}{1-\\frac{x-1}{x+1}}=\\dfrac{\\frac{2x}{x+1}}{\\frac{2}{x+1}}=x$ ✓.",
+        "$(f\\circ g)(x)=\\sqrt{x^2-3+3}=\\sqrt{x^2}=x$ (per $x\\geq0$) ✓. $(g\\circ f)(x)=(\\sqrt{x+3})^2-3=x+3-3=x$ ✓."
+       ]
+      },
+      {
+       "num": 34,
+       "nivell": 3,
+       "enunciat": "Considera $f(x) = \\dfrac{ax+b}{cx+d}$ (una funció de Möbius).",
+       "parts": [
+        "Calcula $f^{-1}(x)$ en termes de $a$, $b$, $c$, $d$.",
+        "Quina condició han de complir $a$, $b$, $c$, $d$ perquè $f = f^{-1}$ (la funció sigui la seva pròpia inversa)?",
+        "Dóna un exemple concret d'una funció que sigui la seva pròpia inversa."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$y(cx+d)=ax+b\\Rightarrow cxy+dy=ax+b\\Rightarrow x(cy-a)=b-dy\\Rightarrow x=\\frac{b-dy}{cy-a}$. $f^{-1}(x)=\\frac{b-dx}{cx-a}=\\frac{-dx+b}{cx-a}$.",
+        "$f=f^{-1}$ requereix $\\frac{ax+b}{cx+d}=\\frac{-dx+b}{cx-a}$. Identificant: $a=-d$ (i $b=b$, $c=c$). Condició: $\\mathbf{a+d=0}$.",
+        "Exemple: $f(x)=\\frac{2x+3}{x-2}$ (aquí $a=2$, $d=-2$, $a+d=0$). Comproveu: $f^{-1}(x)=\\frac{2x+3}{x-2}=f(x)$."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 3,
+   "nom": "Límits de funcions",
+   "carpeta": "3 Límits de funcions",
+   "seccions": [
+    {
+     "titol": "Límit d'una funció a l'infinit",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Calcula $\\lim_{x\\to+\\infty}$ i $\\lim_{x\\to-\\infty}$ de les funcions polinòmiques:",
+       "parts": [
+        "$f(x) = 3x^4 - 2x + 1$",
+        "$g(x) = -2x^3 + 5x^2$",
+        "$h(x) = x^5 - 10x^3 + x$",
+        "$p(x) = -x^6 + 4x^2 - 1$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Terme dominant $3x^4$ (grau parell, coef. $+$): $\\lim_{+\\infty}=+\\infty$; $\\lim_{-\\infty}=+\\infty$.",
+        "Terme dominant $-2x^3$ (grau senar, coef. $-$): $\\lim_{+\\infty}=-\\infty$; $\\lim_{-\\infty}=+\\infty$.",
+        "Terme dominant $x^5$ (grau senar, coef. $+$): $\\lim_{+\\infty}=+\\infty$; $\\lim_{-\\infty}=-\\infty$.",
+        "Terme dominant $-x^6$ (grau parell, coef. $-$): $\\lim_{+\\infty}=-\\infty$; $\\lim_{-\\infty}=-\\infty$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Calcula $\\lim_{x\\to+\\infty}$ i $\\lim_{x\\to-\\infty}$ de les funcions racionals:",
+       "parts": [
+        "$f(x) = \\dfrac{3x^2+1}{x^2-4}$",
+        "$g(x) = \\dfrac{5x-1}{2x+3}$",
+        "$h(x) = \\dfrac{x^3+2x}{x^2-1}$",
+        "$p(x) = \\dfrac{4x+1}{x^3-x}$",
+        "$r(x) = \\dfrac{2x^2-3}{1-x}$",
+        "$q(x) = \\dfrac{7}{x^2+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Graus iguals: $3/1=3$. Ambdós: $3$.",
+        "Graus iguals: $5/2$. Ambdós: $5/2$.",
+        "Gr. num $>$ gr. den: $\\lim_{+\\infty}=+\\infty$; $\\lim_{-\\infty}=-\\infty$ (terme dominant $x^3/x^2=x$).",
+        "Gr. num $<$ gr. den: ambdós $= 0$.",
+        "Terme dominant $-2x^2/(-x)=2x$: $\\lim_{+\\infty}=+\\infty$; $\\lim_{-\\infty}=-\\infty$.",
+        "Gr. num $<$ gr. den: ambdós $= 0$ (per $+$: $0^+$; per $-$: $0^+$)."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Calcula els límits a $+\\infty$ i $-\\infty$ de:",
+       "parts": [
+        "$f(x) = \\sqrt{x^2+1} - x$",
+        "$g(x) = \\sqrt{4x^2+3x+1}$",
+        "$h(x) = \\dfrac{\\sqrt{9x^2+x}}{2x+1}$",
+        "$p(x) = \\dfrac{x^2}{\\sqrt{x^4+1}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\lim_{+\\infty}$: racionalitza: $\\frac{1}{\\sqrt{x^2+1}+x}\\to0$. $\\lim_{-\\infty}$: quan $x<0$, $\\sqrt{x^2+1}\\approx -x$, per tant $(-x)-x=-2x\\to+\\infty$.",
+        "$\\lim_{\\pm\\infty}\\sqrt{4x^2+\\ldots}=\\sqrt{4}|x|\\to+\\infty$ (ambdós).",
+        "$\\lim_{+\\infty}$: $\\sqrt{9x^2}/2x=3x/2x=3/2$. $\\lim_{-\\infty}$: $\\sqrt{9x^2}=|x|=-x$ (neg.), denominador $2x\\to-\\infty$: $\\frac{-x}{2x}=-1/2$.",
+        "$\\frac{x^2}{\\sqrt{x^4}}=\\frac{x^2}{x^2}=1$. Ambdós $=1$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 1,
+       "enunciat": "Troba les assímptotes horitzontals de les funcions:",
+       "parts": [
+        "$f(x) = \\dfrac{3x-1}{x+2}$",
+        "$g(x) = \\dfrac{x^2-4}{x^2+1}$",
+        "$h(x) = \\dfrac{2x+5}{x^2-x+3}$",
+        "$p(x) = \\dfrac{x^3-1}{x^3+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\lim_{\\pm\\infty}=3$. Assímptota $y=3$.",
+        "$\\lim_{\\pm\\infty}=1$. Assímptota $y=1$.",
+        "$\\lim_{\\pm\\infty}=0$. Assímptota $y=0$.",
+        "$\\lim_{\\pm\\infty}=1$. Assímptota $y=1$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Calcula:",
+       "parts": [
+        "$\\displaystyle\\lim_{x\\to+\\infty}\\!\\left(\\sqrt{x^2+3x+1} - \\sqrt{x^2-x+2}\\right)$",
+        "$\\displaystyle\\lim_{x\\to-\\infty}\\!\\left(\\sqrt{x^2+x} + x\\right)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Racionalitza: $\\frac{(x^2+3x+1)-(x^2-x+2)}{\\sqrt{x^2+3x+1}+\\sqrt{x^2-x+2}}=\\frac{4x-1}{2x}\\to 2$.",
+        "Quan $x\\to-\\infty$: $\\sqrt{x^2+x}=|x|\\sqrt{1+1/x}\\approx(-x)(1+\\frac{1}{2x})=-x-\\frac{1}{2}$. Per tant $(-x-\\frac{1}{2})+x=-\\frac{1}{2}$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Límit d'una funció en un punt",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Calcula els límits substitint directament:",
+       "parts": [
+        "$\\displaystyle\\lim_{x\\to 3}(x^2-2x+1)$",
+        "$\\displaystyle\\lim_{x\\to-2}(x^3+3x)$",
+        "$\\displaystyle\\lim_{x\\to 1}\\dfrac{x+3}{x^2+2}$",
+        "$\\displaystyle\\lim_{x\\to 0}\\dfrac{x^2+1}{x-1}$",
+        "$\\displaystyle\\lim_{x\\to 2}\\sqrt{3x+1}$",
+        "$\\displaystyle\\lim_{x\\to-1}(x^4-x^2+2)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$9-6+1=4$",
+        "$-8+(-6)=-14$",
+        "$\\frac{4}{3}$",
+        "$\\frac{1}{-1}=-1$",
+        "$\\sqrt{7}$",
+        "$1-1+2=2$"
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "Calcula els límits laterals i determina si el límit existeix:",
+       "parts": [
+        "$\\displaystyle\\lim_{x\\to 2}\\dfrac{1}{x-2}$",
+        "$\\displaystyle\\lim_{x\\to-1}\\dfrac{3}{(x+1)^2}$",
+        "$\\displaystyle\\lim_{x\\to 0}\\dfrac{x}{|x|}$",
+        "$\\displaystyle\\lim_{x\\to 3}\\dfrac{5}{(x-3)^2}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\lim_{2^-}=\\frac{1}{0^-}=-\\infty$;  $\\lim_{2^+}=\\frac{1}{0^+}=+\\infty$. No existeix.",
+        "$(x+1)^2>0$ sempre: $\\lim_{-1^\\pm}=\\frac{3}{0^+}=+\\infty$. No existeix (asimptòtic).",
+        "$|x|=-x$ si $x<0$, $|x|=x$ si $x>0$: $\\lim_{0^-}=\\frac{x}{-x}=-1$;  $\\lim_{0^+}=1$. No existeix.",
+        "$(x-3)^2>0$: $\\lim_{3^\\pm}=\\frac{5}{0^+}=+\\infty$. No existeix (asimptòtic)."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Calcula els límits aixecant la indeterminació $0/0$ (factoritza):",
+       "parts": [
+        "$\\displaystyle\\lim_{x\\to 1}\\dfrac{x^2-1}{x-1}$",
+        "$\\displaystyle\\lim_{x\\to-2}\\dfrac{x^2+5x+6}{x+2}$",
+        "$\\displaystyle\\lim_{x\\to 3}\\dfrac{x^2-9}{x^2-6x+9}$",
+        "$\\displaystyle\\lim_{x\\to 2}\\dfrac{x^3-8}{x-2}$",
+        "$\\displaystyle\\lim_{x\\to-1}\\dfrac{x^3+1}{x^2-1}$",
+        "$\\displaystyle\\lim_{x\\to 4}\\dfrac{x^2-3x-4}{x^2-16}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{(x-1)(x+1)}{x-1}=x+1\\to 2$.",
+        "$\\frac{(x+2)(x+3)}{x+2}=x+3\\to 1$.",
+        "$\\frac{(x-3)(x+3)}{(x-3)^2}=\\frac{x+3}{x-3}\\to\\frac{6}{0}=\\pm\\infty$. ($\\lim_{3^-}=-\\infty$, $\\lim_{3^+}=+\\infty$: no existeix.)",
+        "$x^3-8=(x-2)(x^2+2x+4)$: $\\to 4+4+4=12$.",
+        "$x^3+1=(x+1)(x^2-x+1)$; $x^2-1=(x+1)(x-1)$: $\\frac{x^2-x+1}{x-1}\\to\\frac{3}{-2}=-\\frac{3}{2}$.",
+        "$\\frac{(x-4)(x+1)}{(x-4)(x+4)}=\\frac{x+1}{x+4}\\to\\frac{5}{8}$."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Calcula els límits en funcions definides a trossos:",
+       "parts": [
+        "$f(x) = \\begin{cases} x^2-3 & \\text{si } x < 1 \\\\ 2x-4 & \\text{si } x \\geq 1 \\end{cases}$ Calcula $\\lim_{x\\to 1} f(x)$ i $f(1)$. Existeix el límit?",
+        "$g(x) = \\begin{cases} \\dfrac{x^2-4}{x-2} & \\text{si } x \\neq 2 \\\\ 5 & \\text{si } x = 2 \\end{cases}$ Calcula $\\lim_{x\\to 2} g(x)$ i $g(2)$. Coincideixen?",
+        "$h(x) = \\begin{cases} 3x+1 & \\text{si } x \\leq -1 \\\\ x^2+k & \\text{si } x > -1 \\end{cases}$ Troba el valor de $k$ perquè $h$ sigui contínua en $x=-1$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\lim_{1^-}=1-3=-2$;  $\\lim_{1^+}=2-4=-2$;  $f(1)=2-4=-2$. Laterals iguals i igual a $f(1)$: el límit existeix i val $-2$.",
+        "$\\lim_{2}: \\frac{(x-2)(x+2)}{x-2}=x+2\\to 4$.  $g(2)=5$.  $4\\neq5$: el límit no coincideix amb el valor de la funció.",
+        "$\\lim_{-1^-}=3(-1)+1=-2$.  $\\lim_{-1^+}=(-1)^2+k=1+k$.  Perquè $h$ sigui contínua: $1+k=-2\\Rightarrow k=-3$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Calcula:",
+       "parts": [
+        "$\\displaystyle\\lim_{x\\to 0}\\dfrac{\\sqrt{x+1}-1}{x}$ <em>(multiplica pel conjugat de l'arrel)</em>",
+        "Determina $a$ i $b$ perquè $f(x)=\\begin{cases}ax+3 & x<1\\\\ b & x=1\\\\ x^2+2 & x>1\\end{cases}$ sigui contínua en $x=1$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Multiplica per $\\frac{\\sqrt{x+1}+1}{\\sqrt{x+1}+1}$: $\\frac{x+1-1}{x(\\sqrt{x+1}+1)}=\\frac{1}{\\sqrt{x+1}+1}\\to\\frac{1}{2}$.",
+        "$\\lim_{1^+}=1+2=3$.  $\\lim_{1^-}=a+3$.  Cal $a+3=3\\Rightarrow a=0$ i $b=3$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Continuïtat de funcions",
+     "exercicis": [
+      {
+       "num": 11,
+       "nivell": 1,
+       "enunciat": "Classifica els punts de discontinuïtat de les funcions racionals (evitable, salt o asimptòtica):",
+       "parts": [
+        "$f(x) = \\dfrac{x^2-4}{x-2}$",
+        "$g(x) = \\dfrac{1}{(x-3)^2}$",
+        "$h(x) = \\dfrac{x^2-x-6}{x-3}$",
+        "$p(x) = \\dfrac{2}{x+5}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x=2$: $\\lim_{x\\to2}(x+2)=4$, existeix però $f(2)$ no: <strong>evitable</strong>.",
+        "$x=3$: $(x-3)^2>0$, $\\lim_{\\pm}=+\\infty$: <strong>asimptòtica</strong>.",
+        "$x=3$: $\\frac{(x-3)(x+2)}{x-3}=x+2\\to5$, existeix però $h(3)$ no: <strong>evitable</strong>.",
+        "$x=-5$: $\\lim_{-5^-}=-\\infty$, $\\lim_{-5^+}=+\\infty$: <strong>asimptòtica</strong>."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 2,
+       "enunciat": "Estudia la continuïtat completa de les funcions:",
+       "parts": [
+        "$f(x) = \\dfrac{x^2+x-6}{x-2}$",
+        "$g(x) = \\dfrac{3x}{x^2-x}$",
+        "$h(x) = \\dfrac{\\sqrt{x-1}}{x-4}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=\\mathbb{R}\\setminus\\{2\\}$. Punt crític: $x=2$. $\\lim_{x\\to2}\\frac{(x-2)(x+3)}{x-2}=5$ (existeix). $f(2)$ no definida. <strong>Discontinuïtat evitable</strong> en $x=2$. Contínua a la resta.",
+        "$g(x)=\\frac{3x}{x(x-1)}=\\frac{3}{x-1}$ ($x\\neq0$). $D(g)=\\mathbb{R}\\setminus\\{0,1\\}$. $x=0$: $\\frac{3}{-1}=-3$ → la simplificació revela que $x=0$ és <strong>evitable</strong> (límit $= -3$). $x=1$: $\\frac{3}{0}$ → <strong>asimptòtica</strong>.",
+        "$D(h)=[1,+\\infty)\\setminus\\{4\\}$. Punt crític: $x=4$. $\\lim_{x\\to4}\\frac{\\sqrt{x-1}}{x-4}$: $\\frac{\\sqrt{3}}{0}$ → <strong>asimptòtica</strong> en $x=4$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "Estudia la continuïtat de les funcions a trossos en els punts de canvi:",
+       "parts": [
+        "$f(x) = \\begin{cases} x+4 & \\text{si } x \\leq 1 \\\\ x^2+2 & \\text{si } x > 1 \\end{cases}$",
+        "$g(x) = \\begin{cases} \\dfrac{x^2-9}{x-3} & \\text{si } x < 3 \\\\ 2x & \\text{si } x \\geq 3 \\end{cases}$",
+        "$h(x) = \\begin{cases} 2x+3 & \\text{si } x \\leq 0 \\\\ \\dfrac{1}{x-1} & \\text{si } 0 < x < 2 \\\\ x^2-3 & \\text{si } x \\geq 2 \\end{cases}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x=1$: $\\lim_{1^-}=1+4=5$;  $\\lim_{1^+}=1+2=3$;  $f(1)=5$. $5\\neq3$ → <strong>discontinuïtat de salt</strong> en $x=1$ ($S=3-5=-2$).",
+        "$x=3$: $\\lim_{3^-}=\\frac{(x-3)(x+3)}{x-3}=x+3\\to6$;  $\\lim_{3^+}=2\\cdot3=6$;  $g(3)=6$. Tots tres iguals → $g$ és <strong>contínua</strong> en $x=3$.",
+        "$x=0$: $\\lim_{0^-}=3$;  $\\lim_{0^+}=\\frac{1}{-1}=-1$;  $h(0)=3$. $3\\neq-1$ → <strong>salt</strong> en $x=0$. $x=1$: $\\lim_{1^\\pm}=\\frac{1}{0}=\\pm\\infty$ → <strong>asimptòtica</strong> en $x=1$. $x=2$: $\\lim_{2^-}=\\frac{1}{1}=1$;  $\\lim_{2^+}=4-3=1$;  $h(2)=1$ → <strong>contínua</strong> en $x=2$."
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 2,
+       "enunciat": "Troba el valor del paràmetre perquè $f$ sigui contínua:",
+       "parts": [
+        "$f(x) = \\begin{cases} kx+1 & x \\leq 2 \\\\ x^2-1 & x > 2 \\end{cases}$",
+        "$g(x) = \\begin{cases} x^2+a & x < 0 \\\\ 3-2x & x \\geq 0 \\end{cases}$",
+        "$h(x) = \\begin{cases} \\dfrac{x^2-k^2}{x-k} & x \\neq k \\\\ 4 & x = k \\end{cases}$ (on $k>0$)",
+        "$p(x) = \\begin{cases} ax-b & x \\leq 1 \\\\ 2x & 1 < x < 3 \\\\ bx+a & x \\geq 3 \\end{cases}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\lim_{2^-}=2k+1$;  $\\lim_{2^+}=3$. Iguals: $2k+1=3\\Rightarrow k=1$.",
+        "$\\lim_{0^-}=a$;  $\\lim_{0^+}=3$;  $g(0)=3$. Cal $a=3$.",
+        "$\\lim_{x\\to k}\\frac{(x-k)(x+k)}{x-k}=2k$. Cal $2k=4\\Rightarrow k=2$.",
+        "$x=1$: $a-b=2$. $x=3$: $6=3b+a$. Sistema: $a=b+2$, $b+2+3b=6\\Rightarrow b=1$, $a=3$."
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Estudia la continuïtat completa de: \\[\nf(x) = \\begin{cases}\n  \\dfrac{x^2+x-2}{x-1} & \\text{si } x < 1 \\\\[6pt]\n  3 & \\text{si } x = 1 \\\\[4pt]\n  \\dfrac{\\sqrt{x+3}}{x-2} & \\text{si } x > 1\n\\end{cases}\n\\] Classifica cada discontinuïtat i calcula el salt si n'hi ha.",
+       "parts": [],
+       "solucio": "$D$: per al tercer tros, cal $x+3\\geq0$ (sempre cert per $x>1$) i $x\\neq2$. $D=(-\\infty,1)\\cup[1,2)\\cup(2,+\\infty)$.<br><br>$x=1$: $\\lim_{1^-}=\\frac{(x-1)(x+2)}{x-1}=x+2\\to3$;  $\\lim_{1^+}=\\frac{\\sqrt{4}}{-1}=-2$;  $f(1)=3$. Laterals $3\\neq-2$: <strong>salt</strong> en $x=1$.<br><br>$x=2$: $\\lim_{2^-}=\\frac{\\sqrt{5}}{0^-}=-\\infty$;  $\\lim_{2^+}=\\frac{\\sqrt{5}}{0^+}=+\\infty$: <strong>asimptòtica</strong> en $x=2$.",
+       "solucioParts": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 4,
+   "nom": "Continuïtat i representació",
+   "carpeta": "4 Continuïtat i representació",
+   "seccions": [
+    {
+     "titol": "Assímptotes",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Troba les assímptotes verticals (AV) de les funcions racionals:",
+       "parts": [
+        "$f(x) = \\dfrac{x-1}{x+4}$",
+        "$g(x) = \\dfrac{3x}{x^2-9}$",
+        "$h(x) = \\dfrac{x^2-4}{x^2+x-6}$",
+        "$p(x) = \\dfrac{x+2}{x^2+2x+1}$",
+        "$q(x) = \\dfrac{x^2-9}{x-3}$",
+        "$r(x) = \\dfrac{2}{x^2+4}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "AV: $x=-4$.",
+        "$x^2-9=(x-3)(x+3)$, cap cancel·la: AV $x=3$ i $x=-3$.",
+        "$x^2+x-6=(x+3)(x-2)$; num $=(x-2)(x+2)$. A $x=2$ cancel·la (evitable). A $x=-3$: $P(-3)=-5\\neq0$ → AV $x=-3$.",
+        "$(x+1)^2=0\\Rightarrow x=-1$; $P(-1)=1\\neq0$ → AV $x=-1$.",
+        "$\\frac{(x-3)(x+3)}{x-3}=x+3$: tot cancel·la → <strong>no AV</strong> (evitable a $x=3$).",
+        "$x^2+4>0$ sempre: <strong>no AV</strong>."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Troba les assímptotes horitzontals (AH):",
+       "parts": [
+        "$f(x) = \\dfrac{5x+2}{x-1}$",
+        "$g(x) = \\dfrac{x^2+3}{3x^2-1}$",
+        "$h(x) = \\dfrac{2x-1}{x^2+4}$",
+        "$p(x) = \\dfrac{x^3-1}{x^2+1}$",
+        "$q(x) = \\dfrac{4x^2-1}{2x^2+x+3}$",
+        "$r(x) = \\dfrac{x+1}{x^3-x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$p=q=1$: AH $y=5$.",
+        "$p=q=2$: AH $y=1/3$.",
+        "$p=1<q=2$: AH $y=0$.",
+        "$p=3>q=2$: <strong>no AH</strong>.",
+        "$p=q=2$: AH $y=4/2=2$.",
+        "$p=1<q=3$: AH $y=0$."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Troba les assímptotes obliqües (AO) de les funcions (fes la divisió polinòmica):",
+       "parts": [
+        "$f(x) = \\dfrac{x^2+2}{x-1}$",
+        "$g(x) = \\dfrac{2x^2-x+1}{x+2}$",
+        "$h(x) = \\dfrac{x^2}{x+3}$",
+        "$p(x) = \\dfrac{x^3+x}{x^2-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2+2=(x-1)(x+1)+3$ → AO $y=x+1$.",
+        "$2x^2-x+1=(x+2)(2x-5)+11$ → AO $y=2x-5$.",
+        "$x^2=(x+3)(x-3)+9$ → AO $y=x-3$.",
+        "$\\frac{x^3+x}{x^2-1}$: $p=3=q+1=3$ ✓. $x^3+x=x(x^2-1)+2x$ → $\\frac{x^3+x}{x^2-1}=x+\\frac{2x}{x^2-1}$ → AO $y=x$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Determina <strong>totes</strong> les assímptotes (AV, AH, AO) de les funcions:",
+       "parts": [
+        "$f(x) = \\dfrac{3x^2-x}{x^2-4}$",
+        "$g(x) = \\dfrac{x^2-1}{2x+4}$",
+        "$h(x) = \\dfrac{x^3-1}{x^2+x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "AV: $x=\\pm2$ ($P(\\pm2)\\neq0$). AH: $p=q=2$, $y=3$. No AO.",
+        "AV: $x=-2$ ($P(-2)=3\\neq0$). No AH ($p=2>q=1$). AO: $x^2-1=(2x+4)(\\frac{x}{2}-1)+3$ → $y=\\frac{x}{2}-1$.",
+        "$x^2+x=x(x+1)$; AV: $x=0$ i $x=-1$. No AH ($p>q$). AO: $\\frac{x^3-1}{x^2+x}=x-1+\\frac{x-1}{x(x+1)}\\to x-1$ → $y=x-1$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Demostra que la funció $f(x)=\\dfrac{x^2+1}{x}$ és simètrica respecte a l'assímptota obliqua $y=x$ (és a dir, que $f(x)-x$ i $x-f(x)$ donen el mateix en valor absolut a cada costat). Comprova-ho calculant els límits $\\lim_{x\\to+\\infty}[f(x)-x]$ i $\\lim_{x\\to-\\infty}[f(x)-x]$.",
+       "parts": [],
+       "solucio": "$f(x)-x=\\frac{x^2+1}{x}-x=\\frac{1}{x}$. $\\lim_{+\\infty}=0^+$; $\\lim_{-\\infty}=0^-$. La corba s'acosta a $y=x$ per sobre a $+\\infty$ i per sota a $-\\infty$.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Estudi del signe d'una funció",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Estudia el signe de les funcions lineals i quadràtiques:",
+       "parts": [
+        "$f(x) = 2x - 6$",
+        "$g(x) = x^2 - 4$",
+        "$h(x) = -x^2 + x + 6$",
+        "$p(x) = x^2 + 2x + 1$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Zero: $x=3$. $f>0$ a $(3,+\\infty)$; $f<0$ a $(-\\infty,3)$.",
+        "$(x-2)(x+2)=0$: zeros $\\pm2$. $g>0$ a $(-\\infty,-2)\\cup(2,+\\infty)$; $g<0$ a $(-2,2)$.",
+        "$-(x-3)(x+2)=0$: zeros $3,-2$. $h>0$ a $(-2,3)$; $h<0$ a $(-\\infty,-2)\\cup(3,+\\infty)$.",
+        "$(x+1)^2\\geq0$ sempre; $p=0$ sols a $x=-1$. $p\\geq0$ a tot $\\mathbb{R}$."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 2,
+       "enunciat": "Estudia el signe de les funcions racionals (fes la taula de signes):",
+       "parts": [
+        "$f(x) = \\dfrac{x-2}{x+1}$",
+        "$g(x) = \\dfrac{x^2-4}{x}$",
+        "$h(x) = \\dfrac{(x+1)(x-3)}{x^2-1}$",
+        "$p(x) = \\dfrac{x^2+x-6}{x^2-9}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Zeros: $x=2$; exclòs: $x=-1$. <br> $(-\\infty,-1)$: $+$;  $(-1,2)$: $-$;  $(2,+\\infty)$: $+$.",
+        "Zeros: $x=\\pm2$; exclòs: $x=0$. <br> $(-\\infty,-2)$: $-$;  $(-2,0)$: $+$;  $(0,2)$: $-$;  $(2,+\\infty)$: $+$.",
+        "$\\frac{(x+1)(x-3)}{(x-1)(x+1)}=\\frac{x-3}{x-1}$ ($x\\neq-1$). Zeros: $x=3$; exclosos: $x=-1,\\,1$.<br> $(-\\infty,-1)$: $+$;  $(-1,1)$: $+$;  $(1,3)$: $-$;  $(3,+\\infty)$: $+$.",
+        "$\\frac{(x+3)(x-2)}{(x+3)(x-3)}=\\frac{x-2}{x-3}$ ($x\\neq-3$). Zeros: $x=2$; exclosos: $x=-3,\\,3$.<br> $(-\\infty,-3)$: $+$;  $(-3,2)$: $+$ (però $x=-3$ exclòs);  wait: a $(-3,2)$: $\\frac{-}{-}=+$;  $(2,3)$: $\\frac{+}{-}=-$;  $(3,+\\infty)$: $+$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Estudia el signe i determina en quins intervals $f(x) > 0$:",
+       "parts": [
+        "$f(x) = \\dfrac{x^3-x}{x^2-4}$   <em>(factoritza numerador i denominador)</em>",
+        "$g(x) = \\dfrac{x^2-2x-3}{x^2+2x-8}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{x(x-1)(x+1)}{(x-2)(x+2)}$. Zeros: $0,\\pm1$; exclosos: $\\pm2$. Punts: $-2,-1,0,1,2$.<br> Signes: $(-\\infty,-2)$: $-$;  $(-2,-1)$: $+$;  $(-1,0)$: $-$;  $(0,1)$: $+$;  $(1,2)$: $-$;  $(2,+\\infty)$: $+$.<br> $f>0$ a $(-2,-1)\\cup(0,1)\\cup(2,+\\infty)$.",
+        "$\\frac{(x-3)(x+1)}{(x+4)(x-2)}$. Zeros: $3,-1$; exclosos: $-4,\\,2$. Punts: $-4,-1,2,3$.<br> $(-\\infty,-4)$: $+$;  $(-4,-1)$: $-$;  $(-1,2)$: $+$;  $(2,3)$: $-$;  $(3,+\\infty)$: $+$."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Determina per a quins valors de $x$ es compleix la inequació:",
+       "parts": [
+        "$\\dfrac{x-1}{x+2} \\geq 0$",
+        "$\\dfrac{x^2-x-6}{x-4} < 0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f\\geq0$ quan $f>0$ o $f=0$. $f=0$ a $x=1$; $f>0$ a $(-\\infty,-2)\\cup(1,+\\infty)$. Solució: $(-\\infty,-2)\\cup[1,+\\infty)$.",
+        "$\\frac{(x-3)(x+2)}{x-4}$. Zeros: $3,-2$; exclòs: $4$. <br> $(-\\infty,-2)$: $-$;  $(-2,3)$: $+$;  $(3,4)$: $-$;  $(4,+\\infty)$: $+$.<br> Solució: $(-\\infty,-2)\\cup(3,4)$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Representació gràfica d'una funció",
+     "exercicis": [
+      {
+       "num": 10,
+       "nivell": 1,
+       "enunciat": "Per a cada funció, troba: domini, assímptotes, punts amb els eixos i signe. No cal dibuixar la gràfica.",
+       "parts": [
+        "$f(x) = \\dfrac{x+1}{x-3}$",
+        "$g(x) = \\dfrac{x^2-1}{x^2+x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Domini: $\\mathbb{R}\\setminus\\{3\\}$. AV: $x=3$. AH: $y=1$. Eix $y$: $f(0)=-1/3$. Eix $x$: $x=-1$. Signe: $(-\\infty,-1)$: $+$;  $(-1,3)$: $-$;  $(3,+\\infty)$: $+$.",
+        "$g(x)=\\frac{(x-1)(x+1)}{x(x+1)}=\\frac{x-1}{x}$ ($x\\neq-1$). Domini: $\\mathbb{R}\\setminus\\{-1,0\\}$. AV: $x=0$ (AV); $x=-1$ evitable. AH: $y=1$. Eix $y$: no ($x=0$ exclòs). Eix $x$: $x=1$. Signe: $(-\\infty,-1)$: $+$;  $(-1,0)$: $+$;  $(0,1)$: $-$;  $(1,+\\infty)$: $+$."
+       ]
+      },
+      {
+       "num": 11,
+       "nivell": 2,
+       "enunciat": "Fes la representació gràfica completa (seguint els 7 passos del mètode):",
+       "parts": [
+        "$f(x) = \\dfrac{1}{x+2}$",
+        "$g(x) = \\dfrac{x}{x^2-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "<strong>1.</strong> $D=\\mathbb{R}\\setminus\\{-2\\}$. <strong>2.</strong> AV $x=-2$ (asimptòtica). <strong>3.</strong> AV: $x=-2$; AH: $y=0$; no AO. <strong>4.</strong> Eix $y$: $f(0)=1/2$; eix $x$: $1=0$ impossible, no talla. <strong>5.</strong> $f>0$ a $(-2,+\\infty)$; $f<0$ a $(-\\infty,-2)$. <strong>6.</strong> $f(-3)=-1$, $f(-1)=1$, $f(0)=1/2$, $f(1)=1/3$. <strong>7.</strong> Hipèrbola (AV $x=-2$, AH $y=0$).",
+        "<strong>1.</strong> $D=\\mathbb{R}\\setminus\\{-1,1\\}$. <strong>2.</strong> AV $x=\\pm1$. <strong>3.</strong> AV $x=\\pm1$; AH $y=0$ ($p<q$); no AO. <strong>4.</strong> Eix $y$: $g(0)=0$; eix $x$: $x=0$. <strong>5.</strong> Zeros: $x=0$; exclosos $\\pm1$. Signes: $(-\\infty,-1)$: $-$;  $(-1,0)$: $+$;  $(0,1)$: $-$;  $(1,+\\infty)$: $+$. <strong>6.</strong> $g(-2)=-2/3$, $g(2)=2/3$, $g(3)=3/8$."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 2,
+       "enunciat": "Fes la representació gràfica completa de:",
+       "parts": [
+        "$f(x) = \\dfrac{x^2-x-2}{x+1}$   <em>(busca assímptota obliqua)</em>",
+        "$g(x) = \\dfrac{x^2+4}{x}$   <em>(busca assímptota obliqua)</em>"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{(x-2)(x+1)}{x+1}=x-2$ per $x\\neq-1$: discontinuïtat evitable a $x=-1$, no AV! $D=\\mathbb{R}\\setminus\\{-1\\}$. No AV, no AH, no AO (és quasi una recta). Eix $y$: $f(0)=-2$. Eix $x$: $x=2$. Signe: $(-\\infty,-1)$: $-$;  $(-1,2)$: $-$;  $(2,+\\infty)$: $+$. Gràfica: recta $y=x-2$ amb forat a $(-1,-3)$.",
+        "$D=\\mathbb{R}\\setminus\\{0\\}$. AV: $x=0$. No AH ($p>q$). AO: $\\frac{x^2+4}{x}=x+\\frac{4}{x}$ → $y=x$. Eix $y$: no. Eix $x$: $x^2+4=0$, impossble: no talla. Signe: $g>0$ a $(0,+\\infty)$; $g<0$ a $(-\\infty,0)$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Fes la representació gràfica completa de: \\[\nf(x) = \\frac{x^2-3x+2}{x^2-4}\n\\] Determina tots els elements (domini, discontinuïtats, assímptotes, punts, signe) i esbossa la gràfica.",
+       "parts": [],
+       "solucio": "$f(x)=\\frac{(x-1)(x-2)}{(x-2)(x+2)}=\\frac{x-1}{x+2}$ per $x\\neq2$.<br> $D=\\mathbb{R}\\setminus\\{-2,2\\}$. Evitable a $x=2$ (límit $=1/4$). AV: $x=-2$. AH: $y=1$. No AO.<br> Eix $y$: $f(0)=\\frac{2}{-4}=-1/2$. Eix $x$: $x=1$.<br> Signe: zeros $x=1$; exclosos $-2,\\,2$. $(-\\infty,-2)$: $+$;  $(-2,1)$: $-$;  $(1,2)$: $+$;  $(2,+\\infty)$: $+$.<br> Gràfica: hipèrbola amb AV $x=-2$, AH $y=1$, forat a $(2,\\,1/4)$, passa per $(0,-1/2)$ i $(1,0)$.",
+       "solucioParts": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 5,
+   "nom": "Exponencials i logaritmes",
+   "carpeta": "5 Exponencials i logaritmes",
+   "seccions": [
+    {
+     "titol": "La funció exponencial",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Calcula els valors següents sense calculadora:",
+       "parts": [
+        "$2^5$",
+        "$3^{-2}$",
+        "$5^0$",
+        "$\\left(\\tfrac{1}{2}\\right)^4$",
+        "$4^{3/2}$",
+        "$8^{-1/3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$32$.",
+        "$\\frac{1}{9}$.",
+        "$1$.",
+        "$\\frac{1}{16}$.",
+        "$(4^3)^{1/2} = 64^{1/2} = 8$. O bé: $(4^{1/2})^3 = 2^3 = 8$.",
+        "$\\frac{1}{8^{1/3}} = \\frac{1}{2}$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Per a la funció $f(x) = 3^x$, determina:",
+       "parts": [
+        "El domini i el recorregut.",
+        "Les assímptotes.",
+        "Calcula $f(-2)$, $f(0)$, $f(1)$ i $f(2)$.",
+        "La funció és creixent o decreixent? Per què?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Domini: $\\mathbb{R}$. Recorregut: $(0,+\\infty)$.",
+        "AH: $y=0$ quan $x\\to-\\infty$. No hi ha AV ni AO.",
+        "$f(-2)=\\frac{1}{9}$, $f(0)=1$, $f(1)=3$, $f(2)=9$.",
+        "Creixent, perquè la base $3 > 1$."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Relaciona cada funció amb la seva descripció i determina si és creixent o decreixent, el punt de pas per l'eix $y$ i l'assímptota horitzontal:",
+       "parts": [
+        "$f(x) = \\left(\\tfrac{2}{3}\\right)^x$",
+        "$g(x) = 10^x$",
+        "$h(x) = e^{-x}$",
+        "$p(x) = 2^x + 1$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Base $2/3 < 1$: decreixent. Passa per $(0,1)$. AH: $y=0$.",
+        "Base $10 > 1$: creixent. Passa per $(0,1)$. AH: $y=0$.",
+        "$e^{-x} = (e^{-1})^x$, base $e^{-1}\\approx 0{,}368 < 1$: decreixent. Passa per $(0,1)$. AH: $y=0$.",
+        "Translació de $2^x$ cap amunt 1 unitat. Creixent. Passa per $(0,2)$. AH: $y=1$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Esbossa en el mateix sistema de coordenades les funcions $f(x)=2^x$ i $g(x)=2^{-x}$. Descriu la relació geomètrica entre les dues gràfiques. Calcula $f(2)$, $g(2)$, $f(-1)$ i $g(-1)$.",
+       "parts": [],
+       "solucio": "$g(x) = 2^{-x} = \\left(\\frac{1}{2}\\right)^x$: és la reflexió de $f(x)=2^x$ respecte a l'eix $y$.<br> $f(2)=4$, $g(2)=\\frac{1}{4}$, $f(-1)=\\frac{1}{2}$, $g(-1)=2$.<br> Totes dues passen per $(0,1)$ i tenen AH $y=0$. $f$ és creixent, $g$ decreixent.",
+       "solucioParts": []
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> La funció $f(x) = A \\cdot 2^x + B$ passa pels punts $(0, 5)$ i $(1, 9)$. Troba $A$ i $B$, determina les assímptotes i representa la funció esquemàticament.",
+       "parts": [],
+       "solucio": "$f(0)=A+B=5$ i $f(1)=2A+B=9$. Restant: $A=4$, $B=1$.<br> $f(x)=4\\cdot2^x+1$. AH: $y=1$ (quan $x\\to-\\infty$). Domini: $\\mathbb{R}$. Recorregut: $(1,+\\infty)$.<br> Creixent, passa per $(0,5)$ i $(1,9)$.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "La funció logarítmica",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Calcula els logaritmes sense calculadora:",
+       "parts": [
+        "$\\log_2 16$",
+        "$\\log_3 81$",
+        "$\\log_{10} 0{,}01$",
+        "$\\log_5 1$",
+        "$\\ln e^5$",
+        "$\\log_4 2$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\log_2 2^4 = 4$.",
+        "$\\log_3 3^4 = 4$.",
+        "$10^x = 10^{-2} \\Rightarrow x = -2$.",
+        "$\\log_5 1 = 0$.",
+        "$\\ln e^5 = 5$.",
+        "$\\log_4 4^{1/2} = \\frac{1}{2}$ (ja que $\\sqrt{4}=2$)."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "Expressa en funció de $\\log a$ i $\\log b$:",
+       "parts": [
+        "$\\log(a^2 b)$",
+        "$\\log\\dfrac{a}{b^3}$",
+        "$\\log\\sqrt{ab}$",
+        "$\\log\\dfrac{a^3}{\\sqrt{b}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2\\log a + \\log b$.",
+        "$\\log a - 3\\log b$.",
+        "$\\frac{1}{2}\\log a + \\frac{1}{2}\\log b$.",
+        "$3\\log a - \\frac{1}{2}\\log b$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Simplifica les expressions (els logaritmes han d'acabar en un sol terme):",
+       "parts": [
+        "$3\\log 2 + \\log 5 - \\log 40$",
+        "$\\log_3 6 - \\log_3 2 + \\log_3 9$",
+        "$2\\ln 3 - \\ln 6 + \\ln 2$",
+        "$\\frac{1}{2}\\log 9 + 2\\log 5 - \\log 75$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\log 8 + \\log 5 - \\log 40 = \\log\\frac{40}{40} = \\log 1 = 0$.",
+        "$\\log_3\\frac{6}{2} + \\log_3 9 = \\log_3 3 + \\log_3 9 = 1 + 2 = 3$.",
+        "$\\ln 9 - \\ln 6 + \\ln 2 = \\ln\\frac{9\\cdot 2}{6} = \\ln 3$.",
+        "$\\log 3 + \\log 25 - \\log 75 = \\log\\frac{75}{75} = \\log 1 = 0$."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Canvia de base i calcula (usa logaritmes decimals $\\log$):",
+       "parts": [
+        "$\\log_2 7$ \\hfill (resultat aprox.)",
+        "$\\log_3 50$",
+        "$\\log_5 100$",
+        "$\\log_4 0{,}1$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{\\log 7}{\\log 2} \\approx \\frac{0{,}845}{0{,}301} \\approx 2{,}807$.",
+        "$\\frac{\\log 50}{\\log 3} \\approx \\frac{1{,}699}{0{,}477} \\approx 3{,}561$.",
+        "$\\frac{\\log 100}{\\log 5} = \\frac{2}{0{,}699} \\approx 2{,}861$.",
+        "$\\frac{\\log 0{,}1}{\\log 4} = \\frac{-1}{0{,}602} \\approx -1{,}661$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Determina el domini de les funcions logarítmiques (valors de $x$ per als quals estan definides):",
+       "parts": [
+        "$f(x) = \\log(x - 3)$",
+        "$g(x) = \\ln(x^2 - 4)$",
+        "$h(x) = \\log_2\\!\\left(\\dfrac{x+1}{x-2}\\right)$",
+        "$p(x) = \\log(x^2 + 1)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Cal $x-3>0$: $D=(3,+\\infty)$.",
+        "Cal $x^2-4>0$: $(x-2)(x+2)>0$, és a dir $x<-2$ o $x>2$. $D=(-\\infty,-2)\\cup(2,+\\infty)$.",
+        "Cal $\\frac{x+1}{x-2}>0$: signe positiu a $(-\\infty,-1)\\cup(2,+\\infty)$. $D=(-\\infty,-1)\\cup(2,+\\infty)$.",
+        "$x^2+1\\geq 1>0$ sempre: $D=\\mathbb{R}$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Equacions exponencials",
+     "exercicis": [
+      {
+       "num": 11,
+       "nivell": 1,
+       "enunciat": "Resol les equacions exponencials igualant bases (mètode 1):",
+       "parts": [
+        "$2^x = 32$",
+        "$3^{2x} = 9$",
+        "$5^{x+1} = 125$",
+        "$4^x = 8$",
+        "$\\left(\\tfrac{1}{3}\\right)^x = 27$",
+        "$2^{x-1} = 16^{x+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2^x=2^5 \\Rightarrow x=5$.",
+        "$3^{2x}=3^2 \\Rightarrow 2x=2 \\Rightarrow x=1$.",
+        "$5^{x+1}=5^3 \\Rightarrow x+1=3 \\Rightarrow x=2$.",
+        "$(2^2)^x=2^3 \\Rightarrow 2x=3 \\Rightarrow x=\\frac{3}{2}$.",
+        "$3^{-x}=3^3 \\Rightarrow -x=3 \\Rightarrow x=-3$.",
+        "$2^{x-1}=(2^4)^{x+1}=2^{4x+4} \\Rightarrow x-1=4x+4 \\Rightarrow -3x=5 \\Rightarrow x=-\\frac{5}{3}$."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 2,
+       "enunciat": "Resol usant el canvi de variable (mètode 2):",
+       "parts": [
+        "$4^x - 5\\cdot 2^x + 4 = 0$",
+        "$9^x - 4\\cdot 3^x + 3 = 0$",
+        "$25^x - 6\\cdot 5^x + 5 = 0$",
+        "$4\\cdot 2^x - 2^{2x} - 4 = 0$   <em>(observa que $2^{2x}=(2^x)^2$)</em>"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$t=2^x$: $t^2-5t+4=0$, $(t-1)(t-4)=0$. $t=1\\Rightarrow x=0$; $t=4=2^2\\Rightarrow x=2$.",
+        "$t=3^x$: $t^2-4t+3=0$, $(t-1)(t-3)=0$. $t=1\\Rightarrow x=0$; $t=3\\Rightarrow x=1$.",
+        "$t=5^x$: $t^2-6t+5=0$, $(t-1)(t-5)=0$. $t=1\\Rightarrow x=0$; $t=5\\Rightarrow x=1$.",
+        "$t=2^x$: $-t^2+4t-4=0$, $t^2-4t+4=0$, $(t-2)^2=0$. $t=2\\Rightarrow x=1$ (solució doble)."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "Resol aplicant logaritmes (mètode 3). Deixa el resultat exacte i calcula l'aproximació decimal:",
+       "parts": [
+        "$3^x = 15$",
+        "$2^x = 0{,}3$",
+        "$5^{2x-1} = 100$",
+        "$e^x = 50$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x=\\frac{\\log 15}{\\log 3}=\\frac{\\ln 15}{\\ln 3}\\approx 2{,}465$.",
+        "$x=\\frac{\\log 0{,}3}{\\log 2}\\approx \\frac{-0{,}523}{0{,}301}\\approx -1{,}737$.",
+        "$2x-1=\\frac{\\log 100}{\\log 5}=\\frac{2}{\\log 5}\\approx\\frac{2}{0{,}699}\\approx 2{,}861$; $x\\approx1{,}930$.",
+        "$x=\\ln 50\\approx 3{,}912$."
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Resol les equacions: cal triar el mètode adequat per a cada una.",
+       "parts": [
+        "$2^{x+3} + 2^x = 9$",
+        "$3^{x+1} - 3^{x-1} = 8$",
+        "$2^{2x} - 3\\cdot 2^{x+1} + 8 = 0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2^x\\cdot 2^3 + 2^x = 9$: $2^x(8+1)=9$, $2^x=1=2^0$, $x=0$.",
+        "$3^x\\cdot 3 - 3^x\\cdot 3^{-1}=8$: $3^x(3-\\frac{1}{3})=8$, $3^x\\cdot\\frac{8}{3}=8$, $3^x=3$, $x=1$.",
+        "$t=2^x$: $t^2-6t+8=0$, $(t-2)(t-4)=0$. $t=2\\Rightarrow x=1$; $t=4=2^2\\Rightarrow x=2$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Equacions logarítmiques",
+     "exercicis": [
+      {
+       "num": 15,
+       "nivell": 1,
+       "enunciat": "Resol les equacions logarítmiques senzilles (comprova el domini!):",
+       "parts": [
+        "$\\log_2 x = 4$",
+        "$\\log_3(x+1) = 2$",
+        "$\\ln(2x) = 0$",
+        "$\\log(x-5) = 1$",
+        "$\\log_5(3x-2) = 2$",
+        "$\\ln(x^2) = \\ln 9$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x = 2^4 = 16$.",
+        "$x+1=3^2=9$, $x=8$. Domini: $9>0$ ✓.",
+        "$2x=e^0=1$, $x=\\frac{1}{2}$. Domini: $2\\cdot\\frac{1}{2}=1>0$ ✓.",
+        "$x-5=10$, $x=15$. Domini: $10>0$ ✓.",
+        "$3x-2=25$, $x=9$. Domini: $25>0$ ✓.",
+        "$x^2=9$, $x=\\pm3$. Cal $x^2>0$: tots dos vàlids. Solucions: $x=3$ i $x=-3$."
+       ]
+      },
+      {
+       "num": 16,
+       "nivell": 2,
+       "enunciat": "Resol aplicant les propietats dels logaritmes:",
+       "parts": [
+        "$\\log x + \\log(x-3) = 1$",
+        "$\\log_2(x+3) + \\log_2(x-1) = 5$",
+        "$\\log(x+6) - \\log x = \\log 2$",
+        "$\\ln x + \\ln(x+2) = \\ln 3$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\log[x(x-3)]=1$: $x^2-3x=10$, $x^2-3x-10=0$, $(x-5)(x+2)=0$. $x=-2$: $\\log(-2)$ invàlid. Solució: $x=5$.",
+        "$\\log_2[(x+3)(x-1)]=5$: $(x+3)(x-1)=32$, $x^2+2x-3=32$, $x^2+2x-35=0$, $(x+7)(x-5)=0$. $x=-7$: $x-1=-8<0$ invàlid. Solució: $x=5$.",
+        "$\\log\\frac{x+6}{x}=\\log 2$: $x+6=2x$, $x=6$. Domini: $6>0$ ✓.",
+        "$\\ln[x(x+2)]=\\ln 3$: $x^2+2x=3$, $x^2+2x-3=0$, $(x+3)(x-1)=0$. $x=-3<0$ invàlid. Solució: $x=1$."
+       ]
+      },
+      {
+       "num": 17,
+       "nivell": 2,
+       "enunciat": "Resol les equacions mixtes (barreja de mètodes):",
+       "parts": [
+        "$2\\log x - \\log(x+6) = \\log 3$",
+        "$\\log_3(x^2-3x) = \\log_3 4$",
+        "$\\log(2x+1) = 1 - \\log(x-2)$   <em>(recorda que $1=\\log10$)</em>",
+        "$3\\log_2 x = \\log_2(x+6) + 2$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\log\\frac{x^2}{x+6}=\\log 3$: $x^2=3x+18$, $x^2-3x-18=0$, $(x-6)(x+3)=0$. $x=-3<0$ invàlid. Solució: $x=6$.",
+        "$x^2-3x=4$: $x^2-3x-4=0$, $(x-4)(x+1)=0$. Cal $x^2-3x>0$ (és a dir $x(x-3)>0$: $x<0$ o $x>3$). $x=4$: $4>3$ ✓. $x=-1$: $(-1)(-1-3)=4>0$ ✓. Dues solucions: $x=4$ i $x=-1$.",
+        "$\\log(2x+1)+\\log(x-2)=\\log 10$: $(2x+1)(x-2)=10$, $2x^2-3x-2=10$, $2x^2-3x-12=0$. $x=\\frac{3\\pm\\sqrt{9+96}}{4}=\\frac{3\\pm\\sqrt{105}}{4}$. Cal $x>2$: $x=\\frac{3+\\sqrt{105}}{4}\\approx3{,}31$ ✓. L'altra solució és negativa: invàlida.",
+        "$\\log_2 x^3=\\log_2(x+6)+\\log_2 4$: $x^3=4(x+6)$, $x^3-4x-24=0$. Per Ruffini: $x=\\frac{}{}$ no enter. Prova $x=3$: $27-12-24=-9\\neq0$. $x=\\frac{}{}$... L'equació es resol numèricament: $x\\approx2{,}83$. Nota: problema d'exemple — el professor pot ajustar els valors."
+       ]
+      },
+      {
+       "num": 18,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Resol les equacions i indica per a cada solució si és vàlida o no:",
+       "parts": [
+        "$\\log(x^2 - 7) = \\log(x + 1)$",
+        "$\\ln(3-x) + \\ln(1-x) = \\ln(15 - 7x)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-7=x+1$: $x^2-x-8=0$, $x=\\frac{1\\pm\\sqrt{33}}{2}$. Cal $x^2-7>0$ i $x+1>0$.\\ $x_1=\\frac{1+\\sqrt{33}}{2}\\approx3{,}37$: $x+1\\approx4{,}37>0$ i $x^2-7\\approx4{,}37>0$ ✓. $x_2=\\frac{1-\\sqrt{33}}{2}\\approx-2{,}37$: $x+1\\approx-1{,}37<0$ → invàlida. Solució: $x=\\frac{1+\\sqrt{33}}{2}$.",
+        "$\\ln[(3-x)(1-x)]=\\ln(15-7x)$: $(3-x)(1-x)=15-7x$, $3-4x+x^2=15-7x$, $x^2+3x-12=0$, $x=\\frac{-3\\pm\\sqrt{57}}{2}$.\\ Cal $3-x>0$ ($x<3$) i $1-x>0$ ($x<1$) i $15-7x>0$ ($x<15/7\\approx2{,}14$): cal $x<1$.\\ $x_1\\approx2{,}27>1$ → invàlida. $x_2\\approx-5{,}27<1$ ✓. Solució: $x=\\frac{-3-\\sqrt{57}}{2}$."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 6,
+   "nom": "Trigonometria",
+   "carpeta": "6 Trigonometria",
+   "seccions": [
+    {
+     "titol": "La circumferència goniomètrica",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Converteix a radians:",
+       "parts": [
+        "$90^\\circ$",
+        "$180^\\circ$",
+        "$45^\\circ$",
+        "$270^\\circ$",
+        "$120^\\circ$",
+        "$30^\\circ$",
+        "$240^\\circ$",
+        "$330^\\circ$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{\\pi}{2}$.",
+        "$\\pi$.",
+        "$\\frac{\\pi}{4}$.",
+        "$\\frac{3\\pi}{2}$.",
+        "$\\frac{2\\pi}{3}$.",
+        "$\\frac{\\pi}{6}$.",
+        "$\\frac{4\\pi}{3}$.",
+        "$\\frac{11\\pi}{6}$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Converteix a graus:",
+       "parts": [
+        "$\\dfrac{\\pi}{3}$",
+        "$\\dfrac{3\\pi}{4}$",
+        "$\\dfrac{5\\pi}{6}$",
+        "$\\dfrac{7\\pi}{4}$",
+        "$\\dfrac{5\\pi}{3}$",
+        "$\\dfrac{2\\pi}{3}$",
+        "$\\dfrac{4\\pi}{3}$",
+        "$2\\pi$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$60^\\circ$.",
+        "$135^\\circ$.",
+        "$150^\\circ$.",
+        "$315^\\circ$.",
+        "$300^\\circ$.",
+        "$120^\\circ$.",
+        "$240^\\circ$.",
+        "$360^\\circ$."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Donats els angles, indica en quin quadrant es troben i el signe de $\\sin\\alpha$, $\\cos\\alpha$ i $\\tan\\alpha$:",
+       "parts": [
+        "$50^\\circ$",
+        "$130^\\circ$",
+        "$200^\\circ$",
+        "$310^\\circ$",
+        "$\\dfrac{2\\pi}{3}$",
+        "$\\dfrac{5\\pi}{4}$",
+        "$-\\dfrac{\\pi}{4}$",
+        "$\\dfrac{7\\pi}{6}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Q-I: $\\sin+$, $\\cos+$, $\\tan+$.",
+        "Q-II: $\\sin+$, $\\cos-$, $\\tan-$.",
+        "Q-III: $\\sin-$, $\\cos-$, $\\tan+$.",
+        "Q-IV: $\\sin-$, $\\cos+$, $\\tan-$.",
+        "$120^\\circ$, Q-II: $\\sin+$, $\\cos-$, $\\tan-$.",
+        "$225^\\circ$, Q-III: $\\sin-$, $\\cos-$, $\\tan+$.",
+        "$-45^\\circ$ = $315^\\circ$, Q-IV: $\\sin-$, $\\cos+$, $\\tan-$.",
+        "$210^\\circ$, Q-III: $\\sin-$, $\\cos-$, $\\tan+$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Usa la identitat fonamental $\\sin^2\\alpha + \\cos^2\\alpha = 1$ per completar:",
+       "parts": [
+        "Si $\\sin\\alpha = \\dfrac{3}{5}$ i $\\alpha \\in$ Q-I, calcula $\\cos\\alpha$ i $\\tan\\alpha$.",
+        "Si $\\cos\\alpha = -\\dfrac{5}{13}$ i $\\alpha \\in$ Q-II, calcula $\\sin\\alpha$ i $\\tan\\alpha$.",
+        "Si $\\tan\\alpha = -\\dfrac{4}{3}$ i $\\alpha \\in$ Q-IV, calcula $\\sin\\alpha$ i $\\cos\\alpha$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\cos^2\\alpha=1-\\frac{9}{25}=\\frac{16}{25}$, $\\cos\\alpha=\\frac{4}{5}$ (Q-I, positiu). $\\tan\\alpha=\\frac{3/5}{4/5}=\\frac{3}{4}$.",
+        "$\\sin^2\\alpha=1-\\frac{25}{169}=\\frac{144}{169}$, $\\sin\\alpha=\\frac{12}{13}$ (Q-II, positiu). $\\tan\\alpha=\\frac{12/13}{-5/13}=-\\frac{12}{5}$.",
+        "$\\tan\\alpha=\\frac{\\sin\\alpha}{\\cos\\alpha}=-\\frac{4}{3}$. Amb $\\sin^2+\\cos^2=1$: si $\\sin=-4k$ i $\\cos=3k$, llavors $16k^2+9k^2=1$, $k=\\frac{1}{5}$. Q-IV: $\\sin=-\\frac{4}{5}$, $\\cos=\\frac{3}{5}$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Un angle $\\alpha$ compleix $\\sin\\alpha + \\cos\\alpha = \\dfrac{\\sqrt{2}}{2}$. Calcula $\\sin\\alpha \\cdot \\cos\\alpha$ i determina si l'angle és possible. <em>(Pista: eleva al quadrat l'equació inicial.)</em>",
+       "parts": [],
+       "solucio": "$(\\sin\\alpha+\\cos\\alpha)^2 = \\sin^2\\alpha + 2\\sin\\alpha\\cos\\alpha + \\cos^2\\alpha = 1 + 2\\sin\\alpha\\cos\\alpha$.<br> Llavors: $\\left(\\frac{\\sqrt{2}}{2}\\right)^2 = \\frac{1}{2} = 1 + 2\\sin\\alpha\\cos\\alpha \\Rightarrow \\sin\\alpha\\cos\\alpha = -\\frac{1}{4}$.<br> Sí és possible (producte negatiu implica signes oposats: un quadrant II o IV).",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Valors notables i reducció al primer quadrant",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Calcula exactament (sense calculadora) usant els valors notables:",
+       "parts": [
+        "$\\sin 30^\\circ$",
+        "$\\cos 60^\\circ$",
+        "$\\tan 45^\\circ$",
+        "$\\sin 90^\\circ$",
+        "$\\cos 0^\\circ$",
+        "$\\tan 60^\\circ$",
+        "$\\sin 45^\\circ$",
+        "$\\cos 30^\\circ$",
+        "$\\tan 30^\\circ$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{1}{2}$.",
+        "$\\frac{1}{2}$.",
+        "$1$.",
+        "$1$.",
+        "$1$.",
+        "$\\sqrt{3}$.",
+        "$\\frac{\\sqrt{2}}{2}$.",
+        "$\\frac{\\sqrt{3}}{2}$.",
+        "$\\frac{\\sqrt{3}}{3}$."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "Calcula exactament per reducció al primer quadrant:",
+       "parts": [
+        "$\\sin 120^\\circ$",
+        "$\\cos 150^\\circ$",
+        "$\\tan 135^\\circ$",
+        "$\\sin 210^\\circ$",
+        "$\\cos 240^\\circ$",
+        "$\\tan 225^\\circ$",
+        "$\\sin 300^\\circ$",
+        "$\\cos 330^\\circ$",
+        "$\\tan 315^\\circ$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Q-II, $180^\\circ-60^\\circ$: $+\\sin60^\\circ=\\frac{\\sqrt{3}}{2}$.",
+        "Q-II, $180^\\circ-30^\\circ$: $-\\cos30^\\circ=-\\frac{\\sqrt{3}}{2}$.",
+        "Q-II, $180^\\circ-45^\\circ$: $-\\tan45^\\circ=-1$.",
+        "Q-III, $180^\\circ+30^\\circ$: $-\\sin30^\\circ=-\\frac{1}{2}$.",
+        "Q-III, $180^\\circ+60^\\circ$: $-\\cos60^\\circ=-\\frac{1}{2}$.",
+        "Q-III, $180^\\circ+45^\\circ$: $+\\tan45^\\circ=1$.",
+        "Q-IV, $360^\\circ-60^\\circ$: $-\\sin60^\\circ=-\\frac{\\sqrt{3}}{2}$.",
+        "Q-IV, $360^\\circ-30^\\circ$: $+\\cos30^\\circ=\\frac{\\sqrt{3}}{2}$.",
+        "Q-IV, $360^\\circ-45^\\circ$: $-\\tan45^\\circ=-1$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Calcula exactament (angles en radians):",
+       "parts": [
+        "$\\sin\\!\\left(\\dfrac{2\\pi}{3}\\right)$",
+        "$\\cos\\!\\left(\\dfrac{5\\pi}{6}\\right)$",
+        "$\\tan\\!\\left(\\dfrac{7\\pi}{6}\\right)$",
+        "$\\sin\\!\\left(\\dfrac{5\\pi}{4}\\right)$",
+        "$\\cos\\!\\left(\\dfrac{4\\pi}{3}\\right)$",
+        "$\\tan\\!\\left(\\dfrac{11\\pi}{6}\\right)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$120^\\circ$, Q-II: $+\\sin60^\\circ=\\frac{\\sqrt{3}}{2}$.",
+        "$150^\\circ$, Q-II: $-\\cos30^\\circ=-\\frac{\\sqrt{3}}{2}$.",
+        "$210^\\circ$, Q-III: $+\\tan30^\\circ=\\frac{\\sqrt{3}}{3}$.",
+        "$225^\\circ$, Q-III: $-\\sin45^\\circ=-\\frac{\\sqrt{2}}{2}$.",
+        "$240^\\circ$, Q-III: $-\\cos60^\\circ=-\\frac{1}{2}$.",
+        "$330^\\circ$, Q-IV: $-\\tan30^\\circ=-\\frac{\\sqrt{3}}{3}$."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Determina tots els angles $\\alpha \\in [0^\\circ, 360^\\circ)$ que compleixen:",
+       "parts": [
+        "$\\sin\\alpha = \\dfrac{\\sqrt{3}}{2}$",
+        "$\\cos\\alpha = -\\dfrac{\\sqrt{2}}{2}$",
+        "$\\tan\\alpha = \\sqrt{3}$",
+        "$\\sin\\alpha = -\\dfrac{1}{2}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\sin\\alpha>0$: Q-I i Q-II. Angle associat $60^\\circ$. Solucions: $60^\\circ$ i $120^\\circ$.",
+        "$\\cos\\alpha<0$: Q-II i Q-III. Angle associat $45^\\circ$. Solucions: $135^\\circ$ i $225^\\circ$.",
+        "$\\tan\\alpha>0$: Q-I i Q-III. Angle associat $60^\\circ$. Solucions: $60^\\circ$ i $240^\\circ$.",
+        "$\\sin\\alpha<0$: Q-III i Q-IV. Angle associat $30^\\circ$. Solucions: $210^\\circ$ i $330^\\circ$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Sense calculadora, calcula el valor exacte de $\\sin 75^\\circ$. <em>(Pista: $75^\\circ=45^\\circ+30^\\circ$. Pots usar la fórmula $\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B$.)</em>",
+       "parts": [],
+       "solucio": "$\\sin 75^\\circ = \\sin(45^\\circ+30^\\circ) = \\sin45^\\circ\\cos30^\\circ + \\cos45^\\circ\\sin30^\\circ$<br> $= \\frac{\\sqrt{2}}{2}\\cdot\\frac{\\sqrt{3}}{2} + \\frac{\\sqrt{2}}{2}\\cdot\\frac{1}{2} = \\frac{\\sqrt{6}}{4}+\\frac{\\sqrt{2}}{4} = \\frac{\\sqrt{6}+\\sqrt{2}}{4}$.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Les funcions trigonomètriques",
+     "exercicis": [
+      {
+       "num": 11,
+       "nivell": 1,
+       "enunciat": "Indica, per a cada funció, el domini, el recorregut i el període:",
+       "parts": [
+        "$f(x) = \\sin x$",
+        "$g(x) = \\cos x$",
+        "$h(x) = \\tan x$",
+        "$p(x) = 3\\sin x$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D=\\mathbb{R}$, $\\text{Im}=[-1,1]$, $T=2\\pi$.",
+        "$D=\\mathbb{R}$, $\\text{Im}=[-1,1]$, $T=2\\pi$.",
+        "$D=\\mathbb{R}\\setminus\\{\\frac{\\pi}{2}+k\\pi\\}$, $\\text{Im}=\\mathbb{R}$, $T=\\pi$.",
+        "$D=\\mathbb{R}$, $\\text{Im}=[-3,3]$, $T=2\\pi$ (l'amplitud canvia però no el període)."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 1,
+       "enunciat": "Calcula $f(x)$ als punts indicats (valors exactes):",
+       "parts": [
+        "$f(x)=\\sin x$ als punts $x=0, \\frac{\\pi}{6}, \\frac{\\pi}{4}, \\frac{\\pi}{3}, \\frac{\\pi}{2}, \\pi, \\frac{3\\pi}{2}, 2\\pi$.",
+        "$g(x)=\\cos x$ als mateixos punts."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$0,\\ \\frac{1}{2},\\ \\frac{\\sqrt{2}}{2},\\ \\frac{\\sqrt{3}}{2},\\ 1,\\ 0,\\ -1,\\ 0$.",
+        "$1,\\ \\frac{\\sqrt{3}}{2},\\ \\frac{\\sqrt{2}}{2},\\ \\frac{1}{2},\\ 0,\\ -1,\\ 0,\\ 1$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "Indica si les afirmacions següents sobre les funcions trigonomètriques son certes (C) o falses (F) i, si són falses, corregeix-les:",
+       "parts": [
+        "$\\sin x$ és una funció parella perquè $\\sin(-x) = \\sin x$.",
+        "El màxim de $\\cos x$ és 1 i s'assoleix a $x = 0$.",
+        "$\\tan x$ és definida per a tot $x \\in \\mathbb{R}$.",
+        "El periode de $\\tan x$ és $2\\pi$.",
+        "$\\cos x$ és parella i $\\sin x$ és imparella.",
+        "$\\sin\\!\\left(\\dfrac{\\pi}{2}\\right) = \\cos(0)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "F. $\\sin(-x) = -\\sin x$: és <strong>imparella</strong>, no parella.",
+        "C. $\\cos(0) = 1$ és efectivament el màxim.",
+        "F. $\\tan x$ no és definida a $x = \\frac{\\pi}{2}+k\\pi$ (on $\\cos x = 0$).",
+        "F. El periode de $\\tan x$ és $\\pi$, no $2\\pi$.",
+        "C.",
+        "C. $\\sin\\frac{\\pi}{2}=1$ i $\\cos(0)=1$."
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 2,
+       "enunciat": "Per a cada funció, troba els zeros i els valors màxims i mínims en l'interval $[0, 2\\pi]$:",
+       "parts": [
+        "$f(x) = \\sin x$",
+        "$g(x) = \\cos x$",
+        "$h(x) = 2\\sin x - 1$   <em>(primer desplaçament vertical, després zeros)</em>"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Zeros: $x=0, \\pi, 2\\pi$. Màxim $1$ a $x=\\frac{\\pi}{2}$. Mínim $-1$ a $x=\\frac{3\\pi}{2}$.",
+        "Zeros: $x=\\frac{\\pi}{2}, \\frac{3\\pi}{2}$. Màxim $1$ a $x=0, 2\\pi$. Mínim $-1$ a $x=\\pi$.",
+        "$h=0$: $\\sin x=\\frac{1}{2}$, $x=\\frac{\\pi}{6}$ i $x=\\frac{5\\pi}{6}$. Màxim $2(1)-1=1$ a $x=\\frac{\\pi}{2}$. Mínim $2(-1)-1=-3$ a $x=\\frac{3\\pi}{2}$."
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> La funció $f(x) = A\\sin(Bx)$ té amplitud $A$ i període $\\dfrac{2\\pi}{B}$. Determina $A$ i $B$ si la funció té amplitud $3$ i passa per $\\left(\\dfrac{\\pi}{4}, 3\\right)$. Esbossa la seva gràfica en $[0, 2\\pi]$.",
+       "parts": [],
+       "solucio": "Amplitud $A=3$. $f\\!\\left(\\frac{\\pi}{4}\\right)=3\\sin\\!\\left(\\frac{B\\pi}{4}\\right)=3$, per tant $\\sin\\!\\left(\\frac{B\\pi}{4}\\right)=1$, és a dir $\\frac{B\\pi}{4}=\\frac{\\pi}{2}$, $B=2$.<br> $f(x) = 3\\sin(2x)$. Període $= \\frac{2\\pi}{2}=\\pi$.<br> Gràfica: com $\\sin x$ però comprimida horitzontalment (per 2) i estirada verticalment (per 3). Zeros a $x=0, \\frac{\\pi}{2}, \\pi, \\frac{3\\pi}{2}, 2\\pi$. Màxim $3$ a $x=\\frac{\\pi}{4}$; mínim $-3$ a $x=\\frac{3\\pi}{4}$.",
+       "solucioParts": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 7,
+   "nom": "Rectes en el pla",
+   "carpeta": "7 Rectes en el pla",
+   "seccions": [
+    {
+     "titol": "Vectors en el pla",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Donats els punts $A=(2,1)$, $B=(-1,4)$, $C=(3,-2)$, calcula:",
+       "parts": [
+        "$\\overrightarrow{AB}$, $\\overrightarrow{BA}$, $\\overrightarrow{AC}$ i $\\overrightarrow{CB}$.",
+        "Els mòduls $|\\overrightarrow{AB}|$ i $|\\overrightarrow{AC}|$.",
+        "El punt mig $M$ de $BC$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\overrightarrow{AB}=(-3,3)$; $\\overrightarrow{BA}=(3,-3)$; $\\overrightarrow{AC}=(1,-3)$; $\\overrightarrow{CB}=(-4,6)$.",
+        "$|\\overrightarrow{AB}|=\\sqrt{9+9}=3\\sqrt{2}$; $|\\overrightarrow{AC}|=\\sqrt{1+9}=\\sqrt{10}$.",
+        "$M=\\left(\\frac{-1+3}{2},\\frac{4-2}{2}\\right)=(1,1)$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Siguin $\\vec{u}=(3,-1)$, $\\vec{v}=(2,4)$ i $\\vec{w}=(-1,2)$. Calcula:",
+       "parts": [
+        "$\\vec{u}+\\vec{v}$",
+        "$2\\vec{u}-\\vec{v}$",
+        "$\\vec{u}+\\vec{v}-\\vec{w}$",
+        "$3\\vec{v}-2\\vec{w}$",
+        "$|\\vec{u}+\\vec{w}|$",
+        "Vector unitari de $\\vec{v}$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(5,3)$.",
+        "$(4,-6)$.",
+        "$(6,1)$.",
+        "$(8,8)$.",
+        "$\\vec{u}+\\vec{w}=(2,1)$; $|(2,1)|=\\sqrt{5}$.",
+        "$|\\vec{v}|=\\sqrt{4+16}=\\sqrt{20}=2\\sqrt{5}$; $\\hat{v}=\\left(\\frac{1}{\\sqrt{5}},\\frac{2}{\\sqrt{5}}\\right)$."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Comprova si els parells de vectors són paral·lels. Si ho són, determina el valor de $k$:",
+       "parts": [
+        "$\\vec{u}=(2,3)$ i $\\vec{v}=(4,6)$",
+        "$\\vec{u}=(1,-2)$ i $\\vec{v}=(3,4)$",
+        "$\\vec{u}=(k,3)$ i $\\vec{v}=(2,6)$",
+        "$\\vec{u}=(4,k)$ i $\\vec{v}=(2,-3)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2\\cdot6-3\\cdot4=0$ ✓ Paral·lels; $\\vec{v}=2\\vec{u}$.",
+        "$1\\cdot4-(-2)\\cdot3=4+6=10\\neq0$: no paral·lels.",
+        "Paral·lels si $6k-6=0 \\Rightarrow k=1$.",
+        "Paral·lels si $4(-3)-k\\cdot2=0 \\Rightarrow -12=2k \\Rightarrow k=-6$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "Troba el punt $P$ tal que:",
+       "parts": [
+        "$A=(2,1)$, $B=(5,-3)$ i $P$ és el punt mig de $AB$.",
+        "$M=(3,2)$ és el punt mig de $AP$ amb $A=(-1,4)$. Troba $P$.",
+        "$\\overrightarrow{AP}=3\\overrightarrow{AB}$ amb $A=(1,0)$ i $B=(2,3)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P=\\left(\\frac{7}{2},-1\\right)$.",
+        "$\\frac{-1+P_x}{2}=3 \\Rightarrow P_x=7$; $\\frac{4+P_y}{2}=2 \\Rightarrow P_y=0$. $P=(7,0)$.",
+        "$\\overrightarrow{AB}=(1,3)$; $\\overrightarrow{AP}=3(1,3)=(3,9)$; $P=A+(3,9)=(4,9)$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> El punt $G$ és el <em>baricentre</em> (centre de gravetat) d'un triangle, definit com el punt que compleix $\\overrightarrow{GA}+\\overrightarrow{GB}+\\overrightarrow{GC}=\\vec{0}$. Demostra que $G=\\left(\\dfrac{x_A+x_B+x_C}{3},\\dfrac{y_A+y_B+y_C}{3}\\right)$ i calcula el baricentre del triangle $A=(0,0)$, $B=(6,0)$, $C=(2,6)$.",
+       "parts": [],
+       "solucio": "$\\overrightarrow{GA}+\\overrightarrow{GB}+\\overrightarrow{GC}=\\vec{0}$: $(x_A-G_x)+(x_B-G_x)+(x_C-G_x)=0 \\Rightarrow G_x=\\frac{x_A+x_B+x_C}{3}$. Ídem per a $G_y$.<br> $G=\\left(\\frac{0+6+2}{3},\\frac{0+0+6}{3}\\right)=(8/3,2)$.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Equacions de la recta",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Escriu les equacions paramètrica i general de les rectes:",
+       "parts": [
+        "Passa per $P=(3,1)$ amb vector director $\\vec{v}=(2,-1)$.",
+        "Passa per $A=(0,4)$ amb pendent $m=3$.",
+        "Passa per $A=(1,2)$ i $B=(4,0)$.",
+        "Recta vertical per $(5,-3)$ i recta horitzontal per $(-1,2)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Param.: $x=3+2t$, $y=1-t$. General: $\\vec{n}=(1,2)$: $(x-3)+2(y-1)=0 \\Rightarrow x+2y-5=0$.",
+        "$\\vec{v}=(1,3)$. Param.: $x=t$, $y=4+3t$. General: $3x-y+4=0$.",
+        "$\\vec{v}=(3,-2)$. Param.: $x=1+3t$, $y=2-2t$. General: $\\vec{n}=(2,3)$: $2(x-1)+3(y-2)=0 \\Rightarrow 2x+3y-8=0$.",
+        "Vertical: $x=5$. Horitzontal: $y=2$."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "A partir de les equacions generals, determina el vector director, el pendent i l'equació explícita:",
+       "parts": [
+        "$3x - 2y + 6 = 0$",
+        "$x + 4y - 8 = 0$",
+        "$5x + y - 3 = 0$",
+        "$-2x + 3y = 0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\vec{n}=(3,-2)$, $\\vec{v}=(2,3)$, $m=3/2$, $y=\\frac{3}{2}x+3$.",
+        "$\\vec{n}=(1,4)$, $\\vec{v}=(4,-1)$, $m=-1/4$, $y=-\\frac{1}{4}x+2$.",
+        "$\\vec{n}=(5,1)$, $\\vec{v}=(1,-5)$, $m=-5$, $y=-5x+3$.",
+        "$\\vec{n}=(-2,3)$, $\\vec{v}=(3,2)$, $m=2/3$, $y=\\frac{2}{3}x$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Determina si els punts pertanyen a la recta indicada:",
+       "parts": [
+        "$r: 2x-y+1=0$. Punts: $A=(0,1)$, $B=(2,5)$, $C=(-1,-3)$.",
+        "$s: \\begin{cases}x=1+3t\\\\y=2-t\\end{cases}$. Punts: $A=(7,0)$, $B=(4,1)$, $C=(-2,3)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$A$: $0-1+1=0$ ✓; $B$: $4-5+1=0$ ✓; $C$: $-2-(-3)+1=2\\neq0$: no.",
+        "$A$: $t=2$, $x=7$ ✓, $y=0$ ✓; $B$: $t=1$, $x=4$ ✓, $y=1$ ✓; $C$: $t=-1$, $x=-2$ ✓, $y=3$ ✓: tots tres pertanyen."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Troba la recta que compleix les condicions:",
+       "parts": [
+        "Paral·lela a $r: 3x-y+2=0$ que passa per $P=(1,4)$.",
+        "Perpendicular a $s: x+2y-5=0$ que passa per l'origen.",
+        "Que forma un angle de $45^\\circ$ amb l'eix $x$ i talla l'eix $y$ a $(0,3)$.",
+        "Que passa per $A=(2,0)$ i $B=(0,-4)$ (equació explícita i general)."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Mateixa normal $(3,-1)$: $3(x-1)-(y-4)=0 \\Rightarrow 3x-y+1=0$.",
+        "Perp. té vector director $(1,2)$ (el normal de $s$). Passa per $(0,0)$: $y=2x$, és a dir $2x-y=0$.",
+        "$m=\\tan45^\\circ=1$. $y=x+3$.",
+        "$m=\\frac{-4-0}{0-2}=2$. $y=2x-4$. General: $2x-y-4=0$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Troba l'equació de la recta que passa per $A=(2,3)$ i forma un angle de $30^\\circ$ amb la recta $r: x-\\sqrt{3}y+1=0$. <em>(Pista: el pendent de $r$ és $\\frac{1}{\\sqrt{3}}$; usa $\\tan(\\alpha\\pm30^\\circ)$)</em>",
+       "parts": [],
+       "solucio": "Pendent de $r$: $m_r=\\frac{1}{\\sqrt{3}}$. La nova recta forma $30^\\circ$ amb $r$, per tant $\\tan\\theta = \\frac{m-m_r}{1+m\\cdot m_r}=\\pm\\tan30^\\circ=\\pm\\frac{1}{\\sqrt{3}}$.<br> Cas $+$: $m-\\frac{1}{\\sqrt{3}}=\\frac{1}{\\sqrt{3}}(1+\\frac{m}{\\sqrt{3}})$: $m-\\frac{1}{\\sqrt{3}}=\\frac{1}{\\sqrt{3}}+\\frac{m}{3}$: $\\frac{2m}{3}=\\frac{2}{\\sqrt{3}}$: $m=\\sqrt{3}$. Recta: $y-3=\\sqrt{3}(x-2)$.<br> Cas $-$: $m=0$ (recta horitzontal $y=3$).",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Posicions relatives i distàncies",
+     "exercicis": [
+      {
+       "num": 11,
+       "nivell": 1,
+       "enunciat": "Estudia la posició relativa de les parelles de rectes:",
+       "parts": [
+        "$r: 2x+3y-6=0$   i   $s: 4x+6y+1=0$",
+        "$r: x-y+2=0$   i   $s: 2x-2y+4=0$",
+        "$r: x+2y-4=0$   i   $s: 3x-y+1=0$",
+        "$r: y=3x-1$   i   $s: y=-\\dfrac{1}{3}x+2$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\frac{2}{4}=\\frac{3}{6}=\\frac{1}{2}$ però $\\frac{-6}{1}\\neq\\frac{1}{2}$: <strong>paral·leles</strong>.",
+        "$\\frac{1}{2}=\\frac{-1}{-2}=\\frac{1}{2}$ i $\\frac{2}{4}=\\frac{1}{2}$: <strong>coincidents</strong>.",
+        "$\\begin{vmatrix}1&2\\\\3&-1\\end{vmatrix}=-1-6=-7\\neq0$: <strong>secants</strong>.",
+        "$r: 3x-y-1=0$; $s: x+3y-6=0$. $\\begin{vmatrix}3&-1\\\\1&3\\end{vmatrix}=9+1=10\\neq0$: <strong>secants</strong> (i perpendiculars: producte de pendents $3\\cdot(-1/3)=-1$)."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 1,
+       "enunciat": "Calcula el punt d'intersecció de les rectes secants:",
+       "parts": [
+        "$r: x+y=4$ i $s: x-y=0$",
+        "$r: 2x+y=7$ i $s: x-3y=0$",
+        "$r: y=2x-1$ i $s: y=-x+5$",
+        "$r: 3x-2y+1=0$ i $s: x+y-3=0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x=y$; $2x=4$, $x=2$. Punt $(2,2)$.",
+        "$x=3y$; $6y+y=7$, $y=1$, $x=3$. Punt $(3,1)$.",
+        "$2x-1=-x+5$; $3x=6$, $x=2$, $y=3$. Punt $(2,3)$.",
+        "$x=3-y$; $3(3-y)-2y+1=0$; $10-5y=0$; $y=2$, $x=1$. Punt $(1,2)$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "Calcula les distàncies:",
+       "parts": [
+        "Distància de $P=(3,2)$ a la recta $r: 4x-3y+1=0$.",
+        "Distància de $Q=(-1,4)$ a $s: x+y-2=0$.",
+        "Distància entre les rectes paral·leles $r: 2x+y-3=0$ i $s: 2x+y+7=0$.",
+        "Distància de l'origen a $t: 5x-12y+13=0$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$d=\\frac{|12-6+1|}{5}=\\frac{7}{5}$.",
+        "$d=\\frac{|-1+4-2|}{\\sqrt{2}}=\\frac{1}{\\sqrt{2}}=\\frac{\\sqrt{2}}{2}$.",
+        "$d=\\frac{|-3-7|}{\\sqrt{5}}=\\frac{10}{\\sqrt{5}}=2\\sqrt{5}$.",
+        "$d=\\frac{|0-0+13|}{\\sqrt{25+144}}=\\frac{13}{13}=1$."
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 2,
+       "enunciat": "Problemes mixtos:",
+       "parts": [
+        "Troba la recta que passa per $A=(2,1)$ i és equidistant de $B=(0,3)$ i $C=(4,-1)$. <em>(Pista: la mediatriu de $BC$.)</em>",
+        "Determina $k$ perquè les rectes $r: kx-2y+1=0$ i $s: 3x+y-4=0$ siguin perpendiculars.",
+        "Calcula l'àrea del triangle format per $r: x-y+2=0$, $s: x+2y-5=0$ i l'eix $x$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\overrightarrow{BC}=(4,-4)$, punt mig $(2,1)=A$ (ja és $A$!). Mediatriu perpendicular a $\\overrightarrow{BC}=(4,-4)$ passant per $(2,1)$: director $(4,-4)^\\perp=(4,4)$ o $(1,1)$. Recta: $y-1=1(x-2) \\Rightarrow y=x-1$.",
+        "Perp.: $\\vec{v}_r\\cdot\\vec{v}_s=0$. $\\vec{v}_r=(2,k)$, $\\vec{v}_s=(1,-3)$: $2(1)+k(-3)=0 \\Rightarrow k=2/3$.",
+        "Interseccions: $r\\cap s$: $x-y=-2$ i $x+2y=5$; restant $3y=7$, $y=7/3$, $x=1/3$. Punt $(1/3,7/3)$.<br> $r\\cap\\text{eix }x$ ($y=0$): $x=-2$. Punt $(-2,0)$.<br> $s\\cap\\text{eix }x$: $x=5$. Punt $(5,0)$.<br> Base $=5-(-2)=7$, altura $=7/3$. Àrea $=\\frac{1}{2}\\cdot7\\cdot\\frac{7}{3}=\\frac{49}{6}$."
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Troba el punt de la recta $r: x+2y=10$ més proper a l'origen. <em>(Pista: la perpendicular des de l'origen a $r$.)</em>",
+       "parts": [],
+       "solucio": "Perpendicular des de $O=(0,0)$ a $r$: director de $r$ és $(2,-1)$, normal és $(1,2)$. Perp.: $\\begin{cases}x=t\\\\y=2t\\end{cases}$.<br> Intersecció amb $r$: $t+4t=10 \\Rightarrow t=2$. Punt $(2,4)$.<br> Distància: $d=\\frac{|0+0-10|}{\\sqrt{5}}=\\frac{10}{\\sqrt{5}}=2\\sqrt{5}$. Verificació: $\\sqrt{4+16}=\\sqrt{20}=2\\sqrt{5}$ ✓.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Lloc geomètric i circumferència",
+     "exercicis": [
+      {
+       "num": 16,
+       "nivell": 1,
+       "enunciat": "Escriu les equacions de les circumferències:",
+       "parts": [
+        "Centre $C=(0,0)$ i radi $r=4$.",
+        "Centre $C=(2,-3)$ i radi $r=5$.",
+        "Centre $C=(-1,1)$ i que passa per $P=(2,5)$.",
+        "Centre $C=(3,0)$ i que és tangent a l'eix $y$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2+y^2=16$.",
+        "$(x-2)^2+(y+3)^2=25$.",
+        "$r=\\sqrt{(2+1)^2+(5-1)^2}=\\sqrt{9+16}=5$. $(x+1)^2+(y-1)^2=25$.",
+        "Tangent a l'eix $y$: distància al centre = $|3|=3$. $(x-3)^2+y^2=9$."
+       ]
+      },
+      {
+       "num": 17,
+       "nivell": 1,
+       "enunciat": "Passa a forma canònica i identifica el centre i el radi:",
+       "parts": [
+        "$x^2+y^2-6x+2y-6=0$",
+        "$x^2+y^2+4x-8y+4=0$",
+        "$x^2+y^2-10x=0$",
+        "$x^2+y^2+2x+2y+2=0$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(x-3)^2+(y+1)^2=16$: $C=(3,-1)$, $r=4$.",
+        "$(x+2)^2+(y-4)^2=16$: $C=(-2,4)$, $r=4$.",
+        "$(x-5)^2+y^2=25$: $C=(5,0)$, $r=5$.",
+        "$(x+1)^2+(y+1)^2=0$: és un punt (circumferència degenerada, $r=0$). Punt $(-1,-1)$."
+       ]
+      },
+      {
+       "num": 18,
+       "nivell": 2,
+       "enunciat": "Estudia la posició de la recta respecte a la circumferència (secant, tangent o exterior). Si es tallen, troba els punts:",
+       "parts": [
+        "$r: y=x$ i $\\mathcal{C}: x^2+y^2=8$",
+        "$r: x+y+4=0$ i $\\mathcal{C}: x^2+y^2=4$",
+        "$r: y=2x-5$ i $\\mathcal{C}: (x-1)^2+(y+2)^2=9$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2+x^2=8$: $2x^2=8$, $x=\\pm2$. Punts $(2,2)$ i $(-2,-2)$. Secant.",
+        "$d(O,r)=\\frac{|0+0+4|}{\\sqrt{2}}=\\frac{4}{\\sqrt{2}}=2\\sqrt{2}\\approx2{,}83>2=r$: <strong>exterior</strong>.",
+        "$y=2x-5$ a $\\mathcal{C}$: $(x-1)^2+(2x-5+2)^2=9$; $(x-1)^2+(2x-3)^2=9$; $x^2-2x+1+4x^2-12x+9=9$; $5x^2-14x+1=0$. $\\Delta=196-20=176>0$: secant. $x=\\frac{14\\pm\\sqrt{176}}{10}=\\frac{7\\pm2\\sqrt{11}}{5}$."
+       ]
+      },
+      {
+       "num": 19,
+       "nivell": 2,
+       "enunciat": "Troba el lloc geomètric:",
+       "parts": [
+        "Punts equidistants de $A=(3,0)$ i $B=(-1,4)$.",
+        "Punts $P$ tals que $d(P,A)=2\\cdot d(P,B)$ amb $A=(0,0)$ i $B=(3,0)$.",
+        "Punts $P=(x,y)$ tals que $d(P,r)=d(P,s)$ amb $r: x=0$ i $s: x=4$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Mediatriu: $\\overrightarrow{AB}=(-4,4)$, punt mig $(1,2)$. Perp.: director $(4,4)$, simplif. $(1,1)$. $y-2=1(x-1)$: $x-y+1=0$.",
+        "$x^2+y^2=4[(x-3)^2+y^2]$: $x^2+y^2=4x^2-24x+36+4y^2$; $3x^2-24x+3y^2+36=0$; $x^2-8x+y^2+12=0$; $(x-4)^2+y^2=4$. Circumferència de centre $(4,0)$ i radi $2$.",
+        "$|x|=|x-4|$: o bé $x=x-4$ (impossible) o bé $x=-(x-4)$: $2x=4$, $x=2$. Recta vertical $x=2$ (mediatriu de les dues rectes paral·leles)."
+       ]
+      },
+      {
+       "num": 20,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Troba la recta tangent a la circumferència $\\mathcal{C}: x^2+y^2=25$ al punt $P=(3,4)$.",
+       "parts": [],
+       "solucio": "La recta tangent en $P=(3,4)$ és perpendicular al radi $\\overrightarrow{OP}=(3,4)$.<br> Vector director de la tangent: $(3,4)^\\perp=(-4,3)$ o $(4,-3)$.<br> Equació: $\\vec{n}=(3,4)$, punt $(3,4)$: $3(x-3)+4(y-4)=0 \\Rightarrow 3x+4y-25=0$.<br> Comprovació (distància de $O$ a la tangent): $d=\\frac{|0+0-25|}{5}=5=r$ ✓.",
+       "solucioParts": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "num": 8,
+   "nom": "Probabilitat",
+   "carpeta": "8 Probabilitat",
+   "seccions": [
+    {
+     "titol": "Probabilitat condicionada",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "En un grup de 40 estudiants, 25 estudien matemàtiques ($M$), 18 estudien física ($F$) i 10 estudien les dues assignatures. Tria un estudiant a l'atzar i calcula:",
+       "parts": [
+        "$P(M)$, $P(F)$ i $P(M \\cap F)$.",
+        "$P(M \\mid F)$: probabilitat que estudiï matemàtiques, sabent que estudia física.",
+        "$P(F \\mid M)$: probabilitat que estudiï física, sabent que estudia matemàtiques.",
+        "$P(M \\cup F)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(M)=25/40=5/8$; $P(F)=18/40=9/20$; $P(M\\cap F)=10/40=1/4$.",
+        "$P(M\\mid F)=\\frac{10/40}{18/40}=\\frac{10}{18}=\\frac{5}{9}\\approx 0{,}556$.",
+        "$P(F\\mid M)=\\frac{10/40}{25/40}=\\frac{10}{25}=\\frac{2}{5}=0{,}4$.",
+        "$P(M\\cup F)=\\frac{25+18-10}{40}=\\frac{33}{40}=0{,}825$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Comprova si els successos $A$ i $B$ són independents en cada cas:",
+       "parts": [
+        "$P(A)=0{,}4$, $P(B)=0{,}5$, $P(A\\cap B)=0{,}2$.",
+        "$P(A)=0{,}3$, $P(B)=0{,}6$, $P(A\\cap B)=0{,}15$.",
+        "$P(A)=1/3$, $P(B)=1/4$, $P(A\\cap B)=1/12$.",
+        "$P(A)=0{,}5$, $P(B\\mid A)=0{,}7$, $P(B)=0{,}5$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(A)\\cdot P(B)=0{,}4\\cdot0{,}5=0{,}2=P(A\\cap B)$: <strong>independents</strong>.",
+        "$P(A)\\cdot P(B)=0{,}3\\cdot0{,}6=0{,}18\\neq 0{,}15$: <strong>no independents</strong>.",
+        "$P(A)\\cdot P(B)=\\frac{1}{3}\\cdot\\frac{1}{4}=\\frac{1}{12}=P(A\\cap B)$: <strong>independents</strong>.",
+        "$P(B\\mid A)=0{,}7\\neq0{,}5=P(B)$: <strong>no independents</strong>."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 2,
+       "enunciat": "Una urna conté 4 boles vermelles ($V$) i 6 de blaves ($B$). Extreim dues boles <strong>sense reposició</strong>.",
+       "parts": [
+        "Calcula $P(\\text{1a } V)$ i $P(\\text{2a } V \\mid \\text{1a } V)$.",
+        "Calcula $P(\\text{totes dues } V)$ usant la regla del producte.",
+        "Calcula $P(\\text{1a } V \\text{ i } \\text{2a } B)$ i $P(\\text{1a } B \\text{ i 2a } V)$.",
+        "Calcula $P(\\text{una de cada color})$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(\\text{1a }V)=4/10=2/5$. $P(\\text{2a }V\\mid\\text{1a }V)=3/9=1/3$.",
+        "$P(VV)=\\frac{4}{10}\\cdot\\frac{3}{9}=\\frac{12}{90}=\\frac{2}{15}$.",
+        "$P(VB)=\\frac{4}{10}\\cdot\\frac{6}{9}=\\frac{24}{90}=\\frac{4}{15}$. $P(BV)=\\frac{6}{10}\\cdot\\frac{4}{9}=\\frac{24}{90}=\\frac{4}{15}$.",
+        "$P(\\text{una de cada})=P(VB)+P(BV)=\\frac{4}{15}+\\frac{4}{15}=\\frac{8}{15}$."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 2,
+       "enunciat": "En una classe, el 60% de l'alumnat ha estudiat l'assignatura anterior ($E$) i el 40% no. La probabilitat d'aprovar l'examen és del 80% si ha estudiat i del 30% si no ha estudiat.",
+       "parts": [
+        "Calcula $P(A \\mid E)$ i $P(A \\mid \\overline{E})$.",
+        "Dibuixa el diagrama d'arbre corresponent.",
+        "Calcula $P(A \\cap E)$ i $P(A \\cap \\overline{E})$.",
+        "Un alumne aprova. Calcula $P(E \\mid A)$ (havia estudiat?)."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(A\\mid E)=0{,}80$; $P(A\\mid\\overline{E})=0{,}30$.",
+        "[Arbre: $E(0{,}6)\\to A(0{,}8)/\\overline{A}(0{,}2)$; $\\overline{E}(0{,}4)\\to A(0{,}3)/\\overline{A}(0{,}7)$].",
+        "$P(A\\cap E)=0{,}6\\cdot0{,}8=0{,}48$; $P(A\\cap\\overline{E})=0{,}4\\cdot0{,}3=0{,}12$.",
+        "$P(A)=0{,}48+0{,}12=0{,}60$. $P(E\\mid A)=0{,}48/0{,}60=0{,}8$."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Llancem tres daus estàndard. Siguin: $A$ = ``la suma dels tres és 10'', $B$ = ``el primer dau és 4''. Calcula $P(A)$ i $P(A \\mid B)$, i raona si $A$ i $B$ són independents.",
+       "parts": [],
+       "solucio": "$|\\Omega|=216$. Resultats amb suma 10: cal comptar combinacions $(d_1,d_2,d_3)$ amb $d_i\\in\\{1,...,6\\}$ i $d_1+d_2+d_3=10$.<br> Per enumeració (o combinatòria): hi ha 27 casos. $P(A)=27/216=1/8$.<br> Amb $B$ (1r dau = 4): busquem $d_2+d_3=6$ amb $d_i\\in\\{1,...,6\\}$: $(1,5),(2,4),(3,3),(4,2),(5,1)$ — 5 casos. $P(A\\cap B)=5/216$.<br> $P(B)=6/36=1/6$... no, $P(B)=36/216=1/6$.<br> $P(A\\mid B)=\\frac{5/216}{36/216}=5/36$.<br> $P(A)\\cdot P(B)=\\frac{1}{8}\\cdot\\frac{1}{6}=\\frac{1}{48}\\neq\\frac{5}{216}\\approx0{,}0231$: <strong>no independents</strong>.",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "Probabilitat total i teorema de Bayes",
+     "exercicis": [
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "Dues caixes contenen boles de colors: <ul> <li>$C_1$ (escollida amb probabilitat 0,4): 3 boles blanques i 2 de negres. <li>$C_2$ (escollida amb probabilitat 0,6): 1 bola blanca i 4 de negres. </ul> Triem una caixa a l'atzar i n'extraiem una bola.",
+       "parts": [
+        "Comprova que $\\{C_1, C_2\\}$ és una partició.",
+        "Calcula $P(B)$ (la bola és blanca) usant el teorema de la probabilitat total.",
+        "Calcula $P(C_1 \\mid B)$ usant el teorema de Bayes."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$C_1\\cap C_2=\\emptyset$ i $P(C_1)+P(C_2)=0{,}4+0{,}6=1$: sí.",
+        "$P(B\\mid C_1)=3/5$; $P(B\\mid C_2)=1/5$.<br>$P(B)=0{,}4\\cdot\\frac{3}{5}+0{,}6\\cdot\\frac{1}{5}=0{,}24+0{,}12=0{,}36$.",
+        "$P(C_1\\mid B)=\\frac{0{,}4\\cdot3/5}{0{,}36}=\\frac{0{,}24}{0{,}36}=\\frac{2}{3}\\approx0{,}667$."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 1,
+       "enunciat": "En una empresa, el 70% dels empleats treballen a l'oficina ($O$) i el 30% en teletreball ($T$). La probabilitat de lliurar un projecte a temps és 0,9 a l'oficina i 0,75 en teletreball.",
+       "parts": [
+        "Calcula la probabilitat que un empleat triat a l'atzar lliuri el projecte a temps.",
+        "Sabent que un empleat ha lliurat el projecte a temps, calcula la probabilitat que treballi en teletreball."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(A)=0{,}7\\cdot0{,}9+0{,}3\\cdot0{,}75=0{,}63+0{,}225=0{,}855$.",
+        "$P(T\\mid A)=\\frac{0{,}3\\cdot0{,}75}{0{,}855}=\\frac{0{,}225}{0{,}855}\\approx0{,}263$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Un lot de productes prové de tres proveïdors: el 50% de $P_1$, el 30% de $P_2$ i el 20% de $P_3$. Les taxes de peces defectuoses per proveïdor són, respectivament, 2%, 4% i 6%.",
+       "parts": [
+        "Calcula la probabilitat que una peça triada a l'atzar sigui defectuosa.",
+        "Si la peça és defectuosa, quina és la probabilitat que provingui de $P_3$?",
+        "Quina és la probabilitat que provingui de $P_1$ si és defectuosa?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(D)=0{,}5\\cdot0{,}02+0{,}3\\cdot0{,}04+0{,}2\\cdot0{,}06=0{,}010+0{,}012+0{,}012=0{,}034$.",
+        "$P(P_3\\mid D)=\\frac{0{,}2\\cdot0{,}06}{0{,}034}=\\frac{0{,}012}{0{,}034}\\approx0{,}353$.",
+        "$P(P_1\\mid D)=\\frac{0{,}5\\cdot0{,}02}{0{,}034}=\\frac{0{,}010}{0{,}034}\\approx0{,}294$."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Un test per detectar una infecció té les característiques següents: si la persona és infecciosa, el test és positiu el 98% de les vegades; si no ho és, el test és positiu (fals positiu) el 3% de les vegades. Es sap que el 5% de la població és infecciosa.",
+       "parts": [
+        "Calcula la probabilitat de donar positiu.",
+        "Si el test és positiu, quina és la probabilitat de tenir la infecció?",
+        "Si el test és <strong>negatiu</strong>, quina és la probabilitat de tenir la infecció? (Fals negatiu)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$P(+)=0{,}05\\cdot0{,}98+0{,}95\\cdot0{,}03=0{,}049+0{,}0285=0{,}0775$.",
+        "$P(I\\mid+)=\\frac{0{,}05\\cdot0{,}98}{0{,}0775}=\\frac{0{,}049}{0{,}0775}\\approx0{,}632$.",
+        "$P(-)=1-0{,}0775=0{,}9225$. $P(I\\cap-)=0{,}05\\cdot0{,}02=0{,}001$. $P(I\\mid-)=\\frac{0{,}001}{0{,}9225}\\approx0{,}0011$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Tres jugadors llancen un dau per torn (jugador 1, jugador 2, jugador 3 i es repeteix). Guanya el primer que treu un 6. Calcula la probabilitat que guanyi el jugador 1 en les tres primeres rondes (és a dir, en el primer, quart o setè llançament).",
+       "parts": [],
+       "solucio": "$P(\\text{treu 6})=1/6$; $P(\\text{no treu 6})=5/6$.<br> $P(\\text{guanya en 1r llançament})=1/6$.<br> $P(\\text{guanya en 4t llançament})=(5/6)^3\\cdot1/6=\\frac{125}{6^4}$.<br> $P(\\text{guanya en 7è llançament})=(5/6)^6\\cdot1/6=\\frac{5^6}{6^7}$.<br> $P\\approx\\frac{1}{6}+\\frac{125}{1296}+\\frac{15625}{279936}\\approx0{,}1667+0{,}0965+0{,}0558\\approx0{,}319$.<br> (La probabilitat total de guanyar per al jugador 1 és $\\frac{1/6}{1-(5/6)^3}=\\frac{216}{91\\cdot 6}\\approx0{,}396$.)",
+       "solucioParts": []
+      }
+     ]
+    },
+    {
+     "titol": "La distribució binomial",
+     "exercicis": [
+      {
+       "num": 11,
+       "nivell": 1,
+       "enunciat": "Identifica $n$ i $p$ i justifica si podem aplicar la distribució binomial:",
+       "parts": [
+        "Llancem un dau 10 vegades i comptem quants 6 surten.",
+        "D'una urna amb 5 boles numerades (1–5), extraiem 3 boles <strong>amb reposició</strong> i comptem quantes son parelles.",
+        "D'una bossa de 10 caramels (4 de dolços, 6 d'àcids), mengem 4 <strong>sense reposició</strong> i comptem els dolços.",
+        "Un centre mèdic fa el seguiment de 200 pacients amb una malaltia; cada pacient es recupera amb probabilitat 0,75 independentment."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Sí: $n=10$, $p=1/6$, independents, binari. $X\\sim B(10,1/6)$.",
+        "Sí: $n=3$, $p=2/5$ (parells 2,4 de 5), independents (amb reposició). $X\\sim B(3,2/5)$.",
+        "<strong>No</strong>: sense reposició i població petita (10) $\\Rightarrow$ proves no independents. Caldria la distribució hipergeomètrica.",
+        "Sí: $n=200$, $p=0{,}75$, independents, binari. $X\\sim B(200,0{,}75)$."
+       ]
+      },
+      {
+       "num": 12,
+       "nivell": 1,
+       "enunciat": "$X \\sim B(8, 0{,}3)$. Calcula:",
+       "parts": [
+        "$P(X=0)$",
+        "$P(X=1)$",
+        "$P(X=2)$",
+        "$P(X=3)$",
+        "$E(X)$",
+        "$\\sigma(X)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(0{,}7)^8\\approx0{,}0576$.",
+        "$8\\cdot0{,}3\\cdot(0{,}7)^7=8\\cdot0{,}3\\cdot0{,}0824\\approx0{,}1977$.",
+        "$\\binom{8}{2}(0{,}3)^2(0{,}7)^6=28\\cdot0{,}09\\cdot0{,}1176\\approx0{,}2965$.",
+        "$\\binom{8}{3}(0{,}3)^3(0{,}7)^5=56\\cdot0{,}027\\cdot0{,}1681\\approx0{,}2541$.",
+        "$E(X)=8\\cdot0{,}3=2{,}4$.",
+        "$\\sigma=\\sqrt{8\\cdot0{,}3\\cdot0{,}7}=\\sqrt{1{,}68}\\approx1{,}296$."
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "El 15% de les llavors d'un lot no germinen. En plantem 10.",
+       "parts": [
+        "Quin model probabilístic s'aplica? Indica $n$ i $p$.",
+        "Calcula la probabilitat que no germinin exactament 2 llavors.",
+        "Calcula la probabilitat que no germinin <strong>com a màxim</strong> 1 llavor: $P(X \\leq 1)$.",
+        "Calcula la probabilitat que germinin <strong>totes</strong> les llavors: $P(X = 0)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$X\\sim B(10, 0{,}15)$, on $X$ = nombre de llavors que no germinen.",
+        "$P(X=2)=\\binom{10}{2}(0{,}15)^2(0{,}85)^8=45\\cdot0{,}0225\\cdot0{,}2725\\approx0{,}2759$.",
+        "$P(X=0)=(0{,}85)^{10}\\approx0{,}1969$. $P(X=1)=10\\cdot0{,}15\\cdot(0{,}85)^9=10\\cdot0{,}15\\cdot0{,}2316\\approx0{,}3474$.<br>$P(X\\leq1)\\approx0{,}1969+0{,}3474=0{,}5443$.",
+        "$P(X=0)=(0{,}85)^{10}\\approx0{,}1969$."
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 2,
+       "enunciat": "En un examen tipus test de 12 preguntes amb 3 opcions cada una, un alumne respon a l'atzar.",
+       "parts": [
+        "Calcula la probabilitat d'encertar exactament 4 preguntes.",
+        "Calcula la probabilitat d'encertar <strong>com a mínim</strong> 5 preguntes.",
+        "Quantes preguntes espera encertar l'alumne, de mitjana?",
+        "Per aprovar (mínim 6 encerts), és probable que aprovi? Raona la resposta."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$X\\sim B(12,1/3)$. $P(X=4)=\\binom{12}{4}(1/3)^4(2/3)^8=495\\cdot\\frac{1}{81}\\cdot\\frac{256}{6561}\\approx0{,}2384$.",
+        "$P(X\\geq5)=1-P(X\\leq4)$. Calculant $P(X=0)$ a $P(X=4)$ i sumant $\\approx0{,}7858$; $P(X\\geq5)\\approx0{,}2142$.",
+        "$E(X)=12\\cdot\\frac{1}{3}=4$ preguntes.",
+        "$P(X\\geq6)\\approx0{,}073$. Molt poc probable (7,3%)."
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 3,
+       "enunciat": "<em>(Repte)</em> Una xarxa de distribució té 5 interruptors en sèrie, cadascun amb probabilitat de fallada 0,1 (independents). La xarxa falla si <strong>almenys 2</strong> interruptors fallen.",
+       "parts": [
+        "Calcula $P(\\text{la xarxa falla})$.",
+        "Quina és la probabilitat que la xarxa funcioni correctament?",
+        "Si ara els interruptors es posen en paral·lel (la xarxa falla si <strong>tots</strong> fallen), calcula $P(\\text{la xarxa falla})$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$X\\sim B(5,0{,}1)$. $P(\\text{falla})=P(X\\geq2)=1-P(X\\leq1)$.<br>$P(X=0)=(0{,}9)^5=0{,}59049$. $P(X=1)=5\\cdot0{,}1\\cdot(0{,}9)^4=0{,}32805$.<br>$P(X\\leq1)=0{,}91854$. $P(\\text{falla})=1-0{,}91854=0{,}08146\\approx8{,}1\\%$.",
+        "$P(\\text{funciona})=0{,}91854\\approx91{,}9\\%$.",
+        "En paral·lel, falla si tots fallen: $P=(0{,}1)^5=0{,}00001=0{,}001\\%$. Molt més fiable!"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
