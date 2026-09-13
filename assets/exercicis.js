@@ -96,6 +96,26 @@
             </button>`).join('')}
         </div>`;
 
+      // La capçalera canvia d'alçada segons la mida de pantalla: mesurem-la
+      // perquè la fila s'enganxi just a sota i les àncores no quedin tapades.
+      const fila = lateral.querySelector('.fila-eines');
+      const capcalera = document.querySelector('.capcalera');
+      let altCapcalera = 70;
+
+      function mesura() {
+        altCapcalera = capcalera ? capcalera.offsetHeight : 70;
+        const arrel = document.documentElement.style;
+        arrel.setProperty('--alt-capcalera', altCapcalera + 'px');
+        arrel.setProperty('--alt-ancoratge', (altCapcalera + fila.offsetHeight + 14) + 'px');
+      }
+      function ombra() {
+        fila.classList.toggle('enganxada',
+          lateral.getBoundingClientRect().top <= altCapcalera + 1);
+      }
+      mesura(); ombra();
+      window.addEventListener('resize', () => { mesura(); ombra(); });
+      window.addEventListener('scroll', ombra, { passive: true });
+
       const menu = document.getElementById('menu-sec');
       const etiquetaSec = lateral.querySelector('.sec-actual');
       lateral.querySelectorAll('.menu-flotant a').forEach(a =>
