@@ -18,12 +18,12 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/3eso/1 Nombres racionals/Activitats - Nombres racionals.pdf",
-              "mida": "164 kB"
+              "mida": "163 kB"
             },
             {
               "tipus": "Quadern de classe",
               "fitxer": "pdf/3eso/1 Nombres racionals/Quadern de classe - Nombres racionals.pdf",
-              "mida": "352 kB"
+              "mida": "188 kB"
             }
           ]
         },
@@ -57,7 +57,7 @@ window.DADES = {
             {
               "tipus": "Apunts",
               "fitxer": "pdf/3eso/3 Equacions de primer grau/Apunts - Equacions de primer grau.pdf",
-              "mida": "166 kB"
+              "mida": "2 kB"
             },
             {
               "tipus": "Activitats",
@@ -67,7 +67,7 @@ window.DADES = {
             {
               "tipus": "Quadern de classe",
               "fitxer": "pdf/3eso/3 Equacions de primer grau/Quadern de classe - Equacions de primer grau.pdf",
-              "mida": "136 kB"
+              "mida": "13 kB"
             }
           ]
         },
@@ -79,7 +79,7 @@ window.DADES = {
             {
               "tipus": "Apunts",
               "fitxer": "pdf/3eso/4 Equacions de segon grau/Apunts - Equacions de segon grau.pdf",
-              "mida": "220 kB"
+              "mida": "26 kB"
             },
             {
               "tipus": "Activitats",
@@ -128,7 +128,7 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/3eso/6 Funcions/Activitats - Funcions.pdf",
-              "mida": "174 kB"
+              "mida": "175 kB"
             },
             {
               "tipus": "Quadern de classe",
@@ -150,12 +150,12 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/3eso/7 Tipus de funcions/Activitats - Tipus de funcions.pdf",
-              "mida": "161 kB"
+              "mida": "2 kB"
             },
             {
               "tipus": "Quadern de classe",
               "fitxer": "pdf/3eso/7 Tipus de funcions/Quadern de classe - Tipus de funcions.pdf",
-              "mida": "186 kB"
+              "mida": "2 kB"
             }
           ]
         },
@@ -189,17 +189,17 @@ window.DADES = {
             {
               "tipus": "Apunts",
               "fitxer": "pdf/3eso/9 Geometria i transformacions/Apunts - Geometria i transformacions.pdf",
-              "mida": "135 kB"
+              "mida": "2 kB"
             },
             {
               "tipus": "Activitats",
               "fitxer": "pdf/3eso/9 Geometria i transformacions/Activitats - Geometria i transformacions.pdf",
-              "mida": "121 kB"
+              "mida": "2 kB"
             },
             {
               "tipus": "Quadern de classe",
               "fitxer": "pdf/3eso/9 Geometria i transformacions/Quadern de classe - Geometria i transformacions.pdf",
-              "mida": "124 kB"
+              "mida": "2 kB"
             }
           ]
         }
