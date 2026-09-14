@@ -145,4 +145,4 @@ if [ $DRY -eq 0 ]; then
 fi
 
 echo ""
-[ $DRY -eq 1 ] || echo "Ara:  cd \"$WEB\" && git add -A && git commit -m 'Actualitza material' && git push"
+[ $DRY -eq 1 ] || [ -n "${AUTOMATIC:-}" ] || echo "Ara:  cd \"$WEB\" && git add -A && git commit -m 'Actualitza material' && git push"
