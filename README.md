@@ -141,6 +141,30 @@ executar `publica.sh` i la web queda actualitzada.
 
 ---
 
+## Icones i "afegir a la pantalla d'inici"
+
+iOS **no** fa servir el `<link rel="icon">` per a la icona de la pantalla d'inici:
+necessita un `apple-touch-icon` **quadrat, en PNG i sense transparència** (el que
+sigui transparent li surt negre). Com que el logo del centre és rectangular, abans
+no en sortia cap.
+
+```bash
+python3 genera-icones.py 1     # 1 = blau  ·  2 = aquarel·les  ·  3 = crema
+```
+
+Genera `assets/icona-{32,180,192,512}.png`. El `manifest.json` i les etiquetes de
+les pàgines ja hi apunten.
+
+> **Si ja la tenies desada a la pantalla d'inici, esborra-la i torna-la a afegir.**
+> iOS es guarda la icona del dia que la vas afegir i no la torna a demanar.
+
+El `manifest.json` fa que s'obri **sense la barra de Safari**, com una aplicació.
+Com que allà no hi ha botó de tornar enrere, la navegació ha d'estar sempre a la
+pàgina: el menú de dalt i el botó "← Tots els temes". Si algun dia hi afegeixes
+una pàgina sense sortida, canvia `"display": "standalone"` per `"browser"`.
+
+---
+
 ## Imatge de marca
 
 | | |
