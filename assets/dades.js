@@ -1,6 +1,6 @@
 /* Generat per publica.sh — no editar a mà */
 window.DADES = {
-  "generat": "14/09/2026",
+  "generat": "16/09/2026",
   "cursos": {
     "3eso": {
       "nom": "3r d'ESO",
@@ -18,7 +18,7 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/batx/1 Successions i límits de successions/Activitats - Successions i límits de successions.pdf",
-              "mida": "138 kB"
+              "mida": "137 kB"
             }
           ],
           "enLinia": 12
