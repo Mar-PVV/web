@@ -18,10 +18,10 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/batx/1 Successions i límits de successions/Activitats - Successions i límits de successions.pdf",
-              "mida": "137 kB"
+              "mida": "216 kB"
             }
           ],
-          "enLinia": 12
+          "enLinia": 25
         },
         {
           "num": 2,

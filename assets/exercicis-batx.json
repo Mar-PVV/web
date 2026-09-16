@@ -88,7 +88,7 @@
       },
       {
        "num": 5,
-       "nivell": 2,
+       "nivell": 3,
        "enunciat": "Converteix cada successió a l'altra forma de definició.",
        "parts": [
         "Donada $a_n = 3n + 1$, expressa-la mitjançant una llei de recurrència.",
@@ -229,6 +229,278 @@
         "$a_1 = a_2 \\Rightarrow k = \\dfrac{k}{2}+3 \\Rightarrow \\dfrac{k}{2} = 3 \\Rightarrow k=6$. Amb $k=6$: $a_2 = \\dfrac{6}{2}+3 = 6$, $a_3 = 6$, … tots iguals a $6$. ✓",
         "Amb $k=0$: $a_1=0,\\; a_2=3,\\; a_3=\\tfrac{9}{2},\\; a_4=\\tfrac{21}{4},\\; a_5=\\tfrac{45}{8},\\;\\ldots$ Els termes s'acosten a $6$."
        ]
+      }
+     ]
+    },
+    {
+     "titol": "Concepte de límit d'una successió",
+     "exercicis": [
+      {
+       "num": 13,
+       "nivell": 1,
+       "enunciat": "Observa les gràfiques de les successions següents i determina el límit de cadascuna d'elles ($\\Lim a_n $).<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span><br><br>\\vspace{0.7em}<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
+       "parts": [],
+       "solucio": "",
+       "solucioParts": [
+        "$\\Lim a_n = 2$",
+        "$\\Lim b_n = -1$",
+        "$\\Lim c_n = +\\infty$",
+        "$\\Lim d_n = 0$",
+        "$\\Lim e_n = -\\infty$",
+        "$\\Lim f_n = \\dfrac{3}{2}$"
+       ]
+      },
+      {
+       "num": 14,
+       "nivell": 1,
+       "enunciat": "Observa les 6 gràfiques següents i indica si les successions representades són convergents, divergents o cap dels dos tipus. Indica també el valor del límit quan existeixi.<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span><br><br>\\vspace{0.7em}<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
+       "parts": [],
+       "solucio": "",
+       "solucioParts": [
+        "<strong>Cap dels dos tipus</strong> (oscil·lant). No té límit ja que els termes van alternant indefinidament entre $1$ i $-1$.",
+        "<strong>Divergent</strong>. El límit és $+\\infty$.",
+        "<strong>Convergent</strong>. El límit és $0$ (els termes alternen el signe però convergeixen cap a $0$).",
+        "<strong>Cap dels dos tipus</strong> (oscil·lant no acotada). Les amplituds creixen ($1, -2, 3, -4,\\dots$) i no tendeix a cap valor ni a un sol infinit.",
+        "<strong>Convergent</strong>. És una successió constant i el seu límit és $1$.",
+        "<strong>Divergent</strong>. El límit és $-\\infty$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Límits de polinomis i fraccions algebraiques",
+     "exercicis": [
+      {
+       "num": 15,
+       "nivell": 1,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim(4n^3 + 7n^2 - 5)$",
+        "$\\Lim(-2n^5 + 3n^3 + 10)$",
+        "$\\Lim(n^4 - 6n + 8)$",
+        "$\\Lim(-5n^2 + 9n - 12)$",
+        "$\\Lim(8n^6 + 2n^3 + 1)$",
+        "$\\Lim(-7n^4 + 5n^2 - 3)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$+\\infty$",
+        "$-\\infty$",
+        "$+\\infty$",
+        "$-\\infty$",
+        "$+\\infty$",
+        "$-\\infty$"
+       ]
+      },
+      {
+       "num": 16,
+       "nivell": 1,
+       "enunciat": "Calcula els límits següents:",
+       "parts": [
+        "$\\Lim\\dfrac{5n^4 + 2n}{n^4 - 3}$",
+        "$\\Lim\\dfrac{-3n^3 + 7}{4n^3 + 1}$",
+        "$\\Lim\\dfrac{6n + 5}{2n^2 + 1}$",
+        "$\\Lim\\dfrac{7n + 3}{n^2 + 2}$",
+        "$\\Lim\\dfrac{-4n^5 + n^3}{2n^4 + 6}$",
+        "$\\Lim\\dfrac{-8n^2 + n}{-2n^2 + 4}$",
+        "$\\Lim\\dfrac{-2n^4 + 5n}{3n^5 + 2n^2}$",
+        "$\\Lim\\dfrac{4n^3 + n}{-3n^2 + 1}$",
+        "$\\Lim\\dfrac{9n^2 - 4n + 1}{3n^2 + 5}$",
+        "$\\Lim\\dfrac{-n^3 + 2n}{5n^4 + 3}$",
+        "$\\Lim\\dfrac{6n^3 - n^2}{2n^3 + 7n}$",
+        "$\\Lim\\dfrac{3n^4 - 5n^2}{-2n^3 + 1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$5$",
+        "$-\\dfrac{3}{4}$",
+        "$0$",
+        "$0$",
+        "$-\\infty$",
+        "$4$",
+        "$0$",
+        "$-\\infty$",
+        "$3$",
+        "$0$",
+        "$3$",
+        "$-\\infty$"
+       ]
+      },
+      {
+       "num": 17,
+       "nivell": 2,
+       "enunciat": "Calcula. Quan el resultat sigui $0$, indica si és $0^+$ o $0^-$:",
+       "parts": [
+        "$\\Lim\\dfrac{3n^2 + 5}{5n^4 - n}$",
+        "$\\Lim\\dfrac{-2n^3 + n}{4n^5 + 2}$",
+        "$\\Lim\\dfrac{7n - 1}{3n^6 + 1}$",
+        "$\\Lim\\dfrac{-5n^2 + 4}{6n^5 - 2n}$",
+        "$\\Lim\\dfrac{2n^3 + 7}{-8n^4 + 5}$",
+        "$\\Lim\\dfrac{-3n + 1}{5n^3 + 2}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$0^+$",
+        "$0^-$",
+        "$0^+$",
+        "$0^-$",
+        "$0^-$",
+        "$0^-$"
+       ]
+      },
+      {
+       "num": 18,
+       "nivell": 2,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim\\dfrac{n^2 - 36}{n^2 - 12n + 36}$",
+        "$\\Lim\\dfrac{3n^2 + 13n + 14}{5n^2 + 11n + 2}$",
+        "$\\Lim\\dfrac{-5n^3 + 2n^2 + 3n - 1}{2n + 7}$",
+        "$\\Lim\\dfrac{8n^4 - 2n^3 + 6n - 5}{-2n^4 + 3n^2 + n - 1}$",
+        "$\\Lim\\dfrac{2n + 3}{n^3}$",
+        "$\\Lim\\dfrac{6n^3 - 7n^2 - n + 1}{4n^6 + 4n^5 + 3n - 7}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$1$",
+        "$\\dfrac{3}{5}$",
+        "$-\\infty$",
+        "$-4$",
+        "$0$",
+        "$0$"
+       ]
+      },
+      {
+       "num": 19,
+       "nivell": 2,
+       "enunciat": "Calcula els límits següents amb arrels:",
+       "parts": [
+        "$\\Lim\\left(\\sqrt{n+5} - 2\\right)$",
+        "$\\Lim\\left(3n - \\sqrt{n^2 + 1}\\right)$",
+        "$\\Lim\\sqrt{4n^2 - 3n + 2}$",
+        "$\\Lim\\left(\\sqrt{n^3 + 2} - n\\right)$",
+        "$\\Lim\\left(5 - \\sqrt{n+1}\\right)$",
+        "$\\Lim\\sqrt{9n^4 + n^2 - 3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\Lim\\sqrt{n} = +\\infty$",
+        "$\\Lim(3n - n) = \\Lim 2n = +\\infty$",
+        "$\\Lim\\sqrt{4n^2} = \\Lim 2n = +\\infty$",
+        "$\\Lim(n^{3/2} - n) = +\\infty$",
+        "$\\Lim(5 - \\sqrt{n}) = -\\infty$",
+        "$\\Lim\\sqrt{9n^4} = \\Lim 3n^2 = +\\infty$"
+       ]
+      },
+      {
+       "num": 20,
+       "nivell": 2,
+       "enunciat": "Calcula els límits següents amb fraccions i arrels:",
+       "parts": [
+        "$\\Lim\\dfrac{\\sqrt{n^2 + 4}}{2n + 1}$",
+        "$\\Lim\\dfrac{5n - 2}{\\sqrt{n^3 + 3}}$",
+        "$\\Lim\\dfrac{\\sqrt{16n^2 - 1}}{n + 3}$",
+        "$\\Lim\\dfrac{\\sqrt{n+1}}{\\sqrt{4n+9}}$",
+        "$\\Lim\\dfrac{3n^2 + 2}{\\sqrt{n^4 + 5}}$",
+        "$\\Lim\\dfrac{\\sqrt{9n^2 + 2n}}{6n - 5}$",
+        "$\\Lim\\dfrac{n^2 - 1}{\\sqrt{n^3 + 2}}$",
+        "$\\Lim\\dfrac{\\sqrt{25n^4 - 3n}}{2n^2 + 7}$",
+        "$\\Lim\\dfrac{4\\sqrt{n}}{\\sqrt{9n - 2}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\Lim\\dfrac{n}{2n} = \\dfrac{1}{2}$",
+        "$\\Lim\\dfrac{5n}{n^{3/2}} = 0$",
+        "$\\Lim\\dfrac{4n}{n} = 4$",
+        "$\\Lim\\sqrt{\\dfrac{n}{4n}} = \\dfrac{1}{2}$",
+        "$\\Lim\\dfrac{3n^2}{n^2} = 3$",
+        "$\\Lim\\dfrac{3n}{6n} = \\dfrac{1}{2}$",
+        "$\\Lim\\dfrac{n^2}{n^{3/2}} = +\\infty$",
+        "$\\Lim\\dfrac{5n^2}{2n^2} = \\dfrac{5}{2}$",
+        "$\\Lim\\dfrac{4\\sqrt{n}}{3\\sqrt{n}} = \\dfrac{4}{3}$"
+       ]
+      },
+      {
+       "num": 21,
+       "nivell": 2,
+       "enunciat": "Calcula els límits següents amb arrels:",
+       "parts": [
+        "$\\Lim\\dfrac{\\sqrt{n+3}}{3n+7}$",
+        "$\\Lim\\dfrac{2\\sqrt{n^2+3n-1}}{5n+1}$",
+        "$\\Lim\\dfrac{2n^2+1}{\\sqrt{n}-2}$",
+        "$\\Lim\\dfrac{n^2+2n-3}{4\\sqrt{n^4-3n^3+n-1}}$",
+        "$\\Lim\\dfrac{9\\sqrt{n^2+3n-7}}{4\\sqrt{n^2-n+2}}$",
+        "$\\Lim\\dfrac{2n}{\\sqrt{4n^2+3n}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\Lim\\dfrac{\\sqrt{n}}{3n} = \\Lim\\dfrac{1}{3\\sqrt{n}} = 0$",
+        "$\\Lim\\dfrac{2n}{5n} = \\dfrac{2}{5}$",
+        "$\\Lim\\dfrac{n^2}{\\sqrt{n}} = \\Lim n^{3/2} = +\\infty$",
+        "$\\Lim\\dfrac{n^2}{4n^2} = \\dfrac{1}{4}$",
+        "$\\Lim\\dfrac{9n}{4n} = \\dfrac{9}{4}$",
+        "$\\Lim\\dfrac{2n}{2n} = 1$"
+       ]
+      },
+      {
+       "num": 22,
+       "nivell": 3,
+       "enunciat": "Troba el valor concret del paràmetre $k \\in \\mathbb{R}$ en cada cas segons la informació donada sobre el límit:",
+       "parts": [
+        "$\\Lim\\!\\left((k - 3)n^2 + 5\\right) = 5$",
+        "$\\Lim\\dfrac{kn^3 - 4n + 7}{2n^3 + 5n^2} = 3$",
+        "$\\Lim\\dfrac{(k - 3)n^2 + 2n}{2n^2 + 1} = 2$",
+        "$\\Lim\\dfrac{(k - 2)n^2 - 5n + 3}{n + 1} = -5$",
+        "$\\Lim\\dfrac{kn^3 + 4n^2 - 1}{2n^2 + 3} = 2$",
+        "$\\Lim\\dfrac{6n^2 - 1}{kn^2 + 3n} = -2$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Perquè el límit sigui la constant $5$, el terme en $n^2$ ha de desaparèixer: \\[k - 3 = 0 \\Rightarrow k = 3\\]",
+        "Com que els graus són iguals ($3$), igualem el quocient de coeficients: \\[\\dfrac{k}{2} = 3 \\Rightarrow k = 6\\]",
+        "Igualem el quocient de coeficients principals de grau $2$: \\[\\dfrac{k - 3}{2} = 2 \\Rightarrow k - 3 = 4 \\Rightarrow k = 7\\]",
+        "Per tenir límit $-5$ (graus iguals a $1$), cal anul·lar el terme de grau $2$: \\[k - 2 = 0 \\Rightarrow k = 2\\]",
+        "Perquè el límit sigui $2$ (grau $2$), el terme en $n^3$ ha de desaparèixer: \\[k = 0\\]",
+        "Com que els graus són iguals ($2$), igualem el quocient de coeficients: \\[\\dfrac{6}{k} = -2 \\Rightarrow k = -3\\]"
+       ]
+      },
+      {
+       "num": 23,
+       "nivell": 3,
+       "enunciat": "Determina la condició que ha de complir el paràmetre $k \\in \\mathbb{R}$ ($k > a$, $k < a$, etc.) en cada cas:",
+       "parts": [
+        "$\\Lim\\!\\left((5 - k)n^3 + 2n^2 - 1\\right) = +\\infty$",
+        "$\\Lim\\!\\left((k - 4)n^2 + 5n\\right) = -\\infty$",
+        "$\\Lim\\dfrac{(k + 1)n^3 - 2n}{3n^2 + 5} = +\\infty$",
+        "$\\Lim\\dfrac{(2k - 6)n^2 + 1}{n + 4} = -\\infty$",
+        "$\\Lim\\!\\left((3k + 9)n - 7\\right) = +\\infty$",
+        "$\\Lim\\dfrac{(k - 1)n^2 + 3}{-2n + 5} = +\\infty$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "El terme dominant és $(5-k)n^3$. Perquè el límit sigui $+\\infty$: \\[5 - k > 0 \\Rightarrow k < 5\\]",
+        "El terme dominant és $(k-4)n^2$. Perquè el límit sigui $-\\infty$: \\[k - 4 < 0 \\Rightarrow k < 4\\]",
+        "El grau del numerador ($3$) és major que el del denominador ($2$). Perquè el límit sigui $+\\infty$: \\[k + 1 > 0 \\Rightarrow k > -1\\]",
+        "El grau del numerador ($2$) és major que el del denominador ($1$). Perquè el límit sigui $-\\infty$: \\[2k - 6 < 0 \\Rightarrow 2k < 6 \\Rightarrow k < 3\\]",
+        "El terme dominant és $(3k+9)n$. Perquè el límit sigui $+\\infty$: \\[3k + 9 > 0 \\Rightarrow 3k > -9 \\Rightarrow k > -3\\]",
+        "Com que el coeficient del denominador és negatiu ($-2$), el coeficient del numerador ha de ser negatiu perquè el quocient sigui positiu ($+\\infty$): \\[k - 1 < 0 \\Rightarrow k < 1\\]"
+       ]
+      },
+      {
+       "num": 24,
+       "nivell": 3,
+       "enunciat": "Considera la successió $a_n = \\dfrac{5n^k - 2n^2 + 1}{3n^3 + 4}$, on $k \\in \\mathbb{N}$ és un nombre natural. Discuteix el valor del límit $\\Lim a_n$ segons els diferents valors del paràmetre $k$.",
+       "parts": [],
+       "solucio": "Per determinar el límit d'una fracció algebraica, cal comparar el grau del numerador amb el grau del denominador (que és $3$). El grau del numerador depèn del valor de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k < 3$ ($k = 0, 1, 2$)</strong> <ul> <li>Si $k = 0$ o $k = 1$, el terme de major grau del numerador és $-2n^2$ (grau $2$). <li>Si $k = 2$, el numerador és $(5n^2 - 2n^2 + 1) = 3n^2 + 1$ (grau $2$). </ul> En tots aquests casos, $\\text{grau(numerador)} = 2 < \\text{grau(denominador)} = 3$. Per tant: \\[\\Lim a_n = 0\\]<br><br>  <li><strong>Cas 2: $k = 3$</strong> El numerador i el denominador tenen el mateix grau ($3$). El numerador queda $5n^3 - 2n^2 + 1$. El límit és el quocient dels coeficients principals: \\[\\Lim a_n = \\Lim \\dfrac{5n^3 - 2n^2 + 1}{3n^3 + 4} = \\dfrac{5}{3}\\]<br><br>  <li><strong>Cas 3: $k > 3$ ($k \\geq 4$)</strong> En aquest cas, el terme $5n^k$ domina el numerador, de manera que $\\text{grau(numerador)} = k > \\text{grau(denominador)} = 3$. Com que el coeficient principal del numerador ($5$) és positiu: \\[\\Lim a_n = +\\infty\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{5n^k - 2n^2 + 1}{3n^3 + 4} = \n\\begin{cases} \n0 & \\text{si } k < 3 \\\\[1ex]\n\\dfrac{5}{3} & \\text{si } k = 3 \\\\[1.5ex]\n+\\infty & \\text{si } k > 3 \n\\end{cases}\n\\]",
+       "solucioParts": []
+      },
+      {
+       "num": 25,
+       "nivell": 3,
+       "enunciat": "Considera la successió $b_n = \\dfrac{4n^4 - 7n + 2}{-2n^k + 5n^2 + 1}$, on $k \\in \\mathbb{N}$ és un nombre natural. Discuteix el valor del límit $\\Lim b_n$ segons els diferents valors del paràmetre $k$.",
+       "parts": [],
+       "solucio": "Per determinar el límit d'aquesta fracció algebraica, comparem el grau del numerador (que és fixe, grau $4$) amb el grau del denominador, el qual depèn de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k < 2$ ($k = 0, 1$)</strong> El terme de major grau del denominador és $5n^2$ (grau $2$). Com que $\\text{grau(num)} = 4 > \\text{grau(den)} = 2$, i els coeficients principals són positius ($4$ i $5$): \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 2: $k = 2$</strong> El denominador queda $(-2n^2 + 5n^2 + 1) = 3n^2 + 1$ (grau $2$). Com que $\\text{grau(num)} = 4 > \\text{grau(den)} = 2$, el límit continua essent: \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 3: $k = 3, 4$</strong> <ul> <li>Si $k = 3$: el denominador té grau $3 < 4$ (terme dominant $-2n^3$). Com que el coeficient del denominador és negatiu, $\\Lim b_n = -\\infty$. <li>Si $k = 4$: els graus del numerador i denominador s'igualen ($4$). El límit és el quocient dels coeficients principals: \\[\\Lim b_n = \\Lim \\dfrac{4n^4 - 7n + 2}{-2n^4 + 5n^2 + 1} = \\dfrac{4}{-2} = -2\\] </ul><br><br>  <li><strong>Cas 4: $k > 4$ ($k \\geq 5$)</strong> El terme dominant del denominador és $-2n^k$, de manera que $\\text{grau(den)} = k > \\text{grau(num)} = 4$. Per tant: \\[\\Lim b_n = 0\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{4n^4 - 7n + 2}{-2n^k + 5n^2 + 1} = \n\\begin{cases} \n+\\infty & \\text{si } k \\leq 2 \\\\[1ex]\n-\\infty & \\text{si } k = 3 \\\\[1ex]\n-2 & \\text{si } k = 4 \\\\[1.5ex]\n0 & \\text{si } k > 4 \n\\end{cases}\n\\]",
+       "solucioParts": []
       }
      ]
     }
