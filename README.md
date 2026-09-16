@@ -148,12 +148,19 @@ necessita un `apple-touch-icon` **quadrat, en PNG i sense transparència** (el q
 sigui transparent li surt negre). Com que el logo del centre és rectangular, abans
 no en sortia cap.
 
+La icona es dibuixa una vegada a **`assets/icona-mestra.png`** (1024×1024) i
+d'allà en surten totes les mides:
+
 ```bash
-python3 genera-icones.py 1     # 1 = blau  ·  2 = aquarel·les  ·  3 = crema
+python3 genera-icones.py
 ```
 
 Genera `assets/icona-{32,180,192,512}.png`. El `manifest.json` i les etiquetes de
-les pàgines ja hi apunten.
+les pàgines ja hi apunten. Per canviar-la, substitueix la mestra i torna a
+executar l'script.
+
+L'script **aplana la transparència** sobre el crema de la marca, perquè iOS
+pinta de negre el que sigui transparent.
 
 > **Si ja la tenies desada a la pantalla d'inici, esborra-la i torna-la a afegir.**
 > iOS es guarda la icona del dia que la vas afegir i no la torna a demanar.
