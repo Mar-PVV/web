@@ -13,6 +13,7 @@
 #  executar publica.sh.
 # ─────────────────────────────────────────────────────────────────────────────
 import json, os, re, sys
+import grafics
 
 BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 REPO = os.path.join(BASE, "1BTX_26-27")
@@ -32,6 +33,9 @@ SIMPLES = [
     (r"\\euro", "€"), (r"\\textdegree", "°"), (r"\\degree", "°"),
     (r"\\quad", " "), (r"\\qquad", "  "), (r"\\,", " "), (r"\\;", " "),
     (r"\\!", ""), (r"\\ ", " "), (r"~", "\u00a0"),
+    (r"\\[hv]space\*?\{[^}]*\}", " "),
+    (r"\\(big|med|small)skip\b", " "),
+    (r"\\(noindent|centering|vfill|hfill)\b", " "),
 ]
 
 def treu_comentaris(t):
@@ -73,21 +77,67 @@ def ordre(t, nom, etiqueta):
         i = fi
     return "".join(out)
 
+def capta_grafics(t):
+    """Substitueix cada tikzpicture/axis per una marca [[G:clau]].
+
+    El dibuix es fa al final (grafics.dibuixa_tot()); aquí només s'apunta
+    el codi LaTeX perquè les marques sobrevisquin a la resta de conversions.
+    """
+    def marca(m):
+        return "[[G:%s]]" % grafics.apunta(m.group(0))
+    if re.search(r"\\begin\{(tikzpicture|axis)\}", t):
+        t = re.sub(r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}",
+                   marca, t, flags=re.S)
+        t = re.sub(r"\\begin\{axis\}.*?\\end\{axis\}", marca, t, flags=re.S)
+    return t
+
+
+MARCA = re.compile(r"\[\[G:([0-9a-f]{12})\]\]")
+
+
+def posa_grafics(text, fets):
+    """Canvia les marques [[G:clau]] pel <img> del SVG (o per l'avís)."""
+    def canvi(m):
+        clau = m.group(1)
+        if clau in fets:
+            return ('<img class="grafic" src="%s" alt="gr\u00e0fic" loading="lazy">'
+                    % grafics.cami_relatiu(clau))
+        return '<span class="avis-grafic">gr\u00e0fic \u2014 mira\u2019l al PDF</span>'
+    return agrupa(MARCA.sub(canvi, text))
+
+
+IMG = r'<img class="grafic"[^>]*>'
+GRUP = re.compile(r"%s(?:(?:\s|<br>)*%s)+" % (IMG, IMG))
+
+
+def agrupa(text):
+    """Dos o més gràfics seguits es posen en graella (al PDF van en fila)."""
+    def canvi(m):
+        imatges = re.findall(IMG, m.group(0))
+        return '<div class="graella-grafics">%s</div>' % "".join(imatges)
+    return GRUP.sub(canvi, text)
+
+
+def recorre(x, fets):
+    if isinstance(x, str):
+        return posa_grafics(x, fets)
+    if isinstance(x, list):
+        return [recorre(v, fets) for v in x]
+    if isinstance(x, dict):
+        return {k: recorre(v, fets) for k, v in x.items()}
+    return x
+
+
 def html(t):
     if t is None:
         return ""
     t = treu_comentaris(t)
+    t = capta_grafics(t)
     # entorns purament visuals del PDF
     t = re.sub(r"\\begin\{multicols\}\{\d+\}", "", t)
     t = re.sub(r"\\end\{multicols\}", "", t)
     t = re.sub(r"\\(begin|end)\{center\}", "", t)
     t = re.sub(r"\\(dis|text)?style\b", "", t)
-    # gràfics: no es poden dibuixar aquí
-    if re.search(r"\\begin\{(tikzpicture|axis)\}", t):
-        t = re.sub(r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}",
-                   "[[GRAFIC]]", t, flags=re.S)
-        t = re.sub(r"\\begin\{axis\}.*?\\end\{axis\}", "[[GRAFIC]]", t, flags=re.S)
-
     # protegeix les mates
     trossos, guardat = [], []
     for k, tros in enumerate(MATH.split(t)):
@@ -113,8 +163,6 @@ def html(t):
         t = re.sub(r"\\end\{(itemize|enumerate)\}", "</ul>", t)
         t = re.sub(r"\\item\s*", "<li>", t)
 
-    t = t.replace("[[GRAFIC]]",
-                  '<span class="avis-grafic">gràfic — mira\u2019l al PDF</span>')
     t = re.sub(r"\n{2,}", "<br><br>", t)
     t = re.sub(r"\s*\n\s*", " ", t).strip()
 
@@ -233,6 +281,10 @@ def main():
                       "carpeta": carpeta, "seccions": seccions})
         print("  · %s %s: %d exercicis en %d seccions"
               % (m.group(1), m.group(2), n, len(seccions)))
+
+    fets = grafics.dibuixa_tot()
+    temes = recorre(temes, fets)
+    avisos.extend(grafics.avisos)
 
     os.makedirs(os.path.dirname(SORTIDA), exist_ok=True)
     with open(SORTIDA, "w", encoding="utf-8") as fh:

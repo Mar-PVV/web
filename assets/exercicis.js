@@ -25,7 +25,7 @@
 
   const ENLLAC_PDF = document.getElementById('baixa');
 
-  fetch('assets/exercicis-batx.json?v=e54587e5')
+  fetch('assets/exercicis-batx.json?v=bb0cb919')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(dades => {
       const tema = dades.temes.find(t => t.num === numTema);

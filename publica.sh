@@ -16,6 +16,21 @@ BASE="$(cd "$(dirname "$0")/.." && pwd)"
 WEB="$BASE/web"
 DRY=0; [ "${1:-}" = "--dry" ] && DRY=1
 
+# Quin Python hi ha? Al Mac és python3; a Windows (Git Bash) sovint és
+# "python" o el llançador "py -3".
+PYCMD=""
+for c in python3 python "py -3"; do
+  if $c -c "import sys; sys.exit(0 if sys.version_info[0]==3 else 1)" >/dev/null 2>&1; then
+    PYCMD="$c"; break
+  fi
+done
+if [ -z "$PYCMD" ]; then
+  echo "✗ No trobo cap Python 3."
+  echo "  Al Mac ve amb les Command Line Tools; a Windows, instal·la'l des de"
+  echo "  python.org marcant «Add python.exe to PATH»."
+  exit 1
+fi
+
 # ── Què es publica ───────────────────────────────────────────────────────────
 # Afegeix o treu tipus de document d'aquestes llistes. L'ordre és el que
 # sortirà a la web. Tot el que no hi surti es queda als repositoris privats.
@@ -29,12 +44,12 @@ TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe"
 TIPUS_BATX=("Activitats")
 
 echo "▸ Exercicis en línia (1r BTX)"
-if [ $DRY -eq 0 ]; then TEMES_BATX="$TEMES_BATX" python3 "$(dirname "$0")/genera-exercicis.py"; fi
+if [ $DRY -eq 0 ]; then TEMES_BATX="$TEMES_BATX" $PYCMD "$(dirname "$0")/genera-exercicis.py"; fi
 echo ""
 echo "▸ PDF per tema"
 
 PUBLICA_3ESO="$PUBLICA_3ESO" TEMES_BATX="$TEMES_BATX" \
-python3 - "$BASE" "$WEB" "$DRY" "${#TIPUS_3ESO[@]}" "${TIPUS_3ESO[@]}" "${TIPUS_BATX[@]}" <<'PY'
+$PYCMD - "$BASE" "$WEB" "$DRY" "${#TIPUS_3ESO[@]}" "${TIPUS_3ESO[@]}" "${TIPUS_BATX[@]}" <<'PY'
 import json, os, re, shutil, sys
 from datetime import date
 
@@ -141,7 +156,7 @@ PY
 if [ $DRY -eq 0 ]; then
   echo ""
   echo "▸ Empremta de versió als assets"
-  python3 "$(dirname "$0")/versiona.py"
+  $PYCMD "$(dirname "$0")/versiona.py"
 fi
 
 echo ""

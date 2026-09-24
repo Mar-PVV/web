@@ -308,6 +308,18 @@ a { color: var(--blau); }
 .sol-cos .ex-parts { margin-top: 0; }
 .sol-cos .ex-parts > li::before { color: var(--verd); }
 
+/* Gràfics: els dibuixa grafics.py a partir del TikZ del LaTeX (SVG). */
+.grafic {
+  display: block; max-width: 100%; height: auto; margin: 12px auto;
+}
+.ex-parts .grafic, .sol-cos .grafic { margin: 8px 0; }
+.graella-grafics {
+  display: flex; flex-wrap: wrap; gap: 14px 18px;
+  justify-content: center; align-items: center;
+  max-width: 700px; margin: 16px auto;
+}
+.graella-grafics .grafic { flex: 0 1 200px; max-width: 240px; margin: 0; }
+
 .avis-grafic {
   display: inline-block; padding: 1px 9px; border-radius: 14px;
   background: #FBF6D9; color: #8A6D08; font-size: 12.5px; font-weight: 600;

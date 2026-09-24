@@ -238,7 +238,7 @@
       {
        "num": 13,
        "nivell": 1,
-       "enunciat": "Observa les gràfiques de les successions següents i determina el límit de cadascuna d'elles ($\\Lim a_n $).<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span><br><br>\\vspace{0.7em}<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
+       "enunciat": "Observa les gràfiques de les successions següents i determina el límit de cadascuna d'elles ($\\Lim a_n $).<br><br><div class=\"graella-grafics\"><img class=\"grafic\" src=\"assets/grafics/g-2ab4fd77425a.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-7c3654a62ca1.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-e3464c42755a.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-82568f674517.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-863e328eafc3.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-c66465756552.svg\" alt=\"gràfic\" loading=\"lazy\"></div>",
        "parts": [],
        "solucio": "",
        "solucioParts": [
@@ -253,7 +253,7 @@
       {
        "num": 14,
        "nivell": 1,
-       "enunciat": "Observa les 6 gràfiques següents i indica si les successions representades són convergents, divergents o cap dels dos tipus. Indica també el valor del límit quan existeixi.<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span><br><br>\\vspace{0.7em}<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\hspace{0.4cm} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
+       "enunciat": "Observa les 6 gràfiques següents i indica si les successions representades són convergents, divergents o cap dels dos tipus. Indica també el valor del límit quan existeixi.<br><br><div class=\"graella-grafics\"><img class=\"grafic\" src=\"assets/grafics/g-3dd7a3ad4e2e.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-868929e8a589.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-189d12bf7997.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-9ef652d17b59.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-6d411a70910e.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-079800b23a06.svg\" alt=\"gràfic\" loading=\"lazy\"></div>",
        "parts": [],
        "solucio": "",
        "solucioParts": [

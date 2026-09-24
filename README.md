@@ -136,8 +136,18 @@ executar `publica.sh` i la web queda actualitzada.
   mateixos que al PDF.
 - Les fórmules les pinta **MathJax**; el macro `\Lim` està definit a `exercicis.html`.
   Si en crees de nous a `estil1btx.sty`, afegeix-los allà (`MathJax.tex.macros`).
-- Els gràfics fets amb TikZ/pgfplots no es poden dibuixar a la web: al seu lloc hi
-  surt un avís que remet al PDF.
+- Els gràfics fets amb **TikZ/pgfplots** sí que surten: `grafics.py` els compila a
+  part i els desa com a SVG a `assets/grafics/`. Funciona sol quan executes
+  `publica.sh`; no has de fer res.
+  - El nom del fitxer és el hash del codi TikZ, així que un gràfic que no has
+    tocat no es torna a dibuixar (i els que ja no surten enlloc s'esborren).
+  - Necessita `pdflatex` i `dvisvgm`, que vénen amb MacTeX i amb MiKTeX/TeX Live.
+    Si no hi fossin, aquell gràfic es queda amb l'avís «gràfic — mira'l al PDF»
+    i la resta de la web segueix igual.
+  - Els colors i l'estil `btxplot` surten de `estil1btx.sty`, o sigui que el
+    gràfic de la web es veu igual que el del PDF.
+  - Si dins d'un exercici hi ha diversos gràfics seguits, es posen en graella
+    (3 per fila a l'ordinador, menys a mòbil).
 
 ---
 
