@@ -36,6 +36,8 @@ SIMPLES = [
     (r"\\[hv]space\*?\{[^}]*\}", " "),
     (r"\\(big|med|small)skip\b", " "),
     (r"\\(noindent|centering|vfill|hfill)\b", " "),
+    # \phantom{...} és només per alinear al PDF: a la web no hi pinta res
+    (r"\\phantom\{[^}]*\}", ""),
     # salt de línia amb separació: \\[2pt] → salt de línia i prou
     (r"\\\\\[[^\]]*\]", "<br>"),
 ]

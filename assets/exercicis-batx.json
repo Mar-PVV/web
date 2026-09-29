@@ -505,12 +505,12 @@
      ]
     },
     {
-     "titol": "Operacions amb límits",
+     "titol": "Operacions amb infinit i indeterminació ∞ − ∞",
      "exercicis": [
       {
        "num": 26,
        "nivell": 1,
-       "enunciat": "Calcula el resultat d'aquestes operacions amb infinit. Cap d'elles és una indeterminació:",
+       "enunciat": "Calcula el resultat d'aquestes operacions amb infinit.",
        "parts": [
         "$(+\\infty) + 8$",
         "$(+\\infty) + (+\\infty)$",
@@ -562,7 +562,7 @@
       {
        "num": 28,
        "nivell": 1,
-       "enunciat": "Calcula els límits següents. Per restar les fraccions, <strong>multiplica els denominadors directament</strong>: no cal buscar el m.c.m.",
+       "enunciat": "Calcula els límits següents.",
        "parts": [
         "$\\Lim\\!\\left(\\dfrac{n^2}{n+1} - \\dfrac{n^2}{n+2}\\right)$",
         "$\\Lim\\!\\left(\\dfrac{n^2+1}{n} - \\dfrac{n^2-1}{n}\\right)$",
@@ -575,20 +575,20 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\dfrac{n^2(n+2) - n^2(n+1)}{(n+1)(n+2)} = \\dfrac{n^2}{n^2+3n+2} \\to \\mathbf{1}$",
-        "Mateix denominador: $\\dfrac{(n^2+1)-(n^2-1)}{n} = \\dfrac{2}{n} \\to \\mathbf{0}$",
-        "$\\dfrac{n^2(n+1) - n^2(n-1)}{(n-1)(n+1)} = \\dfrac{2n^2}{n^2-1} \\to \\mathbf{2}$",
-        "$\\dfrac{2n^2(n+1) - 2n^2(n+3)}{(n+3)(n+1)} = \\dfrac{-4n^2}{n^2+4n+3} \\to \\mathbf{-4}$",
-        "$\\dfrac{(n^2+n) - n(n+1)}{n+1} = \\dfrac{0}{n+1} \\to \\mathbf{0}$",
-        "$\\dfrac{n^2 - n(n+1)}{n+1} = \\dfrac{-n}{n+1} \\to \\mathbf{-1}$",
-        "$\\dfrac{n^2 - n(n-2)}{n-2} = \\dfrac{2n}{n-2} \\to \\mathbf{2}$",
-        "$\\dfrac{(3n^2+1) - 3n\\cdot n}{n} = \\dfrac{1}{n} \\to \\mathbf{0}$"
+        "$\\Lim\\!\\left(\\dfrac{n^2}{n+1} - \\dfrac{n^2}{n+2}\\right)\n        = \\Lim\\dfrac{n^2(n+2) - n^2(n+1)}{(n+1)(n+2)}\n        = \\Lim\\dfrac{n^2}{n^2+3n+2} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2+1}{n} - \\dfrac{n^2-1}{n}\\right)\n        = \\Lim\\dfrac{(n^2+1) - (n^2-1)}{n} = \\Lim\\dfrac{2}{n} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2}{n-1} - \\dfrac{n^2}{n+1}\\right)\n        = \\Lim\\dfrac{n^2(n+1) - n^2(n-1)}{(n-1)(n+1)}\n        = \\Lim\\dfrac{2n^2}{n^2-1} = \\mathbf{2}$",
+        "$\\Lim\\!\\left(\\dfrac{2n^2}{n+3} - \\dfrac{2n^2}{n+1}\\right)\n        = \\Lim\\dfrac{2n^2(n+1) - 2n^2(n+3)}{(n+3)(n+1)}\n        = \\Lim\\dfrac{-4n^2}{n^2+4n+3} = \\mathbf{-4}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2+n}{n+1} - n\\right)\n        = \\Lim\\dfrac{(n^2+n) - n(n+1)}{n+1} = \\Lim\\dfrac{0}{n+1} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2}{n+1} - n\\right)\n        = \\Lim\\dfrac{n^2 - n(n+1)}{n+1} = \\Lim\\dfrac{-n}{n+1} = \\mathbf{-1}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2}{n-2} - n\\right)\n        = \\Lim\\dfrac{n^2 - n(n-2)}{n-2} = \\Lim\\dfrac{2n}{n-2} = \\mathbf{2}$",
+        "$\\Lim\\!\\left(\\dfrac{3n^2+1}{n} - 3n\\right)\n        = \\Lim\\dfrac{(3n^2+1) - 3n\\cdot n}{n} = \\Lim\\dfrac{1}{n} = \\mathbf{0}$"
        ]
       },
       {
        "num": 29,
        "nivell": 2,
-       "enunciat": "Calcula. <strong>Compte:</strong> no totes són indeterminacions; mira primer cap a on va cada tros.",
+       "enunciat": "Calcula.",
        "parts": [
         "$\\Lim\\!\\left(\\dfrac{n^2+1}{n+1} + \\dfrac{n^2+2}{n+2}\\right)$",
         "$\\Lim\\!\\left(\\dfrac{3n^2+1}{n+2} - \\dfrac{3n^2-1}{n-2}\\right)$",
@@ -601,14 +601,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "No hi ha indeterminació: $(+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
-        "$\\dfrac{(3n^2+1)(n-2) - (3n^2-1)(n+2)}{(n+2)(n-2)} = \\dfrac{-12n^2+2n}{n^2-4} \\to \\mathbf{-12}$",
-        "No hi ha indeterminació: $(-\\infty) + (-\\infty) = \\boldsymbol{-\\infty}$",
-        "$\\dfrac{n^3(n^2-1) - (n^3+1)(n^2+1)}{(n^2+1)(n^2-1)} = \\dfrac{-2n^3-n^2-1}{n^4-1} \\to \\mathbf{0}$",
-        "$\\dfrac{(4n^2+3)(n+1) - 4n^2(n-1)}{(n-1)(n+1)} = \\dfrac{8n^2+3n+3}{n^2-1} \\to \\mathbf{8}$",
-        "No hi ha indeterminació: $(+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
-        "$\\dfrac{(n^3+2)(n^2+n) - n^3\\cdot n^2}{n^2(n^2+n)} = \\dfrac{n^4+2n^2+2n}{n^4+n^3} \\to \\mathbf{1}$",
-        "$\\dfrac{5n^2(2n-1) - (5n^2+n)(2n+1)}{(2n+1)(2n-1)} = \\dfrac{-12n^2-n}{4n^2-1} \\to \\mathbf{-3}$"
+        "No és una indeterminació: $\\Lim\\!\\left(\\dfrac{n^2+1}{n+1} + \\dfrac{n^2+2}{n+2}\\right)\n        = (+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\!\\left(\\dfrac{3n^2+1}{n+2} - \\dfrac{3n^2-1}{n-2}\\right)\n        = \\Lim\\dfrac{(3n^2+1)(n-2) - (3n^2-1)(n+2)}{(n+2)(n-2)}\n        = \\Lim\\dfrac{-12n^2+2n}{n^2-4} = \\mathbf{-12}$",
+        "No és una indeterminació: $\\Lim\\!\\left(-\\dfrac{n^2}{n+1} - \\dfrac{n^3}{n^2+1}\\right)\n        = (-\\infty) + (-\\infty) = \\boldsymbol{-\\infty}$",
+        "$\\Lim\\!\\left(\\dfrac{n^3}{n^2+1} - \\dfrac{n^3+1}{n^2-1}\\right)\n        = \\Lim\\dfrac{n^3(n^2-1) - (n^3+1)(n^2+1)}{(n^2+1)(n^2-1)}\n        = \\Lim\\dfrac{-2n^3-n^2-1}{n^4-1} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\dfrac{4n^2+3}{n-1} - \\dfrac{4n^2}{n+1}\\right)\n        = \\Lim\\dfrac{(4n^2+3)(n+1) - 4n^2(n-1)}{(n-1)(n+1)}\n        = \\Lim\\dfrac{8n^2+3n+3}{n^2-1} = \\mathbf{8}$",
+        "No és una indeterminació: $\\Lim\\!\\left(\\dfrac{n^2+5}{n+1} + \\dfrac{n^2}{n-1}\\right)\n        = (+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\!\\left(\\dfrac{n^3+2}{n^2} - \\dfrac{n^3}{n^2+n}\\right)\n        = \\Lim\\dfrac{(n^3+2)(n^2+n) - n^3\\cdot n^2}{n^2(n^2+n)}\n        = \\Lim\\dfrac{n^4+2n^2+2n}{n^4+n^3} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\dfrac{5n^2}{2n+1} - \\dfrac{5n^2+n}{2n-1}\\right)\n        = \\Lim\\dfrac{5n^2(2n-1) - (5n^2+n)(2n+1)}{(2n+1)(2n-1)}\n        = \\Lim\\dfrac{-12n^2-n}{4n^2-1} = \\mathbf{-3}$"
        ]
       },
       {
@@ -623,24 +623,24 @@
         "$\\Lim\\!\\left(\\dfrac{n^3}{n+1} - \\dfrac{n^2}{n+2}\\right)$",
         "$\\Lim\\!\\left(\\dfrac{n^4}{n^3+1} - \\dfrac{n^4+n}{n^3-1}\\right)$",
         "$\\Lim\\!\\left(\\dfrac{(n+1)^2}{n} - \\dfrac{(n+2)^2}{n+1}\\right)$",
-        "Troba el valor de $k$ perquè aquest límit sigui un nombre real, i calcula'l: <br> $\\Lim\\!\\left(\\dfrac{kn^2+1}{n+1} - \\dfrac{3n^2}{n-1}\\right)$"
+        "$\\Lim\\!\\left(\\dfrac{3n^3}{n^2+n} - \\dfrac{3n^2-1}{n+2}\\right)$"
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\dfrac{n^3(n+1) - n^2(n^2+1)}{(n^2+1)(n+1)} = \\dfrac{n^3-n^2}{n^3+n^2+n+1} \\to \\mathbf{1}$",
-        "$\\dfrac{(n^3+1)(n+2) - n^2(n^2-1)}{(n^2-1)(n+2)} = \\dfrac{2n^3+n^2+n+2}{n^3+2n^2-n-2} \\to \\mathbf{2}$",
-        "$\\dfrac{2n^2(n-1) - 2n^2(n+1)}{(n+1)(n-1)} = \\dfrac{-4n^2}{n^2-1} \\to -4$, i $-4+4 = \\mathbf{0}$",
-        "Primer les dues fraccions: $\\dfrac{(n^2+1)(n+1) - (n^2-1)(n-1)}{n^2-1} = \\dfrac{2n^2+2n}{n^2-1} \\to 2$. L'última: $\\dfrac{3n+1}{n} \\to 3$. Total: $2 - 3 = \\mathbf{-1}$",
-        "$\\dfrac{n^3(n+2) - n^2(n+1)}{(n+1)(n+2)} = \\dfrac{n^4+n^3-n^2}{n^2+3n+2} \\to \\boldsymbol{+\\infty}$ (el numerador té grau 4 i el denominador, 2)",
-        "$\\dfrac{n^4(n^3-1) - (n^4+n)(n^3+1)}{(n^3+1)(n^3-1)} = \\dfrac{-3n^4-n}{n^6-1} \\to \\mathbf{0}$",
-        "$\\dfrac{(n+1)^2(n+1) - n(n+2)^2}{n(n+1)} = \\dfrac{-n^2-n+1}{n^2+n} \\to \\mathbf{-1}$",
-        "$\\dfrac{(kn^2+1)(n-1) - 3n^2(n+1)}{(n+1)(n-1)} = \\dfrac{(k-3)n^3 - (k+3)n^2 + n - 1}{n^2-1}$. El denominador té grau 2, o sigui que el numerador no en pot tenir 3: cal $k-3 = 0$, és a dir $\\boldsymbol{k = 3}$. Llavors queda $\\dfrac{-6n^2+n-1}{n^2-1} \\to \\mathbf{-6}$."
+        "$\\Lim\\!\\left(\\dfrac{n^3}{n^2+1} - \\dfrac{n^2}{n+1}\\right)\n        = \\Lim\\dfrac{n^3(n+1) - n^2(n^2+1)}{(n^2+1)(n+1)}\n        = \\Lim\\dfrac{n^3-n^2}{n^3+n^2+n+1} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\dfrac{n^3+1}{n^2-1} - \\dfrac{n^2}{n+2}\\right)\n        = \\Lim\\dfrac{(n^3+1)(n+2) - n^2(n^2-1)}{(n^2-1)(n+2)}\n        = \\Lim\\dfrac{2n^3+n^2+n+2}{n^3+2n^2-n-2} = \\mathbf{2}$",
+        "$\\Lim\\!\\left(\\dfrac{2n^2}{n+1} - \\dfrac{2n^2}{n-1} + 4\\right)\n        = \\Lim\\dfrac{2n^2(n-1) - 2n^2(n+1)}{(n+1)(n-1)} + 4\n        = \\Lim\\dfrac{-4n^2}{n^2-1} + 4 = -4 + 4 = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2+1}{n-1} - \\dfrac{n^2-1}{n+1} - \\dfrac{3n+1}{n}\\right)\n        = \\Lim\\dfrac{(n^2+1)(n+1) - (n^2-1)(n-1)}{(n-1)(n+1)} - \\Lim\\dfrac{3n+1}{n}$ <br> $= \\Lim\\dfrac{2n^2+2n}{n^2-1} - \\Lim\\dfrac{3n+1}{n} = 2 - 3 = \\mathbf{-1}$",
+        "$\\Lim\\!\\left(\\dfrac{n^3}{n+1} - \\dfrac{n^2}{n+2}\\right)\n        = \\Lim\\dfrac{n^3(n+2) - n^2(n+1)}{(n+1)(n+2)}\n        = \\Lim\\dfrac{n^4+n^3-n^2}{n^2+3n+2} = \\boldsymbol{+\\infty}$ <br>  (el numerador té grau 4 i el denominador, 2)",
+        "$\\Lim\\!\\left(\\dfrac{n^4}{n^3+1} - \\dfrac{n^4+n}{n^3-1}\\right)\n        = \\Lim\\dfrac{n^4(n^3-1) - (n^4+n)(n^3+1)}{(n^3+1)(n^3-1)}\n        = \\Lim\\dfrac{-3n^4-n}{n^6-1} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\dfrac{(n+1)^2}{n} - \\dfrac{(n+2)^2}{n+1}\\right)\n        = \\Lim\\dfrac{(n+1)^2(n+1) - n(n+2)^2}{n(n+1)}\n        = \\Lim\\dfrac{-n^2-n+1}{n^2+n} = \\mathbf{-1}$",
+        "$\\Lim\\!\\left(\\dfrac{3n^3}{n^2+n} - \\dfrac{3n^2-1}{n+2}\\right)\n        = \\Lim\\dfrac{3n^3(n+2) - (3n^2-1)(n^2+n)}{(n^2+n)(n+2)}\n        = \\Lim\\dfrac{3n^3+n^2+n}{n^3+3n^2+2n} = \\mathbf{3}$"
        ]
       },
       {
        "num": 31,
        "nivell": 1,
-       "enunciat": "Calcula els límits següents multiplicant i dividint pel conjugat:",
+       "enunciat": "Calcula els límits següents:",
        "parts": [
         "$\\Lim\\!\\left(\\sqrt{n^2+2n} - n\\right)$",
         "$\\Lim\\!\\left(\\sqrt{n^2+6n} - n\\right)$",
@@ -653,20 +653,20 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\Lim\\dfrac{2n}{\\sqrt{n^2+2n}+n} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
-        "$\\Lim\\dfrac{6n}{\\sqrt{n^2+6n}+n} = \\Lim\\dfrac{6n}{2n} = \\mathbf{3}$",
-        "$\\Lim\\dfrac{1}{\\sqrt{n^2+1}+n} = \\mathbf{0}$",
-        "$\\Lim\\dfrac{3}{\\sqrt{n+3}+\\sqrt{n}} = \\mathbf{0}$",
-        "$\\Lim\\dfrac{2n}{\\sqrt{n^2+3n}+\\sqrt{n^2+n}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
-        "$\\Lim\\dfrac{6n}{\\sqrt{n^2+5n}+\\sqrt{n^2-n}} = \\Lim\\dfrac{6n}{2n} = \\mathbf{3}$",
-        "$\\Lim\\dfrac{8n}{\\sqrt{4n^2+8n}+2n} = \\Lim\\dfrac{8n}{4n} = \\mathbf{2}$",
-        "$\\Lim\\dfrac{12n}{\\sqrt{9n^2+12n}+3n} = \\Lim\\dfrac{12n}{6n} = \\mathbf{2}$"
+        "$\\Lim\\!\\left(\\sqrt{n^2+2n} - n\\right)\n        = \\Lim\\dfrac{2n}{\\sqrt{n^2+2n}+n} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+6n} - n\\right)\n        = \\Lim\\dfrac{6n}{\\sqrt{n^2+6n}+n} = \\Lim\\dfrac{6n}{2n} = \\mathbf{3}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+1} - n\\right)\n        = \\Lim\\dfrac{1}{\\sqrt{n^2+1}+n} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\sqrt{n+3} - \\sqrt{n}\\right)\n        = \\Lim\\dfrac{3}{\\sqrt{n+3}+\\sqrt{n}} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+3n} - \\sqrt{n^2+n}\\right)\n        = \\Lim\\dfrac{2n}{\\sqrt{n^2+3n}+\\sqrt{n^2+n}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+5n} - \\sqrt{n^2-n}\\right)\n        = \\Lim\\dfrac{6n}{\\sqrt{n^2+5n}+\\sqrt{n^2-n}} = \\Lim\\dfrac{6n}{2n} = \\mathbf{3}$",
+        "$\\Lim\\!\\left(\\sqrt{4n^2+8n} - 2n\\right)\n        = \\Lim\\dfrac{8n}{\\sqrt{4n^2+8n}+2n} = \\Lim\\dfrac{8n}{4n} = \\mathbf{2}$",
+        "$\\Lim\\!\\left(\\sqrt{9n^2+12n} - 3n\\right)\n        = \\Lim\\dfrac{12n}{\\sqrt{9n^2+12n}+3n} = \\Lim\\dfrac{12n}{6n} = \\mathbf{2}$"
        ]
       },
       {
        "num": 32,
        "nivell": 2,
-       "enunciat": "Calcula. <strong>Compte:</strong> aquí tampoc no totes són indeterminacions.",
+       "enunciat": "Calcula.",
        "parts": [
         "$\\Lim\\!\\left(\\sqrt{n^2+4n} + n\\right)$",
         "$\\Lim\\!\\left(\\sqrt{n^2+n+1} - \\sqrt{n^2-n+1}\\right)$",
@@ -679,14 +679,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "No hi ha indeterminació: $(+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
-        "$\\Lim\\dfrac{2n}{\\sqrt{n^2+n+1}+\\sqrt{n^2-n+1}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
-        "$\\Lim\\dfrac{4n^2-(4n^2+3n)}{2n+\\sqrt{4n^2+3n}} = \\Lim\\dfrac{-3n}{4n} = \\boldsymbol{-\\dfrac{3}{4}}$",
-        "No hi ha indeterminació: $(-\\infty) + (-\\infty) = \\boldsymbol{-\\infty}$",
-        "$\\Lim\\dfrac{3n+2}{\\sqrt{n^2+3n+2}+n} = \\Lim\\dfrac{3n}{2n} = \\boldsymbol{\\dfrac{3}{2}}$",
-        "$(n+1)(n+3) = n^2+4n+3$, i $\\Lim\\dfrac{4n+3}{\\sqrt{n^2+4n+3}+n} = \\Lim\\dfrac{4n}{2n} = \\mathbf{2}$",
-        "$\\Lim\\dfrac{2n}{\\sqrt{n^2+n}+\\sqrt{n^2-n}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
-        "No hi ha indeterminació: $(+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$"
+        "No és una indeterminació: $\\Lim\\!\\left(\\sqrt{n^2+4n} + n\\right) = (+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+n+1} - \\sqrt{n^2-n+1}\\right)\n        = \\Lim\\dfrac{2n}{\\sqrt{n^2+n+1}+\\sqrt{n^2-n+1}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(2n - \\sqrt{4n^2+3n}\\right)\n        = \\Lim\\dfrac{4n^2-(4n^2+3n)}{2n+\\sqrt{4n^2+3n}}\n        = \\Lim\\dfrac{-3n}{4n} = \\boldsymbol{-\\dfrac{3}{4}}$",
+        "No és una indeterminació: $\\Lim\\!\\left(-\\sqrt{n^2+1} - \\sqrt{n^2+2}\\right) = (-\\infty) + (-\\infty) = \\boldsymbol{-\\infty}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+3n+2} - n\\right)\n        = \\Lim\\dfrac{3n+2}{\\sqrt{n^2+3n+2}+n} = \\Lim\\dfrac{3n}{2n} = \\boldsymbol{\\dfrac{3}{2}}$",
+        "$(n+1)(n+3) = n^2+4n+3$, per tant $\\Lim\\!\\left(\\sqrt{n^2+4n+3} - n\\right)\n        = \\Lim\\dfrac{4n+3}{\\sqrt{n^2+4n+3}+n} = \\Lim\\dfrac{4n}{2n} = \\mathbf{2}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+n} - \\sqrt{n^2-n}\\right)\n        = \\Lim\\dfrac{2n}{\\sqrt{n^2+n}+\\sqrt{n^2-n}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
+        "No és una indeterminació: $\\Lim\\!\\left(\\sqrt{4n^2+n} + \\sqrt{n^2+1}\\right) = (+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$"
        ]
       },
       {
@@ -701,22 +701,40 @@
         "$\\Lim\\!\\left(\\sqrt{3n^2+4n+7} - \\sqrt{3n^2-5n+2}\\right)$",
         "$\\Lim\\!\\left(\\sqrt{n^3+n^2} - n\\sqrt{n}\\right)$",
         "$\\Lim\\dfrac{\\sqrt{n^2+n}-n}{\\sqrt{n+1}-\\sqrt{n}}$",
-        "Troba el valor de $k$ perquè <br> $\\Lim\\!\\left(\\sqrt{kn^2+3n} - 2n\\right) = \\dfrac{3}{4}$."
+        "$\\Lim\\dfrac{\\sqrt{n^2+1}-n}{\\sqrt{n^2+2}-n}$"
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\Lim\\dfrac{n}{\\sqrt{n^2+3n}+\\sqrt{n^2+2n}} = \\Lim\\dfrac{n}{2n} = \\boldsymbol{\\dfrac{1}{2}}$",
-        "$\\Lim\\dfrac{9n^2-(9n^2-n)}{3n+\\sqrt{9n^2-n}} = \\Lim\\dfrac{n}{6n} = \\boldsymbol{\\dfrac{1}{6}}$",
-        "$\\Lim\\dfrac{2n-2}{\\sqrt{n^2+2n}+\\sqrt{n^2+2}} = \\Lim\\dfrac{2n}{2n} = \\mathbf{1}$",
-        "$n\\cdot\\dfrac{1}{\\sqrt{n^2+1}+n} = \\Lim\\dfrac{n}{2n} = \\boldsymbol{\\dfrac{1}{2}}$",
-        "$\\Lim\\dfrac{9n}{\\sqrt{3n^2+4n+7}+\\sqrt{3n^2-5n+2}} = \\Lim\\dfrac{9n}{2\\sqrt{3}\\,n}\n        = \\dfrac{9}{2\\sqrt{3}} = \\boldsymbol{\\dfrac{3\\sqrt{3}}{2}}$",
-        "Treu factor comú $\\sqrt{n}$: $\\sqrt{n}\\!\\left(\\sqrt{n^2+n}-n\\right)\n        = \\sqrt{n}\\cdot\\dfrac{n}{\\sqrt{n^2+n}+n} \\to \\sqrt{n}\\cdot\\dfrac{n}{2n}\n        = \\dfrac{\\sqrt{n}}{2} \\to \\boldsymbol{+\\infty}$",
-        "Numerador: $\\dfrac{n}{\\sqrt{n^2+n}+n} \\to \\dfrac{1}{2}$. <br> Denominador: $\\dfrac{1}{\\sqrt{n+1}+\\sqrt{n}}$, que es comporta com $\\dfrac{1}{2\\sqrt{n}}$. <br> El quocient és, doncs, com $\\dfrac{1}{2}\\cdot 2\\sqrt{n} = \\sqrt{n} \\to \\boldsymbol{+\\infty}$",
-        "$\\Lim\\dfrac{kn^2+3n-4n^2}{\\sqrt{kn^2+3n}+2n} = \\Lim\\dfrac{(k-4)n^2+3n}{(\\sqrt{k}+2)\\,n}$. Perquè el límit sigui finit cal $k=4$; llavors queda $\\Lim\\dfrac{3n}{(\\sqrt{4}+2)n} = \\dfrac{3}{4}$ ✓. Per tant $\\boldsymbol{k = 4}$."
+        "$\\Lim\\!\\left(\\sqrt{n^2+3n} - \\sqrt{n^2+2n}\\right)\n        = \\Lim\\dfrac{n}{\\sqrt{n^2+3n}+\\sqrt{n^2+2n}} = \\Lim\\dfrac{n}{2n} = \\boldsymbol{\\dfrac{1}{2}}$",
+        "$\\Lim\\!\\left(3n - \\sqrt{9n^2-n}\\right)\n        = \\Lim\\dfrac{9n^2-(9n^2-n)}{3n+\\sqrt{9n^2-n}} = \\Lim\\dfrac{n}{6n} = \\boldsymbol{\\dfrac{1}{6}}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+2n} - \\sqrt{n^2+2}\\right)\n        = \\Lim\\dfrac{2n-2}{\\sqrt{n^2+2n}+\\sqrt{n^2+2}} = \\Lim\\dfrac{2n-2}{2n} = \\mathbf{1}$",
+        "$\\Lim\\, n\\!\\left(\\sqrt{n^2+1} - n\\right)\n        = \\Lim\\dfrac{n}{\\sqrt{n^2+1}+n} = \\Lim\\dfrac{n}{2n} = \\boldsymbol{\\dfrac{1}{2}}$",
+        "$\\Lim\\!\\left(\\sqrt{3n^2+4n+7} - \\sqrt{3n^2-5n+2}\\right)\n        = \\Lim\\dfrac{9n}{\\sqrt{3n^2+4n+7}+\\sqrt{3n^2-5n+2}}$ <br> $= \\Lim\\dfrac{9n}{2\\sqrt{3}\\,n} = \\dfrac{9}{2\\sqrt{3}} = \\boldsymbol{\\dfrac{3\\sqrt{3}}{2}}$",
+        "Traiem factor comú $\\sqrt{n}$: $\\Lim\\!\\left(\\sqrt{n^3+n^2} - n\\sqrt{n}\\right)\n        = \\Lim\\sqrt{n}\\!\\left(\\sqrt{n^2+n} - n\\right)\n        = \\Lim\\sqrt{n}\\cdot\\dfrac{n}{\\sqrt{n^2+n}+n}$ <br> $= \\Lim\\dfrac{n\\sqrt{n}}{2n} = \\Lim\\dfrac{\\sqrt{n}}{2} = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\dfrac{\\sqrt{n^2+n}-n}{\\sqrt{n+1}-\\sqrt{n}}\n        = \\Lim\\dfrac{\\ \\dfrac{n}{\\sqrt{n^2+n}+n}\\ }{\\dfrac{1}{\\sqrt{n+1}+\\sqrt{n}}}\n        = \\Lim\\dfrac{n\\left(\\sqrt{n+1}+\\sqrt{n}\\right)}{\\sqrt{n^2+n}+n}$ <br> $= \\Lim\\dfrac{2n\\sqrt{n}}{2n} = \\Lim\\sqrt{n} = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\dfrac{\\sqrt{n^2+1}-n}{\\sqrt{n^2+2}-n}\n        = \\Lim\\dfrac{\\ \\dfrac{1}{\\sqrt{n^2+1}+n}\\ }{\\dfrac{2}{\\sqrt{n^2+2}+n}}\n        = \\Lim\\dfrac{\\sqrt{n^2+2}+n}{2\\left(\\sqrt{n^2+1}+n\\right)}\n        = \\Lim\\dfrac{2n}{4n} = \\boldsymbol{\\dfrac{1}{2}}$"
        ]
       },
       {
        "num": 34,
+       "nivell": 3,
+       "enunciat": "Exercicis amb paràmetre:",
+       "parts": [
+        "Troba el valor de $k$ perquè $\\Lim\\!\\left(\\dfrac{kn^2+1}{n+1} - \\dfrac{3n^2}{n-1}\\right)$ sigui un nombre real, i calcula després aquest límit.",
+        "Troba el valor de $k$ perquè $\\Lim\\!\\left(\\dfrac{n^2+kn}{n+1} - \\dfrac{n^2}{n+2}\\right) = 5$.",
+        "Troba el valor de $k$ perquè $\\Lim\\!\\left(\\sqrt{kn^2+3n} - 2n\\right) = \\dfrac{3}{4}$.",
+        "Troba el valor de $k$ perquè $\\Lim\\!\\left(\\sqrt{n^2+kn} - n\\right) = \\dfrac{5}{2}$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\Lim\\!\\left(\\dfrac{kn^2+1}{n+1} - \\dfrac{3n^2}{n-1}\\right)\n        = \\Lim\\dfrac{(kn^2+1)(n-1) - 3n^2(n+1)}{(n+1)(n-1)}\n        = \\Lim\\dfrac{(k-3)n^3 - (k+3)n^2 + n - 1}{n^2-1}$ <br> El denominador té grau 2, o sigui que el numerador no en pot tenir 3: cal $k-3 = 0$, és a dir $\\boldsymbol{k = 3}$. Amb aquest valor, $\\Lim\\dfrac{-6n^2+n-1}{n^2-1} = \\mathbf{-6}$.",
+        "$\\Lim\\!\\left(\\dfrac{n^2+kn}{n+1} - \\dfrac{n^2}{n+2}\\right)\n        = \\Lim\\dfrac{(n^2+kn)(n+2) - n^2(n+1)}{(n+1)(n+2)}\n        = \\Lim\\dfrac{(k+1)n^2 + 2kn}{n^2+3n+2} = k+1$ <br> Per tant $k+1 = 5$, és a dir $\\boldsymbol{k = 4}$.",
+        "$\\Lim\\!\\left(\\sqrt{kn^2+3n} - 2n\\right)\n        = \\Lim\\dfrac{(kn^2+3n)-4n^2}{\\sqrt{kn^2+3n}+2n}\n        = \\Lim\\dfrac{(k-4)n^2+3n}{\\left(\\sqrt{k}+2\\right)n}$ <br> Perquè el límit sigui finit cal $k = 4$, i llavors $\\Lim\\dfrac{3n}{\\left(\\sqrt{4}+2\\right)n} = \\dfrac{3}{4}$ ✓. Per tant $\\boldsymbol{k = 4}$.",
+        "$\\Lim\\!\\left(\\sqrt{n^2+kn} - n\\right)\n        = \\Lim\\dfrac{kn}{\\sqrt{n^2+kn}+n} = \\Lim\\dfrac{kn}{2n} = \\dfrac{k}{2}$ <br> Per tant $\\dfrac{k}{2} = \\dfrac{5}{2}$, és a dir $\\boldsymbol{k = 5}$."
+       ]
+      },
+      {
+       "num": 35,
        "nivell": 2,
        "enunciat": "Miscel·lània. Calcula:",
        "parts": [
@@ -732,13 +750,13 @@
        "solucio": "",
        "solucioParts": [
         "$\\boldsymbol{-\\infty}$ (no és cap indeterminació)",
-        "$\\dfrac{(n^2+3)(n+2) - n^2(n+1)}{(n+1)(n+2)} = \\dfrac{n^2+3n+6}{n^2+3n+2} \\to \\mathbf{1}$",
-        "$\\Lim\\dfrac{8n}{\\sqrt{n^2+8n}+n} = \\Lim\\dfrac{8n}{2n} = \\mathbf{4}$",
-        "No hi ha indeterminació: $(+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
-        "$\\Lim\\dfrac{-4n}{\\sqrt{n^2+n}+\\sqrt{n^2+5n}} = \\Lim\\dfrac{-4n}{2n} = \\mathbf{-2}$",
-        "$\\dfrac{n^3 - n(n^2-1)}{n^2-1} = \\dfrac{n}{n^2-1} \\to \\mathbf{0}$",
-        "$\\Lim\\dfrac{25n^2-(25n^2+10n)}{5n+\\sqrt{25n^2+10n}} = \\Lim\\dfrac{-10n}{10n} = \\mathbf{-1}$",
-        "$\\dfrac{(4n^2+1)(n+1) - 4n^2(n-1)}{(n-1)(n+1)} = \\dfrac{8n^2+n+1}{n^2-1} \\to \\mathbf{8}$"
+        "$\\Lim\\!\\left(\\dfrac{n^2+3}{n+1} - \\dfrac{n^2}{n+2}\\right)\n        = \\Lim\\dfrac{(n^2+3)(n+2) - n^2(n+1)}{(n+1)(n+2)}\n        = \\Lim\\dfrac{n^2+3n+6}{n^2+3n+2} = \\mathbf{1}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+8n} - n\\right)\n        = \\Lim\\dfrac{8n}{\\sqrt{n^2+8n}+n} = \\Lim\\dfrac{8n}{2n} = \\mathbf{4}$",
+        "No és una indeterminació: $\\Lim\\!\\left(\\dfrac{2n^3}{n^2+1} + \\dfrac{n^2}{n+1}\\right)\n        = (+\\infty) + (+\\infty) = \\boldsymbol{+\\infty}$",
+        "$\\Lim\\!\\left(\\sqrt{n^2+n} - \\sqrt{n^2+5n}\\right)\n        = \\Lim\\dfrac{-4n}{\\sqrt{n^2+n}+\\sqrt{n^2+5n}} = \\Lim\\dfrac{-4n}{2n} = \\mathbf{-2}$",
+        "$\\Lim\\!\\left(\\dfrac{n^3}{n^2-1} - n\\right)\n        = \\Lim\\dfrac{n^3 - n(n^2-1)}{n^2-1} = \\Lim\\dfrac{n}{n^2-1} = \\mathbf{0}$",
+        "$\\Lim\\!\\left(5n - \\sqrt{25n^2+10n}\\right)\n        = \\Lim\\dfrac{25n^2-(25n^2+10n)}{5n+\\sqrt{25n^2+10n}}\n        = \\Lim\\dfrac{-10n}{10n} = \\mathbf{-1}$",
+        "$\\Lim\\!\\left(\\dfrac{4n^2+1}{n-1} - \\dfrac{4n^2}{n+1}\\right)\n        = \\Lim\\dfrac{(4n^2+1)(n+1) - 4n^2(n-1)}{(n-1)(n+1)}\n        = \\Lim\\dfrac{8n^2+n+1}{n^2-1} = \\mathbf{8}$"
        ]
       }
      ]
