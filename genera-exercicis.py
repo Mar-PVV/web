@@ -36,6 +36,8 @@ SIMPLES = [
     (r"\\[hv]space\*?\{[^}]*\}", " "),
     (r"\\(big|med|small)skip\b", " "),
     (r"\\(noindent|centering|vfill|hfill)\b", " "),
+    # salt de línia amb separació: \\[2pt] → salt de línia i prou
+    (r"\\\\\[[^\]]*\]", "<br>"),
 ]
 
 def treu_comentaris(t):
@@ -175,6 +177,27 @@ def html(t):
         t = t.replace("\x00%d\x00" % k, m)
     return t.strip()
 
+# ── Títols de secció ───────────────────────────────────────────────────────
+# El menú de seccions de la web és text pla (no hi passa MathJax), així que
+# la mica de matemàtiques que pugui haver-hi al títol es passa a símbols
+# Unicode. Si és res més que un símbol solt, es deixa tal com és.
+
+SIMBOLS = [("\\infty", "\u221e"), ("\\cdot", "\u00b7"), ("\\times", "\u00d7"),
+           ("\\pm", "\u00b1"), ("\\le", "\u2264"), ("\\ge", "\u2265"),
+           ("\\to", "\u2192"), ("\\neq", "\u2260"), ("\\alpha", "\u03b1")]
+
+
+def titol_pla(t):
+    def canvi(m):
+        x = m.group(0)[1:-1]
+        for a, b in SIMBOLS:
+            x = re.sub(re.escape(a) + r"\b", b, x)
+        x = re.sub(r"\s*-\s*", " \u2212 ", x)
+        x = re.sub(r"\s+", " ", x).strip()
+        return m.group(0) if re.search(r"[\\^_{}]", x) else x
+    return re.sub(r"\$[^$]*\$", canvi, t)
+
+
 # ── Parseig ────────────────────────────────────────────────────────────────
 
 def entorn(t, nom, des=0):
@@ -205,7 +228,7 @@ def apartats(t):
 def llegeix_seccio(cami, comptador):
     t = treu_comentaris(open(cami, encoding="utf-8").read())
     m = re.search(r"\\section\*?\{", t)
-    titol = html(parell(t, m.end() - 1)[0]) if m else ""
+    titol = titol_pla(html(parell(t, m.end() - 1)[0])) if m else ""
 
     exercicis = []
     talls = [(m.start(), m.group(1)) for m in
