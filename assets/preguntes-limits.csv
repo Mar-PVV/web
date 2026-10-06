@@ -7,8 +7,8 @@ tema,nivell,pregunta,opcions,resposta,explicacio
 1,1,$(-3) \cdot (+\infty)$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,
 1,1,$\dfrac{+\infty}{+\infty}$,$+\infty$|$-\infty$|$0$|Indeterminació,Indeterminació,Indeterminació: es resol comparant els graus.
 1,1,$(-\infty) + 1000$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,Sumar-hi un número no canvia res: l'infinit mana.
-1,1,$0 \cdot (+\infty)$,$+\infty$|$-\infty$|$0$|Indeterminació,Indeterminació,
-1,1,$\dfrac{0}{+\infty}$,$+\infty$|$-\infty$|$0$|Indeterminació,$0$,
+1,1,$\dfrac{+\infty}{-4}$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,Dividir per un número negatiu canvia el signe de l'infinit.
+1,1,$(-\infty) \cdot (+\infty)$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,
 1,1,$\Lim(3n^2 - 5n + 1)$,$+\infty$|$-\infty$|$0$|Indeterminació,$+\infty$,Mana el terme de grau més alt: $3n^2$.
 1,1,$\Lim(-2n^3 + n)$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,Mana $-2n^3$.
 1,1,$\Lim(7 - 4n)$,$+\infty$|$-\infty$|$0$|Indeterminació,$-\infty$,
@@ -16,11 +16,11 @@ tema,nivell,pregunta,opcions,resposta,explicacio
 1,1,$\Lim\dfrac{3n+1}{n-2}$,,3,Mateix grau: quocient dels coeficients.
 1,1,$\Lim\dfrac{2n^2+1}{5n^2-n}$,$\dfrac{2}{5}$|$\dfrac{5}{2}$|$0$|$+\infty$,$\dfrac{2}{5}$,Mateix grau: $\dfrac{2}{5}$.
 1,1,$\Lim\dfrac{n+4}{n^2+1}$,$0$|$1$|$+\infty$|No existeix,$0$,"A dalt grau 1, a baix grau 2: guanya el denominador."
-1,2,$\Lim\dfrac{n^3}{2n^2+7}$,$+\infty$|$0$|$\dfrac{1}{2}$|$1$,$+\infty$,"A dalt grau 3, a baix grau 2."
+1,1,$\Lim\dfrac{n^3}{2n^2+7}$,$+\infty$|$0$|$\dfrac{1}{2}$|$1$,$+\infty$,"A dalt grau 3, a baix grau 2."
 1,1,$\Lim\dfrac{-5n^2+n}{2n^2+3}$,,-5/2,
 1,1,$\Lim\dfrac{6n^4-n}{3n^4+2n^2}$,$2$|$\dfrac{1}{2}$|$3$|$+\infty$,$2$,
-1,2,$\Lim\dfrac{4n^2+3}{-2n^3+1}$,$0$|$-2$|$+\infty$|$-\infty$,$0$,
-1,2,$\Lim\dfrac{-n^3+2}{4n^2}$,$-\infty$|$0$|$-\dfrac{1}{4}$|$+\infty$,$-\infty$,
+1,1,$\Lim\dfrac{4n^2+3}{-2n^3+1}$,$0$|$-2$|$+\infty$|$-\infty$,$0$,
+1,1,$\Lim\dfrac{-n^3+2}{4n^2}$,$-\infty$|$0$|$-\dfrac{1}{4}$|$+\infty$,$-\infty$,
 1,2,$\Lim\dfrac{(2n+1)^2}{n^2+n}$,,4,Desenvolupa el quadrat: $4n^2+4n+1$.
 1,2,$\Lim\dfrac{(n+1)(n-3)}{2n^2}$,$\dfrac{1}{2}$|$1$|$2$|$0$,$\dfrac{1}{2}$,
 1,2,$\Lim\dfrac{3n^2}{(n+2)(2n-1)}$,,3/2,El denominador és $2n^2+3n-2$.
@@ -32,30 +32,30 @@ tema,nivell,pregunta,opcions,resposta,explicacio
 1,2,$\Lim\left(n - \sqrt{n^2+6n}\right)$,$-3$|$3$|$-6$|$0$,$-3$,Compte amb l'ordre: surt negatiu.
 1,2,$\Lim\left(\sqrt{n^2+3n} - \sqrt{n^2+n}\right)$,$1$|$2$|$\dfrac{1}{2}$|$0$,$1$,Pel conjugat: $\dfrac{2n}{2n}$.
 1,1,$\Lim\dfrac{\sqrt{n^2+1}}{n}$,$1$|$0$|$+\infty$|$\dfrac{1}{2}$,$1$,L'arrel d'un grau 2 es comporta com $n$.
-1,2,$\Lim\dfrac{\sqrt{4n^2+1}}{n+1}$,$2$|$4$|$\dfrac{1}{2}$|$+\infty$,$2$,$\sqrt{4n^2+1}$ es comporta com $2n$.
-1,2,$\Lim\dfrac{\sqrt{n}}{n+1}$,$0$|$1$|$+\infty$|$\dfrac{1}{2}$,$0$,$\sqrt{n}$ creix molt més a poc a poc que $n$.
-1,2,$\Lim\dfrac{n}{\sqrt{n^2+1}}$,$1$|$0$|$+\infty$|$-1$,$1$,
+1,1,$\Lim\dfrac{\sqrt{4n^2+1}}{n+1}$,$2$|$4$|$\dfrac{1}{2}$|$+\infty$,$2$,$\sqrt{4n^2+1}$ es comporta com $2n$.
+1,1,$\Lim\dfrac{\sqrt{n}}{n+1}$,$0$|$1$|$+\infty$|$\dfrac{1}{2}$,$0$,$\sqrt{n}$ creix molt més a poc a poc que $n$.
+1,1,$\Lim\dfrac{n}{\sqrt{n^2+1}}$,$1$|$0$|$+\infty$|$-1$,$1$,
 1,2,$\Lim\left(\dfrac{n^2}{n+1} - n\right)$,,-1,$\dfrac{n^2-n(n+1)}{n+1} = \dfrac{-n}{n+1}$.
 1,2,$\Lim\left(\dfrac{n^2}{n-1} - n\right)$,$1$|$-1$|$0$|$+\infty$,$1$,
 1,2,$\Lim\left(\dfrac{n^2}{n+1} - \dfrac{n^2}{n+2}\right)$,$1$|$0$|$2$|$+\infty$,$1$,Multiplica els denominadors: $\dfrac{n^2}{n^2+3n+2}$.
 1,2,$\Lim\left(\dfrac{2n^2+1}{n} - 2n\right)$,$0$|$2$|$+\infty$|$1$,$0$,Queda $\dfrac{1}{n}$.
-1,3,$\Lim\left(\dfrac{n^2}{n-2} - \dfrac{n^2}{n+2}\right)$,,4,Multiplica els denominadors: $\dfrac{4n^2}{n^2-4}$.
-1,3,$\Lim\left(\dfrac{3n^2}{n+1} - 3n\right)$,$-3$|$3$|$0$|$+\infty$,$-3$,
-1,1,$\Lim\dfrac{(-1)^n}{n}$,$0$|$1$|$-1$|No existeix,$0$,"El signe va saltant, però la mida tendeix a 0."
+1,2,$\Lim\left(\dfrac{n^2}{n-2} - \dfrac{n^2}{n+2}\right)$,,4,Multiplica els denominadors: $\dfrac{4n^2}{n^2-4}$.
+1,2,$\Lim\left(\dfrac{3n^2}{n+1} - 3n\right)$,$-3$|$3$|$0$|$+\infty$,$-3$,
+1,3,$\Lim\dfrac{(-1)^n}{n}$,$0$|$1$|$-1$|No existeix,$0$,"El signe va saltant, però la mida tendeix a 0."
 1,1,$\Lim\dfrac{1}{n^2}$,$0$|$+\infty$|$1$|No existeix,$0$,
 1,1,$\Lim\left(5 + \dfrac{1}{n}\right)$,,5,
 1,1,"$\Lim\,(-1)^n$",No existeix|$1$|$-1$|$0$,No existeix,Va saltant entre $1$ i $-1$: no s'acosta a cap valor.
 1,1,$\Lim\dfrac{3n-1}{3n+1}$,$1$|$0$|$3$|$-1$,$1$,
 1,1,$\Lim\left(2 - \dfrac{3}{n}\right)$,,2,
-1,3,$\Lim\left(\sqrt{n^2+3n} - \sqrt{n^2+2n}\right)$,,1/2,Pel conjugat: $\dfrac{n}{2n}$.
+1,2,$\Lim\left(\sqrt{n^2+3n} - \sqrt{n^2+2n}\right)$,,1/2,Pel conjugat: $\dfrac{n}{2n}$.
 1,3,"$\Lim\, n\left(\sqrt{n^2+1} - n\right)$",$\dfrac{1}{2}$|$0$|$+\infty$|$1$,$\dfrac{1}{2}$,Pel conjugat queda $\dfrac{n}{\sqrt{n^2+1}+n}$.
-1,3,$\Lim\left(3n - \sqrt{9n^2-n}\right)$,,1/6,Pel conjugat: $\dfrac{n}{6n}$.
-1,3,$\Lim\left(\dfrac{n^3}{n^2+1} - n\right)$,$0$|$1$|$-1$|$+\infty$,$0$,Queda $\dfrac{-n}{n^2+1}$.
-1,3,$\Lim\left(\dfrac{(n+1)^2}{n} - n\right)$,,2,$(n+1)^2 - n^2 = 2n+1$.
-1,3,$\Lim\left(\sqrt{n^2+2n} - \sqrt{n^2-2n}\right)$,$2$|$4$|$1$|$0$,$2$,Pel conjugat: $\dfrac{4n}{2n}$.
-1,3,$\Lim\dfrac{\sqrt{9n^2+1}}{\sqrt{n^2+4n}}$,$3$|$9$|$1$|$+\infty$,$3$,"A dalt es comporta com $3n$; a baix, com $n$."
-1,3,$\Lim\left(\sqrt{n^2+n} - \sqrt{n^2+1}\right)$,,1/2,Pel conjugat: $\dfrac{n-1}{2n}$.
-1,3,$\Lim\left(\dfrac{n^2-1}{n+1} - n\right)$,$-1$|$1$|$0$|$-\infty$,$-1$,$\dfrac{n^2-1}{n+1} = n-1$.
+1,2,$\Lim\left(3n - \sqrt{9n^2-n}\right)$,,1/6,Pel conjugat: $\dfrac{n}{6n}$.
+1,2,$\Lim\left(\dfrac{n^3}{n^2+1} - n\right)$,$0$|$1$|$-1$|$+\infty$,$0$,Queda $\dfrac{-n}{n^2+1}$.
+1,2,$\Lim\left(\dfrac{(n+1)^2}{n} - n\right)$,,2,$(n+1)^2 - n^2 = 2n+1$.
+1,2,$\Lim\left(\sqrt{n^2+2n} - \sqrt{n^2-2n}\right)$,$2$|$4$|$1$|$0$,$2$,Pel conjugat: $\dfrac{4n}{2n}$.
+1,1,$\Lim\dfrac{\sqrt{9n^2+1}}{\sqrt{n^2+4n}}$,$3$|$9$|$1$|$+\infty$,$3$,"A dalt es comporta com $3n$; a baix, com $n$."
+1,2,$\Lim\left(\sqrt{n^2+n} - \sqrt{n^2+1}\right)$,,1/2,Pel conjugat: $\dfrac{n-1}{2n}$.
+1,2,$\Lim\left(\dfrac{n^2-1}{n+1} - n\right)$,$-1$|$1$|$0$|$-\infty$,$-1$,$\dfrac{n^2-1}{n+1} = n-1$.
 1,3,$\Lim\dfrac{(n+1)^3 - n^3}{n^2}$,,3,$(n+1)^3 - n^3 = 3n^2+3n+1$.
-1,2,$\Lim\dfrac{2^{n+1}}{2^n}$,$2$|$1$|$+\infty$|$0$,$2$,$2^{n+1} = 2 \cdot 2^n$: se simplifica.
-1,2,$\Lim\dfrac{3^n}{3^{n+2}}$,$\dfrac{1}{9}$|$9$|$0$|$1$,$\dfrac{1}{9}$,$3^{n+2} = 9 \cdot 3^n$.
+1,1,$\Lim\dfrac{\sqrt{n^2+n}}{\sqrt{4n^2+1}}$,$\dfrac{1}{2}$|$2$|$1$|$+\infty$,$\dfrac{1}{2}$,"A dalt es comporta com $n$; a baix, com $2n$."
+1,2,$\Lim\left(\dfrac{n^2+1}{n} - \dfrac{n^2}{n+1}\right)$,,1,Multiplica els denominadors: $\dfrac{n^2+n+1}{n^2+n}$.

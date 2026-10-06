@@ -25,7 +25,7 @@
 
   const ENLLAC_PDF = document.getElementById('baixa');
 
-  fetch('assets/exercicis-batx.json?v=7c594bce')
+  fetch('assets/exercicis-batx.json?v=9e223ffd')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(dades => {
       const tema = dades.temes.find(t => t.num === numTema);
@@ -51,7 +51,7 @@
       // Així, per obrir-lo a un tema nou només cal afegir-hi files.
       const botoTest = document.getElementById('test');
       if (botoTest) {
-        fetch('assets/preguntes-limits.csv?v=bf47d220')
+        fetch('assets/preguntes-limits.csv?v=4881bdba')
           .then(r => r.ok ? r.text() : Promise.reject())
           .then(txt => {
             const files = txt.split('\n').slice(1)

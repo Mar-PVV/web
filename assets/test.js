@@ -14,7 +14,7 @@
      explicacio opcional: una línia que surt després de respondre
    ─────────────────────────────────────────────────────────────────────────── */
 (function () {
-  const CSV = 'assets/preguntes-limits.csv?v=bf47d220';
+  const CSV = 'assets/preguntes-limits.csv?v=4881bdba';
   const PER_TANDA = 10;
   const tema = parseInt(new URLSearchParams(location.search).get('tema') || '1', 10);
 

@@ -758,6 +758,80 @@
         "$\\Lim\\!\\left(5n - \\sqrt{25n^2+10n}\\right)\n        = \\Lim\\dfrac{25n^2-(25n^2+10n)}{5n+\\sqrt{25n^2+10n}}\n        = \\Lim\\dfrac{-10n}{10n} = \\mathbf{-1}$",
         "$\\Lim\\!\\left(\\dfrac{4n^2+1}{n-1} - \\dfrac{4n^2}{n+1}\\right)\n        = \\Lim\\dfrac{(4n^2+1)(n+1) - 4n^2(n-1)}{(n-1)(n+1)}\n        = \\Lim\\dfrac{8n^2+n+1}{n^2-1} = \\mathbf{8}$"
        ]
+      },
+      {
+       "num": 36,
+       "nivell": 2,
+       "enunciat": "Calcula:",
+       "parts": [
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{1}{n} + \\dfrac{3n + 2}{n + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{5n-1}{n+3} - \\dfrac{4n^3-1}{n^3+2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{2-3n^2}{n^2+1} - \\dfrac{n^4+5}{n^4+2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{n+1}{2n-1} \\cdot \\dfrac{3n-2}{n+5} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{2n+3}{n-1}\\right) \\cdot \\left(\\dfrac{n^2+1}{2n^2+5}\\right) \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{n^3+2}{3n^3-1} \\cdot \\dfrac{4n^2+1}{2n^2+3} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{3n+2}{n+1}\\div\\dfrac{2n-1}{n+3}\\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{5n^2+1}{2n^2+3}\\div\\dfrac{n^2-2}{n^2+1}\\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{4n^3+2}{2n^3+1}\\div\\dfrac{n^3+5}{3n^3+2}\\right) \\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{1}{n} + \\dfrac{3n + 2}{n + 1} \\right)= 0 + 3 = 3 \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{5n-1}{n+3} - \\dfrac{4n^3-1}{n^3+2} \\right)=5-4=1  \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\dfrac{2-3n^2}{n^2+1} - \\dfrac{n^4+5}{n^4+2} \\right)=-3-1=-4  \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{n+1}{2n-1} \\cdot \\dfrac{3n-2}{n+5}\\right) = \\dfrac{1}{2} \\cdot 3 = \\dfrac{3}{2} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{2n+3}{n-1} \\cdot \\dfrac{n^2+1}{2n^2+5}\\right) = 2 \\cdot \\dfrac{1}{2} = 1 \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{n^3+2}{3n^3-1} \\cdot \\dfrac{4n^2+1}{2n^2+3}\\right) = \\dfrac{1}{3} \\cdot 2 = \\dfrac{2}{3} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{3n+2}{n+1}\\div\\dfrac{2n-1}{n+3}\\right) = 3\\div2=\\dfrac{3}{2} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{5n^2+1}{2n^2+3}\\div\\dfrac{n^2-2}{n^2+1}\\right) = \\dfrac{5}{2} \\div 1 = \\dfrac{5}{2} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{4n^3+2}{2n^3+1}\\div\\dfrac{n^3+5}{3n^3+2}\\right) =  2\\div \\dfrac{1}{3} = 6 \\)"
+       ]
+      },
+      {
+       "num": 37,
+       "nivell": 2,
+       "enunciat": "Determina el límit de cadascuna de les expressions següents.",
+       "parts": [
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^3 + 1}{n^3 + 2} + \\dfrac{3n^2}{n - 10} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^4}{n - 1} + n^3 \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{5n^2}{1 - n} - 4n^3 \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2}{n^2+1} : \\dfrac{5 - n}{n^2 + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{6n^2}{1 - n^2} : \\dfrac{n - 7}{1-n^2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2}{n^2+1} : \\dfrac{n+3}{n^2+1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{1 - n^2} : \\dfrac{n + 2}{n^2 + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2+2}{1-n^2} \\cdot \\dfrac{n^2+4}{5} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{5n^2 + 7}{n + 3} \\cdot \\dfrac{n^2 + 2}{4} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2 + 9}{1 - n} \\cdot \\dfrac{n^2 + 1}{2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{1}{n^2} + \\dfrac{5n^2}{1 - n} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( 10n^3 + \\dfrac{n^5}{n - 2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{6n^2}{1 - n} - 2n^3 \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{n^2 + 1} : \\dfrac{3 - n}{n^2 + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2}{1 - n^2} : \\dfrac{n - 2}{n^2 + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2}{n^2+1} : \\dfrac{n + 1}{n^2+1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{1 - n^2} : \\dfrac{n + 5}{n^2 + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2+5}{1-n^2} \\cdot \\dfrac{n^2+4}{3-n} \\right) \\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^3 + 1}{n^3 + 2} + \\dfrac{3n^2}{n - 10} \\right)=4 + (+\\infty) = +\\infty \\) \\",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^4}{n - 1} + n^3 \\right) =+\\infty + \\infty = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{5n^2}{1 - n} - 4n^3 \\right) = -\\infty - \\infty = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2}{n^2+1} : \\dfrac{5 - n}{n^2 + 1} \\right)=\\frac{3}{0^-} = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{6n^2}{1 - n^2} : \\dfrac{n - 7}{1-n^2} \\right)=\\frac{-6}{0^-} = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2}{n^2+1} : \\dfrac{n+3}{n^2+1} \\right)=\\frac{2}{0^+} = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{1 - n^2} : \\dfrac{n + 2}{n^2 + 1} \\right)=\\frac{-4}{0^+} = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2+2}{1-n^2} \\cdot \\dfrac{n^2+4}{5} \\right)=(-3) \\cdot (+\\infty) = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{5n^2 + 7}{n + 3} \\cdot \\dfrac{n^2 + 2}{4} \\right)=+\\infty \\cdot +\\infty = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2 + 9}{1 - n} \\cdot \\dfrac{n^2 + 1}{2} \\right)=-\\infty \\cdot +\\infty = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{1}{n^2} + \\dfrac{5n^2}{1 - n} \\right)=0 + (-\\infty) = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( 10n^3 + \\dfrac{n^5}{n - 2} \\right)=+\\infty + (+\\infty) = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{6n^2}{1 - n} - 2n^3 \\right)=-\\infty - \\infty = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{n^2 + 1} : \\dfrac{3 - n}{n^2 + 1} \\right)=\\frac{4}{0^-} = -\\infty \\)",
+        "\\(  \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{3n^2}{1 - n^2} : \\dfrac{n - 2}{n^2 + 1} \\right)=\\frac{-3}{0^+} = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2}{n^2+1} : \\dfrac{n + 1}{n^2+1} \\right)=\\frac{2}{0^+} = +\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{4n^2}{1 - n^2} : \\dfrac{n + 5}{n^2 + 1} \\right)=\\frac{-4}{0^+} = -\\infty \\)",
+        "\\( \\displaystyle\\lim_{n \\to +\\infty} \\left( \\dfrac{2n^2+5}{1-n^2} \\cdot \\dfrac{n^2+4}{3-n} \\right)=(-2) \\cdot (-\\infty) = +\\infty \\)"
+       ]
       }
      ]
     },
@@ -765,9 +839,9 @@
      "titol": "Límits de potències",
      "exercicis": [
       {
-       "num": 36,
+       "num": 38,
        "nivell": 1,
-       "enunciat": "<strong>Base fixa, exponent infinit.</strong> Calcula:",
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim 4^n$",
         "$\\Lim 7^{-n}$",
@@ -793,9 +867,9 @@
        ]
       },
       {
-       "num": 37,
-       "nivell": 2,
-       "enunciat": "<strong>Base infinita, exponent fix.</strong> Calcula:",
+       "num": 39,
+       "nivell": 1,
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim (3n+1)^4$",
         "$\\Lim (n^2-5)^{-2}$",
@@ -819,9 +893,9 @@
        ]
       },
       {
-       "num": 38,
+       "num": 40,
        "nivell": 2,
-       "enunciat": "<strong>Base i exponent infinits.</strong> Calcula:",
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim (n+1)^{2n}$",
         "$\\Lim (3n-1)^{n^2}$",
@@ -841,29 +915,161 @@
        ]
       },
       {
-       "num": 39,
-       "nivell": 2,
-       "enunciat": "Per a cada límit, indica en quin dels tres casos de la teoria estàs (base fixa / exponent fix / base i exponent infinits) i calcula'l:",
+       "num": 41,
+       "nivell": 1,
+       "enunciat": "Calcula el límit de les següents successions.",
        "parts": [
-        "$\\Lim \\left(\\dfrac{3}{4}\\right)^{2n}$",
-        "$\\Lim (5n+2)^{-1}$",
-        "$\\Lim n^{2n}$",
-        "$\\Lim (-5)^{n}$",
-        "$\\Lim (4-n)^{3}$",
-        "$\\Lim (n^3)^{\\frac{n}{1-n}}$ \\puntsnivell{3}"
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{n+1}{2n+3}\\right)^\\frac{8n+3}{4n-1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{3n^2+2}{n^2+5}\\right)^\\frac{3n + 2}{n + 1} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{2n^3+1}{n^3+3}\\right)^\\frac{2-2n}{n+3} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{4n-1}{2n+5}\\right)^\\frac{3n^2+1}{n^2-2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{n^2+1}{3n^2-n}\\right)^\\frac{2n-1}{n+4} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{5n+2}{n-1}\\right)^\\frac{1-n}{n+2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{2n^2-n}{4n^2+3}\\right)^\\frac{1-3n}{n+2} \\right) \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left( \\left(\\dfrac{9n+1}{n+2}\\right)^\\frac{n^2+1}{2n^2-3} \\right) \\)"
        ],
        "solucio": "",
        "solucioParts": [
-        "Base fixa: $\\left(\\tfrac34\\right)^{2n}=\\left(\\tfrac{9}{16}\\right)^n$, $|9/16|<1$: $0$.",
-        "Exponent fix $k=-1<0$, base $\\to+\\infty$: $0$.",
-        "Base i exponent infinits: $(+\\infty)^{+\\infty}=+\\infty$.",
-        "Base fixa $a=-5<-1$: oscil·la, $\\nexists$.",
-        "Exponent fix $k=3$ senar, base $\\to-\\infty$: $-\\infty$.",
-        "Exponent $\\dfrac{n}{1-n}\\to-1$ (fix, $k<0$), base $\\to+\\infty$: $\\dfrac{1}{(+\\infty)^1}=0$."
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{n+1}{2n+3}\\right)^\\frac{8n+3}{4n-1} = \\left(\\dfrac{1}{2}\\right)^2 = \\dfrac{1}{4} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{3n^2+2}{n^2+5}\\right)^\\frac{3n + 2}{n + 1} = 3^3 = 27 \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{2n^3+1}{n^3+3}\\right)^\\frac{2-2n}{n+3} = 2^{-2} = \\dfrac{1}{2^2}=\\dfrac{1}{4} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{4n-1}{2n+5}\\right)^\\frac{3n^2+1}{n^2-2} = 2^3 = 8 \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{n^2+1}{3n^2-n}\\right)^\\frac{2n-1}{n+4} = \\left(\\dfrac{1}{3}\\right)^2 = \\dfrac{1}{9} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{5n+2}{n-1}\\right)^\\frac{1-n}{n+2} = 5^{-1} = \\dfrac{1}{5} \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{2n^2-n}{4n^2+3}\\right)^\\frac{1-3n}{n+2} = \\left(\\dfrac{1}{2}\\right)^{-3} = 2^3 = 8 \\)",
+        "\\( \\displaystyle\\lim_{n \\to \\infty} \\left(\\dfrac{9n+1}{n+2}\\right)^\\frac{n^2+1}{2n^2-3} = 9^{1/2} = \\sqrt{9} = 3 \\)"
        ]
       },
       {
-       "num": 40,
+       "num": 42,
+       "nivell": 2,
+       "enunciat": "Calcula el límit de cada successió:",
+       "parts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+1}\\right)^{\\frac{3n+2}{ n+4 }}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+5}{2n+3}\\right)^{\\frac{n+1}{n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n+1}{n+2}\\right)^{\\frac{10n+7}{5n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+2}{n+1}\\right)^{\\frac{n}{ n+5 }}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{4n-1}{2n+5}\\right)^{\\frac{-n+3}{n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+3}{n+6}\\right)^{\\frac{2n+1}{n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{10n+2}{4-2n}\\right)^{\\frac{3n+2}{1-n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+7}{3n+1}\\right)^{\\frac{6n+5}{2n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+1}{7n+9}\\right)^{\\frac{2n-1}{3-n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+10}{4n+1}\\right)^{\\frac{5n}{ n+2 }}\\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+1}\\right)^{\\frac{3n+2}{n+4}} =2^{3}=8 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+5}{2n+3}\\right)^{\\frac{n+1}{n}} =\\left(\\frac{1}{2}\\right)^{1}=\\frac{1}{2} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n+1}{n+2}\\right)^{\\frac{10n+7}{5n}} =3^{2}=9 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+2}{n+1}\\right)^{\\frac{n}{n+5}} =1^{1}=1 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{4n-1}{2n+5}\\right)^{\\frac{-n+3}{n}} =2^{-1}=\\frac{1}{2} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+3}{n+6}\\right)^{\\frac{2n+1}{n}} =1^{2}=1 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{10n+2}{4-2n}\\right)^{\\frac{3n+2}{1-n}} =(-5)^{-3}=\\frac{1}{(-5)^3}=-\\frac{1}{125} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+7}{3n+1}\\right)^{\\frac{6n+5}{2n}} =\\left(\\frac{2}{3}\\right)^{3}=\\frac{8}{27} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+1}{7n+9}\\right)^{\\frac{2n-1}{3-n}} =\\left(\\frac{1}{7}\\right)^{-2}=7^2=49 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+10}{4n+1}\\right)^{\\frac{5n}{n+2}} =\\left(\\frac{1}{4}\\right)^{5}=\\frac{1}{1024} \\)"
+       ]
+      },
+      {
+       "num": 43,
+       "nivell": 2,
+       "enunciat": "Calcula el límit de cada successió:",
+       "parts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+5}\\right)^{5n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}(2n-1)^{\\frac{3n}{1-n}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+5}\\right)^{\\frac{5n}{n^2-1}}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n}{4n+1}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n}{ n+1 }\\right)^{-n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n+1}{n+2}\\right)^{2n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n^{2}}{2n^{2}+1}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{n+2}{3n}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{3-4n}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n+2}{-6n}\\right)^{-n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{5n+2}{2-7n}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+3}{1-10n}\\right)^{-n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n-1}{1-2n}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{5n-2}{1-2n}\\right)^{-n}\\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+5}\\right)^{5n}=2^{+\\infty}=+\\infty\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty} (2n-1)^{\\frac{3n}{1-n}}=(+\\infty)^{-2}=\\frac{1}{(+\\infty)^2}=0\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{n+5}\\right)^{\\frac{5n}{n^2-1}}=2^0=1\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{3n}{4n+1}\\right)^{n} =\\left(\\frac{3}{4}\\right)^{+\\infty}=0\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{2n}{n+1}\\right)^{-n} =2^{-\\infty}=\\frac{1}{2^{+\\infty}}=0\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{3n+1}{n+2}\\right)^{2n} =3^{+\\infty } = {+\\infty }\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{n^{2}}{2n^{2}+1}\\right)^{n} =\\left(\\frac{1}{2}\\right)^{+\\infty}=0\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{n+2}{3n}\\right)^{n} =\\left(\\frac{1}{3}\\right)^{+\\infty}=0\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+1}{3-4n}\\right)^{n} =\\left(-\\frac{1}{2}\\right)^{+\\infty}=0  \\text{\\small (oscil·lant)} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n+2}{-6n}\\right)^{-n} =\\left(-\\frac{1}{2}\\right)^{-\\infty}=(-2)^{+\\infty}=\\nexists  \\text{\\small (oscil·la cap a $\\infty$)} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{5n+2}{2-7n}\\right)^{n} =\\left(-\\frac{5}{7}\\right)^{+\\infty}=0  \\text{\\small (oscil·lant)} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{2n+3}{1-10n}\\right)^{-n} =\\left(-\\frac{1}{5}\\right)^{-\\infty}=\\left(-5\\right)^{+\\infty}=\\nexists  \\text{\\small (oscil·la cap a $\\infty$)} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n-1}{1-2n}\\right)^{n} =\\left(-\\frac{3}{2}\\right)^{+\\infty}=\\nexists  \\text{\\small (oscil·la cap a $\\infty$)} \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{5n-2}{1-2n}\\right)^{-n} =\\left(-\\frac{5}{2}\\right)^{-\\infty}=\\left(-\\frac{2}{5}\\right)^{+\\infty}=0  \\text{\\small (oscil·lant)} \\)"
+       ]
+      },
+      {
+       "num": 44,
+       "nivell": 2,
+       "enunciat": "Calcula el límit de cada successió:",
+       "parts": [
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\frac{3n^2+1}{n}\\right)^{\\frac{2n+1}{n+5}}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(-2n+1\\right)^{\\frac{n^2}{1-n}}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}(5n^2-n+1)^{\\frac{3n}{1-n}}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(1-n^4\\right)^{2}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(-n^3+2\\right)^{3}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(n+1\\right)^{-n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\dfrac{n^2+3}{4-n}\\right)^{5}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\dfrac{n^3+1}{2}\\right)^{n}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(n^2+1\\right)^{-2n+1}\\)",
+        "\\(\\displaystyle\\lim_{n\\to+\\infty}\\left(\\dfrac{-2n^2+1}{n+3}\\right)^{\\frac{2n+1}{n+5}}\\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{3n^2+1}{n}\\right)^{\\frac{2n+1}{n+5}} =(+\\infty)^{2}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-2n+1\\right)^{\\frac{n^2}{1-n}} =(-\\infty)^{-\\infty} =\\frac{1}{(-\\infty)^{+\\infty}} =0 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}(5n)^{\\frac{3n}{1-n}} =(+\\infty)^{-3}=\\dfrac{1}{(+\\infty)^3}=0 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(1-n^4\\right)^{2} =(-\\infty)^{2}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-n^3+2\\right)^{3} =(-\\infty)^{3}=-\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(n+1\\right)^{-n} =(+\\infty)^{-\\infty}=\\dfrac{1}{(+\\infty)^{+\\infty}}=0 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\dfrac{n^2+3}{4-n}\\right)^{5} =(-\\infty)^{5}=-\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\dfrac{n^3+1}{2}\\right)^{n} =(+\\infty)^{+\\infty}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(n^2+1\\right)^{-2n+1} =(+\\infty)^{-\\infty}=0 \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\dfrac{-2n^2+1}{n+3}\\right)^{\\frac{2n+1}{n+5}} =(-\\infty)^{2}=+\\infty \\)"
+       ]
+      },
+      {
+       "num": 45,
+       "nivell": 3,
+       "enunciat": "Calcula el límit de cada successió. Fixa't bé en la paritat de l'exponent (si és parell o senar).",
+       "parts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-2n+1}{n}\\right)^{2n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-2n+1}{n}\\right)^{2n+1}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-n+5}{n+2}\\right)^{n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-n+5}{n+2}\\right)^{n+1}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-3n^2+4}{n^2+1}\\right)^{2n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-3n^2+4}{n^2+1}\\right)^{3n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-4n^3+2n}{n^3+1}\\right)^{6n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-4n^3+2n}{n^3+1}\\right)^{5n+2}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-n\\right)^{4n}\\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-n\\right)^{3n}\\)"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-2n+1}{n}\\right)^{2n} =(-2)^{+\\infty \\text{(exponent sempre parell)}}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-2n+1}{n}\\right)^{2n+1} =(-2)^{+\\infty \\text{(exponent sempre senar)}}=-\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-n+5}{n+2}\\right)^{n} =(-1)^{+\\infty} \\to \\nexists \\lim \\) Alterna \\(1,-1,1,-1,…\\), per tant no té límit, (oscil·la).",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-n+5}{n+2}\\right)^{n+1} =(-1)^{+\\infty} \\to \\nexists \\lim \\) Com a l'anterior.",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-3n^2+4}{n^2+1}\\right)^{2n} =(-3)^{+\\infty \\text{(exponent sempre parell)}}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-3n^2+4}{n^2+1}\\right)^{3n} =(-3)^{+\\infty} \\to \\nexists \\lim \\) Observa que \\(3n\\) és parell quan \\(n\\) és parell i senar quan \\(n\\) és senar; l'exponent alterna parell/senar i, per tant, no té límit (oscil·la).",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-4n^3+2n}{n^3+1}\\right)^{6n} =(-4)^{+\\infty \\text{(exponent sempre parell)}}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(\\frac{-4n^3+2n}{n^3+1}\\right)^{5n+2} =(-4)^{+\\infty} \\to \\nexists \\lim \\) Com que \\(5n+2\\) alterna parell/senar segons \\(n\\), per tant, no té límit (oscil·la).",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-n\\right)^{4n} =(-\\infty)^{+\\infty \\text{(exponent sempre parell)}}=+\\infty \\)",
+        "\\(\\displaystyle \\lim_{n\\to+\\infty}\\left(-n\\right)^{3n} =(-\\infty)^{+\\infty} \\to \\nexists \\lim \\) Aquí \\(3n\\) alterna parell/senar amb \\(n\\), el signe alterna; per tant, no té límit (oscil·la)."
+       ]
+      },
+      {
+       "num": 46,
        "nivell": 3,
        "enunciat": "Troba per a quins valors de $k$ es compleixen les igualtats:",
        "parts": [
@@ -886,9 +1092,9 @@
      "titol": "Indeterminació $1^\\infty$ i el nombre e",
      "exercicis": [
       {
-       "num": 41,
+       "num": 47,
        "nivell": 1,
-       "enunciat": "Calcula (reconeix la forma $1^\\infty$ i aplica la fórmula):",
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim\\left(1 + \\dfrac{1}{n}\\right)^n$",
         "$\\Lim\\left(1 + \\dfrac{3}{n}\\right)^n$",
@@ -899,18 +1105,18 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$e$",
-        "$\\alpha\\cdot\\beta = \\frac{3}{n}\\cdot n=3 \\Rightarrow e^3$",
-        "$\\alpha\\cdot\\beta = \\frac{1}{2n}\\cdot n=\\frac{1}{2} \\Rightarrow e^{1/2}$",
-        "$\\alpha\\cdot\\beta = \\frac{-2}{n}\\cdot n=-2 \\Rightarrow e^{-2}$",
-        "$\\alpha\\cdot\\beta = \\frac{5}{n}\\cdot2n=10 \\Rightarrow e^{10}$",
-        "$\\alpha\\cdot\\beta = \\frac{1}{2n}(3n+1)\\to\\frac{3}{2} \\Rightarrow e^{3/2}$"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &= e \\quad\\text{(és la definició del nombre $e$, amb $A=n$)}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n\\cdot\\frac{n}{3}\\cdot\\frac{3}{n}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{3}{n}} = e^{\\Lim\\frac{3n}{n}} = e^{3}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim n\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{n}{2n}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{-2}{n}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n\\cdot\\frac{n}{-2}\\cdot\\frac{-2}{n}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{-2}{n}} = e^{\\Lim\\frac{-2n}{n}} = e^{-2} = \\dfrac{1}{e^2}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n\\cdot\\frac{n}{5}\\cdot\\frac{5}{n}}\\\\\n  &= e^{\\Lim 2n\\cdot\\frac{5}{n}} = e^{\\Lim\\frac{10n}{n}} = e^{10}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{(3n+1)\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim (3n+1)\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{3n+1}{2n}} = e^{3/2}\n  \\end{aligned}\n  \\]"
        ]
       },
       {
-       "num": 42,
+       "num": 48,
        "nivell": 2,
-       "enunciat": "Reescriu la base en forma $1 + \\alpha(n)$ i calcula:",
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim\\left(\\dfrac{n+5}{n+3}\\right)^n$",
         "$\\Lim\\left(\\dfrac{n+2}{n-1}\\right)^n$",
@@ -919,14 +1125,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\dfrac{n+5}{n+3}=1+\\dfrac{2}{n+3}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{n+3}\\to2 \\Rightarrow e^2$",
-        "$\\dfrac{n+2}{n-1}=1+\\dfrac{3}{n-1}$; $\\alpha\\cdot\\beta=\\dfrac{3n}{n-1}\\to3 \\Rightarrow e^3$",
-        "$\\dfrac{2n+1}{2n+3}=1-\\dfrac{2}{2n+3}$; $\\alpha\\cdot\\beta=\\dfrac{-2n}{2n+3}\\to-1 \\Rightarrow e^{-1}$",
-        "$\\dfrac{n+3}{n+5}=1-\\dfrac{2}{n+5}$; $\\alpha\\cdot\\beta=\\dfrac{-2(n^2+3n+2)}{n+5}\\sim\\dfrac{-2n^2}{n}\\to-\\infty \\Rightarrow e^{-\\infty}=0$"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+5}{n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n\\cdot\\frac{n+3}{2}\\cdot\\frac{2}{n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{n+3}} = e^{\\Lim\\frac{2n}{n+3}} = e^{2}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+2}{n-1}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{3}{n-1}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n\\cdot\\frac{n-1}{3}\\cdot\\frac{3}{n-1}}\n  = e^{\\Lim n\\cdot\\frac{3}{n-1}} = e^{\\Lim\\frac{3n}{n-1}} = e^{3}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{2n+1}{2n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{-2}{2n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n\\cdot\\frac{2n+3}{-2}\\cdot\\frac{-2}{2n+3}}\n  = e^{\\Lim n\\cdot\\frac{-2}{2n+3}} = e^{\\Lim\\frac{-2n}{2n+3}} = e^{-1} = \\dfrac{1}{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &= \\Lim\\left(1+\\dfrac{n+3}{n+5}-1\\right)^{n^2+3n+2}\n  = \\Lim\\left(1+\\dfrac{-2}{n+5}\\right)^{n^2+3n+2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{n^2+3n+2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{(n^2+3n+2)\\cdot\\frac{n+5}{-2}\\cdot\\frac{-2}{n+5}}\n  = e^{\\Lim (n^2+3n+2)\\cdot\\frac{-2}{n+5}}\\\\\n  &= e^{\\Lim\\frac{-2n^2-6n-4}{n+5}} = e^{-\\infty} = \\dfrac{1}{e^{+\\infty}} = \\dfrac{1}{+\\infty} = 0\n  \\end{aligned}\n  \\]"
        ]
       },
       {
-       "num": 43,
+       "num": 49,
        "nivell": 2,
        "enunciat": "Calcula:",
        "parts": [
@@ -937,109 +1143,36 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\alpha\\cdot\\beta = \\dfrac{1}{n^2}\\cdot n = \\dfrac{1}{n}\\to 0 \\Rightarrow e^0 = 1$",
-        "$\\dfrac{n^2+5}{n^2+1}=1+\\dfrac{4}{n^2+1}$; $\\alpha\\cdot\\beta=\\dfrac{4n^2}{n^2+1}\\to4 \\Rightarrow e^4$",
-        "$\\dfrac{4n+5}{4n+3}=1+\\dfrac{2}{4n+3}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{4n+3}\\to\\dfrac{1}{2} \\Rightarrow e^{1/2}$",
-        "$\\left(1+\\dfrac{1}{n}\\right)^{2n}$; $\\alpha\\cdot\\beta = \\dfrac{1}{n}\\cdot2n=2 \\Rightarrow e^2$"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n\\cdot n^2\\cdot\\frac{1}{n^2}}\n  = e^{\\Lim n\\cdot\\frac{1}{n^2}} = e^{\\Lim\\frac{n}{n^2}} = e^{0} = 1\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{n^2+5}{n^2+1}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{4}{n^2+1}\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2\\cdot\\frac{n^2+1}{4}\\cdot\\frac{4}{n^2+1}}\n  = e^{\\Lim n^2\\cdot\\frac{4}{n^2+1}} = e^{\\Lim\\frac{4n^2}{n^2+1}} = e^{4}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{4n+5}{4n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{4n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n\\cdot\\frac{4n+3}{2}\\cdot\\frac{2}{4n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{4n+3}} = e^{\\Lim\\frac{2n}{4n+3}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &= \\Lim\\left(1+\\dfrac{n+1}{n}-1\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n\\cdot n\\cdot\\frac{1}{n}}\\\\\n  &= e^{\\Lim 2n\\cdot\\frac{1}{n}} = e^{\\Lim\\frac{2n}{n}} = e^{2}\n  \\end{aligned}\n  \\]"
        ]
       },
       {
-       "num": 44,
-       "nivell": 3,
-       "enunciat": "Calcula (cal simplificar o reescriure la base amb cura):",
-       "parts": [
-        "$\\Lim\\left(2 - \\dfrac{n+3}{n+1}\\right)^{n^2+1}$",
-        "$\\Lim\\left(\\dfrac{n^2+3n+1}{n^2+3n-1}\\right)^{n}$",
-        "$\\Lim\\left(1+\\sin\\!\\dfrac{1}{n}\\right)^n$ <em>Pista: $\\sin(x)\\approx x$ per a $x\\approx 0$</em>",
-        "$\\Lim\\left(\\dfrac{n^2+2n+2}{n^2+2n+1}\\right)^{n^2}$"
-       ],
-       "solucio": "",
-       "solucioParts": [
-        "$2-\\dfrac{n+3}{n+1}=\\dfrac{n-1}{n+1}=1-\\dfrac{2}{n+1}$; $\\alpha\\cdot\\beta=\\dfrac{-2(n^2+1)}{n+1}\\to-\\infty \\Rightarrow e^{-\\infty}=0$",
-        "$1+\\dfrac{2}{n^2+3n-1}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{n^2+3n-1}\\to0 \\Rightarrow e^0=1$",
-        "$\\sin(1/n)\\approx1/n$ per $n$ gran; $\\alpha\\cdot\\beta\\approx\\dfrac{1}{n}\\cdot n=1 \\Rightarrow e^1=e$",
-        "$\\dfrac{n^2+2n+2}{n^2+2n+1}=1+\\dfrac{1}{(n+1)^2}$; $\\alpha\\cdot\\beta=\\dfrac{n^2}{(n+1)^2}\\to1 \\Rightarrow e^1=e$"
-       ]
-      },
-      {
-       "num": 45,
+       "num": 50,
        "nivell": 3,
        "enunciat": "Troba el valor del paràmetre:",
        "parts": [
         "$\\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} = e^3$. Troba $k$.",
+        "$\\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} = e^2$. Troba $k$.",
+        "$\\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} = e^2$. Troba $k$.",
+        "$\\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} = e^4$. Troba $k$.",
         "$\\Lim\\left(\\dfrac{n+a}{n+b}\\right)^n = e^{-4}$. Troba una relació entre $a$ i $b$.",
-        "$\\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} = e^2$. Troba $k$."
+        "$\\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} = e^6$. Troba una relació entre $a$ i $b$.",
+        "$\\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} = e^{-2}$. Troba una relació entre $a$ i $b$.",
+        "$\\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} = e^6$. Troba una relació entre $a$ i $b$."
        ],
        "solucio": "",
        "solucioParts": [
-        "$\\dfrac{2n^2+k}{2n^2+5}=1+\\dfrac{k-5}{2n^2+5}$; $\\alpha\\cdot\\beta=\\dfrac{(k-5)n^2}{2n^2+5}\\to\\dfrac{k-5}{2}$. Cal $\\dfrac{k-5}{2}=3 \\Rightarrow k=11$.",
-        "$\\dfrac{n+a}{n+b}=1+\\dfrac{a-b}{n+b}$; $\\alpha\\cdot\\beta=\\dfrac{(a-b)n}{n+b}\\to a-b$. Cal $a-b=-4$.",
-        "$\\alpha\\cdot\\beta=\\dfrac{k}{n}\\cdot(n+3)=k+\\dfrac{3k}{n}\\to k$. Cal $k=2$."
-       ]
-      }
-     ]
-    },
-    {
-     "titol": "Exercicis i problemes variats",
-     "exercicis": [
-      {
-       "num": 46,
-       "nivell": 1,
-       "enunciat": "Calcula:",
-       "parts": [
-        "$\\Lim(n^3 - 5n^2 + 3)$",
-        "$\\Lim\\dfrac{-2n^3 + n}{5n^3 + 2}$",
-        "$\\Lim\\left(\\dfrac{2}{3}\\right)^n$",
-        "$\\Lim\\left(\\sqrt{n^2 + 4n} - n\\right)$",
-        "$\\Lim\\dfrac{3^n + n^2}{3^n - 1}$",
-        "$\\Lim\\left(\\dfrac{n+2}{n}\\right)^n$",
-        "$\\Lim\\dfrac{n^3 - n}{\\sqrt{n^6 + 1}}$",
-        "$\\Lim\\!\\left(\\dfrac{n^2+n}{n-1} - \\dfrac{n^2-n}{n+1}\\right)$"
-       ],
-       "solucio": "",
-       "solucioParts": [
-        "Polinomi, coef. $+1>0$: $+\\infty$.",
-        "Graus iguals: $-2/5$.",
-        "$|2/3|<1$: $0$.",
-        "$\\infty-\\infty$ arrels: $\\dfrac{4n}{\\sqrt{n^2+4n}+n}\\to\\dfrac{4n}{2n}=2$.",
-        "Dividim per $3^n$: $\\dfrac{1+n^2/3^n}{1-1/3^n}\\to\\dfrac{1+0}{1-0}=1$.",
-        "$1^\\infty$: $\\alpha=2/n$, $\\beta=n$, $\\alpha\\beta=2\\Rightarrow e^2$.",
-        "Dividim per $n^3$ (=$\\sqrt{n^6}$): $\\dfrac{1-1/n^2}{\\sqrt{1+1/n^6}}\\to 1$.",
-        "mcm $=(n-1)(n+1)$. Num.: $(n^2+n)(n+1)-(n^2-n)(n-1)=4n^2$. $\\Lim\\dfrac{4n^2}{n^2-1}=4$."
-       ]
-      },
-      {
-       "num": 47,
-       "nivell": 2,
-       "enunciat": "Calcula:",
-       "parts": [
-        "$\\Lim\\dfrac{2^n + 5^n}{3^n + 5^n}$",
-        "$\\Lim\\sqrt{n}\\!\\left(\\sqrt{n+1} - \\sqrt{n-1}\\right)$",
-        "$\\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n}$",
-        "$\\Lim\\dfrac{\\sqrt{n^2+2n}-n}{\\sqrt{n+1}-\\sqrt{n-1}}$"
-       ],
-       "solucio": "",
-       "solucioParts": [
-        "Dividim per $5^n$: $\\dfrac{(2/5)^n+1}{(3/5)^n+1}\\to\\dfrac{0+1}{0+1}=1$.",
-        "Racionalitzem: $\\sqrt{n}\\cdot\\dfrac{2}{\\sqrt{n+1}+\\sqrt{n-1}}=\\dfrac{2\\sqrt{n}}{2\\sqrt{n}+O(1/\\sqrt{n})}\\to 1$.",
-        "$1+\\dfrac{2}{n^2+n-1}$; $\\alpha\\cdot\\beta=\\dfrac{2(n^2+n)}{n^2+n-1}\\to 2\\Rightarrow e^2$.",
-        "Num.: $\\dfrac{2n}{\\sqrt{n^2+2n}+n}\\to 1$. Den.: $\\dfrac{2}{\\sqrt{n+1}+\\sqrt{n-1}}\\sim\\dfrac{1}{\\sqrt{n}}\\to 0^+$. Quocient: $\\sqrt{n}\\cdot\\dfrac{\\sqrt{n^2+2n}+n}{2}\\sim\\dfrac{\\sqrt{n}\\cdot 2n}{2}=n^{3/2}\\to+\\infty$."
-       ]
-      },
-      {
-       "num": 48,
-       "nivell": 3,
-       "enunciat": "Calcula:",
-       "parts": [
-        "$\\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2}$ <em>Pista: $\\left[\\left(1+\\dfrac{1}{n}\\right)^n\\right]^n$.</em>",
-        "Determina si existeix $\\displaystyle\\Lim\\dfrac{(-2)^n + 3^n}{2^n + (-3)^n}$. Analitza per separat quan $n$ és parell i quan és senar.",
-        "Troba $k\\in\\mathbb{R}$ tal que $\\Lim\\!\\left(\\dfrac{n+k}{n-1}\\right)^n = e^3$."
-       ],
-       "solucio": "",
-       "solucioParts": [
-        "$\\left[\\left(1+\\dfrac{1}{n}\\right)^n\\right]^n\\to e^n\\to+\\infty$. Formalment: $\\ln$ del límit $= n^2\\ln\\!\\left(1+\\dfrac{1}{n}\\right)\\sim n^2\\cdot\\dfrac{1}{n}=n\\to+\\infty$. Resultat: $+\\infty$.",
-        "Si $n$ parell: $\\dfrac{2^n+3^n}{2^n+3^n}=1$. Si $n$ senar: $\\dfrac{-2^n+3^n}{2^n-3^n}=\\dfrac{3^n-2^n}{2^n-3^n}=-\\dfrac{3^n-2^n}{3^n-2^n}=-1$. La successió oscil·la entre $1$ i $-1$: el límit <strong>no existeix</strong>.",
-        "$\\dfrac{n+k}{n-1}=1+\\dfrac{k+1}{n-1}$; $\\alpha\\cdot\\beta=\\dfrac{(k+1)n}{n-1}\\to k+1$. Cal $k+1=3\\Rightarrow\\boxed{k=2}$."
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{2n^2+k}{2n^2+5}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{k-5}{2n^2+5}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2\\cdot\\frac{2n^2+5}{k-5}\\cdot\\frac{k-5}{2n^2+5}}\\\\\n  &= e^{\\Lim n^2\\cdot\\frac{k-5}{2n^2+5}} = e^{\\Lim\\frac{(k-5)n^2}{2n^2+5}} = e^{\\frac{k-5}{2}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{k-5}{2}} = e^{3} \\;\\Rightarrow\\; \\dfrac{k-5}{2} = 3 \\;\\Rightarrow\\; k = 11$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{n+3}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{(n+3)\\cdot\\frac{n}{k}\\cdot\\frac{k}{n}}\\\\\n  &= e^{\\Lim (n+3)\\cdot\\frac{k}{n}} = e^{\\Lim\\frac{kn+3k}{n}} = e^{k}\n  \\end{aligned}\n  \\] Igualem: $e^{k} = e^{2} \\;\\Rightarrow\\; k = 2$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &= \\Lim\\left(1+\\dfrac{n-1}{n+3}-1\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{n-1-(n+3)}{n+3}\\right)^{kn}\\\\\n  &= \\Lim\\left(1+\\dfrac{-4}{n+3}\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn\\cdot\\frac{n+3}{-4}\\cdot\\frac{-4}{n+3}}\\\\\n  &= e^{\\Lim kn\\cdot\\frac{-4}{n+3}} = e^{\\Lim\\frac{-4kn}{n+3}} = e^{-4k}\n  \\end{aligned}\n  \\] Igualem: $e^{-4k} = e^{2} \\;\\Rightarrow\\; -4k = 2 \\;\\Rightarrow\\; k = -\\dfrac{1}{2}$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &= \\Lim\\left(1+\\dfrac{3n+k}{3n-1}-1\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{3n+k-(3n-1)}{3n-1}\\right)^{2n+5}\\\\\n  &= \\Lim\\left(1+\\dfrac{k+1}{3n-1}\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{2n+5}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{(2n+5)\\cdot\\frac{3n-1}{k+1}\\cdot\\frac{k+1}{3n-1}}\\\\\n  &= e^{\\Lim (2n+5)\\cdot\\frac{k+1}{3n-1}} = e^{\\Lim\\frac{(2k+2)n+5k+5}{3n-1}} = e^{\\frac{2(k+1)}{3}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{2(k+1)}{3}} = e^{4} \\;\\Rightarrow\\; \\dfrac{2(k+1)}{3} = 4 \\;\\Rightarrow\\; k+1 = 6 \\;\\Rightarrow\\; k = 5$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+a}{n+b}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{a-b}{n+b}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n\\cdot\\frac{n+b}{a-b}\\cdot\\frac{a-b}{n+b}}\n  = e^{\\Lim n\\cdot\\frac{a-b}{n+b}} = e^{\\Lim\\frac{(a-b)n}{n+b}} = e^{a-b}\n  \\end{aligned}\n  \\] Igualem: $e^{a-b} = e^{-4} \\;\\Rightarrow\\; a - b = -4$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &= \\Lim\\left(1+\\dfrac{an+1}{an-2}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{an+1-(an-2)}{an-2}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{3}{an-2}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn\\cdot\\frac{an-2}{3}\\cdot\\frac{3}{an-2}}\\\\\n  &= e^{\\Lim bn\\cdot\\frac{3}{an-2}} = e^{\\Lim\\frac{3bn}{an-2}} = e^{\\frac{3b}{a}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{3b}{a}} = e^{6} \\;\\Rightarrow\\; \\dfrac{3b}{a} = 6 \\;\\Rightarrow\\; b = 2a$  (amb $a\\neq 0$).",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &= \\Lim\\left(1+\\dfrac{n^2+a}{n^2+b}-1\\right)^{2n^2}\n  = \\Lim\\left(1+\\dfrac{a-b}{n^2+b}\\right)^{2n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2\\cdot\\frac{n^2+b}{a-b}\\cdot\\frac{a-b}{n^2+b}}\\\\\n  &= e^{\\Lim 2n^2\\cdot\\frac{a-b}{n^2+b}} = e^{\\Lim\\frac{2(a-b)n^2}{n^2+b}} = e^{2(a-b)}\n  \\end{aligned}\n  \\] Igualem: $e^{2(a-b)} = e^{-2} \\;\\Rightarrow\\; 2(a-b) = -2 \\;\\Rightarrow\\; a - b = -1$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &= \\Lim\\left(1+\\dfrac{n+a}{n}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{a}{n}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn\\cdot\\frac{n}{a}\\cdot\\frac{a}{n}}\n  = e^{\\Lim bn\\cdot\\frac{a}{n}} = e^{\\Lim\\frac{abn}{n}} = e^{ab}\n  \\end{aligned}\n  \\] Igualem: $e^{ab} = e^{6} \\;\\Rightarrow\\; ab = 6$."
        ]
       }
      ]
