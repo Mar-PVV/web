@@ -43,7 +43,21 @@ if vj:
     if t != o:
         open(p, "w", encoding="utf-8").write(t)
 
+# 1 bis) el CSV de preguntes el demanen test.js i exercicis.js
+vc = empremta("preguntes-limits.csv")
+if vc:
+    for nom in ("test.js", "exercicis.js"):
+        p = os.path.join(WEB, "assets", nom)
+        if not os.path.isfile(p):
+            continue
+        t = o = open(p, encoding="utf-8").read()
+        t = re.sub(r"(assets/preguntes-limits\.csv)(\?v=[0-9a-f]+)?",
+                   r"\1?v=" + vc, t)
+        if t != o:
+            open(p, "w", encoding="utf-8").write(t)
+
 # 2) i ara les versions de tots els assets als HTML
-versions = {n: empremta(n) for n in ("estil.css", "web.js", "exercicis.js", "dades.js")}
+versions = {n: empremta(n)
+            for n in ("estil.css", "web.js", "exercicis.js", "dades.js", "test.js")}
 tocats = posa(versions)
 print("  · " + (", ".join(tocats) if tocats else "cap canvi"))

@@ -25,7 +25,7 @@
 
   const ENLLAC_PDF = document.getElementById('baixa');
 
-  fetch('assets/exercicis-batx.json?v=47c61f18')
+  fetch('assets/exercicis-batx.json?v=7c594bce')
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(dades => {
       const tema = dades.temes.find(t => t.num === numTema);
@@ -46,6 +46,23 @@
       document.getElementById('subtitol').textContent =
         tots.length + ' exercicis · Obre la solució quan l\'hagis provat';
       ENLLAC_PDF.href = 'pdf/batx/' + tema.carpeta + '/Activitats - ' + tema.nom + '.pdf';
+
+      // El botó del test només surt si el tema té prou preguntes al CSV.
+      // Així, per obrir-lo a un tema nou només cal afegir-hi files.
+      const botoTest = document.getElementById('test');
+      if (botoTest) {
+        fetch('assets/preguntes-limits.csv?v=bf47d220')
+          .then(r => r.ok ? r.text() : Promise.reject())
+          .then(txt => {
+            const files = txt.split('\n').slice(1)
+              .filter(l => l.trim() && parseInt(l, 10) === numTema);
+            if (files.length >= 4) {
+              botoTest.href = 'test-limits.html?tema=' + numTema;
+              botoTest.hidden = false;
+            }
+          })
+          .catch(() => {});
+      }
 
       // ── Contingut ───────────────────────────────────────────────────────
       cont.innerHTML = tema.seccions.map((sec, i) => `

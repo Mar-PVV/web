@@ -760,6 +760,289 @@
        ]
       }
      ]
+    },
+    {
+     "titol": "Límits de potències",
+     "exercicis": [
+      {
+       "num": 36,
+       "nivell": 1,
+       "enunciat": "<strong>Base fixa, exponent infinit.</strong> Calcula:",
+       "parts": [
+        "$\\Lim 4^n$",
+        "$\\Lim 7^{-n}$",
+        "$\\Lim 0{,}8^n$",
+        "$\\Lim\\left(\\dfrac{1}{4}\\right)^{-n}$",
+        "$\\Lim(-0{,}7)^n$",
+        "$\\Lim\\left(-\\dfrac{3}{2}\\right)^n$",
+        "$\\Lim 1^n$",
+        "$\\Lim(-1)^n$",
+        "$\\Lim\\left(\\dfrac{5}{3}\\right)^{-n}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$+\\infty$  ($4>1$)",
+        "$0$  ($a=7>1$, exponent $-n$)",
+        "$0$  ($|0{,}8|<1$)",
+        "$+\\infty$  ($|1/4|<1$, exponent $-n$)",
+        "$0$  (oscil·la però $|-0{,}7|<1$)",
+        "$\\nexists$  (oscil·la, $-3/2<-1$)",
+        "$1$",
+        "$\\nexists$  (oscil·la entre $-1$ i $1$)",
+        "$0$  ($5/3>1$, exponent $-n$)"
+       ]
+      },
+      {
+       "num": 37,
+       "nivell": 2,
+       "enunciat": "<strong>Base infinita, exponent fix.</strong> Calcula:",
+       "parts": [
+        "$\\Lim (3n+1)^4$",
+        "$\\Lim (n^2-5)^{-2}$",
+        "$\\Lim (2-3n)^4$",
+        "$\\Lim (1-n^2)^3$",
+        "$\\Lim \\dfrac{1}{(5-2n)^3}$",
+        "$\\Lim (n+7)^{-1/2}$",
+        "$\\Lim (n^2+1)^{\\frac{3n}{n+2}}$ \\puntsnivell{3}",
+        "$\\Lim n^{\\frac{1-2n}{n+1}}$ \\puntsnivell{3}"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Base $\\to+\\infty$, $k=4>0$: $(+\\infty)^4=+\\infty$.",
+        "Base $\\to+\\infty$, $k=-2<0$: $\\dfrac{1}{(+\\infty)^2}=0$.",
+        "Base $\\to-\\infty$, $k=4$ parell: $(-\\infty)^4=+\\infty$.",
+        "Base $\\to-\\infty$, $k=3$ senar: $(-\\infty)^3=-\\infty$.",
+        "És $(5-2n)^{-3}$. Base $\\to-\\infty$, $k=-3<0$: $\\dfrac{1}{(-\\infty)^3}=0$.",
+        "Base $\\to+\\infty$, $k=-\\tfrac12<0$: $\\dfrac{1}{\\sqrt{n+7}}\\to 0$.",
+        "Base $\\to+\\infty$; exponent $\\dfrac{3n}{n+2}\\to 3>0$: $(+\\infty)^3=+\\infty$.",
+        "Base $\\to+\\infty$; exponent $\\dfrac{1-2n}{n+1}\\to -2<0$: $\\dfrac{1}{(+\\infty)^2}=0$."
+       ]
+      },
+      {
+       "num": 38,
+       "nivell": 2,
+       "enunciat": "<strong>Base i exponent infinits.</strong> Calcula:",
+       "parts": [
+        "$\\Lim (n+1)^{2n}$",
+        "$\\Lim (3n-1)^{n^2}$",
+        "$\\Lim (n^2)^{-n}$",
+        "$\\Lim (2n)^{1-n}$",
+        "$\\Lim (1-n)^{-n}$",
+        "$\\Lim \\left(\\dfrac{2}{n}\\right)^{n}$ \\puntsnivell{3}"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(+\\infty)^{+\\infty}=+\\infty$.",
+        "$(+\\infty)^{+\\infty}=+\\infty$.",
+        "$(+\\infty)^{-\\infty}=\\dfrac{1}{(+\\infty)^{+\\infty}}=0$.",
+        "Exponent $1-n\\to-\\infty$: $(+\\infty)^{-\\infty}=0$.",
+        "Base $1-n\\to-\\infty$, exponent $-n\\to-\\infty$: $(-\\infty)^{-\\infty}=\\dfrac{1}{(-\\infty)^{+\\infty}}=0$.",
+        "Base $\\dfrac{2}{n}\\to 0$, exponent $\\to+\\infty$: forma $0^{+\\infty}=0$ (no és indeterminació)."
+       ]
+      },
+      {
+       "num": 39,
+       "nivell": 2,
+       "enunciat": "Per a cada límit, indica en quin dels tres casos de la teoria estàs (base fixa / exponent fix / base i exponent infinits) i calcula'l:",
+       "parts": [
+        "$\\Lim \\left(\\dfrac{3}{4}\\right)^{2n}$",
+        "$\\Lim (5n+2)^{-1}$",
+        "$\\Lim n^{2n}$",
+        "$\\Lim (-5)^{n}$",
+        "$\\Lim (4-n)^{3}$",
+        "$\\Lim (n^3)^{\\frac{n}{1-n}}$ \\puntsnivell{3}"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Base fixa: $\\left(\\tfrac34\\right)^{2n}=\\left(\\tfrac{9}{16}\\right)^n$, $|9/16|<1$: $0$.",
+        "Exponent fix $k=-1<0$, base $\\to+\\infty$: $0$.",
+        "Base i exponent infinits: $(+\\infty)^{+\\infty}=+\\infty$.",
+        "Base fixa $a=-5<-1$: oscil·la, $\\nexists$.",
+        "Exponent fix $k=3$ senar, base $\\to-\\infty$: $-\\infty$.",
+        "Exponent $\\dfrac{n}{1-n}\\to-1$ (fix, $k<0$), base $\\to+\\infty$: $\\dfrac{1}{(+\\infty)^1}=0$."
+       ]
+      },
+      {
+       "num": 40,
+       "nivell": 3,
+       "enunciat": "Troba per a quins valors de $k$ es compleixen les igualtats:",
+       "parts": [
+        "$\\Lim \\left(\\dfrac{k-1}{2}\\right)^n = 0$",
+        "$\\Lim n^{k-2} = 0$. <em>I per a quins valors el límit és $+\\infty$?</em>",
+        "$\\Lim (k^2-3)^n = 1$",
+        "$\\Lim (n+1)^{\\frac{kn}{n+3}} = 0$ \\puntsnivell{3}"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Base fixa: cal $\\left|\\dfrac{k-1}{2}\\right|<1 \\Rightarrow |k-1|<2 \\Rightarrow -1<k<3$.",
+        "Exponent fix $k-2$, base $n\\to+\\infty$: el límit és $0$ si $k-2<0$, és a dir $k<2$; és $+\\infty$ si $k>2$. (Si $k=2$, $n^0=1$ i el límit és $1$.)",
+        "Base fixa: només $\\Lim 1^n=1$. Cal $k^2-3=1\\Rightarrow k=\\pm 2$. (Si $k^2-3=-1$, la successió $(-1)^n$ oscil·la.)",
+        "Base $\\to+\\infty$, exponent $\\dfrac{kn}{n+3}\\to k$. Per obtenir $0$ cal $k<0$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Indeterminació $1^\\infty$ i el nombre e",
+     "exercicis": [
+      {
+       "num": 41,
+       "nivell": 1,
+       "enunciat": "Calcula (reconeix la forma $1^\\infty$ i aplica la fórmula):",
+       "parts": [
+        "$\\Lim\\left(1 + \\dfrac{1}{n}\\right)^n$",
+        "$\\Lim\\left(1 + \\dfrac{3}{n}\\right)^n$",
+        "$\\Lim\\left(1 + \\dfrac{1}{2n}\\right)^n$",
+        "$\\Lim\\left(1 - \\dfrac{2}{n}\\right)^n$",
+        "$\\Lim\\left(1 + \\dfrac{5}{n}\\right)^{2n}$",
+        "$\\Lim\\left(1 + \\dfrac{1}{2n}\\right)^{3n+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$e$",
+        "$\\alpha\\cdot\\beta = \\frac{3}{n}\\cdot n=3 \\Rightarrow e^3$",
+        "$\\alpha\\cdot\\beta = \\frac{1}{2n}\\cdot n=\\frac{1}{2} \\Rightarrow e^{1/2}$",
+        "$\\alpha\\cdot\\beta = \\frac{-2}{n}\\cdot n=-2 \\Rightarrow e^{-2}$",
+        "$\\alpha\\cdot\\beta = \\frac{5}{n}\\cdot2n=10 \\Rightarrow e^{10}$",
+        "$\\alpha\\cdot\\beta = \\frac{1}{2n}(3n+1)\\to\\frac{3}{2} \\Rightarrow e^{3/2}$"
+       ]
+      },
+      {
+       "num": 42,
+       "nivell": 2,
+       "enunciat": "Reescriu la base en forma $1 + \\alpha(n)$ i calcula:",
+       "parts": [
+        "$\\Lim\\left(\\dfrac{n+5}{n+3}\\right)^n$",
+        "$\\Lim\\left(\\dfrac{n+2}{n-1}\\right)^n$",
+        "$\\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^n$",
+        "$\\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2}$ \\puntsnivell{3}"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\dfrac{n+5}{n+3}=1+\\dfrac{2}{n+3}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{n+3}\\to2 \\Rightarrow e^2$",
+        "$\\dfrac{n+2}{n-1}=1+\\dfrac{3}{n-1}$; $\\alpha\\cdot\\beta=\\dfrac{3n}{n-1}\\to3 \\Rightarrow e^3$",
+        "$\\dfrac{2n+1}{2n+3}=1-\\dfrac{2}{2n+3}$; $\\alpha\\cdot\\beta=\\dfrac{-2n}{2n+3}\\to-1 \\Rightarrow e^{-1}$",
+        "$\\dfrac{n+3}{n+5}=1-\\dfrac{2}{n+5}$; $\\alpha\\cdot\\beta=\\dfrac{-2(n^2+3n+2)}{n+5}\\sim\\dfrac{-2n^2}{n}\\to-\\infty \\Rightarrow e^{-\\infty}=0$"
+       ]
+      },
+      {
+       "num": 43,
+       "nivell": 2,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim\\left(1+\\dfrac{1}{n^2}\\right)^n$",
+        "$\\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2}$",
+        "$\\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^n$",
+        "$\\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\alpha\\cdot\\beta = \\dfrac{1}{n^2}\\cdot n = \\dfrac{1}{n}\\to 0 \\Rightarrow e^0 = 1$",
+        "$\\dfrac{n^2+5}{n^2+1}=1+\\dfrac{4}{n^2+1}$; $\\alpha\\cdot\\beta=\\dfrac{4n^2}{n^2+1}\\to4 \\Rightarrow e^4$",
+        "$\\dfrac{4n+5}{4n+3}=1+\\dfrac{2}{4n+3}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{4n+3}\\to\\dfrac{1}{2} \\Rightarrow e^{1/2}$",
+        "$\\left(1+\\dfrac{1}{n}\\right)^{2n}$; $\\alpha\\cdot\\beta = \\dfrac{1}{n}\\cdot2n=2 \\Rightarrow e^2$"
+       ]
+      },
+      {
+       "num": 44,
+       "nivell": 3,
+       "enunciat": "Calcula (cal simplificar o reescriure la base amb cura):",
+       "parts": [
+        "$\\Lim\\left(2 - \\dfrac{n+3}{n+1}\\right)^{n^2+1}$",
+        "$\\Lim\\left(\\dfrac{n^2+3n+1}{n^2+3n-1}\\right)^{n}$",
+        "$\\Lim\\left(1+\\sin\\!\\dfrac{1}{n}\\right)^n$ <em>Pista: $\\sin(x)\\approx x$ per a $x\\approx 0$</em>",
+        "$\\Lim\\left(\\dfrac{n^2+2n+2}{n^2+2n+1}\\right)^{n^2}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2-\\dfrac{n+3}{n+1}=\\dfrac{n-1}{n+1}=1-\\dfrac{2}{n+1}$; $\\alpha\\cdot\\beta=\\dfrac{-2(n^2+1)}{n+1}\\to-\\infty \\Rightarrow e^{-\\infty}=0$",
+        "$1+\\dfrac{2}{n^2+3n-1}$; $\\alpha\\cdot\\beta=\\dfrac{2n}{n^2+3n-1}\\to0 \\Rightarrow e^0=1$",
+        "$\\sin(1/n)\\approx1/n$ per $n$ gran; $\\alpha\\cdot\\beta\\approx\\dfrac{1}{n}\\cdot n=1 \\Rightarrow e^1=e$",
+        "$\\dfrac{n^2+2n+2}{n^2+2n+1}=1+\\dfrac{1}{(n+1)^2}$; $\\alpha\\cdot\\beta=\\dfrac{n^2}{(n+1)^2}\\to1 \\Rightarrow e^1=e$"
+       ]
+      },
+      {
+       "num": 45,
+       "nivell": 3,
+       "enunciat": "Troba el valor del paràmetre:",
+       "parts": [
+        "$\\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} = e^3$. Troba $k$.",
+        "$\\Lim\\left(\\dfrac{n+a}{n+b}\\right)^n = e^{-4}$. Troba una relació entre $a$ i $b$.",
+        "$\\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} = e^2$. Troba $k$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\dfrac{2n^2+k}{2n^2+5}=1+\\dfrac{k-5}{2n^2+5}$; $\\alpha\\cdot\\beta=\\dfrac{(k-5)n^2}{2n^2+5}\\to\\dfrac{k-5}{2}$. Cal $\\dfrac{k-5}{2}=3 \\Rightarrow k=11$.",
+        "$\\dfrac{n+a}{n+b}=1+\\dfrac{a-b}{n+b}$; $\\alpha\\cdot\\beta=\\dfrac{(a-b)n}{n+b}\\to a-b$. Cal $a-b=-4$.",
+        "$\\alpha\\cdot\\beta=\\dfrac{k}{n}\\cdot(n+3)=k+\\dfrac{3k}{n}\\to k$. Cal $k=2$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Exercicis i problemes variats",
+     "exercicis": [
+      {
+       "num": 46,
+       "nivell": 1,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim(n^3 - 5n^2 + 3)$",
+        "$\\Lim\\dfrac{-2n^3 + n}{5n^3 + 2}$",
+        "$\\Lim\\left(\\dfrac{2}{3}\\right)^n$",
+        "$\\Lim\\left(\\sqrt{n^2 + 4n} - n\\right)$",
+        "$\\Lim\\dfrac{3^n + n^2}{3^n - 1}$",
+        "$\\Lim\\left(\\dfrac{n+2}{n}\\right)^n$",
+        "$\\Lim\\dfrac{n^3 - n}{\\sqrt{n^6 + 1}}$",
+        "$\\Lim\\!\\left(\\dfrac{n^2+n}{n-1} - \\dfrac{n^2-n}{n+1}\\right)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Polinomi, coef. $+1>0$: $+\\infty$.",
+        "Graus iguals: $-2/5$.",
+        "$|2/3|<1$: $0$.",
+        "$\\infty-\\infty$ arrels: $\\dfrac{4n}{\\sqrt{n^2+4n}+n}\\to\\dfrac{4n}{2n}=2$.",
+        "Dividim per $3^n$: $\\dfrac{1+n^2/3^n}{1-1/3^n}\\to\\dfrac{1+0}{1-0}=1$.",
+        "$1^\\infty$: $\\alpha=2/n$, $\\beta=n$, $\\alpha\\beta=2\\Rightarrow e^2$.",
+        "Dividim per $n^3$ (=$\\sqrt{n^6}$): $\\dfrac{1-1/n^2}{\\sqrt{1+1/n^6}}\\to 1$.",
+        "mcm $=(n-1)(n+1)$. Num.: $(n^2+n)(n+1)-(n^2-n)(n-1)=4n^2$. $\\Lim\\dfrac{4n^2}{n^2-1}=4$."
+       ]
+      },
+      {
+       "num": 47,
+       "nivell": 2,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim\\dfrac{2^n + 5^n}{3^n + 5^n}$",
+        "$\\Lim\\sqrt{n}\\!\\left(\\sqrt{n+1} - \\sqrt{n-1}\\right)$",
+        "$\\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n}$",
+        "$\\Lim\\dfrac{\\sqrt{n^2+2n}-n}{\\sqrt{n+1}-\\sqrt{n-1}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Dividim per $5^n$: $\\dfrac{(2/5)^n+1}{(3/5)^n+1}\\to\\dfrac{0+1}{0+1}=1$.",
+        "Racionalitzem: $\\sqrt{n}\\cdot\\dfrac{2}{\\sqrt{n+1}+\\sqrt{n-1}}=\\dfrac{2\\sqrt{n}}{2\\sqrt{n}+O(1/\\sqrt{n})}\\to 1$.",
+        "$1+\\dfrac{2}{n^2+n-1}$; $\\alpha\\cdot\\beta=\\dfrac{2(n^2+n)}{n^2+n-1}\\to 2\\Rightarrow e^2$.",
+        "Num.: $\\dfrac{2n}{\\sqrt{n^2+2n}+n}\\to 1$. Den.: $\\dfrac{2}{\\sqrt{n+1}+\\sqrt{n-1}}\\sim\\dfrac{1}{\\sqrt{n}}\\to 0^+$. Quocient: $\\sqrt{n}\\cdot\\dfrac{\\sqrt{n^2+2n}+n}{2}\\sim\\dfrac{\\sqrt{n}\\cdot 2n}{2}=n^{3/2}\\to+\\infty$."
+       ]
+      },
+      {
+       "num": 48,
+       "nivell": 3,
+       "enunciat": "Calcula:",
+       "parts": [
+        "$\\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2}$ <em>Pista: $\\left[\\left(1+\\dfrac{1}{n}\\right)^n\\right]^n$.</em>",
+        "Determina si existeix $\\displaystyle\\Lim\\dfrac{(-2)^n + 3^n}{2^n + (-3)^n}$. Analitza per separat quan $n$ és parell i quan és senar.",
+        "Troba $k\\in\\mathbb{R}$ tal que $\\Lim\\!\\left(\\dfrac{n+k}{n-1}\\right)^n = e^3$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$\\left[\\left(1+\\dfrac{1}{n}\\right)^n\\right]^n\\to e^n\\to+\\infty$. Formalment: $\\ln$ del límit $= n^2\\ln\\!\\left(1+\\dfrac{1}{n}\\right)\\sim n^2\\cdot\\dfrac{1}{n}=n\\to+\\infty$. Resultat: $+\\infty$.",
+        "Si $n$ parell: $\\dfrac{2^n+3^n}{2^n+3^n}=1$. Si $n$ senar: $\\dfrac{-2^n+3^n}{2^n-3^n}=\\dfrac{3^n-2^n}{2^n-3^n}=-\\dfrac{3^n-2^n}{3^n-2^n}=-1$. La successió oscil·la entre $1$ i $-1$: el límit <strong>no existeix</strong>.",
+        "$\\dfrac{n+k}{n-1}=1+\\dfrac{k+1}{n-1}$; $\\alpha\\cdot\\beta=\\dfrac{(k+1)n}{n-1}\\to k+1$. Cal $k+1=3\\Rightarrow\\boxed{k=2}$."
+       ]
+      }
+     ]
     }
    ]
   }

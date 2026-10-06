@@ -151,6 +151,40 @@ executar `publica.sh` i la web queda actualitzada.
 
 ---
 
+## Test ràpid de límits
+
+A la barra de les activitats d'un tema hi surt el botó **Test ràpid**, que porta a
+`test-limits.html`: deu límits triats a l'atzar, correcció immediata i un resum al
+final amb les que han fallat.
+
+Les preguntes són a **`assets/preguntes-limits.csv`** i és l'únic fitxer que has de
+tocar per canviar-les. El pots obrir amb Numbers o Excel, o amb l'editor de text.
+Columnes:
+
+| columna | què hi va |
+|---|---|
+| `tema` | el número de tema (1 = Successions i límits) |
+| `nivell` | 1 bàsic · 2 mitjà · 3 repte |
+| `pregunta` | el text, amb les matemàtiques entre dòlars: `$\Lim\dfrac{n+1}{n}$`. Hi funciona la macro `\Lim` |
+| `opcions` | les opcions separades per `\|`. **Si ho deixes buit, l'alumne escriu la resposta** en comptes de triar-la |
+| `resposta` | l'opció bona (ha de ser igual que una de les opcions); si no hi ha opcions, les respostes que s'accepten, separades per `\|` |
+| `explicacio` | opcional: una línia que surt després de respondre |
+
+Quan la resposta s'escriu, es comparen els valors i no les lletres: per a `1/2`
+també valen `0,5`, `0.5` i `$\dfrac{1}{2}$`; per a l'infinit valen `inf`,
+`+inf`, `infinit` i `∞`; i per a les que no tenen límit, `no existeix`,
+`no té límit` o `oscil·la`. Els accents i els espais tant li fan.
+
+**Per obrir el test a un altre tema** només cal afegir-hi files amb aquell número
+de tema: a partir de quatre preguntes, el botó surt sol a la pàgina del tema. No
+s'ha de tocar cap HTML.
+
+> El CSV es publica amb la resta de la web, o sigui que un alumne espavilat el pot
+> obrir i veure les respostes. És inevitable en una pàgina sense servidor, i per a
+> practicar no té importància — però no el facis servir per avaluar.
+
+---
+
 ## Icones i "afegir a la pantalla d'inici"
 
 iOS **no** fa servir el `<link rel="icon">` per a la icona de la pantalla d'inici:

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test ràpid de límits · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Test d'autocorrecció per practicar els límits de successions de 1r de batxillerat.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=f6851db6">
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      macros: { Lim: ['\\lim\\limits_{n\\to+\\infty}', 0] }
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body data-curs="batx">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="batx.html" aria-current="page">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall">
+  <div class="titol-curs">
+    <h1 id="titol">Test ràpid de límits</h1>
+    <p id="subtitol">Carregant…</p>
+  </div>
+
+  <!-- ── Pantalla d'inici ────────────────────────────────────────────── -->
+  <section id="inici" hidden>
+    <div class="test-caixa">
+      <p class="test-intro">
+        Deu límits triats a l'atzar. Respon i et dic de seguida si va bé;
+        al final tens el resum. Pots repetir-lo tantes vegades com vulguis:
+        cada tanda és diferent.
+      </p>
+
+      <div class="test-tria">
+        <span class="test-etiqueta">Dificultat</span>
+        <div class="test-opcions-nivell" id="tria-nivell"></div>
+      </div>
+
+      <p class="test-marca" id="marca" hidden></p>
+
+      <div class="test-accions">
+        <button class="boto boto-principal boto-gran" id="comenca">Comença el test</button>
+        <a class="boto" id="torna" href="exercicis.html?tema=1">← Torna a les activitats</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pantalla de joc ─────────────────────────────────────────────── -->
+  <section id="joc" hidden>
+    <div class="test-progres">
+      <div class="test-barra"><span id="barra"></span></div>
+      <span class="test-compta" id="compta"></span>
+    </div>
+
+    <div class="test-caixa">
+      <p class="test-nivell" id="nivell-preg"></p>
+      <div class="test-pregunta" id="pregunta"></div>
+
+      <div id="opcions" class="test-opcions"></div>
+
+      <div id="lliure" class="test-lliure" hidden>
+        <label for="resposta">La teva resposta</label>
+        <input type="text" id="resposta" autocomplete="off" autocapitalize="off"
+               autocorrect="off" spellcheck="false" placeholder="per exemple: 3/2, 0, +inf">
+        <p class="test-ajuda">Pots escriure fraccions (<code>3/2</code>), decimals
+          (<code>1,5</code>), <code>+inf</code>, <code>-inf</code> o <code>no existeix</code>.</p>
+      </div>
+
+      <div id="resultat" class="test-resultat" hidden></div>
+
+      <div class="test-accions">
+        <button class="boto boto-principal boto-gran" id="comprova">Comprova</button>
+        <button class="boto boto-principal boto-gran" id="seguent" hidden>Següent</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pantalla final ──────────────────────────────────────────────── -->
+  <section id="final" hidden>
+    <div class="test-caixa test-final">
+      <p class="test-nota" id="nota"></p>
+      <p class="test-missatge" id="missatge"></p>
+    </div>
+    <div id="repas"></div>
+    <div class="test-accions">
+      <button class="boto boto-principal boto-gran" id="altra">Una altra tanda</button>
+      <a class="boto" href="exercicis.html?tema=1">← Torna a les activitats</a>
+    </div>
+  </section>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/test.js?v=f6f5a0b1"></script>
+</body>
+</html>

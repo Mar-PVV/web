@@ -506,3 +506,133 @@ a.tema-targeta:hover {
 }
 
 [hidden] { display: none !important; }
+
+/* ── Test ràpid de límits ──────────────────────────────────────────────── */
+
+.test-caixa {
+  background: var(--blanc); border: 1px solid var(--vora);
+  border-radius: var(--radi); box-shadow: var(--ombra);
+  padding: 26px 28px; margin-bottom: 18px;
+}
+.test-intro { margin: 0 0 20px; color: var(--suau); max-width: 58ch; }
+
+.test-tria { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.test-etiqueta {
+  font-family: var(--titol); font-weight: 600; font-size: 11.5px;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--tenue);
+}
+.test-opcions-nivell { display: flex; flex-wrap: wrap; gap: 8px; }
+.test-nivell-boto {
+  font-family: var(--titol); font-weight: 600; font-size: 13.5px;
+  padding: 7px 14px; border-radius: 20px; border: 1px solid var(--vora);
+  background: var(--blanc); color: var(--text); cursor: pointer;
+  transition: background .14s, border-color .14s;
+}
+.test-nivell-boto:hover:not(:disabled) { background: var(--blau-fons); border-color: #C8DAE8; }
+.test-nivell-boto.actiu { background: var(--blau-fons); border-color: var(--blau); color: var(--blau); }
+.test-nivell-boto:disabled { opacity: .4; cursor: default; }
+.test-nivell-boto .compta { color: var(--tenue); font-weight: 500; margin-left: 2px; }
+
+.test-marca { margin: 18px 0 0; font-size: 13.5px; color: var(--tenue); }
+.test-accions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 22px; }
+.boto-gran { padding: 12px 24px; font-size: 14.5px; }
+
+/* Progrés */
+.test-progres { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.test-barra {
+  flex: 1; height: 6px; border-radius: 3px; background: var(--vora); overflow: hidden;
+}
+.test-barra span {
+  display: block; height: 100%; width: 0;
+  background: var(--blau); border-radius: 3px; transition: width .3s ease;
+}
+.test-compta {
+  font-family: var(--titol); font-weight: 600; font-size: 12.5px; color: var(--tenue);
+  white-space: nowrap;
+}
+
+/* Pregunta */
+.test-nivell { margin: 0 0 10px; font-size: 12.5px; color: var(--tenue); letter-spacing: .04em; }
+.test-pregunta {
+  font-size: 22px; line-height: 1.5; text-align: center;
+  padding: 18px 6px 24px; overflow-x: auto;
+}
+.test-pregunta.petita { font-size: 17px; text-align: left; padding: 2px 0 8px; }
+
+/* Opcions */
+.test-opcions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.test-opcio {
+  display: flex; align-items: center; gap: 11px; text-align: left;
+  padding: 13px 16px; border-radius: var(--radi-petit);
+  border: 1.5px solid var(--vora); background: var(--blanc);
+  color: var(--text); font-size: 16px; font-family: var(--cos);
+  cursor: pointer; transition: background .14s, border-color .14s;
+}
+.test-opcio:hover { background: var(--blau-fons); border-color: #C8DAE8; }
+.test-opcio.triada { border-color: var(--blau); background: var(--blau-fons); }
+.test-opcio.bona { border-color: var(--verd); background: var(--verd-fons); }
+.test-opcio.malament { border-color: var(--nivell-c); background: #FCEBEB; }
+.test-opcio .test-lletra {
+  flex: none; width: 24px; height: 24px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--fons); color: var(--suau);
+  font-family: var(--titol); font-weight: 600; font-size: 12.5px;
+}
+.test-opcio.bona .test-lletra { background: var(--verd); color: #fff; }
+.test-opcio.malament .test-lletra { background: var(--nivell-c); color: #fff; }
+.test-opcions.cal-triar { animation: sacseja .4s; }
+@keyframes sacseja {
+  25% { transform: translateX(-5px); } 75% { transform: translateX(5px); }
+}
+
+/* Resposta escrita */
+.test-lliure label {
+  display: block; font-family: var(--titol); font-weight: 600;
+  font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--tenue); margin-bottom: 7px;
+}
+.test-lliure input {
+  width: 100%; padding: 13px 16px; font-size: 17px; font-family: var(--cos);
+  color: var(--text); background: var(--blanc);
+  border: 1.5px solid var(--vora); border-radius: var(--radi-petit);
+}
+.test-lliure input:focus { outline: none; border-color: var(--blau); background: var(--blau-fons); }
+.test-lliure input.bona { border-color: var(--verd); background: var(--verd-fons); }
+.test-lliure input.malament { border-color: var(--nivell-c); background: #FCEBEB; }
+.test-ajuda { margin: 9px 0 0; font-size: 12.5px; color: var(--tenue); }
+.test-ajuda code {
+  background: var(--fons); border: 1px solid var(--vora); border-radius: 4px;
+  padding: 1px 5px; font-size: 12px;
+}
+
+/* Veredicte */
+.test-resultat {
+  margin-top: 18px; padding: 14px 17px; border-radius: var(--radi-petit);
+  border-left: 3px solid var(--vora); background: var(--fons); font-size: 14.5px;
+}
+.test-resultat p { margin: 0; }
+.test-resultat p + p { margin-top: 6px; }
+.test-resultat.es-bona { background: var(--verd-fons); border-left-color: var(--verd); }
+.test-resultat.es-malament { background: #FCEBEB; border-left-color: var(--nivell-c); }
+.test-veredicte { font-family: var(--titol); font-weight: 700; }
+.es-bona .test-veredicte { color: var(--verd); }
+.es-malament .test-veredicte { color: var(--nivell-c); }
+.test-explica { color: var(--suau); font-size: 13.5px; }
+
+/* Final */
+.test-final { text-align: center; padding: 34px 28px; }
+.test-nota { margin: 0; font-family: var(--titol); font-size: 20px; color: var(--suau); }
+.test-nota strong { font-size: 46px; font-weight: 800; color: var(--blau); display: block; line-height: 1.1; }
+.test-missatge { margin: 10px 0 0; color: var(--suau); }
+.test-repas-titol {
+  font-family: var(--titol); font-weight: 700; font-size: 17px; color: var(--blau);
+  margin: 26px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--blau-fons);
+}
+.test-repas { padding: 18px 22px; }
+.test-sol { margin: 0; font-size: 14.5px; }
+
+@media (max-width: 620px) {
+  .test-caixa { padding: 20px 18px; }
+  .test-opcions { grid-template-columns: 1fr; }
+  .test-pregunta { font-size: 19px; }
+}
