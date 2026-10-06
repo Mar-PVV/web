@@ -147,10 +147,18 @@
     pintaPregunta();
   }
 
+  function marcador() {
+    const m = $('encerts');
+    if (!m) return;
+    m.querySelector('strong').textContent = encerts;
+    m.classList.toggle('te-encerts', encerts > 0);
+  }
+
   function pintaPregunta() {
     const p = tanda[i];
     respost = false;
     $('compta').textContent = (i + 1) + ' de ' + tanda.length;
+    marcador();
     $('barra').style.width = (i / tanda.length * 100) + '%';
     $('nivell-preg').innerHTML = NIVELLS[p.nivell]
       ? '<span style="color:' + NIVELLS[p.nivell].col + '">' + '●'.repeat(p.nivell) + '</span>'
@@ -209,6 +217,7 @@
     }
     respost = true; triada = null;
     if (be) encerts++; else fallades.push(p);
+    marcador();
 
     const sol = p.opcions.length ? p.resposta : p.accepta[0];
     $('resultat').className = 'test-resultat ' + (be ? 'es-bona' : 'es-malament');

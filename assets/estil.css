@@ -550,6 +550,18 @@ a.tema-targeta:hover {
   font-family: var(--titol); font-weight: 600; font-size: 12.5px; color: var(--tenue);
   white-space: nowrap;
 }
+.test-encerts {
+  display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap;
+  padding: 4px 12px; border-radius: 14px;
+  background: var(--fons); border: 1px solid var(--vora);
+  font-family: var(--titol); font-size: 12.5px; color: var(--tenue);
+  transition: background .2s, border-color .2s, color .2s;
+}
+.test-encerts strong { font-size: 15px; font-weight: 700; color: var(--suau); }
+.test-encerts.te-encerts {
+  background: var(--verd-fons); border-color: #BFE0CE; color: var(--verd);
+}
+.test-encerts.te-encerts strong { color: var(--verd); }
 
 /* Pregunta */
 .test-nivell { margin: 0 0 10px; font-size: 12.5px; color: var(--tenue); letter-spacing: .04em; }
@@ -634,5 +646,6 @@ a.tema-targeta:hover {
 @media (max-width: 620px) {
   .test-caixa { padding: 20px 18px; }
   .test-opcions { grid-template-columns: 1fr; }
+  .test-encerts .et { display: none; }
   .test-pregunta { font-size: 19px; }
 }
