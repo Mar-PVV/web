@@ -169,6 +169,7 @@ Columnes:
 | `opcions` | les opcions separades per `\|`. **Si ho deixes buit, l'alumne escriu la resposta** en comptes de triar-la |
 | `resposta` | l'opció bona (ha de ser igual que una de les opcions); si no hi ha opcions, les respostes que s'accepten, separades per `\|` |
 | `explicacio` | opcional: una línia que surt després de respondre |
+| `actiu` | `1` surt al test · `0` l'amaga sense esborrar-la, per a blocs que encara no has explicat. Buida compta com a `1` |
 
 Quan la resposta s'escriu, es comparen els valors i no les lletres: per a `1/2`
 també valen `0,5`, `0.5` i `$\dfrac{1}{2}$`; per a l'infinit valen `inf`,

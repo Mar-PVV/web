@@ -196,7 +196,7 @@ def titol_pla(t):
             x = re.sub(re.escape(a) + r"\b", b, x)
         x = re.sub(r"\s*-\s*", " \u2212 ", x)
         x = re.sub(r"\s+", " ", x).strip()
-        return m.group(0) if re.search(r"[\\^_{}]", x) else x
+        return m.group(0) if re.search(r"[\\{}]", x) else x
     return re.sub(r"\$[^$]*\$", canvi, t)
 
 

@@ -12,9 +12,11 @@
      resposta   l'opció bona (ha de coincidir amb una de les opcions), o bé,
                 si no hi ha opcions, les respostes que s'accepten separades per |
      explicacio opcional: una línia que surt després de respondre
+     actiu      1 = surt al test · 0 = amagada (per exemple, un bloc que
+                encara no has explicat). Si la deixes buida, compta com a 1.
    ─────────────────────────────────────────────────────────────────────────── */
 (function () {
-  const CSV = 'assets/preguntes-limits.csv?v=4881bdba';
+  const CSV = 'assets/preguntes-limits.csv?v=57b1b8a9';
   const PER_TANDA = 10;
   const tema = parseInt(new URLSearchParams(location.search).get('tema') || '1', 10);
 
@@ -279,7 +281,7 @@
     .then(r => { if (!r.ok) throw new Error(); return r.text(); })
     .then(text => {
       totes = llegeixCSV(text)
-        .filter(f => parseInt(f.tema, 10) === tema && f.pregunta)
+        .filter(f => parseInt(f.tema, 10) === tema && f.pregunta && f.actiu !== '0')
         .map(f => {
           const opcions = f.opcions ? f.opcions.split('|').map(x => x.trim()).filter(Boolean) : [];
           return {
