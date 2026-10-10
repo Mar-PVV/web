@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De decimal a fracció · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Aplicatiu de 3r d'ESO per practicar pas a pas com es passa un nombre decimal a fracció.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=a1369cce">
+<link rel="stylesheet" href="assets/decimal-fraccio.css?v=30a70721">
+</head>
+<body data-curs="3eso">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="eso.html" aria-current="page">3r d'ESO</a>
+      <a href="batx.html">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall dec2frac">
+  <div class="titol-curs">
+    <span class="etiq">Nombres racionals</span>
+    <h1>De decimal <em>a fracció</em></h1>
+    <p>Practica com passar un nombre decimal a fracció, pas a pas. Omple les caselles i prem <b>Comprova</b> (o la tecla Retorn) per passar al pas següent.</p>
+  </div>
+
+  <div class="barra">
+    <span class="etiqueta-grup">Practica</span>
+    <button class="boto mode" data-mode="finit" aria-pressed="false">Decimal finit</button>
+    <button class="boto mode" data-mode="pur" aria-pressed="false">Periòdic pur</button>
+    <button class="boto mode" data-mode="mixt" aria-pressed="false">Periòdic mixt</button>
+    <button class="boto mode" data-mode="barreja" aria-pressed="true">Barreja</button>
+    <button class="boto mode" data-mode="propi" aria-pressed="false">El meu nombre</button>
+    <span class="creix"></span>
+    <button class="boto boto-metode" id="btnMetode" aria-expanded="false" aria-controls="metode" type="button">Recorda el mètode <span class="fletxa" aria-hidden="true">▾</span></button>
+  </div>
+
+  <section class="metode" id="metode" hidden aria-label="Recorda el mètode">
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
+      <div class="mcos">
+        <span class="tag" style="background:var(--verd-fons);color:var(--verd)">A · Decimal finit</span>
+        <h2>Treu la coma i simplifica</h2>
+        <p>Escriu el nombre sense coma al numerador. Al denominador, un 1 seguit de tants zeros com xifres decimals. Després, simplifica.</p>
+        <div class="exemple"><span>2,4</span><span>=</span><span class="frac"><span>24</span><span>10</span></span><span>=</span><span class="frac"><span>12</span><span>5</span></span></div>
+      </div>
+    </article>
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#FFD576,#FFAC78,#F99EB5)"></span>
+      <div class="mcos">
+        <div class="mcap">
+          <span class="tag" style="background:var(--blau-fons);color:var(--blau)">B · Decimal periòdic</span>
+          <span class="exnum"><small>Exemple</small>1,2<span class="per">36<svg class="arc" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 10 Q50 -6 98 10"/></svg></span></span>
+        </div>
+        <ol class="passos">
+          <li><span class="pnum" style="background:#FFE7AE">1</span><span class="ptext"><b>Iguala a <i>x</i></b></span><span class="pex"><i>x</i> = 1,23636…</span></li>
+          <li><span class="pnum" style="background:#FFD3B8">2</span><span class="ptext"><b>Multiplica per 10</b><span>tantes vegades com xifres decimals no periòdiques (si no n'hi ha cap, torna a escriure el mateix)</span></span><span class="pex">10<i>x</i> = 12,3636…</span></li>
+          <li><span class="pnum" style="background:#FBCCD8">3</span><span class="ptext"><b>Multiplica per 10</b><span>tantes vegades com xifres periòdiques</span></span><span class="pex">1000<i>x</i> = 1236,3636…</span></li>
+          <li><span class="pnum" style="background:#CFE3FB">4</span><span class="ptext"><b>Resta pas 3 − pas 2 i aïlla la <i>x</i></b><span>els decimals periòdics s'anul·len</span></span><span class="pex">990<i>x</i> = 1224 → <i>x</i> = <span class="frac"><span>1224</span><span>990</span></span></span></li>
+          <li><span class="pnum" style="background:#C2EAE5">5</span><span class="ptext"><b>Simplifica la fracció</b></span><span class="pex"><i>x</i> = <span class="frac"><span>68</span><span>55</span></span></span></li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <form class="propi" id="own" hidden>
+    <label for="ownIn"><span class="lab">El teu nombre</span>
+      <input id="ownIn" autocomplete="off" placeholder="1,2(36)" value="1,2(36)">
+    </label>
+    <button class="boto boto-principal" type="submit">Practica'l</button>
+    <p class="ajuda">Si és periòdic, posa el període entre parèntesis: <code>1,2(36)</code> vol dir 1,23636…</p>
+    <p class="fb" id="ownFb" role="status"></p>
+  </form>
+
+  <div class="marcador" id="stats" aria-live="polite"></div>
+
+  <section class="exercici" id="card">
+    <p class="enunciat"><span>Expressa en forma de fracció irreductible</span><span class="tipus" id="tag"></span></p>
+    <div class="objectiu" id="target"></div>
+    <div class="steps" id="steps"></div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/decimal-fraccio.js?v=79078a34"></script>
+</body>
+</html>

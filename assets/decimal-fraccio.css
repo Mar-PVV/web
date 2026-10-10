@@ -1,0 +1,166 @@
+/* Aplicatiu «De decimal a fracció» (3r d'ESO · tema 1, Nombres racionals).
+   La capçalera, el peu i els colors de marca vénen d'estil.css; aquí només hi ha
+   el que és propi de l'aplicatiu, tot dins de main.dec2frac perquè no xoqui
+   amb la resta de pàgines. */
+:root {
+  --blau-vora:    #C8DAE8;
+  --vermell:      #A32D2D;
+  --vermell-fons: #FCEBEB;
+  --groc-fons:    #FBF6D9;
+  --groc-text:    #6E5606;
+  --mates: 'STIX Two Text', 'Cambria Math', Cambria, Georgia, serif;
+}
+.dec2frac [hidden] { display: none !important; }
+.dec2frac .boto:focus-visible, .dec2frac .enllac:focus-visible { outline: 3px solid var(--blau-vora); outline-offset: 2px; }
+
+/* Títol */
+.dec2frac .titol-curs .etiq{display:inline-block; font-family:var(--titol); font-weight:700; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; padding:3px 11px; border-radius:20px; background:var(--blau-fons); color:var(--blau); margin-bottom:12px}
+.dec2frac .titol-curs h1 em{font-style:normal; color:var(--blau)}
+/* Barra d'eines */
+.dec2frac .barra{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-bottom:16px}
+.dec2frac .etiqueta-grup{font-family:var(--titol); font-weight:700; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--tenue); margin-right:2px}
+.dec2frac .creix{flex:1}
+.dec2frac .boto{display:inline-flex; align-items:center; gap:8px; font-family:var(--titol); font-weight:600; font-size:13.5px; padding:9px 16px; border-radius:22px; border:1px solid var(--vora); background:var(--blanc); color:var(--text); cursor:pointer; transition:background .14s,border-color .14s,color .14s}
+.dec2frac .boto:hover{background:var(--blau-fons); border-color:var(--blau-vora); color:var(--blau)}
+.dec2frac .boto[aria-pressed="true"], .dec2frac .boto-principal{background:var(--blau); border-color:var(--blau); color:#fff}
+.dec2frac .boto[aria-pressed="true"]:hover, .dec2frac .boto-principal:hover{background:var(--blau-fosc); border-color:var(--blau-fosc); color:#fff}
+.dec2frac .boto-metode[aria-expanded="true"]{background:var(--blau-fons); border-color:var(--blau-vora); color:var(--blau)}
+.dec2frac .boto-metode .fletxa{font-size:11px; color:var(--tenue); transition:transform .2s ease}
+.dec2frac .boto-metode[aria-expanded="true"] .fletxa{transform:rotate(180deg); color:var(--blau)}
+/* Panell del mètode */
+.dec2frac .metode{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.7fr); gap:14px; margin-bottom:18px}
+.dec2frac .metode[hidden]{display:none}
+.dec2frac .mcard{background:var(--blanc); border:1px solid var(--vora); border-radius:var(--radi); box-shadow:var(--ombra); overflow:hidden; display:flex; flex-direction:column; min-width:0}
+.dec2frac .banda{display:block; height:7px}
+.dec2frac .mcos{padding:20px 22px 22px; display:flex; flex-direction:column; gap:10px; flex:1}
+.dec2frac .mcard .tag{align-self:flex-start; font-family:var(--titol); font-weight:700; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; padding:3px 11px; border-radius:20px}
+.dec2frac .mcard h2{font-family:var(--titol); font-weight:700; font-size:20px; line-height:1.2; letter-spacing:-.02em; margin:0}
+.dec2frac .mcard p{margin:0; color:var(--suau); font-size:14px}
+.dec2frac .exemple{margin-top:auto; padding:14px 16px; background:var(--fons); border-radius:var(--radi-petit); font-family:var(--mates); font-size:24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.3em; overflow-x:auto}
+.dec2frac .passos{list-style:none; margin:0; padding:0; display:grid; gap:2px}
+.dec2frac .passos li{display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--vora)}
+.dec2frac .passos li:last-child{border-bottom:none}
+.dec2frac .pnum{width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:var(--titol); font-weight:800; font-size:15px; color:var(--text)}
+.dec2frac .ptext{font-size:14px; line-height:1.4}
+.dec2frac .ptext b{font-family:var(--titol); font-weight:600; font-size:14px; display:block; color:var(--text)}
+.dec2frac .ptext span{color:var(--suau); font-size:13px}
+.dec2frac .pex{font-family:var(--mates); font-size:17px; white-space:nowrap; color:var(--blau-fosc); text-align:right}
+.dec2frac .pex .frac>span:first-child{border-bottom-width:1.5px}
+.dec2frac .mcap{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 12px}
+.dec2frac .mcap .exnum{font-family:var(--mates); font-size:20px; color:var(--blau-fosc)}
+.dec2frac .mcap .exnum small{font-family:var(--cos); font-size:12px; color:var(--tenue); margin-right:6px}
+/* Nombre propi */
+.dec2frac .propi{background:var(--blanc); border:1px solid var(--vora); border-radius:var(--radi); box-shadow:var(--ombra); padding:16px 20px; margin-bottom:16px; display:flex; flex-wrap:wrap; gap:10px 12px; align-items:flex-end}
+.dec2frac .propi label{flex:1 1 260px; min-width:0; display:grid; gap:7px}
+.dec2frac .propi .lab{font-family:var(--titol); font-weight:600; font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--tenue)}
+.dec2frac .propi input{width:100%; padding:10px 14px; font-family:var(--mates); font-size:22px; color:var(--text); background:var(--blanc); border:1.5px solid var(--vora); border-radius:var(--radi-petit)}
+.dec2frac .propi input:focus{outline:none; border-color:var(--blau); background:var(--blau-fons)}
+.dec2frac .propi .ajuda{flex-basis:100%; margin:0; font-size:12.5px; color:var(--tenue)}
+.dec2frac .propi .ajuda code{font-family:var(--mates); font-size:14px; background:var(--fons); border:1px solid var(--vora); border-radius:4px; padding:0 5px; color:var(--text)}
+/* Marcador */
+.dec2frac .marcador{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; font-variant-numeric:tabular-nums}
+.dec2frac .xip{display:inline-flex; align-items:baseline; gap:6px; padding:5px 13px; border-radius:20px; background:var(--blanc); border:1px solid var(--vora); font-size:13px; color:var(--suau)}
+.dec2frac .xip strong{font-family:var(--titol); font-weight:700; font-size:15px; color:var(--text)}
+.dec2frac .xip.verd{background:var(--verd-fons); border-color:#BFE0CE; color:var(--verd)}
+.dec2frac .xip.verd strong{color:var(--verd)}
+.dec2frac .enllac{font:inherit; font-size:12.5px; background:none; border:none; color:var(--tenue); text-decoration:underline; cursor:pointer; padding:0 4px}
+/* Exercici */
+.dec2frac .exercici{background:var(--blanc); border:1px solid var(--vora); border-radius:var(--radi); box-shadow:var(--ombra); padding:22px 24px 26px; margin-bottom:40px}
+.dec2frac .enunciat{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; margin:0}
+.dec2frac .enunciat span:first-child{font-family:var(--titol); font-weight:600; font-size:14px; color:var(--suau)}
+.dec2frac .tipus{font-family:var(--titol); font-weight:700; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; padding:3px 11px; border-radius:20px}
+.dec2frac .tipus.finit{background:var(--verd-fons); color:var(--verd)}
+.dec2frac .tipus.pur{background:var(--blau-fons); color:var(--blau)}
+.dec2frac .tipus.mixt{background:#FDF0E3; color:#9A5A12}
+.dec2frac .objectiu{font-family:var(--mates); font-size:clamp(44px,11vw,60px); line-height:1; text-align:center; padding:34px 0 26px; font-variant-numeric:tabular-nums}
+/* Arc del període */
+.dec2frac .per{position:relative; display:inline-block; line-height:1}
+.dec2frac .per .arc{position:absolute; left:-.04em; right:-.04em; top:-.13em; width:calc(100% + .08em); height:.2em; overflow:visible; pointer-events:none}
+.dec2frac .per .arc path{fill:none; stroke:currentColor; stroke-width:1.5px; stroke-linecap:round; vector-effect:non-scaling-stroke}
+/* Passos */
+.dec2frac .steps{display:grid}
+.dec2frac .step{border-top:1px solid var(--vora); padding-block:18px; display:grid; gap:10px; animation:entra .25s ease-out}
+@keyframes entra{from{transform:translateY(4px)} to{transform:none}}
+.dec2frac .step-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 11px}
+.dec2frac .num{font-family:var(--titol); font-weight:800; font-size:15px; color:var(--blau); white-space:nowrap}
+.dec2frac .step.done .num{color:var(--verd)}
+.dec2frac .step.done .num::after{content:" ✓"}
+.dec2frac .step.skipped .num{color:var(--tenue)}
+.dec2frac h3{margin:0; font-family:var(--titol); font-weight:600; font-size:16px; letter-spacing:-.01em; text-wrap:balance}
+.dec2frac .sub{margin:0; color:var(--suau); font-size:14px}
+.dec2frac .work{font-family:var(--mates); font-size:26px; display:flex; flex-wrap:wrap; align-items:center; gap:.3em .35em; overflow-x:auto; padding-block:6px; min-width:0}
+.dec2frac .work .lbl{font-family:var(--cos); font-size:15px; display:flex; align-items:center; gap:.6em; flex-basis:100%}
+.dec2frac .work .lbl b{font-weight:600}
+.dec2frac .x{font-style:italic}
+.dec2frac .tail{color:var(--suau)}
+.dec2frac .box{font:inherit; font-size:1em; text-align:center; border:1.5px solid var(--vora); background:var(--blanc); color:var(--text); border-radius:8px; padding:.02em .1em; line-height:1.2; font-variant-numeric:tabular-nums}
+.dec2frac .work .lbl .box{font-family:var(--mates); font-size:22px}
+.dec2frac .box:focus{outline:none; border-color:var(--blau); background:var(--blau-fons)}
+.dec2frac .box.bad{border-color:var(--vermell); background:var(--vermell-fons)}
+.dec2frac .box.ok{border-color:var(--verd); background:var(--verd-fons); color:var(--verd)}
+.dec2frac .box:disabled{opacity:1; -webkit-text-fill-color:currentColor}
+.dec2frac .frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.2; font-variant-numeric:tabular-nums}
+.dec2frac .frac>span{padding:.04em .15em; display:flex; justify-content:center}
+.dec2frac .frac>span:first-child{border-bottom:2px solid currentColor}
+.dec2frac .op{border-collapse:collapse; font-variant-numeric:tabular-nums}
+.dec2frac .op td{padding:.05em .2em; text-align:right; white-space:nowrap}
+.dec2frac .op td.eq{text-align:center}
+.dec2frac .op td.rhs{text-align:left}
+.dec2frac .op td.dec.cap{text-align:left; padding-left:1.1em}
+.dec2frac .op tr.res td.cap{border-top-color:transparent}
+.dec2frac .op td.cap .frac{vertical-align:middle}
+.dec2frac .op td.cap .fl{color:var(--blau)}
+.dec2frac .op td.int{text-align:right; padding-right:0}
+.dec2frac .op td.dec{text-align:left; padding-left:0}
+.dec2frac .op td.dec .tail{color:var(--blau); opacity:1}
+.dec2frac .op tr.res td{border-top:2px solid var(--text); padding-top:.2em}
+.dec2frac .op .sign{color:var(--blau)}
+.dec2frac .then{flex-basis:100%; display:flex; flex-wrap:wrap; align-items:center; gap:.35em}
+.dec2frac .actions{display:flex; flex-wrap:wrap; gap:8px}
+.dec2frac .partim{display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; padding:9px 14px; background:var(--blau-fons); border:1px solid var(--blau-vora); border-radius:var(--radi-petit); overflow-x:auto}
+.dec2frac .etq{font-family:var(--titol); font-weight:700; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--blau); white-space:nowrap}
+.dec2frac .partim .m{font-family:var(--mates); font-size:22px; color:var(--blau-fosc); white-space:nowrap}
+.dec2frac .partim .tail, .dec2frac .op tr.ve .tail{color:inherit; opacity:.75}
+.dec2frac span.ve{display:inline-flex; background:var(--blau-fons); color:var(--blau-fosc); border-radius:8px; padding:.08em .25em; box-shadow:0 0 0 1px var(--blau-vora)}
+.dec2frac .op tr.ve td{background:var(--blau-fons); color:var(--blau-fosc)}
+.dec2frac .op tr.ve td:first-child{border-radius:8px 0 0 8px; padding-left:.5em}
+.dec2frac .op tr.ve td:last-child{border-radius:0 8px 8px 0; padding-right:.5em}
+.dec2frac .op tr.ve + tr.ve td{border-top:3px solid var(--blanc)}
+.dec2frac .op tr.res td:first-child{border-top:none}
+.dec2frac .op td.etq{text-align:left; font-size:10px; vertical-align:middle; padding-right:.6em}
+.dec2frac .fet{display:inline-flex; flex-wrap:wrap; align-items:center; gap:.3em .35em; padding:.25em .7em; background:var(--verd-fons); border:1px solid #BFE0CE; border-radius:var(--radi-petit); color:var(--text); max-width:100%}
+.dec2frac .brk{flex-basis:100%; height:0}
+.dec2frac .work .lbl.irr{flex-basis:auto}
+.dec2frac .irr{margin-top:4px; cursor:pointer; width:fit-content; padding:7px 14px 7px 10px; border:1px solid var(--vora); border-radius:22px; font-family:var(--titol); font-weight:600; font-size:13.5px; transition:background .14s,border-color .14s}
+.dec2frac .irr:hover{background:var(--blau-fons); border-color:var(--blau-vora)}
+.dec2frac .irr input{width:18px; height:18px; margin:0; accent-color:var(--blau); cursor:pointer}
+.dec2frac .irr-on .irr{background:var(--blau-fons); border-color:var(--blau); color:var(--blau)}
+.dec2frac .irr-on .work .box{opacity:.35}
+.dec2frac .fet .nota-m{font-family:var(--cos); font-size:13px; color:var(--verd); margin-left:.4em}
+.dec2frac .fb{margin:0; padding:11px 15px; border-radius:var(--radi-petit); border-left:3px solid var(--vora); font-size:14.5px}
+.dec2frac .fb:empty{display:none}
+.dec2frac .fb.ok{background:var(--verd-fons); border-left-color:var(--verd); color:var(--verd); font-family:var(--titol); font-weight:600}
+.dec2frac .fb.err{background:var(--vermell-fons); border-left-color:var(--vermell); color:var(--vermell)}
+.dec2frac .hinttext{margin:0; padding:12px 15px; border-radius:var(--radi-petit); background:var(--groc-fons); color:var(--groc-text); font-size:14px}
+.dec2frac .descs{display:grid; gap:2px; margin:6px 0}
+.dec2frac .desc{font-family:var(--mates); font-size:19px; color:var(--text)}
+.dec2frac .desc sup{font-size:.65em}
+.dec2frac .primer{font-size:13px; font-weight:600; margin-left:.4em}
+.dec2frac .hinttext b{font-family:var(--titol); font-weight:700}
+.dec2frac .result{border-top:2px solid var(--blau-fons); padding-top:20px; margin-top:4px; display:grid; gap:12px}
+.dec2frac .result .final{font-family:var(--mates); font-size:34px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.3em; overflow-x:auto; padding:6px 0}
+.dec2frac .result .final .frac{color:var(--verd)}
+.dec2frac .verify{margin:0; color:var(--suau); text-align:center; font-size:14px; font-variant-numeric:tabular-nums}
+.dec2frac .verify .mono{font-family:var(--mates); color:var(--text); font-size:17px}
+.dec2frac .result .actions{justify-content:center}
+@media (max-width:700px){
+  .dec2frac .metode{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:620px){
+  .dec2frac .exercici{padding:18px 16px 22px}
+  .dec2frac .work{font-size:22px}
+  .dec2frac .passos li{grid-template-columns:34px minmax(0,1fr)}
+  .dec2frac .pex{grid-column:2; text-align:left}
+  .dec2frac .creix{display:none}
+}
+@media (prefers-reduced-motion: reduce){ .dec2frac .step{animation:none} .dec2frac .boto-metode .fletxa{transition:none} }

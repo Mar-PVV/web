@@ -13,9 +13,10 @@ de 3r d'ESO i 1r de batxillerat.
 Portada → tries curs → tries tema → fas les activitats en línia, amb les solucions
 desplegables, i te'n pots descarregar el PDF.
 
-**Ara mateix només es publica el tema 1 de batxillerat.** 3r d'ESO surt com a
-*properament* (l'alumnat té el material al Classroom) i els altres temes de
-batxillerat també, fins que estiguin revisats. **Els apunts no es publiquen**:
+**Ara mateix només es publica el tema 1 de batxillerat.** Els altres temes de
+batxillerat surten com a *properament* fins que estiguin revisats. De 3r d'ESO no
+es publiquen documents (l'alumnat té el material al Classroom): només
+**aplicatius** per practicar, tema a tema (vegeu [Aplicatius de 3r d'ESO](#aplicatius-de-3r-deso)). **Els apunts no es publiquen**:
 l'alumnat els copia a classe.
 
 ---
@@ -43,6 +44,8 @@ ser públics**. L'script [`publica.sh`](publica.sh) els hi copia.
 ```
 web/
 ├── index.html          portada · tria de curs
+├── eso.html            temes i aplicatius de 3r d'ESO · s'edita a mà
+├── decimal-fraccio.html  aplicatiu: de decimal a fracció (3r ESO, tema 1)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
@@ -52,6 +55,7 @@ web/
 │   ├── web.js          munta el selector de temes
 │   ├── exercicis.js    munta la pàgina d'activitats
 │   ├── test.js         fa funcionar el test de límits
+│   ├── decimal-fraccio.css, decimal-fraccio.js  l'aplicatiu de decimal a fracció
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
@@ -66,7 +70,7 @@ web/
 └── genera-icones.py    refà les icones (només si canvies icona-mestra.png)
 ```
 
-Les tres pàgines no tenen cap tema escrit a dins: es munten a partir de
+Les pàgines de batxillerat no tenen cap tema escrit a dins: es munten a partir de
 `assets/dades.js`, que `publica.sh` genera llegint els repositoris. Afegir un
 document nou és crear el PDF al repo privat i tornar a executar l'script.
 
@@ -157,6 +161,26 @@ executar `publica.sh` i la web queda actualitzada.
     gràfic de la web es veu igual que el del PDF.
   - Si dins d'un exercici hi ha diversos gràfics seguits, es posen en graella
     (3 per fila a l'ordinador, menys a mòbil).
+
+---
+
+## Aplicatius de 3r d'ESO
+
+`eso.html` és la pàgina de 3r d'ESO. **No surt de `dades.js`**: els temes i els
+aplicatius s'hi escriuen a mà, perquè de 3r no es publica cap document
+(`PUBLICA_3ESO=0` a `publica.sh` continua igual). Ara hi ha el tema 1, Nombres
+racionals, amb l'aplicatiu **De decimal a fracció** (`decimal-fraccio.html`).
+
+- Cada aplicatiu és una pàgina a l'arrel amb la capçalera i el peu comuns, el seu
+  CSS i JS a `assets/` (`decimal-fraccio.css`, `decimal-fraccio.js`). Els estils
+  propis van dins de `main.dec2frac` perquè no xoquin amb `estil.css`.
+- **Per afegir-ne un altre:** crea la pàgina copiant `decimal-fraccio.html`,
+  afegeix-ne un `<a class="doc">` dins del tema a `eso.html` (o copia el bloc
+  `<section class="tema obert">` per obrir un tema nou) i posa els seus assets a la
+  llista de `versiona.py`. Si cal, actualitza el comptador «1 aplicatiu» de la
+  targeta de 3r d'ESO a `index.html`.
+- Les estadístiques (fets, encerts, ratxa) es desen només al navegador de
+  l'alumne (`localStorage`): la web no recull cap dada.
 
 ---
 
