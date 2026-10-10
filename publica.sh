@@ -40,7 +40,7 @@ fi
 #                     exercicis NO pugen al repositori públic.
 PUBLICA_3ESO=0
 TEMES_BATX="1"
-TIPUS_3ESO=("Apunts" "Activitats" "Activitats amb solucions" "Quadern de classe")
+TIPUS_3ESO=("Apunts" "Activitats" "Quadern de classe")
 TIPUS_BATX=("Activitats")
 
 echo "▸ Exercicis en línia (1r BTX)"

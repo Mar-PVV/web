@@ -45,16 +45,25 @@ web/
 ├── index.html          portada · tria de curs
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
+├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
+├── manifest.json       per instal·lar la web a la pantalla d'inici
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
 │   ├── web.js          munta el selector de temes
 │   ├── exercicis.js    munta la pàgina d'activitats
+│   ├── test.js         fa funcionar el test de límits
+│   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
-│   └── logo.png
+│   ├── grafics/              ← GENERAT · SVG dels gràfics TikZ
+│   ├── logo.png, logo-sense-fons.png
+│   └── icona-*.png     icones (a partir de icona-mestra.png)
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
 ├── publica.sh          decideix què es publica, copia els PDF i regenera dades.js
-└── genera-exercicis.py converteix les activitats .tex en JSON
+├── genera-exercicis.py converteix les activitats .tex en JSON
+├── grafics.py          converteix els gràfics TikZ en SVG (el crida genera-exercicis.py)
+├── versiona.py         posa l'empremta de versió als assets (el crida publica.sh)
+└── genera-icones.py    refà les icones (només si canvies icona-mestra.png)
 ```
 
 Les tres pàgines no tenen cap tema escrit a dins: es munten a partir de
