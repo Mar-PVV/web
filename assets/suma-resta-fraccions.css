@@ -32,6 +32,15 @@
 .dec2frac .mult{font-family:var(--mates); font-size:17px; padding:2px 8px; border:1px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer; font-variant-numeric:tabular-nums}
 .dec2frac .mult:hover{background:var(--blau-fons); border-color:var(--blau-vora)}
 
+/* Descomposició amb barra vertical */
+.dec2frac .bvs{flex-basis:100%; display:flex; flex-wrap:wrap; gap:16px 34px; padding:4px 0 6px}
+.dec2frac .bv{display:grid; grid-template-columns:auto minmax(3ch,auto); font-family:var(--mates); font-size:22px; align-self:flex-start}
+.dec2frac .bv-fila{display:contents}
+.dec2frac .bv-n{display:flex; justify-content:flex-end; align-items:center; min-height:1.85em; padding:3px 12px 3px 4px; border-right:2px solid var(--text); font-variant-numeric:tabular-nums}
+.dec2frac .bv-p{display:flex; align-items:center; min-height:1.85em; padding:3px 0 3px 12px}
+.dec2frac .bv .box{font-size:20px}
+.dec2frac .bv-p .box{color:#2E7F78}
+
 /* Signe del resultat (nivell normal) */
 .dec2frac .amb-signe{display:inline-flex; align-items:center; gap:.2em}
 .dec2frac .signe{font-family:var(--mates); font-size:24px; line-height:1; width:1.6em; height:1.6em; border:1.5px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer}

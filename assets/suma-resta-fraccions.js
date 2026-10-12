@@ -102,6 +102,24 @@ function primsVisibles(dens){
 }
 function multiples(d,m){ const out=[]; for(let x=d;x<=m+d;x+=d) out.push(x); return out; }
 
+/* Fila de la taula de descomposició (barra vertical): quocient | divisor primer */
+const filaBV = (j,r,d) => `<div class="bv-fila" data-r="${r}"><span class="bv-n">${box(`b${j}_q${r}`,wlen(d),`quocient de la fila ${r+1}`)}</span><span class="bv-p">${box(`b${j}_p${r}`,2,`divisor primer de la fila ${r+1}`)}</span></div>`;
+/* Quan s'escriu un quocient: si és 1 s'acaba la taula; si no, surt una fila nova */
+function onBV(e){
+  const mm=e.target.id && e.target.id.match(/^b(\d+)_q(\d+)$/);
+  if(!mm) return;
+  const j=+mm[1], r=+mm[2], bv=e.target.closest('.bv'), d=+bv.dataset.d;
+  const p=bv.querySelector(`#b${j}_p${r}`);
+  if(e.target.value.trim()==='1'){
+    p.hidden=true; p.value='';
+    bv.querySelectorAll('.bv-fila').forEach(f=>{ if(+f.dataset.r>r) f.remove(); });
+  } else {
+    p.hidden=false;
+    const files=bv.querySelectorAll('.bv-fila');
+    if(+files[files.length-1].dataset.r===r && files.length<9) bv.insertAdjacentHTML('beforeend', filaBV(j,r+1,d));
+  }
+}
+
 function stepMcm(){
   const s=state.s, dens=s.dens, m=s.m;
   const P=primsVisibles(dens);
@@ -111,8 +129,8 @@ function stepMcm(){
     sub:'Tria com el vols calcular.',
     html(){
       if(state.met==='desc'){
-        const fila = (txt,pre) => `<span class="lbl fila"><span class="fila-cap">${txt}</span><span class="fila-f">${P.map(p=>`<span class="pot">${p}<sup>${box(pre+p,1,`exponent del ${p}`,'exp')}</sup></span>`).join('<span class="per-punt">·</span>')}</span></span>`;
-        return dens.map((d,j)=>fila(`${d} =`,`e${j}_`)).join('')
+        return `<div class="bvs">${dens.map((d,j)=>`<div class="bv" data-j="${j}" data-d="${d}"><div class="bv-fila" data-r="0"><span class="bv-n">${d}</span><span class="bv-p">${box(`b${j}_p0`,2,`divisor primer de ${d}`)}</span></div>${filaBV(j,1,d)}</div>`).join('')}</div>`
+          + `<span class="lbl nota-exp">Divideix per un nombre primer (2, 3, 5, 7…) i escriu el quocient a sota, fins que arribis a 1.</span>`
           + `<span class="lbl fila fila-mcm"><span class="fila-cap"><b>m.c.m.</b> =</span><span class="fila-f">${P.map(p=>`<span class="pot">${p}<sup>${box('em_'+p,1,`exponent del ${p} al m.c.m.`,'exp')}</sup></span>`).join('<span class="per-punt">·</span>')} <span>=</span> ${box('mv',wlen(m)+1,'valor del m.c.m.')}</span></span>`
           + `<span class="lbl nota-exp">Si un factor no hi és, deixa'l buit o posa-hi 0.</span>`;
       }
@@ -123,18 +141,14 @@ function stepMcm(){
       }
       return `<span class="lbl fila"><span class="fila-cap"><b>m.c.m.</b>(${llistaDens}) =</span>${box('mv',wlen(m)+1,'valor del m.c.m.')}</span>`;
     },
-    inputs(){
+    inputs(sec){
       if(state.met!=='desc') return ['mv'];
-      const ids=[];
-      dens.forEach((d,j)=>P.forEach(p=>ids.push(`e${j}_${p}`)));
-      P.forEach(p=>ids.push('em_'+p));
-      ids.push('mv');
-      return ids;
+      return [...sec.querySelectorAll('.work .box')].filter(b=>!b.hidden).map(b=>b.id);
     },
     hint(){
       if(state.met==='desc'){
         const line = k => `<div><span class="desc">${k} = ${factorHTML(k)}</span>${isPrime(k)?` <span class="primer">· ${k} és primer</span>`:''}</div>`;
-        return `Descompon cada denominador:<span class="descs">${dens.map(line).join('')}</span>Al m.c.m. hi van <b>tots</b> els factors primers, cadascun amb l'exponent <b>més gran</b>.`;
+        return `A cada taula, divideix pel primer més petit que puguis i escriu el quocient a sota, fins arribar a 1. Ha de quedar:<span class="descs">${dens.map(line).join('')}</span>Al m.c.m. hi van <b>tots</b> els factors primers, cadascun amb l'exponent <b>més gran</b>.`;
       }
       if(state.met==='llista') return `Busca el primer nombre que surt a <b>totes</b> les llistes.`;
       const mx=Math.max(...dens);
@@ -142,15 +156,23 @@ function stepMcm(){
     },
     check(v){
       if(state.met==='desc'){
-        const bad=[];
-        dens.forEach((d,j)=>P.forEach(p=>{ if(v[`e${j}_${p}`]!==expo(d,p)) bad.push(`e${j}_${p}`); }));
-        if(bad.length){
-          const quins=[...new Set(bad.map(id=>dens[+id.slice(1,id.indexOf('_'))]))];
-          return {ok:false,msg:`Revisa la descomposició de ${quins.join(' i ')}. Divideix per 2, per 3, per 5… tantes vegades com puguis.`,bad};
+        for(let j=0;j<dens.length;j++){
+          let cur=dens[j];
+          for(let r=0;;r++){
+            const pid=`b${j}_p${r}`, qid=`b${j}_q${r+1}`;
+            if(!(pid in v)) break;                       // fila del 1: ja s'ha acabat
+            const pr=v[pid];
+            if(!isPrime(pr)) return {ok:false,msg:`A la taula del ${dens[j]}: ${pr} no és un nombre primer. A la dreta de la barra hi van nombres primers (2, 3, 5, 7…).`,bad:[pid]};
+            if(cur%pr!==0) return {ok:false,msg:`A la taula del ${dens[j]}: ${cur} no és divisible per ${pr}. Prova amb un altre primer.`,bad:[pid]};
+            if(!(qid in v)) return {ok:false,msg:`A la taula del ${dens[j]}: falta el quocient de ${cur} : ${pr}.`,bad:[pid]};
+            if(v[qid]!==cur/pr) return {ok:false,msg:`A la taula del ${dens[j]}: revisa la divisió ${cur} : ${pr}.`,bad:[qid]};
+            cur=v[qid];
+          }
+          if(cur!==1) return {ok:false,msg:`La taula del ${dens[j]} no s'ha acabat: continua dividint fins que quedi 1.`,bad:[]};
         }
         const badM=P.filter(p=>v['em_'+p]!==Math.max(...dens.map(d=>expo(d,p)))).map(p=>'em_'+p);
         if(badM.length) return {ok:false,msg:'Al m.c.m. hi van tots els factors primers que surten, cadascun amb l\'exponent més gran.',bad:badM};
-        if(v.mv!==m) return {ok:false,msg:'Els exponents estan bé. Ara multiplica els factors per trobar el valor del m.c.m.',bad:['mv']};
+        if(v.mv!==m) return {ok:false,msg:'Les taules i els exponents estan bé. Ara multiplica els factors per trobar el valor del m.c.m.',bad:['mv']};
         return {ok:true};
       }
       if(v.mv===m) return {ok:true};
@@ -254,7 +276,9 @@ function newExercise(){
 }
 
 function renderWork(sec,st){
-  sec.querySelector('.work').innerHTML = st.html();
+  const w=sec.querySelector('.work');
+  w.innerHTML = st.html();
+  w.oninput = onBV;
   sec.querySelectorAll('.mult').forEach(b=>b.onclick=()=>{ const mv=sec.querySelector('#mv'); mv.value=b.dataset.v; mv.classList.remove('bad'); mv.focus(); });
   const sg=sec.querySelector('#sg');
   if(sg) sg.onclick=()=>{ const neg=sg.textContent==='+'; sg.textContent=neg?'−':'+'; sg.classList.toggle('neg',neg); sg.setAttribute('aria-label','signe del resultat: '+(neg?'negatiu':'positiu')); };
@@ -308,7 +332,7 @@ function onCheck(i){
   sec.querySelectorAll('.box').forEach(b=>b.classList.remove('bad'));
   const irr=sec.querySelector('.irr-chk');
   if(irr && irr.checked){ v={irr:true}; }
-  else for(const id of st.inputs()){
+  else for(const id of st.inputs(sec)){
     const el=sec.querySelector('#'+id); const raw=el.value.trim();
     if(raw==='' && el.classList.contains('exp')){ v[id]=0; continue; }
     if(!/^\d+$/.test(raw)){ el.classList.add('bad'); fb.className='fb err'; fb.textContent= raw==='' ? 'Omple totes les caselles.' : 'Escriu només nombres enters, sense signes ni lletres.'; el.focus(); return; }
@@ -329,7 +353,7 @@ function onCheck(i){
     state.errs++;
     fb.className='fb err'; fb.textContent=r.msg;
     if(v.irr){ irr.focus(); return; }
-    const bad=(r.bad||st.inputs()).map(id=>sec.querySelector('#'+id)).filter(Boolean);
+    const bad=(r.bad||st.inputs(sec)).map(id=>sec.querySelector('#'+id)).filter(Boolean);
     bad.forEach(b=>b.classList.add('bad'));
     if(bad[0]){ bad[0].focus(); bad[0].select(); }
   }
@@ -371,7 +395,7 @@ function finish(){
 $('#steps').addEventListener('keydown',e=>{
   if(e.key!=='Enter' || !e.target.classList.contains('box')) return;
   e.preventDefault();
-  const sec=e.target.closest('.step'); const boxes=[...sec.querySelectorAll('.box')];
+  const sec=e.target.closest('.step'); const boxes=[...sec.querySelectorAll('.box')].filter(b=>!b.hidden);
   const idx=boxes.indexOf(e.target);
   const nextEmpty=boxes.slice(idx+1).find(b=>!b.value.trim());
   if(nextEmpty && e.target.value.trim()) nextEmpty.focus();
