@@ -59,6 +59,7 @@ if vc:
 # 2) i ara les versions de tots els assets als HTML
 versions = {n: empremta(n)
             for n in ("estil.css", "web.js", "exercicis.js", "dades.js", "test.js",
-              "decimal-fraccio.css", "decimal-fraccio.js")}
+              "decimal-fraccio.css", "decimal-fraccio.js",
+              "suma-resta-fraccions.css", "suma-resta-fraccions.js")}
 tocats = posa(versions)
 print("  · " + (", ".join(tocats) if tocats else "cap canvi"))

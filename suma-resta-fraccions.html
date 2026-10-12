@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suma i resta de fraccions · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Aplicatiu de 3r d'ESO per practicar pas a pas la suma i la resta de fraccions.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=a1369cce">
+<link rel="stylesheet" href="assets/decimal-fraccio.css?v=aa370179">
+<link rel="stylesheet" href="assets/suma-resta-fraccions.css?v=22ac1aa8">
+</head>
+<body data-curs="3eso">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="eso.html" aria-current="page">3r d'ESO</a>
+      <a href="batx.html">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall dec2frac">
+  <div class="titol-curs">
+    <span class="etiq">Nombres racionals</span>
+    <h1>Suma i resta <em>de fraccions</em></h1>
+    <p>Practica pas a pas: m.c.m., comú denominador, suma o resta dels numeradors i simplificació. Omple les caselles i prem <b>Comprova</b> (o la tecla Retorn) per passar al pas següent.</p>
+  </div>
+
+  <div class="nivells" id="barraNivell" role="group" aria-labelledby="nivellEt">
+    <span class="nivells-et" id="nivellEt">Nivell</span>
+    <span class="interruptor">
+      <button class="nivell" data-nivell="facil" aria-pressed="true" type="button">Fàcil</button>
+      <button class="nivell" data-nivell="normal" aria-pressed="false" type="button">Normal</button>
+    </span>
+    <span class="nivells-desc" id="nivellDesc">dues fraccions, sense nombres negatius</span>
+    <button class="boto boto-metode" id="btnMetode" aria-expanded="false" aria-controls="metode" type="button">Recorda el mètode <span class="fletxa" aria-hidden="true">▾</span></button>
+  </div>
+
+  <section class="metode" id="metode" hidden aria-label="Recorda el mètode">
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
+      <div class="mcos">
+        <span class="tag" style="background:var(--verd-fons);color:var(--verd)">El m.c.m., de tres maneres</span>
+        <ol class="passos">
+          <li><span class="pnum" style="background:#CFE3FB">A</span><span class="ptext"><b>Descomposició</b><span>descompon els denominadors i agafa tots els factors primers, cadascun amb l'exponent més gran</span></span></li>
+          <li><span class="pnum" style="background:#C2EAE5">B</span><span class="ptext"><b>Llista de múltiples</b><span>escriu els múltiples de cada denominador i busca el primer que surti a totes les llistes</span></span></li>
+          <li><span class="pnum" style="background:#D8EED6">C</span><span class="ptext"><b>Directament</b><span>si el veus de cop, escriu-lo</span></span></li>
+        </ol>
+      </div>
+    </article>
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#FFD576,#FFAC78,#F99EB5)"></span>
+      <div class="mcos">
+        <div class="mcap">
+          <span class="tag" style="background:var(--blau-fons);color:var(--blau)">Suma i resta</span>
+          <span class="exnum"><small>Exemple</small><span class="frac"><span>3</span><span>4</span></span> − <span class="frac"><span>1</span><span>6</span></span></span>
+        </div>
+        <ol class="passos">
+          <li><span class="pnum" style="background:#FFE7AE">1</span><span class="ptext"><b>Calcula el m.c.m. dels denominadors</b></span><span class="pex">m.c.m.(4, 6) = 12</span></li>
+          <li><span class="pnum" style="background:#FFD3B8">2</span><span class="ptext"><b>Redueix a comú denominador</b><span>divideix el m.c.m. per cada denominador i multiplica el numerador pel resultat</span></span><span class="pex"><span class="frac"><span>9</span><span>12</span></span> − <span class="frac"><span>2</span><span>12</span></span></span></li>
+          <li><span class="pnum" style="background:#FBCCD8">3</span><span class="ptext"><b>Suma o resta els numeradors</b><span>el denominador no canvia</span></span><span class="pex"><span class="frac"><span>9 − 2</span><span>12</span></span> = <span class="frac"><span>7</span><span>12</span></span></span></li>
+          <li><span class="pnum" style="background:#C2EAE5">4</span><span class="ptext"><b>Simplifica, si es pot</b></span><span class="pex"><span class="frac"><span>7</span><span>12</span></span> ja és irreductible</span></li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <div class="marcador" id="stats" aria-live="polite"></div>
+
+  <section class="exercici" id="card">
+    <p class="enunciat"><span>Calcula i simplifica el resultat</span><span class="tipus" id="tag"></span></p>
+    <div class="objectiu objectiu-op" id="target"></div>
+    <div class="steps" id="steps"></div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/suma-resta-fraccions.js?v=72af720b"></script>
+</body>
+</html>

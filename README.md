@@ -46,6 +46,7 @@ web/
 ├── index.html          portada · tria de curs
 ├── eso.html            temes i aplicatius de 3r d'ESO · s'edita a mà
 ├── decimal-fraccio.html  aplicatiu: de decimal a fracció (3r ESO, tema 1)
+├── suma-resta-fraccions.html  aplicatiu: suma i resta de fraccions (3r ESO, tema 1)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
@@ -56,6 +57,8 @@ web/
 │   ├── exercicis.js    munta la pàgina d'activitats
 │   ├── test.js         fa funcionar el test de límits
 │   ├── decimal-fraccio.css, decimal-fraccio.js  l'aplicatiu de decimal a fracció
+│   │                   (el CSS també té els estils comuns de tots els aplicatius)
+│   ├── suma-resta-fraccions.css, suma-resta-fraccions.js  l'aplicatiu de suma i resta
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
@@ -169,11 +172,15 @@ executar `publica.sh` i la web queda actualitzada.
 `eso.html` és la pàgina de 3r d'ESO. **No surt de `dades.js`**: els temes i els
 aplicatius s'hi escriuen a mà, perquè de 3r no es publica cap document
 (`PUBLICA_3ESO=0` a `publica.sh` continua igual). Ara hi ha el tema 1, Nombres
-racionals, amb l'aplicatiu **De decimal a fracció** (`decimal-fraccio.html`).
+racionals, amb els aplicatius **De decimal a fracció** (`decimal-fraccio.html`) i
+**Suma i resta de fraccions** (`suma-resta-fraccions.html`). Tots dos tenen nivell
+fàcil i normal; a la suma i resta, el m.c.m. es pot fer per descomposició, amb
+llistes de múltiples o directament, i el nivell fàcil no té nombres negatius.
 
 - Cada aplicatiu és una pàgina a l'arrel amb la capçalera i el peu comuns, el seu
-  CSS i JS a `assets/` (`decimal-fraccio.css`, `decimal-fraccio.js`). Els estils
-  propis van dins de `main.dec2frac` perquè no xoquin amb `estil.css`.
+  CSS i JS a `assets/`. Els estils comuns dels aplicatius són a
+  `decimal-fraccio.css`, dins de `main.dec2frac` perquè no xoquin amb `estil.css`;
+  cada aplicatiu nou l'enllaça i hi afegeix el seu CSS propi.
 - **Per afegir-ne un altre:** crea la pàgina copiant `decimal-fraccio.html`,
   afegeix-ne un `<a class="doc">` dins del tema a `eso.html` (o copia el bloc
   `<section class="tema obert">` per obrir un tema nou) i posa els seus assets a la

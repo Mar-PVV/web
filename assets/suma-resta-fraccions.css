@@ -1,0 +1,43 @@
+/* Aplicatiu «Suma i resta de fraccions» (3r d'ESO · tema 1, Nombres racionals).
+   Fa servir els estils comuns dels aplicatius (decimal-fraccio.css, dins de
+   main.dec2frac); aquí només hi ha el que és propi d'aquest. */
+
+.dec2frac .nivells .boto-metode{margin-left:auto}
+.dec2frac .objectiu-op{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.25em .35em; font-size:clamp(34px,8vw,48px)}
+.dec2frac .opr{padding:0 .05em}
+.dec2frac .result .final .frac{color:inherit}
+.dec2frac .final .final-r .frac{color:var(--verd)}
+.dec2frac .final .final-r{display:inline-flex; align-items:center; color:var(--verd)}
+
+/* Tria del mètode del m.c.m. */
+.dec2frac .metodes{display:inline-flex; flex-wrap:wrap; gap:4px; padding:3px; background:var(--fons); border:1px solid var(--vora); border-radius:10px; width:fit-content; max-width:100%}
+.dec2frac .met{font-family:var(--titol); font-weight:600; font-size:13px; padding:6px 13px; border:0; border-radius:7px; background:transparent; color:var(--suau); cursor:pointer}
+.dec2frac .met:hover{color:var(--text)}
+.dec2frac .met[aria-pressed="true"]{background:var(--blau); color:#fff; box-shadow:0 1px 3px rgba(43,43,43,.18)}
+.dec2frac .met:focus-visible,.dec2frac .mult:focus-visible,.dec2frac .signe:focus-visible{outline:3px solid var(--blau-vora); outline-offset:2px}
+
+/* Files de treball (descomposició, llistes, comú denominador) */
+.dec2frac .work .lbl.fila{font-family:var(--mates); font-size:22px; flex-wrap:wrap; gap:.3em .45em; padding-top:.45em}
+.dec2frac .fila-cap{white-space:nowrap}
+.dec2frac .fila-cap b{font-family:var(--cos); font-size:16px; font-weight:600}
+.dec2frac .fila-f{display:inline-flex; flex-wrap:wrap; align-items:center; gap:.3em .35em}
+.dec2frac .pot{white-space:nowrap}
+.dec2frac .pot sup{vertical-align:.45em; margin-left:.08em}
+.dec2frac .work .pot .box.exp{font-size:15px; padding:0; width:1.9em !important; height:1.7em; vertical-align:top; border-color:#CFC8BD}
+.dec2frac .per-punt{color:var(--suau)}
+.dec2frac .fila-mcm{padding-top:6px; border-top:1px dashed var(--vora)}
+.dec2frac .work .lbl.nota-exp{font-size:12.5px; color:var(--tenue)}
+.dec2frac .work .lbl.llista .fila-cap{font-family:var(--cos); font-size:14px; color:var(--suau)}
+.dec2frac .mults{display:flex; flex-wrap:wrap; align-items:center; gap:4px}
+.dec2frac .mult{font-family:var(--mates); font-size:17px; padding:2px 8px; border:1px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer; font-variant-numeric:tabular-nums}
+.dec2frac .mult:hover{background:var(--blau-fons); border-color:var(--blau-vora)}
+
+/* Signe del resultat (nivell normal) */
+.dec2frac .amb-signe{display:inline-flex; align-items:center; gap:.2em}
+.dec2frac .signe{font-family:var(--mates); font-size:24px; line-height:1; width:1.6em; height:1.6em; border:1.5px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer}
+.dec2frac .signe.neg{border-color:var(--blau); background:var(--blau-fons); color:var(--blau)}
+
+@media (max-width:620px){
+  .dec2frac .nivells .boto-metode{margin-left:0}
+  .dec2frac .work .lbl.fila{font-size:20px}
+}
