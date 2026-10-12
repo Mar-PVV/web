@@ -84,7 +84,7 @@ function longDiv(n,d,k){
 const wlen = n => Math.max(2,String(n).length);
 
 /* ---------- estat ---------- */
-const state = {mode:'barreja', nivell:'facil', ex:null, s:null, steps:[], cur:0, ans:{}, errs:0, hint:false, lastKey:''};
+const state = {mode:'barreja', nivell:'facil', ex:null, s:null, steps:[], cur:0, ans:{}, errs:0, hint:false, saltat:false, lastKey:''};
 let stats = {fets:0, primera:0, ratxa:0};
 try{ const raw=localStorage.getItem('dec2frac-stats'); if(raw) stats=Object.assign(stats,JSON.parse(raw)); }catch(e){}
 function saveStats(){ try{ localStorage.setItem('dec2frac-stats',JSON.stringify(stats)); }catch(e){} }
@@ -97,7 +97,7 @@ function renderStats(){
 function simplifyStep(label, getN, getD){
   const s=state.s;
   return {
-    label, title:'Simplifica la fracció',
+    label, title:'Simplifica la fracció', simplify:true, getN, getD,
     sub:'Divideix numerador i denominador pel mateix nombre fins que ja no tinguin cap divisor comú.',
     res(v){ return v.irr ? `${frac(getN(),getD())} <span class="nota-m">✓ ja és irreductible</span>` : `${frac(getN(),getD())} <span>=</span> ${frac(v.sn,v.sd)}`; },
     html(){ const n=getN(), d=getD(); return `<span class="ve" title="Resultat del pas anterior">${frac(n,d)}</span> <span>=</span> ${frac(box('sn',wlen(s.rn)+1,'numerador simplificat'), box('sd',wlen(s.rd)+1,'denominador simplificat'))}`
@@ -227,7 +227,7 @@ function newExercise(given){
       if(key!==state.lastKey){ state.lastKey=key; break; }
     }
   }
-  state.ex=ex; state.s=solve(ex); state.ans={}; state.cur=0; state.errs=0; state.hint=false;
+  state.ex=ex; state.s=solve(ex); state.ans={}; state.cur=0; state.errs=0; state.hint=false; state.saltat=false;
   state.steps=buildSteps();
   const kind = ex.type==='finit' ? 'finit' : (ex.a ? 'mixt' : 'pur');
   $('#tag').className='tipus '+kind;
@@ -245,13 +245,15 @@ function addStep(i){
     ${st.sub?`<p class="sub">${st.sub}</p>`:''}
     ${st.from?(f=>`<div class="partim"><span class="etq">${f.label}</span><span class="m">${f.html}</span></div>`)(st.from()):''}
     ${st.skip?'':`<div class="work">${st.html()}</div>
-    <div class="actions"><button class="boto boto-principal check" type="button">Comprova</button><button class="boto hintbtn" type="button">Pista</button></div>
+    <div class="actions"><button class="boto boto-principal check" type="button">Comprova</button><button class="boto hintbtn" type="button">Pista</button>${st.simplify?'<button class="boto saltabtn" type="button">Salta la simplificació</button>':''}</div>
     <p class="fb" role="status"></p><p class="hinttext" hidden></p>`}`;
   $('#steps').appendChild(sec);
   if(!st.skip){
     const chk=sec.querySelector('.irr-chk');
     if(chk) chk.onchange=()=>{ sec.querySelectorAll('.box').forEach(b=>{ b.disabled=chk.checked; b.classList.remove('bad'); if(chk.checked) b.value=''; }); sec.classList.toggle('irr-on',chk.checked); };
     sec.querySelector('.check').onclick=()=>onCheck(i);
+    const sb=sec.querySelector('.saltabtn');
+    if(sb) sb.onclick=()=>onSkip(i);
     sec.querySelector('.hintbtn').onclick=()=>{ const h=sec.querySelector('.hinttext'); h.innerHTML='<b>Pista:</b> '+st.hint(); h.hidden=false; state.hint=true; };
   }
   return sec;
@@ -301,15 +303,32 @@ function onCheck(i){
   }
 }
 
+/* Saltar la simplificació: el pas queda fet amb la fracció sense simplificar */
+function onSkip(i){
+  if(i!==state.cur) return;
+  const st=state.steps[i]; const sec=$(`.step[data-i="${i}"]`);
+  sec.querySelector('.actions').remove();
+  sec.querySelector('.work').innerHTML = `<div class="fet">${frac(st.getN(),st.getD())} <span class="nota-m">sense simplificar</span></div>`;
+  const ht=sec.querySelector('.hinttext'); if(ht) ht.hidden=true;
+  sec.querySelector('.fb').className='fb'; sec.querySelector('.fb').textContent='';
+  sec.classList.add('skipped');
+  sec.querySelector('.num').textContent += ' · saltat';
+  state.saltat={n:st.getN(), d:st.getD()};
+  state.cur++; next();
+}
+
 function finish(){
   const ex=state.ex, s=state.s;
   const clean = state.errs===0 && !state.hint;
   stats.fets++; if(clean){ stats.primera++; stats.ratxa++; } else stats.ratxa=0;
   saveStats(); renderStats();
-  const msg = clean ? 'Tot bé a la primera.' : (state.errs ? `Fet! Has corregit ${state.errs} ${pl(state.errs,'error','errors')} pel camí.` : 'Fet, amb l\'ajuda d\'alguna pista.');
+  const sk = state.saltat;
+  const n = sk ? sk.n : s.rn, d = sk ? sk.d : s.rd;
+  const irr = sk && (sk.n!==s.rn) ? `<p class="verify">Simplificada del tot seria ${frac(s.rn,s.rd)}</p>` : '';
+  const msg = clean ? (sk ? 'Tot bé a la primera (sense simplificar).' : 'Tot bé a la primera.') : (state.errs ? `Fet! Has corregit ${state.errs} ${pl(state.errs,'error','errors')} pel camí.` : 'Fet, amb l\'ajuda d\'alguna pista.');
   $('#result').innerHTML = `<div class="result">
-      <div class="final"><span>${numHTML(ex)}</span><span>=</span>${frac(s.rn,s.rd)}</div>
-      <p class="verify">Comprovació amb la calculadora: <span class="mono">${s.rn} : ${s.rd} = ${longDiv(s.rn,s.rd,10)}</span></p>
+      <div class="final"><span>${numHTML(ex)}</span><span>=</span>${frac(n,d)}</div>
+      <p class="verify">Comprovació amb la calculadora: <span class="mono">${n} : ${d} = ${longDiv(n,d,10)}</span></p>${irr}
       <p class="fb ok">${msg}</p>
       <div class="actions"><button class="boto boto-principal" id="nextEx" type="button">Nou exercici</button></div>
     </div>`;
