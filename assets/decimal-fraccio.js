@@ -24,6 +24,20 @@ function minimalPeriod(p){
   return true;
 }
 function okPeriod(p){ return minimalPeriod(p) && !/^9+$/.test(p) && !/^0+$/.test(p); }
+/* Nivell fàcil: nombres petits, que es simplifiquen de cap
+   (denominadors 10, 100, 9 o 90 abans de simplificar). */
+function genFinitFacil(){
+  const A=String(pick([0,0,1,1,2,3])); const d=pick([1,1,2]);
+  const a = d===1 ? String(pick([2,4,5,5,6,8])) : String(rand(1,9))+String(pick([5,5,2,4,6,8]));
+  return {type:'finit',A,a,p:''};
+}
+function genPurFacil(){
+  return {type:'periodic',A:String(pick([0,0,0,1,2])),a:'',p:String(rand(1,8))};
+}
+function genMixtFacil(){
+  let a,p; do{ a=String(rand(1,9)); p=String(rand(1,8)); }while(a===p);
+  return {type:'periodic',A:String(pick([0,0,0,1])),a,p};
+}
 function genFinit(){
   const A=String(rand(0,9)); const d=pick([1,1,2,2,2,3]);
   let a=digits(d-1)+String(pick([1,2,4,5,5,6,8,5,2,3,7,9]));
@@ -70,7 +84,7 @@ function longDiv(n,d,k){
 const wlen = n => Math.max(2,String(n).length);
 
 /* ---------- estat ---------- */
-const state = {mode:'barreja', ex:null, s:null, steps:[], cur:0, ans:{}, errs:0, hint:false, lastKey:''};
+const state = {mode:'barreja', nivell:'facil', ex:null, s:null, steps:[], cur:0, ans:{}, errs:0, hint:false, lastKey:''};
 let stats = {fets:0, primera:0, ratxa:0};
 try{ const raw=localStorage.getItem('dec2frac-stats'); if(raw) stats=Object.assign(stats,JSON.parse(raw)); }catch(e){}
 function saveStats(){ try{ localStorage.setItem('dec2frac-stats',JSON.stringify(stats)); }catch(e){} }
@@ -207,7 +221,8 @@ function newExercise(given){
     let m=state.mode; if(m==='propi') m='barreja';
     for(let t=0;t<20;t++){
       const kind = m==='barreja' ? pick(['finit','pur','mixt']) : m;
-      ex = kind==='finit'?genFinit():kind==='pur'?genPur():genMixt();
+      const f = state.nivell==='facil';
+      ex = kind==='finit' ? (f?genFinitFacil():genFinit()) : kind==='pur' ? (f?genPurFacil():genPur()) : (f?genMixtFacil():genMixt());
       const key=ex.A+','+ex.a+'('+ex.p+')';
       if(key!==state.lastKey){ state.lastKey=key; break; }
     }
@@ -320,9 +335,21 @@ document.querySelectorAll('.mode').forEach(btn=>{
     state.mode=btn.dataset.mode;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed', String(b===btn)));
     $('#own').hidden = state.mode!=='propi';
+    $('#barraNivell').hidden = state.mode==='propi';
     if(state.mode==='propi'){ startOwn(); } else newExercise();
   };
 });
+
+/* nivell (es recorda en aquest navegador) */
+function setNivell(n){
+  state.nivell=n;
+  document.querySelectorAll('.nivell').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.nivell===n)));
+  try{ localStorage.setItem('dec2frac-nivell', n); }catch(e){}
+}
+document.querySelectorAll('.nivell').forEach(btn=>{
+  btn.onclick=()=>{ setNivell(btn.dataset.nivell); newExercise(); };
+});
+try{ const n=localStorage.getItem('dec2frac-nivell'); if(n==='facil'||n==='normal') setNivell(n); }catch(e){}
 
 function parseOwn(str){
   const t=str.replace(/\s/g,'').replace('.',',').replace(/^,/,'0,');
