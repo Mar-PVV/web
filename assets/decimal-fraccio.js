@@ -363,6 +363,7 @@ document.querySelectorAll('.mode').forEach(btn=>{
 function setNivell(n){
   state.nivell=n;
   document.querySelectorAll('.nivell').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.nivell===n)));
+  $('#nivellDesc').textContent = n==='facil' ? 'nombres petits, fàcils de simplificar' : 'nombres més grans, amb períodes més llargs';
   try{ localStorage.setItem('dec2frac-nivell', n); }catch(e){}
 }
 document.querySelectorAll('.nivell').forEach(btn=>{

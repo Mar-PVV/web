@@ -27,6 +27,19 @@
 .dec2frac .boto-metode[aria-expanded="true"]{background:var(--blau-fons); border-color:var(--blau-vora); color:var(--blau)}
 .dec2frac .boto-metode .fletxa{font-size:11px; color:var(--tenue); transition:transform .2s ease}
 .dec2frac .boto-metode[aria-expanded="true"] .fletxa{transform:rotate(180deg); color:var(--blau)}
+/* Selector de nivell: interruptor de dues posicions, diferent dels botons de tipus */
+.dec2frac .nivells{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; padding:10px 14px; margin-bottom:16px; background:var(--blanc); border:1px solid var(--vora); border-radius:var(--radi-petit)}
+.dec2frac .nivells-et{font-family:var(--titol); font-weight:700; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--suau)}
+.dec2frac .interruptor{display:inline-flex; padding:3px; background:var(--fons); border:1px solid var(--vora); border-radius:10px}
+.dec2frac .nivell{display:inline-flex; align-items:center; gap:6px; font-family:var(--titol); font-weight:600; font-size:13.5px; padding:6px 16px; border:0; border-radius:7px; background:transparent; color:var(--suau); cursor:pointer; transition:background .14s,color .14s}
+.dec2frac .nivell:hover{color:var(--text)}
+.dec2frac .nivell[aria-pressed="true"]{color:#fff; box-shadow:0 1px 3px rgba(43,43,43,.18)}
+.dec2frac .nivell[aria-pressed="true"]::before{content:"✓"; font-size:12px}
+.dec2frac .nivell[data-nivell="facil"][aria-pressed="true"]{background:var(--verd)}
+.dec2frac .nivell[data-nivell="normal"][aria-pressed="true"]{background:#BA7517}
+.dec2frac .nivell:focus-visible{outline:3px solid var(--blau-vora); outline-offset:2px}
+.dec2frac .nivells-desc{font-size:13px; color:var(--tenue)}
+
 /* Panell del mètode */
 .dec2frac .metode{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.7fr); gap:14px; margin-bottom:18px}
 .dec2frac .metode[hidden]{display:none}

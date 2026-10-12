@@ -12,7 +12,7 @@
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/estil.css?v=a1369cce">
-<link rel="stylesheet" href="assets/decimal-fraccio.css?v=30a70721">
+<link rel="stylesheet" href="assets/decimal-fraccio.css?v=aa370179">
 </head>
 <body data-curs="3eso">
 
@@ -51,10 +51,13 @@
     <button class="boto boto-metode" id="btnMetode" aria-expanded="false" aria-controls="metode" type="button">Recorda el mètode <span class="fletxa" aria-hidden="true">▾</span></button>
   </div>
 
-  <div class="barra" id="barraNivell">
-    <span class="etiqueta-grup">Nivell</span>
-    <button class="boto nivell" data-nivell="facil" aria-pressed="true">Fàcil</button>
-    <button class="boto nivell" data-nivell="normal" aria-pressed="false">Normal</button>
+  <div class="nivells" id="barraNivell" role="group" aria-labelledby="nivellEt">
+    <span class="nivells-et" id="nivellEt">Nivell</span>
+    <span class="interruptor">
+      <button class="nivell" data-nivell="facil" aria-pressed="true" type="button">Fàcil</button>
+      <button class="nivell" data-nivell="normal" aria-pressed="false" type="button">Normal</button>
+    </span>
+    <span class="nivells-desc" id="nivellDesc">nombres petits, fàcils de simplificar</span>
   </div>
 
   <section class="metode" id="metode" hidden aria-label="Recorda el mètode">
@@ -111,6 +114,6 @@
   </div>
 </footer>
 
-<script src="assets/decimal-fraccio.js?v=d2c61816"></script>
+<script src="assets/decimal-fraccio.js?v=d23db3b6"></script>
 </body>
 </html>
