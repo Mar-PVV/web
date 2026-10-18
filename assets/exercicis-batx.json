@@ -1283,7 +1283,7 @@
       {
        "num": 55,
        "nivell": 3,
-       "enunciat": "Reptes:",
+       "enunciat": "Calcula:",
        "parts": [
         "$\\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2}$",
         "$\\Lim\\left(\\dfrac{n^2+3}{n^2+1}\\right)^{\\frac{n^3}{n+1}}$",
@@ -1343,7 +1343,7 @@
       {
        "num": 57,
        "nivell": 3,
-       "enunciat": "Reptes amb progressions:",
+       "enunciat": "Resol:",
        "parts": [
         "Per a quin valor de $k$ la successió $a_n = kn^2 + 3n - 1$ és una progressió aritmètica? Quina és la diferència?",
         "Per a quin valor de $k$ la successió $a_n = 2^n + k$ és una progressió geomètrica? Quina és la raó?",
