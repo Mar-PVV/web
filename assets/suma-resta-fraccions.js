@@ -1,5 +1,5 @@
 /* Aplicatiu «Suma i resta de fraccions» · el munta suma-resta-fraccions.html
-   Passos: m.c.m. (per descomposició, llista de múltiples o directament),
+   Passos: (nivell Negatius: treure els parèntesis), m.c.m. (per descomposició, llista de múltiples o directament),
    comú denominador, suma/resta dels numeradors i simplificació. */
 (function(){
 "use strict";
@@ -65,6 +65,30 @@ function genNormal(){
   }
 }
 
+/* Negatius: cada terme té l'operació (op) i el signe de la fracció (f);
+   el signe efectiu és s = op·f. El primer terme no té operació (op = 1). */
+function genNegatius(){
+  for(;;){
+    const k=pick([2,2,3]);
+    const ts=[];
+    for(let i=0;i<k;i++){
+      const d=pick(DEN_NORMAL);
+      const n=numIrr(d, Math.random()<0.2 ? 2*d-1 : d-1);
+      const op = i===0 ? 1 : pick([1,-1]);
+      const f = Math.random() < (i===0 ? 0.4 : 0.55) ? -1 : 1;
+      ts.push({op, f, s:op*f, n, d});
+    }
+    if(!ts.some((t,i)=>i>0 && t.f<0)) continue;   // almenys un parèntesi
+    const dens=ts.map(t=>t.d);
+    if(new Set(dens).size<2) continue;
+    const m=dens.reduce(lcm);
+    if(m>120 || m/Math.min(...dens)>12) continue;
+    const num=ts.reduce((a,t)=>a+t.s*t.n*(m/t.d),0);
+    if(num===0) continue;
+    return ts;
+  }
+}
+
 function solve(ts){
   const dens=[...new Set(ts.map(t=>t.d))];
   const m=dens.reduce(lcm);
@@ -79,6 +103,13 @@ const frac = (t,b) => `<span class="frac"><span>${t}</span><span>${b}</span></sp
 const fracS = (n,d) => n<0 ? `<span class="opr">−</span>${frac(-n,d)}` : frac(n,d);
 const signe = (s,primer) => primer ? (s<0?'<span class="opr">−</span>':'') : `<span class="opr">${s<0?'−':'+'}</span>`;
 const expr = (ts,f) => ts.map((t,i)=>signe(t.s,i===0)+f(t,i)).join(' ');
+/* Expressió de l'enunciat: al nivell Negatius, les fraccions negatives entre parèntesis */
+const par = h => `<span class="par">(</span>${h}<span class="par">)</span>`;
+const exprIni = ts => ts[0].op===undefined ? expr(ts,t=>frac(t.n,t.d)) : ts.map((t,i)=>{
+  const fr = (t.f<0?'<span class="opr">−</span>':'')+frac(t.n,t.d);
+  if(i===0) return `<span class="terme">${fr}</span>`;
+  return `<span class="terme"><span class="opr">${t.op<0?'−':'+'}</span>${t.f<0?par(fr):fr}</span>`;
+}).join(' ');
 const exprText = (ts,vals) => ts.map((t,i)=>(i===0 ? (t.s<0?'−':'') : (t.s<0?' − ':' + '))+vals[i]).join('');
 function box(id,w,label,cls){ return `<input id="${id}" class="box${cls?' '+cls:''}" inputmode="numeric" autocomplete="off" spellcheck="false" style="width:${w+0.8}ch" aria-label="${label}">`; }
 
@@ -91,6 +122,31 @@ function saveStats(){ try{ localStorage.setItem('srfrac-stats',JSON.stringify(st
 function renderStats(){
   $('#stats').innerHTML = `<span class="xip">Fets <strong>${stats.fets}</strong></span><span class="xip${stats.primera?' verd':''}">Bé a la primera <strong>${stats.primera}</strong></span><span class="xip${stats.ratxa>=3?' verd':''}">Ratxa <strong>${stats.ratxa}</strong></span><button class="enllac" id="reset" type="button">Posa a zero</button>`;
   $('#reset').onclick = () => { stats={fets:0,primera:0,ratxa:0}; saveStats(); renderStats(); };
+}
+
+/* ---------- pas 0 (Negatius): treu els parèntesis ---------- */
+const sgTxt = x => x<0 ? '−' : '+';
+function stepParentesis(){
+  const ts=state.ts;
+  return {
+    title:'Treu els parèntesis',
+    sub:'Toca els botons per posar el signe que queda davant de cada fracció quan treus els parèntesis.',
+    html(){
+      return `<span class="treu">${exprIni(ts)} <span>=</span> ${ts.map((t,i)=> i===0
+        ? (t.s<0?'<span class="opr">−</span>':'')+frac(t.n,t.d)
+        : `<span class="terme"><button type="button" class="signe" id="ps${i}" aria-label="signe davant de ${t.n}/${t.d}: positiu">+</button>${frac(t.n,t.d)}</span>`).join(' ')}</span>`;
+    },
+    inputs(){ return []; },
+    hint(){
+      return `Regla dels signes: dos signes <b>iguals</b> fan <b>+</b> i dos de <b>diferents</b> fan <b>−</b>.<br>+ (+) → + &nbsp;·&nbsp; + (−) → − &nbsp;·&nbsp; − (+) → − &nbsp;·&nbsp; − (−) → +`;
+    },
+    check(v,sec){
+      const bad=ts.map((t,i)=>i).filter(i=>i>0 && sec.querySelector('#ps'+i).textContent!==sgTxt(ts[i].s)).map(i=>'ps'+i);
+      if(!bad.length) return {ok:true};
+      return {ok:false,msg:`Revisa ${bad.length>1?'els signes marcats':'el signe marcat'}: dos signes iguals fan +, dos de diferents fan −.`,bad};
+    },
+    res(){ return `<span class="treu">${exprIni(ts)} <span>=</span> ${expr(ts,t=>frac(t.n,t.d))}</span>`; }
+  };
 }
 
 /* ---------- pas 1: m.c.m. ---------- */
@@ -125,7 +181,7 @@ function stepMcm(){
   const P=primsVisibles(dens);
   const llistaDens=dens.join(', ');
   return {
-    label:'Pas 1', title:'Calcula el m.c.m. dels denominadors', mcm:true,
+    title:'Calcula el m.c.m. dels denominadors', mcm:true,
     sub:'Tria com el vols calcular.',
     html(){
       if(state.met==='desc'){
@@ -191,7 +247,7 @@ function stepMcm(){
 function stepComu(){
   const ts=state.ts, s=state.s, m=s.m;
   return {
-    label:'Pas 2', title:'Redueix a comú denominador',
+    title:'Redueix a comú denominador',
     sub:`Escriu cada fracció amb denominador ${m}: divideix ${m} pel denominador i multiplica el numerador pel resultat.`,
     from(){ return {label:'Del pas 1', html:`m.c.m. = ${m}`}; },
     html(){ return ts.map((t,i)=>`<span class="lbl fila"><span class="fila-f">${frac(t.n,t.d)} <span>=</span> ${frac(box('c'+i,wlen(s.N[i])+1,`numerador de la fracció ${i+1}`),m)}</span></span>`).join(''); },
@@ -209,9 +265,9 @@ function stepComu(){
 
 /* ---------- pas 3: suma i resta dels numeradors ---------- */
 function stepNumeradors(){
-  const ts=state.ts, s=state.s, m=s.m, normal=state.nivell==='normal';
+  const ts=state.ts, s=state.s, m=s.m, normal=state.nivell!=='facil';
   return {
-    label:'Pas 3', title:'Suma i resta els numeradors',
+    title:'Suma i resta els numeradors',
     sub: normal ? 'El denominador es queda igual. Compte amb el signe: si el resultat és negatiu, toca el botó + per canviar-lo a −.' : 'El denominador es queda igual.',
     from(){ return {label:'Del pas 2', html:expr(ts,(t,i)=>frac(s.N[i],m))}; },
     html(){
@@ -239,7 +295,7 @@ function stepNumeradors(){
 function stepSimplifica(){
   const s=state.s, n=Math.abs(s.num), d=s.m, neg=s.num<0, sg=neg?'<span class="opr">−</span>':'';
   return {
-    label:'Pas 4', title:'Simplifica la fracció', simplify:true,
+    title:'Simplifica la fracció', simplify:true,
     sub:'Divideix numerador i denominador pel mateix nombre fins que ja no tinguin cap divisor comú.',
     html(){ return `<span class="ve" title="Resultat del pas anterior">${sg}${frac(n,d)}</span> <span>=</span> ${sg}${frac(box('sn',wlen(s.rn)+1,'numerador simplificat'), box('sd',wlen(s.rd)+1,'denominador simplificat'))}`
       + `<span class="brk"></span><label class="lbl irr"><input type="checkbox" class="irr-chk" id="irr"><span>Ja és irreductible (no es pot simplificar)</span></label>`; },
@@ -263,13 +319,16 @@ function stepSimplifica(){
 
 /* ---------- render ---------- */
 function newExercise(){
-  const ts = state.nivell==='facil' ? genFacil() : genNormal();
+  const ts = state.nivell==='facil' ? genFacil() : state.nivell==='negatius' ? genNegatius() : genNormal();
   state.ts=ts; state.s=solve(ts); state.cur=0; state.errs=0; state.hint=false; state.saltat=false;
   state.steps=[stepMcm(), stepComu(), stepNumeradors(), stepSimplifica()];
-  const resta = ts.some((t,i)=>i>0 && t.s<0), suma = ts.some((t,i)=>i>0 && t.s>0);
+  if(state.nivell==='negatius') state.steps.unshift(stepParentesis());
+  state.steps.forEach((st,i)=>{ st.label='Pas '+(i+1); st.prev='Del pas '+i; });
+  const op = t => t.op===undefined ? t.s : t.op;
+  const resta = ts.some((t,i)=>i>0 && op(t)<0), suma = ts.some((t,i)=>i>0 && op(t)>0);
   $('#tag').className='tipus '+(suma&&resta?'mixt':resta?'pur':'finit');
   $('#tag').textContent = suma&&resta ? 'Sumes i restes' : resta ? 'Resta' : 'Suma';
-  $('#target').innerHTML = expr(ts,t=>frac(t.n,t.d));
+  $('#target').innerHTML = exprIni(ts);
   $('#target').dataset.termes = JSON.stringify(ts);
   $('#steps').innerHTML=''; $('#result').innerHTML='';
   next(false);
@@ -280,8 +339,7 @@ function renderWork(sec,st){
   w.innerHTML = st.html();
   w.oninput = onBV;
   sec.querySelectorAll('.mult').forEach(b=>b.onclick=()=>{ const mv=sec.querySelector('#mv'); mv.value=b.dataset.v; mv.classList.remove('bad'); mv.focus(); });
-  const sg=sec.querySelector('#sg');
-  if(sg) sg.onclick=()=>{ const neg=sg.textContent==='+'; sg.textContent=neg?'−':'+'; sg.classList.toggle('neg',neg); sg.setAttribute('aria-label','signe del resultat: '+(neg?'negatiu':'positiu')); };
+  sec.querySelectorAll('.signe').forEach(sg=>sg.onclick=()=>{ const neg=sg.textContent==='+'; sg.textContent=neg?'−':'+'; sg.classList.toggle('neg',neg); sg.classList.remove('bad'); sg.setAttribute('aria-label',sg.getAttribute('aria-label').replace(/(positiu|negatiu)$/, neg?'negatiu':'positiu')); });
 }
 
 function addStep(i){
@@ -292,7 +350,7 @@ function addStep(i){
   sec.innerHTML = `<div class="step-head"><span class="num">${st.label}</span><h3>${st.title}</h3></div>
     ${st.sub?`<p class="sub">${st.sub}</p>`:''}
     ${tria}
-    ${st.from?(f=>`<div class="partim"><span class="etq">${f.label}</span><span class="m">${f.html}</span></div>`)(st.from()):''}
+    ${st.from?(f=>`<div class="partim"><span class="etq">${st.prev}</span><span class="m">${f.html}</span></div>`)(st.from()):''}
     <div class="work"></div>
     <div class="actions"><button class="boto boto-principal check" type="button">Comprova</button><button class="boto hintbtn" type="button">Pista</button>${st.simplify?'<button class="boto saltabtn" type="button">Salta la simplificació</button>':''}</div>
     <p class="fb" role="status"></p><p class="hinttext" hidden></p>`;
@@ -329,7 +387,7 @@ function onCheck(i){
   if(i!==state.cur) return;
   const st=state.steps[i]; const sec=$(`.step[data-i="${i}"]`); const fb=sec.querySelector('.fb');
   let v={};
-  sec.querySelectorAll('.box').forEach(b=>b.classList.remove('bad'));
+  sec.querySelectorAll('.box,.signe').forEach(b=>b.classList.remove('bad'));
   const irr=sec.querySelector('.irr-chk');
   if(irr && irr.checked){ v={irr:true}; }
   else for(const id of st.inputs(sec)){
@@ -339,7 +397,7 @@ function onCheck(i){
     v[id]=parseInt(raw,10);
   }
   const sg=sec.querySelector('#sg'); if(sg && sg.textContent==='−' && 'rn' in v) v.rn=-v.rn;
-  const r = v.irr ? st.checkIrr() : st.check(v);
+  const r = v.irr ? st.checkIrr() : st.check(v,sec);
   if(r.ok){
     sec.querySelector('.actions').remove();
     const tria=sec.querySelector('.metodes'); if(tria) tria.remove();
@@ -355,7 +413,7 @@ function onCheck(i){
     if(v.irr){ irr.focus(); return; }
     const bad=(r.bad||st.inputs(sec)).map(id=>sec.querySelector('#'+id)).filter(Boolean);
     bad.forEach(b=>b.classList.add('bad'));
-    if(bad[0]){ bad[0].focus(); bad[0].select(); }
+    if(bad[0]){ bad[0].focus(); if(bad[0].select) bad[0].select(); }
   }
 }
 
@@ -383,7 +441,7 @@ function finish(){
   const irr = sk ? `<p class="verify">Simplificada del tot seria ${fracS(s.rn,s.rd)}</p>` : '';
   const msg = clean ? (state.saltat ? 'Tot bé a la primera (sense simplificar).' : 'Tot bé a la primera.') : (state.errs ? `Fet! Has corregit ${state.errs} ${pl(state.errs,'error','errors')} pel camí.` : 'Fet, amb l\'ajuda d\'alguna pista.');
   $('#result').innerHTML = `<div class="result">
-      <div class="final">${expr(state.ts,t=>frac(t.n,t.d))}<span>=</span><span class="final-r">${fracS(n,d)}</span></div>${irr}
+      <div class="final">${exprIni(state.ts)}<span>=</span><span class="final-r">${fracS(n,d)}</span></div>${irr}
       <p class="fb ok">${msg}</p>
       <div class="actions"><button class="boto boto-principal" id="nextEx" type="button">Nou exercici</button></div>
     </div>`;
@@ -406,13 +464,15 @@ $('#steps').addEventListener('keydown',e=>{
 function setNivell(n){
   state.nivell=n;
   document.querySelectorAll('.nivell').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.nivell===n)));
-  $('#nivellDesc').textContent = n==='facil' ? 'dues fraccions, sense nombres negatius' : 'dues o tres fraccions, i hi pot haver negatius';
+  $('#nivellDesc').textContent = n==='facil' ? 'dues fraccions, sense nombres negatius'
+    : n==='negatius' ? 'fraccions negatives entre parèntesis: primer treu els parèntesis'
+    : 'dues o tres fraccions, i hi pot haver negatius';
   try{ localStorage.setItem('srfrac-nivell', n); }catch(e){}
 }
 document.querySelectorAll('.nivell').forEach(btn=>{
   btn.onclick=()=>{ setNivell(btn.dataset.nivell); newExercise(); };
 });
-try{ const n=localStorage.getItem('srfrac-nivell'); if(n==='facil'||n==='normal') setNivell(n); }catch(e){}
+try{ const n=localStorage.getItem('srfrac-nivell'); if(['facil','normal','negatius'].includes(n)) setNivell(n); }catch(e){}
 
 const bm=$('#btnMetode'), pm=$('#metode');
 function setMetode(open){ bm.setAttribute('aria-expanded',String(open)); pm.hidden=!open; try{ localStorage.setItem('srfrac-metode', open?'1':'0'); }catch(e){} }

@@ -9,6 +9,13 @@
 .dec2frac .final .final-r .frac{color:var(--verd)}
 .dec2frac .final .final-r{display:inline-flex; align-items:center; color:var(--verd)}
 
+/* Nivell Negatius: color propi i parèntesis al voltant de les fraccions negatives */
+.dec2frac .nivell[data-nivell="negatius"][aria-pressed="true"]{background:#A33F6B}
+.dec2frac .par{display:inline-block; font-weight:300; transform:scaleY(1.9); padding:0 .02em; color:var(--suau)}
+.dec2frac .objectiu-op .par{transform:scaleY(1.75)}
+.dec2frac .terme{display:inline-flex; align-items:center; gap:.2em; white-space:nowrap}
+.dec2frac .treu{display:inline-flex; flex-wrap:wrap; align-items:center; gap:.2em .35em}
+
 /* Tria del mètode del m.c.m. */
 .dec2frac .metodes{display:inline-flex; flex-wrap:wrap; gap:4px; padding:3px; background:var(--fons); border:1px solid var(--vora); border-radius:10px; width:fit-content; max-width:100%}
 .dec2frac .met{font-family:var(--titol); font-weight:600; font-size:13px; padding:6px 13px; border:0; border-radius:7px; background:transparent; color:var(--suau); cursor:pointer}
@@ -41,10 +48,11 @@
 .dec2frac .bv .box{font-size:20px}
 .dec2frac .bv-p .box{color:#2E7F78}
 
-/* Signe del resultat (nivell normal) */
+/* Botons de signe (resultat i parèntesis) */
 .dec2frac .amb-signe{display:inline-flex; align-items:center; gap:.2em}
 .dec2frac .signe{font-family:var(--mates); font-size:24px; line-height:1; width:1.6em; height:1.6em; border:1.5px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer}
 .dec2frac .signe.neg{border-color:var(--blau); background:var(--blau-fons); color:var(--blau)}
+.dec2frac .signe.bad{border-color:var(--vermell); background:var(--vermell-fons); color:var(--vermell)}
 
 @media (max-width:620px){
   .dec2frac .nivells .boto-metode{margin-left:0}

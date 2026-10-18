@@ -175,7 +175,9 @@ aplicatius s'hi escriuen a mà, perquè de 3r no es publica cap document
 racionals, amb els aplicatius **De decimal a fracció** (`decimal-fraccio.html`) i
 **Suma i resta de fraccions** (`suma-resta-fraccions.html`). Tots dos tenen nivell
 fàcil i normal; a la suma i resta, el m.c.m. es pot fer per descomposició, amb
-llistes de múltiples o directament, i el nivell fàcil no té nombres negatius.
+llistes de múltiples o directament, i el nivell fàcil no té nombres negatius. La
+suma i resta té també el nivell **Negatius**: fraccions negatives entre parèntesis,
+amb un primer pas per treure els parèntesis (regla dels signes).
 
 - Cada aplicatiu és una pàgina a l'arrel amb la capçalera i el peu comuns, el seu
   CSS i JS a `assets/`. Els estils comuns dels aplicatius són a
