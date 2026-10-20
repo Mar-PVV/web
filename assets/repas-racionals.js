@@ -160,6 +160,10 @@ const cFrac  = (v, o={}) => Object.assign({tipus:'frac', v:F(v), simp:true}, o);
 const cEnter = (v, o={}) => Object.assign({tipus:'enter', v:F(v)}, o);
 const cDec   = (v, o={}) => Object.assign({tipus:'dec', v:F(v)}, o);
 const cDig   = (s, o={}) => Object.assign({tipus:'dig', s:String(s)}, o);
+/* decimal amb període: tres caselles (part entera, decimals no periòdics, període amb barret) */
+const cPer   = (v, o={}) => Object.assign({tipus:'per', v:F(v)}, o);
+/* triar una opció dins d'una pregunta amb diversos camps */
+const cTria  = (opcions, ok, o={}) => Object.assign({tipus:'tria', opcions, ok}, o);
 /* arrel: v (valor positiu o amb signe), pm (±), no (no existeix); forma 'enter' o 'frac' */
 const cArrel = (r, o={}) => Object.assign({tipus:'arrel', v:r.v?F(r.v):null, pm:!!r.pm, no:!!r.no, forma:'enter', permetNo:true, simp:true}, o);
 
@@ -614,116 +618,112 @@ plantilla(4,'AE','4-fracfrac','Fracció del que queda (gasta 2/5 i després 1/3 
     res:[m(`Després de la bici li queda 1 − ${fr(a)} = ${fr(F(1).sub(a))}`), m(`El casc: ${fr(b)} de ${fr(F(1).sub(a))} = ${fr(b.mul(F(1).sub(a)))}`), m(`Li queda ${fr(F(1).sub(a))} − ${fr(b.mul(F(1).sub(a)))} = ${fr(r)}`)], v:{k:'fracfrac', a, b, r} };
 }));
 
-/* ─────────── 5. Tipus de nombres racionals ─────────── */
+/* ─────────── 5. Tipus de nombres racionals ───────────
+   Com a classe (Apunts 5 i Activitats 17-20): fracció → decimal i tipus, classificar i
+   identificar el període, decimal → fracció (exacte i periòdic, mètode de les potències
+   de 10 amb barret) i quantitats com a fracció de litre. Sense negatius. */
 const TIPUS4=['enter','finit','pur','mixt'];
-function fracTipus(t){
+const TIPUS_OP=['Enter','Decimal finit','Periòdic pur','Periòdic mixt'];
+const TIPUS_PER={enter:'és un nombre enter', finit:'té un nombre limitat de xifres decimals', pur:'el període comença just després de la coma', mixt:'entre la coma i el període hi ha l’avantperíode'};
+/* fracció d'un tipus donat; dens = denominadors possibles; maxPer = xifres màximes del període */
+function fracTipus(t, dens, maxN, maxPer=3){
   return retry(() => {
-    let f;
-    if(t==='enter'){ const d=pick([2,3,4,5,6]), n=rand(2,9)*d; f=F(n,d); f.raw=[n,d]; }
-    else if(t==='finit') f=F(numIrr(8,30), pick([2,4,5,8,10,20,25,40]));
-    else if(t==='pur') f=F(rand(1,30), pick([3,9,11,7,33,99]));
-    else f=F(rand(1,30), pick([6,12,15,18,30,45,22]));
-    if(f.n===0 || tipusDec(f)!==t) return null;
-    const e=expand(f); if(e.per.length>6) return null;
-    return f;
+    let f, raw=null;
+    if(t==='enter'){ const d=pick([2,3,4,5,6]), n=rand(1,Math.max(1,Math.floor(maxN/d)))*d; f=F(n,d); raw=[n,d]; }
+    else { const d=pick(dens), n=rand(1,maxN); if(gcd(n,d)!==1) return null; f=F(n,d); raw=[n,d]; }
+    if(tipusDec(f)!==t) return null;
+    const e=expand(f); if(e.per.length>maxPer || e.ante.length>3) return null;
+    f.raw=raw; return f;
   });
 }
-plantilla(5,'AS','5-classifica','Classificar un decimal (finit, pur, mixt)', () => {
-  const t=pick(['finit','pur','mixt']), f=fracTipus(t), e=expand(f);
+const DENS_TIPUS = {
+  AS:{finit:[2,4,5,8,10,20,25], pur:[3,9], mixt:[6], maxN:12},
+  AN:{finit:[4,8,16,20,25,40], pur:[3,9,11,33], mixt:[6,12,15,18,30], maxN:40},
+  AE:{finit:[8,16,25,40,125], pur:[11,27,33,37,99], mixt:[12,22,30,44,45,55], maxN:90},
+};
+function divisioH(f){ const e=expand(f); const xs=e.ante+(e.per? e.per.repeat(Math.max(2,Math.ceil(6/e.per.length))).slice(0,Math.max(6,e.per.length*2)) : ''); return `${f.raw[0]} : ${f.raw[1]} = ${fmtInt(e.ent)}${xs?','+xs:''}${e.per?'…':''}`; }
+function fracDecQ(niv){
+  const t = pick(niv==='AS' ? ['enter','finit','finit','pur','mixt'] : ['enter','finit','pur','pur','mixt','mixt']);
+  const D=DENS_TIPUS[niv], f=fracTipus(t, D[t]||[2], D.maxN, niv==='AE'?3:2), e=expand(f);
+  return { enunciat:`Passa ${m(fracRaw(...f.raw))} a decimal i digues de quin tipus és.`,
+    camps:[cPer(f,{et:'Decimal'}), cTria(TIPUS_OP, TIPUS4.indexOf(t), {et:'Tipus'})],
+    pista:'Divideix el numerador entre el denominador. Si es repeteixen xifres, posa-les al període (el barret).',
+    res:[m(divisioH(f)), `${m(fracRaw(...f.raw)+' = '+decH(f))}: <b>${TIPUS_OP[TIPUS4.indexOf(t)].toLowerCase()}</b>, perquè ${TIPUS_PER[t]}${t==='mixt'?` (${e.ante})`:''}.`],
+    v:{k:'f2dt', f, t} };
+}
+plantilla(5,'AS','5-fraccio-dec','Fracció → decimal i tipus (3/4, 1/3, 7/6, 4/2)', () => fracDecQ('AS'));
+plantilla(5,'AS','5-classifica','Classificar un decimal (finit, pur o mixt)', () => {
+  const t=pick(['finit','pur','mixt']), f=fracTipus(t, DENS_TIPUS.AN[t], 60), e=expand(f);
   const o={opcions:['Decimal finit','Periòdic pur','Periòdic mixt'], ok:['finit','pur','mixt'].indexOf(t)};
-  const ex = t==='finit' ? 'Té un nombre limitat de xifres decimals.' : t==='pur' ? `El període (${e.per}) comença just després de la coma.` : `Entre la coma i el període (${e.per}) hi ha l’avantperíode (${e.ante}).`;
+  const ex = t==='finit' ? 'No té període: té un nombre limitat de xifres decimals.' : t==='pur' ? `El període (${e.per}) comença just després de la coma: no té avantperíode.` : `Entre la coma i el període (${e.per}) hi ha l’avantperíode (${e.ante}).`;
   return { enunciat:`Quin tipus de nombre decimal és ${m(decH(f))}?`, mc:o, pista:'Mira si té barret i on comença.', res:[ex], v:{k:'tipus', f, t} };
 });
-plantilla(5,'AS','5-fraccio-dec','De fracció a decimal (exacte)', () => {
-  const f=fracTipus('finit');
-  return { enunciat:`Escriu ${m(fr(f))} com a nombre decimal.`, camps:[cDec(f)], pista:'Divideix el numerador entre el denominador.',
-    res:[m(`${f.n} : ${f.d} = ${decStr(f)}`), 'És un decimal finit.'], v:{k:'f2d', f, r:f} };
-});
-plantilla(5,'AS','5-dec-fraccio','De decimal exacte a fracció irreductible (0,125 = 1/8)', () => retry(() => {
-  const d=pick([2,4,5,8,10,20,25,40,50]), f=F(numIrr(d, d*(coin(0.6)?1:5)-1), d);
-  const e=decStr(f).split(',')[1].length, N=f.n*(10**e/f.d);
-  return { enunciat:`Escriu ${m(decStr(f))} com a fracció irreductible.`, camps:[cFrac(f)], pista:'Posa el nombre sense coma a dalt i un 1 amb tants zeros com decimals a baix. Després simplifica.',
-    res:[m(`${decStr(f)} = ${fracRaw(N,10**e)}${f.d!==10**e?' = '+fr(f):''}`)], v:{k:'d2f', s:decStr(f), r:f} };
-}));
-plantilla(5,'AS','5-periodic-mc','De fracció a decimal periòdic (opció múltiple)', () => {
-  const f=pick([F(1,3),F(2,3),F(1,9),F(4,9),F(5,9),F(1,6),F(5,6),F(7,9),F(4,3),F(7,6),F(8,9)]), e=expand(f);
-  const cand=[[e.ent,'',e.ante+e.per], [e.ent,e.ante+e.per,''], [e.ent,e.ante+e.per+e.per,''], [e.ent,'',e.per], [e.ent,e.per,''], [e.ent+1,e.ante,e.per]];
-  const alt=cand.filter(([a,b,c])=>!valPer(a,b,c).eq(f)).map(([a,b,c])=>perH(false,a,b,c));
-  const o=mc(decH(f), shuffle([...new Set(alt)]).slice(0,3));
-  return { enunciat:`Quin nombre decimal és ${m(fr(f))}?`, mc:o, pista:'Fes la divisió i mira quines xifres es repeteixen.', res:[m(`${f.n} : ${f.d} = ${e.ent},${(e.ante+e.per+e.per+e.per).slice(0,6)}… = ${decH(f)}`)], v:{k:'per', f} };
-});
+/* decimal exacte → fracció: 0,125 = 125/1000 = 1/8 */
+function decExacteQ(f){
+  const e=decStr(f).split(',')[1].length, P10=10**e, N=f.n*(P10/f.d);
+  return { enunciat:`Passa ${m(decStr(f))} a fracció irreductible.`, camps:[cFrac(f)], pista:'Posa el nombre sense coma al numerador i, al denominador, un 1 amb tants zeros com xifres decimals. Després simplifica.',
+    res:[m(`${decStr(f)} = ${fracRaw(N,P10)}${f.d!==P10?' = '+fr(f):''}`), `Hi ha ${e} ${e===1?'xifra decimal':'xifres decimals'}: denominador ${fmtInt(P10)}.`], v:{k:'d2f', s:decStr(f), r:f} };
+}
+function decExacte(maxEnt, dens){ return retry(() => { const d=pick(dens), f=F(numIrr(d, d*(maxEnt+1)-1), d); return f.isInt()?null:f; }); }
+plantilla(5,'AS','5-dec-fraccio','Decimal exacte → fracció (0,125 = 1/8; 4,25 = 17/4)', () => decExacteQ(decExacte(coin(0.6)?0:4, [2,4,5,8,10,20,25,50])));
 plantilla(5,'AS','5-litre','Quantitats com a fracció de litre (750 ml = 3/4 L)', () => {
-  const ml=coin(), q= ml ? pick([250,500,750,200,125,100,400,600,800,150]) : pick([33,25,75,50,20,70,40,10,5,15]);
-  const f=F(q, ml?1000:100);
-  return { enunciat:`Quina fracció de litre són ${q} ${ml?'ml':'cl'}? Dona la fracció irreductible.`, camps:[cFrac(f,{et:'Litres'})], pista:ml?'1 L = 1.000 ml':'1 L = 100 cl',
-    res:[m(`${q} ${ml?'ml':'cl'} = ${fracRaw(q,ml?1000:100).replace('1000','1.000')} L${f.d!==(ml?1000:100)?' = '+fr(f)+' L':''}`)], v:{k:'litre', q, ml, r:f} };
+  const k=pick(['ml','ml','cl','L']);
+  let q, f, txt, pas;
+  if(k==='ml'){ q=pick([250,500,750,200,125,100,400,600,800,150]); f=F(q,1000); txt=`${q} ml`; pas=`${fracRaw(q,1000)} L`; }
+  else if(k==='cl'){ q=pick([33,25,75,50,20,70,40,10,5,15]); f=F(q,100); txt=`${q} cl`; pas=`${fracRaw(q,100)} L`; }
+  else { q=pick([F(3,2),F(5,2),F(5,4),F(3,4),F(1,2),F(1,4)]); f=q; txt=`${decStr(q)} L`; pas=`${fracRaw(Number(decStr(q).replace(',','')), 10**(decStr(q).split(',')[1]||'').length)} L`; }
+  const ctx=pick(['una ampolla de','una llauna de','un tetrabric de','un pot de']);
+  return { enunciat:`Expressa com a fracció de litre: ${ctx} ${txt}. Dona la fracció irreductible.`, camps:[cFrac(f,{et:'Litres'})], pista:'1 L = 100 cl = 1000 ml',
+    res:[m(`${txt} = ${pas}${F(f).d!==(k==='ml'?1000:k==='cl'?100:10**(decStr(q).split(',')[1]||'').length)?' = '+fr(f)+' L':''}`)], v:{k:'litre', q:k==='L'?null:q, unit:k, r:f} };
 });
-/* fracció generatriu: mètode de classe x = …, ·10ⁿ, restar, aïllar */
-function generatriu(neg, ent, ante, per){
+/* fracció generatriu, mètode de classe:
+   x = 0,83̄ → 10x = 8,3̄ (periòdic pur) → 100x = 83,3̄ → 100x − 10x = 83,3̄ − 8,3̄ ⇒ 90x = 75 ⇒ x = 75/90 = 5/6 */
+const kx = k => k===1 ? '<i>x</i>' : `${fmtInt(k)}<i>x</i>`;
+function generatriu(ent, ante, per){
   const a=ante.length, p=per.length;
-  const num=Number(String(ent)+ante+per)-Number(String(ent)+ante), den=Number('9'.repeat(p)+'0'.repeat(a));
-  const r=F(neg?-num:num, den);
-  const x=perH(false,ent,ante,per);
-  const tail = per+per;
-  const shown = (pre,v)=>`${pre}${v}…`;
-  const rows=[];
-  const Ab=10**(a+p), Aa=10**a;
-  const linia = (k,txt) => `${k===1?'':fmtInt(k)}<i>x</i> = ${txt}`;
-  const vA = (()=>{ const s=String(ent)+ante+per; const i=String(ent).length+a+p; return `${Number(s.slice(0,i))},${tail}…`.replace(/^(\d+),/, (mm,d)=>fmtInt(Number(d))+','); })();
-  const vB = a ? `${fmtInt(Number(String(ent)+ante))},${tail}…` : `${fmtInt(ent)},${tail}…`;
-  rows.push(m(linia(1, `${x} = ${fmtInt(ent)},${ante}${tail}…`)));
-  rows.push(m(`${linia(Ab, vA)}`));
-  if(a) rows.push(m(`${linia(Aa, vB)}`));
-  const mult = Ab - Aa;
-  rows.push(`Restem: ${m(`${fmtInt(mult)}<i>x</i> = ${fmtInt(Number(String(ent)+ante+per))} − ${fmtInt(Number(String(ent)+ante))} = ${fmtInt(num)}`)}`);
-  rows.push(m(`<i>x</i> = ${fracRaw(num,mult)}${F(num,mult).d!==mult?' = '+fr(F(num,mult)):''}`));
-  if(neg) rows.push(`Com que el nombre és negatiu: ${m(perH(true,ent,ante,per)+' = '+fr(r))}`);
-  if(mult!==den) throw new Error('generatriu');
+  const nA=Number(String(ent)+ante), nB=Number(String(ent)+ante+per);
+  const kA=10**a, kB=10**(a+p), num=nB-nA, den=kB-kA, r=F(num,den);
+  if(den!==Number('9'.repeat(p)+'0'.repeat(a))) throw new Error('generatriu');
+  const rows=[m(`${kx(1)} = ${perH(false,ent,ante,per)}`)];
+  if(a) rows.push(`${m(`${kx(kA)} = ${perH(false,nA,'',per)}`)} (ara és periòdic pur)`);
+  rows.push(m(`${kx(kB)} = ${perH(false,nB,'',per)}`));
+  rows.push(m(`${kx(kB)} − ${kx(kA)} = ${perH(false,nB,'',per)} − ${perH(false,nA,'',per)} ⇒ ${kx(den)} = ${fmtInt(num)} ⇒ <i>x</i> = ${fracRaw(num,den)}${r.d!==den?' = '+fr(r):''}`));
   return {r, rows};
 }
-function genQ(neg, ent, ante, per, pista){
-  const g=generatriu(neg,ent,ante,per);
-  return { enunciat:`Troba la fracció generatriu de ${m(perH(neg,ent,ante,per))}. Simplifica-la.`, camps:[cFrac(g.r)], pista, res:g.rows, v:{k:'gen', s:perTxt(neg,ent,ante,per), r:g.r} };
+function genQ(ent, ante, per, pista){
+  const g=generatriu(ent,ante,per);
+  return { enunciat:`Passa ${m(perH(false,ent,ante,per))} a fracció irreductible.`, camps:[cFrac(g.r)], pista, res:g.rows, v:{k:'gen', s:perTxt(false,ent,ante,per), r:g.r} };
 }
-const PISTA_GEN='Anomena x el nombre, multiplica per 10, 100… perquè els períodes quedin alineats, resta i aïlla x.';
-plantilla(5,'AN','5-gen-pur','Generatriu d’un periòdic pur (0,7̄)', () => retry(() => {
-  const ent=coin(0.6)?0:rand(1,5), p=coin(0.6)?String(rand(1,8)):String(rand(10,98));
-  if(p.length===2 && p[0]===p[1]) return null;
-  return genQ(false, ent, '', p, PISTA_GEN);
+const PISTA_GEN='Anomena x el nombre. Si cal, multiplica’l per 10, 100… perquè sigui periòdic pur; multiplica’l per 10, 100… segons les xifres del període; resta les dues igualtats i aïlla x.';
+const perMin = p => !(p.length===2 && p[0]===p[1]) && !/^9+$/.test(p) && !(p.length===3 && p===p[0].repeat(3));
+plantilla(5,'AN','5-gen-pur','Periòdic pur → fracció (0,7̄ = 7/9; 0,5̄4̄ = 6/11)', () => retry(() => {
+  const ent=coin(0.75)?0:rand(1,3), p=coin(0.55)?String(rand(1,8)):String(rand(10,98)); if(!perMin(p)) return null;
+  return genQ(ent, '', p, PISTA_GEN);
 }));
-plantilla(5,'AN','5-gen-mixt','Generatriu d’un periòdic mixt senzill (0,23̄)', () => retry(() => {
-  const ent=coin(0.7)?0:rand(1,3), a=String(rand(1,9)), p=String(rand(1,8)); if(a===p) return null;
-  return genQ(false, ent, a, p, PISTA_GEN);
+plantilla(5,'AN','5-gen-mixt','Periòdic mixt → fracció (0,23̄ = 7/30; 0,43̄ = 13/30)', () => retry(() => {
+  const ent=coin(0.75)?0:rand(1,3), a=String(rand(1,9)), p=String(rand(1,8)); if(a===p) return null;
+  return genQ(ent, a, p, PISTA_GEN);
 }));
+plantilla(5,'AN','5-fraccio-dec','Fracció → decimal i tipus (2/11, 7/12, 31/12)', () => fracDecQ('AN'));
 plantilla(5,'AN','5-parts','Part entera, avantperíode i període', () => retry(() => {
-  const ent=rand(0,12), a=String(rand(1,99)), p=String(rand(1,98)); if(a.slice(-1)===p.slice(-1) || p==='9') return null;
-  if(p.length===2 && p[0]===p[1]) return null;
+  const ent=rand(0,12), a=String(rand(1,99)), p=String(rand(1,98)); if(a.slice(-1)===p.slice(-1) || !perMin(p)) return null;
   return { enunciat:`Escriu la part entera, l’avantperíode i el període de ${m(perH(false,ent,a,p))}.`, camps:[cDig(ent,{et:'Part entera'}), cDig(a,{et:'Avantperíode'}), cDig(p,{et:'Període'})],
     pista:'L’avantperíode són les xifres decimals que hi ha abans del barret; el període, les que van sota el barret.',
-    res:[`Part entera: <b>${ent}</b> · avantperíode: <b>${a}</b> · període: <b>${p}</b>`, 'És un periòdic mixt.'], v:{k:'parts', ent, a, p} };
+    res:[`Part entera: <b>${ent}</b> · avantperíode: <b>${a}</b> · període: <b>${p}</b>`, `És un periòdic mixt: ${m(perH(false,ent,a,p)+' = '+fmtInt(ent)+','+a+p+p+p+'…')}`], v:{k:'parts', ent, a, p} };
 }));
-plantilla(5,'AN','5-classifica','Classificar fraccions segons el decimal', () => {
-  const ts=shuffle(TIPUS4), fs=ts.map(fracTipus);
-  return { enunciat:'Fes les divisions i classifica cada fracció segons el nombre decimal que dona.', classifica:{cats:TIPUS4.map(t=>TIPUS_NOM[t]), items:fs.map(f=>({h:f.raw?fracRaw(...f.raw):fr(f), c:TIPUS4.indexOf(tipusDec(f))}))},
-    pista:'Divideix el numerador entre el denominador.', res:fs.map(f=>`${m((f.raw?fracRaw(...f.raw):fr(f))+' = '+decH(f))} → ${TIPUS_NOM[tipusDec(f)]}`), v:{k:'classTipus', fs} };
-});
-plantilla(5,'AE','5-gen-llarg','Generatriu amb part entera i període de 2 xifres (2,38̄1̄)', () => retry(() => {
-  const ent=rand(1,4), a=String(rand(1,9)), p=String(rand(10,98)); if(p[0]===p[1] || a===p[1]) return null;
-  return genQ(false, ent, a, p, null);
+plantilla(5,'AE','5-gen-llarg','Periòdic amb part entera → fracció (3,16̄ = 19/6; 2,38̄1̄ = 131/55)', () => retry(() => {
+  const ent=rand(1,5), a=String(rand(1,9)), p=coin(0.6)?String(rand(10,98)):String(rand(1,8)); if(!perMin(p) || a===p.slice(-1)) return null;
+  return genQ(ent, a, p, null);
 }));
-plantilla(5,'AE','5-gen-neg','Generatriu de periòdics negatius', () => retry(() => {
-  const ent=rand(0,3), mix=coin(0.7), a=mix?String(rand(1,9)):'', p=coin()?String(rand(1,8)):String(rand(10,98));
-  if(p.length===2&&p[0]===p[1]) return null; if(mix && a===p.slice(-1)) return null;
-  return genQ(true, ent, a, p, null);
+plantilla(5,'AE','5-dec-fraccio','Decimal → fracció, exacte o periòdic (12,625; 1,2̄7̄)', () => retry(() => {
+  const k=pick(['exacte','pur','mixt']);
+  if(k==='exacte') return decExacteQ(decExacte(15, [4,8,20,25,40,125]));
+  const ent=rand(1,9), p=k==='pur'&&coin()?String(rand(10,98)):String(rand(1,8)); if(!perMin(p)) return null;
+  if(k==='pur') return genQ(ent,'',p,null);
+  const a=String(rand(1,9)); if(a===p.slice(-1)) return null;
+  return genQ(ent,a,p,null);
 }));
-plantilla(5,'AE','5-sense','Tipus de decimal sense dividir (mirant el denominador)', () => retry(() => {
-  const t=pick(TIPUS4.slice(1)), f=fracTipus(t), k=rand(2,7), a=f.n*k, b=f.d*k; if(b>150 || f.isInt()) return null;
-  const o={opcions:['Decimal finit','Periòdic pur','Periòdic mixt'], ok:['finit','pur','mixt'].indexOf(t)};
-  const fd=factH(f.d);
-  const ex = t==='finit' ? 'només té els factors 2 i/o 5: decimal finit' : t==='pur' ? 'no té ni 2 ni 5: periòdic pur' : 'té factors 2 o 5 i també altres primers: periòdic mixt';
-  return { enunciat:`Sense fer la divisió, digues quin tipus de decimal és ${m(fracRaw(a,b))}.`, mc:o,
-    res:[`Primer simplifiquem: ${m(fracRaw(a,b)+' = '+fr(f))}`, `${f.d} = ${fd}: ${ex}.`, m(`${fr(f)} = ${decH(f)}`)], v:{k:'tipus', f, t} };
-}));
+plantilla(5,'AE','5-fraccio-dec','Fracció → decimal i tipus (4/27, 25/11, 31/12)', () => fracDecQ('AE'));
 
 /* ─────────── 6. Potències (exponent natural o zero) ─────────── */
 plantilla(6,'AS','6-enter','Potència d’un enter positiu (exponent 0 a 3)', () => retry(() => {
@@ -898,6 +898,16 @@ function parseDec(s){
 function avaluaCamp(c, raw){
   raw=raw||{};
   if(c.tipus==='dig'){ const t=String(raw.t||'').replace(/\s/g,''); return t===c.s ? {p:1} : {p:0}; }
+  if(c.tipus==='tria'){ return raw.t===c.ok ? {p:1} : {p:0}; }
+  if(c.tipus==='per'){
+    const net = x => String(x==null?'':x).replace(/\s/g,'');
+    const e=net(raw.e), a=net(raw.a), pr=net(raw.p);
+    if(!/^\d+$/.test(e) || !/^\d*$/.test(a) || !/^\d*$/.test(pr) || e.length>9 || a.length>9 || pr.length>9) return {p:0, buit:!e};
+    if(!valPer(Number(e),a,pr).eq(c.v)) return {p:0};
+    const x=expand(c.v);
+    if(String(Number(e))===String(x.ent) && a===x.ante && pr===x.per) return {p:1};
+    return {p:0.5, msg:`El valor és correcte, però s’escriu ${m(decH(c.v))}: el període va sota el barret una sola vegada.`};
+  }
   if(c.tipus==='arrel'){
     if(raw.no) return c.no ? {p:1} : {p:0, msg:'Sí que existeix.'};
     if(c.no) return {p:0, msg:'Aquesta arrel no existeix en ℚ.'};
@@ -940,6 +950,8 @@ function rawCorrecte(q, desimplificada){
   if(q.classifica) return q.classifica.items.map(it=>it.c);
   return q.camps.map(c=>{
     if(c.tipus==='dig') return {t:c.s};
+    if(c.tipus==='tria') return {t:c.ok};
+    if(c.tipus==='per'){ const x=expand(c.v); return desimplificada && x.per ? {e:String(x.ent), a:x.ante+x.per, p:x.per} : {e:String(x.ent), a:x.ante, p:x.per}; }
     if(c.tipus==='dec') return {t:decStr(c.v).replace(MENYS,'-').replace(/\./g,'')};
     if(c.tipus==='arrel' && c.no) return {no:true};
     const v=c.v, k=desimplificada?2:1;
@@ -953,6 +965,8 @@ function solucioH(q){
   if(q.camps) return q.camps.map(c=>{
     const et = c.et && q.camps.length>1 ? (c.etMat? m(c.et) : c.et)+': ' : '';
     if(c.tipus==='dig') return et+c.s;
+    if(c.tipus==='tria') return et+c.opcions[c.ok].toLowerCase();
+    if(c.tipus==='per') return et+m(decH(c.v));
     if(c.tipus==='dec') return et+m(decStr(c.v));
     if(c.tipus==='arrel') return et+(c.no?'no existeix':m((c.pm?'±':'')+fr(c.pm?c.v.abs():c.v)));
     return et+m(fr(c.v));
@@ -1065,6 +1079,12 @@ function comenca(){
 function campH(c, i){
   const et = c.et ? `<span class="rp-camp-et">${c.etMat? m(c.et)+' =' : c.et}</span>` : '';
   if(c.tipus==='dig') return `<div class="rp-camp" data-i="${i}">${et}<input class="box rp-box rp-ample" inputmode="numeric" autocomplete="off" aria-label="${esc(c.et||'resposta')}"></div>`;
+  if(c.tipus==='tria') return `<div class="rp-camp" data-i="${i}">${et}<span class="rp-seg">${c.opcions.map((o,j)=>`<button type="button" data-v="${j}" aria-pressed="false">${o}</button>`).join('')}</span></div>`;
+  if(c.tipus==='per') return `<div class="rp-camp" data-i="${i}">${et}<span class="rp-perin">
+      <label><input class="box rp-box" data-r="e" inputmode="numeric" autocomplete="off" aria-label="part entera"><small>part entera</small></label><span class="rp-coma">,</span>
+      <label><input class="box rp-box rp-ample" data-r="a" inputmode="numeric" autocomplete="off" aria-label="xifres decimals que no es repeteixen"><small>sense barret</small></label>
+      <label><span class="rp-barret"></span><input class="box rp-box rp-ample" data-r="p" inputmode="numeric" autocomplete="off" aria-label="període (amb barret)"><small>període (barret)</small></label>
+    </span><span class="rp-camp-nota">Si no hi ha període, deixa’l buit; si és enter, omple només la part entera.</span></div>`;
   const signes = c.tipus==='arrel' ? ['+','-','pm'] : ['+','-'];
   const sH = `<span class="rp-signe" role="group" aria-label="Signe">${signes.map(s=>`<button type="button" data-s="${s}" aria-pressed="${s==='+'&&c.tipus!=='arrel'}" aria-label="${s==='+'?'positiu':s==='-'?'negatiu':'més o menys'}">${s==='+'?'+':s==='-'?'−':'±'}</button>`).join('')}</span>`;
   let cos;
@@ -1151,7 +1171,10 @@ function llegeixRaw(q){
   if(q.vf) return [...R.querySelectorAll('.rp-vf-fila')].map(f=>{ const b=f.querySelector('button[aria-pressed="true"]'); return b? b.dataset.v==='1' : null; });
   if(q.classifica) return [...R.querySelectorAll('.rp-vf-fila')].map(f=>{ const b=f.querySelector('button[aria-pressed="true"]'); return b? +b.dataset.v : null; });
   if(q.ordena) return [...R.querySelectorAll('.rp-ord-it')].map(li=>+li.dataset.k);
-  return [...R.querySelectorAll('.rp-camp')].map(c=>{
+  return [...R.querySelectorAll('.rp-camp')].map((c,i)=>{
+    const tc=q.camps[i].tipus;
+    if(tc==='tria'){ const b=c.querySelector('.rp-seg button[aria-pressed="true"]'); return {t:b?+b.dataset.v:null}; }
+    if(tc==='per') return {e:c.querySelector('[data-r="e"]').value, a:c.querySelector('[data-r="a"]').value, p:c.querySelector('[data-r="p"]').value};
     const s=c.querySelector('.rp-signe button[aria-pressed="true"]');
     const no=c.querySelector('.rp-no');
     const n=c.querySelector('[data-r="n"]'), d=c.querySelector('[data-r="d"]'), t=c.querySelector('input:not([data-r])');
@@ -1162,7 +1185,10 @@ function incomplet(q, raw){
   if(q.mc) return raw===null;
   if(q.vf || q.classifica) return raw.some(x=>x===null);
   if(q.ordena) return false;
-  return raw.some((r,i)=>!r.no && !(r.n||r.t).trim());
+  return raw.some((r,i)=>{ const tc=q.camps[i].tipus;
+    if(tc==='tria') return r.t===null;
+    if(tc==='per') return !String(r.e).trim();
+    return !r.no && !String(r.n||r.t||'').trim(); });
 }
 function comprova(){
   if(st.fet) return;
@@ -1192,7 +1218,8 @@ function marca(q, raw, r){
   if(q.vf||q.classifica){ const bo=q.vf?q.vf.map(a=>a.v?'1':'0'):q.classifica.items.map(it=>String(it.c));
     R.querySelectorAll('.rp-vf-fila').forEach((f,i)=>{ f.querySelectorAll('button').forEach(b=>{ if(b.dataset.v===bo[i]) b.classList.add('rp-bo'); else if(b.getAttribute('aria-pressed')==='true') b.classList.add('rp-mal'); }); }); }
   if(q.ordena){ R.querySelector('.rp-ord').classList.add(r.p===1?'rp-ord-ok':'rp-ord-ko'); }
-  if(q.camps) R.querySelectorAll('.rp-camp').forEach((c,i)=>{ const p=r.det[i].p; c.classList.add(p===1?'rp-c-ok':p>0?'rp-c-mig':'rp-c-ko'); });
+  if(q.camps) R.querySelectorAll('.rp-camp').forEach((c,i)=>{ const p=r.det[i].p; c.classList.add(p===1?'rp-c-ok':p>0?'rp-c-mig':'rp-c-ko');
+    if(q.camps[i].tipus==='tria') c.querySelectorAll('.rp-seg button').forEach(b=>{ if(+b.dataset.v===q.camps[i].ok) b.classList.add('rp-bo'); else if(b.getAttribute('aria-pressed')==='true') b.classList.add('rp-mal'); }); });
 }
 function seguent(){
   st.i++;

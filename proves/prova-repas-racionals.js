@@ -108,7 +108,13 @@ function verifica(q){
     case 'd2f': if(!qeq(deDigits(v.s.replace('−','-')),v.r)) err(q,`decimal ${v.s} a fracció`); break;
     case 'per': { const e=expand(v.f.n,v.f.d); if(opHtmlAText(q.mc.opcions[q.mc.ok])!==txtDec(e)) err(q,`periòdic ${opHtmlAText(q.mc.opcions[q.mc.ok])} ≠ ${txtDec(e)}`);
       q.mc.opcions.forEach((o,i)=>{ const w=deDigits(opHtmlAText(o)); if(i!==q.mc.ok && w.n*BigInt(v.f.d)===BigInt(v.f.n)*w.d) err(q,'distractor amb el mateix valor que la solució: '+opHtmlAText(o)); }); break; }
-    case 'litre': if(!qeq(Q(v.q, v.ml?1000:100),v.r)) err(q,'fracció de litre'); break;
+    case 'litre': { const r = v.unit==='ml'?Q(v.q,1000): v.unit==='cl'?Q(v.q,100): deDigits(htmlAText(q.enunciat).match(/(\d+,\d+)L/)[1]); if(!qeq(r,v.r)) err(q,'fracció de litre'); break; }
+    case 'f2dt': { const [n,d]=v.f.raw, e=expand(n,d), t=tipusPropi(n,d);
+      if(t!==v.t) err(q,`tipus de ${n}/${d}: ${t} i no ${v.t}`);
+      const c=q.camps[0], x=Q(n,d); if(!qeq(x,c.v)) err(q,'valor del decimal');
+      if(q.camps[1].ok!==['enter','finit','pur','mixt'].indexOf(t)) err(q,'opció de tipus');
+      const sol=htmlAText(q.res[1].replace(/<span class="ov">(\d+)<\/span>/g,'($1)')).match(/=([\d,()]+):/); if(!sol || sol[1]!==txtDec(e)) err(q,`resolució: ${sol&&sol[1]} ≠ ${txtDec(e)}`);
+      break; }
     case 'gen': { const r=deDigits(v.s); if(!qeq(r,v.r)) err(q,`generatriu ${v.s} = ${qtxt(r)} i no ${v.r.n}/${v.r.d}`); const e=expand(v.r.n,v.r.d); if(txtDec(e)!==v.s) err(q,`${v.s} no està escrit en forma canònica (${txtDec(e)})`); break; }
     case 'parts': { const s=`${v.ent},${v.a}(${v.p})`; const r=deDigits(s); const e=expand(r.n,r.d); if(txtDec(e)!==s) err(q,`parts: ${s} no és canònic (${txtDec(e)})`); break; }
     case 'classTipus': v.fs.forEach((f,i)=>{ if(['enter','finit','pur','mixt'][q.classifica.items[i].c]!==tipusPropi(f.n,f.d)) err(q,'classificació de decimals'); }); break;
@@ -150,6 +156,11 @@ function correccio(q){
       }
       const mal=JSON.parse(JSON.stringify(bo[i]));
       if(mal.n!==undefined && !mal.no){ mal.n=String(Number(mal.n)+1); if(M.avaluaCamp(c,mal).p!==0) err(q,'una resposta equivocada puntua'); }
+      if(c.tipus==='per'){ const ex=expand(c.v.n,c.v.d);
+        if(ex.per){ const p=M.avaluaCamp(c,{e:String(ex.ent),a:ex.ante+ex.per,p:ex.per}).p; if(p!==0.5) err(q,'període repetit hauria de ser mig punt ('+p+')'); }
+        if(M.avaluaCamp(c,{e:String(ex.ent+1n),a:ex.ante,p:ex.per}).p!==0) err(q,'decimal equivocat puntua');
+        if(ex.per && M.avaluaCamp(c,{e:String(ex.ent),a:ex.ante+ex.per,p:''}).p!==0) err(q,'sense període hauria de ser incorrecte'); }
+      if(c.tipus==='tria' && M.avaluaCamp(c,{t:(c.ok+1)%c.opcions.length}).p!==0) err(q,'opció de tipus equivocada puntua');
       if(c.tipus==='arrel' && c.pm){ const sense=Object.assign({},bo[i],{s:'+'}); if(M.avaluaCamp(c,sense).p!==0) err(q,'sense ± hauria de ser incorrecte'); }
     });
   }
