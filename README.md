@@ -200,16 +200,19 @@ amb un primer pas per treure els parèntesis (regla dels signes).
 
 Repàs de tot el tema 1 (sense notació científica i amb potències només d'exponent
 natural o zero) en tres nivells: **AS**, **AN** i **AE**. L'alumne tria el nivell i el
-mode: **per apartats** (un o diversos dels 7 apartats) o **simulacre** (12 preguntes de
-tot el tema). Correcció immediata amb la resolució pas a pas, pista a AS i AN (a AE no
+mode: **per apartats** (un o diversos dels 6 apartats) o **simulacre** (12 preguntes de
+tot el tema, 2 de cada apartat). Només hi surten tipus d'exercici que hi ha al Quadern
+o a les Activitats del tema. Correcció immediata amb la resolució pas a pas, pista a AS i AN (a AE no
 n'hi ha) i, al final, la nota sobre 10, els encerts per apartat i què cal repassar.
 
 - Els exercicis surten de **plantilles** (`assets/repas-racionals.js`, secció
   «Plantilles»), amb nombres a l'atzar i aritmètica exacta de fraccions. Cada plantilla
   té apartat, nivell, identificador i nom.
+- El signe negatiu s'escriu a la mateixa casella (−3, o al numerador si és una fracció).
+  A les arrels hi ha a més un botó ±.
 - Una fracció equivalent no simplificada, quan es demana simplificada, compta mig punt
   («Correcte, però simplifica-la»). A les arrels d'índex parell cal el ±.
-- Per revisar una plantilla concreta: `repas-racionals.html#plantilla=3-error&nivell=AE`
+- Per revisar una plantilla concreta: `repas-racionals.html#plantilla=2-dos&nivell=AE`
   (5 preguntes d'aquella plantilla).
 - **Prova automàtica:** `node proves/prova-repas-racionals.js` (cal Node). Genera
   centenars de preguntes de cada plantilla i comprova amb un càlcul independent que la

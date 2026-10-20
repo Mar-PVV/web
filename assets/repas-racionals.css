@@ -106,9 +106,9 @@
 .repas .rp-camp-et{font-family:var(--titol); font-weight:600; font-size:13px; color:var(--suau)}
 .repas .rp-camp-et .mt{font-size:20px; color:var(--text)}
 .repas .rp-entrada{display:inline-flex; align-items:center; gap:10px}
-.repas .rp-signe{display:inline-flex; flex-direction:column; gap:3px}
-.repas .rp-signe button{font-family:var(--mates); font-size:20px; line-height:1; width:42px; height:34px; border:1.5px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer}
-.repas .rp-signe button[aria-pressed="true"]{border-color:var(--blau); background:var(--blau); color:#fff}
+.repas .rp-pm{font-family:var(--mates); font-size:22px; line-height:1; width:46px; height:46px; border:1.5px solid var(--vora); border-radius:8px; background:var(--blanc); color:var(--text); cursor:pointer}
+.repas .rp-pm[aria-pressed="true"]{border-color:var(--blau); background:var(--blau); color:#fff}
+.repas .rp-nota-signe{margin:10px 0 0; font-size:13px; color:var(--suau)}
 .repas .rp-fin{display:inline-flex; flex-direction:column; align-items:center; gap:5px}
 .repas .rp-ratlla{display:block; width:100%; height:2.5px; background:var(--text); border-radius:2px}
 .repas .rp-box{font-family:var(--mates); font-size:24px; width:3.6em; height:1.8em; padding:0 .2em}

@@ -125,6 +125,7 @@ function verifica(q){
       const p=qp(Q(c.v.n,c.v.d), v.idx); if(!(p.n===rad.n && p.d===rad.d)) err(q,`(${c.v.n}/${c.v.d})^${v.idx} ≠ radicand`);
       if(c.pm !== (parell && rad.n>0n)) err(q,'el ± no toca'); break; }
     case 'invers2': { const T=fr(v.r); const R=qm(T, qs(qs(Q(1),fr(v.a)),fr(v.b))); if(!qeq(R,v.R)) err(q,'problema invers (2)'); break; }
+    case 'base': if(BigInt(v.b)**BigInt(v.n)!==BigInt(v.N) || !qeq(fr(q.camps[0].v),Q(v.n))) err(q,`${v.N} no és ${v.b}^${v.n}`); break;
     case 'compost': case 'vf': case 'conc': case 'quantes': case 'irr': case 'noracional': break;
     default: err(q,'sense verificació: '+v.k);
   }
@@ -161,6 +162,8 @@ function correccio(q){
         if(M.avaluaCamp(c,{e:String(ex.ent+1n),a:ex.ante,p:ex.per}).p!==0) err(q,'decimal equivocat puntua');
         if(ex.per && M.avaluaCamp(c,{e:String(ex.ent),a:ex.ante+ex.per,p:''}).p!==0) err(q,'sense període hauria de ser incorrecte'); }
       if(c.tipus==='tria' && M.avaluaCamp(c,{t:(c.ok+1)%c.opcions.length}).p!==0) err(q,'opció de tipus equivocada puntua');
+      /* el signe s'escriu a la casella: amb el menys tipogràfic (−) també ha de valer */
+      if(mal.n!==undefined && !mal.no && Number(bo[i].n)<0){ const t=Object.assign({},bo[i],{n:bo[i].n.replace('-','−')}); if(M.avaluaCamp(c,t).p!==1) err(q,'el signe − escrit a la casella no puntua'); const sg=Object.assign({},bo[i],{n:bo[i].n.replace('-','')}); if(M.avaluaCamp(c,sg).p!==0) err(q,'sense el signe − hauria de ser incorrecte'); }
       if(c.tipus==='arrel' && c.pm){ const sense=Object.assign({},bo[i],{s:'+'}); if(M.avaluaCamp(c,sense).p!==0) err(q,'sense ± hauria de ser incorrecte'); }
     });
   }
@@ -183,8 +186,8 @@ for(const t of M.T){
 }
 /* el mode simulacre i per apartats */
 for(const niv of ['AS','AN','AE']){
-  for(let k=0;k<50;k++){ const p=M.prova(niv,'simulacre'); if(p.length!==12) errors.push('simulacre amb '+p.length+' preguntes'); if(new Set(p.map(q=>q.ap)).size!==7) errors.push('simulacre sense tots els apartats'); }
-  for(let a=1;a<=7;a++) if(!M.plantillesDe(a,niv).length) errors.push(`no hi ha plantilles per a l’apartat ${a}, nivell ${niv}`);
+  for(let k=0;k<50;k++){ const p=M.prova(niv,'simulacre'); if(p.length!==12) errors.push('simulacre amb '+p.length+' preguntes'); if(new Set(p.map(q=>q.ap)).size!==6) errors.push('simulacre sense tots els apartats'); }
+  for(let a=1;a<=6;a++) if(!M.plantillesDe(a,niv).length) errors.push(`no hi ha plantilles per a l’apartat ${a}, nivell ${niv}`);
 }
 
 console.log(`Plantilles: ${M.T.length} · preguntes generades i comprovades: ${total} · ${Date.now()-t0} ms`);

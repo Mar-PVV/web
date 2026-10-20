@@ -182,127 +182,8 @@ const DEN_AS=[2,3,4,5,6,8,9,10,12];
 const DEN_AN=[2,3,4,5,6,7,8,9,10,12,14,15,16,18,20];
 const DEN_AE=[2,3,4,5,6,7,8,9,10,12,14,15,16,18,20,24,25,30];
 
-/* ─────────── 1. Definició i conjunts ─────────── */
-const CONJ=['ℕ','ℤ','ℚ'];
-function conjunt(f){ f=F(f); return f.d!==1 ? 2 : f.n>=0 ? 0 : 1; }
-const CONJ_EXPL = ['és un nombre natural (el 0 també ho és)', 'és un enter negatiu', 'no és enter: és un nombre racional'];
-/* un nombre per classificar: {h, v, nota} */
-function nombreConjunt(tipus){
-  switch(tipus){
-    case 'nat':  { const n=rand(0,25); return {h:fmtInt(n), v:F(n)}; }
-    case 'neg':  { const n=-rand(1,25); return {h:fmtInt(n), v:F(n)}; }
-    case 'dec':  { const f=F(rand(1,99)*(coin()?1:-1),pick([10,100,4])); if(f.isInt()) return nombreConjunt('dec'); return {h:decStr(f), v:f}; }
-    case 'frac': { const f=frIrr([2,3,4,5,7,8,9],2).mul(coin(0.4)?-1:1); if(f.isInt()) return nombreConjunt('frac'); return {h:fr(f), v:f}; }
-    case 'fracEnt': { const k=rand(2,6), q=rand(1,8)*(coin()?1:-1); return {h:(q<0?MENYS:'')+fracRaw(Math.abs(q)*k,k), v:F(q), nota:`perquè ${(q<0?MENYS:'')+fracRaw(Math.abs(q)*k,k)} = ${fmtInt(q)}`}; }
-    case 'zero': { const k=rand(2,9); return {h:fracRaw(0,k), v:F(0), nota:`perquè ${fracRaw(0,k)} = 0`}; }
-    case 'per':  { const f=pick([F(1,3),F(2,3),F(5,9),F(1,6),F(7,9),F(4,11)]); return {h:decH(f), v:f, nota:'els periòdics també són racionals'}; }
-  }
-}
-plantilla(1,'AS','1-oposat','Oposat d’un nombre (opció múltiple)', () => {
-  const x = coin(0.7) ? frIrr(DEN_AS,1.5) : F(rand(2,12)*(coin(0.8)?1:-1));
-  const o = mc(fr(x.neg()), [fr(x.inv()), fr(x.inv().neg()), fr(x)]);
-  return { enunciat:`Quin és l’<b>oposat</b> de ${m(fr(x))}?`, mc:o,
-    pista:'L’oposat és el mateix nombre amb el signe canviat.',
-    res:[`L’oposat de ${m(fr(x))} és ${m(fr(x.neg()))}, perquè ${m(fr(x)+' + '+frp(x.neg())+' = 0')}.`], v:{k:'oposat', x, r:x.neg()} };
-});
-plantilla(1,'AS','1-invers','Invers d’un nombre (opció múltiple)', () => {
-  const x = coin(0.75) ? retry(()=>{ const f=frIrr(DEN_AS,1.5); return f.n!==1?f:null; }) : F(rand(2,12));
-  const o = mc(fr(x.inv()), [fr(x.neg()), fr(x.inv().neg()), fr(x)]);
-  return { enunciat:`Quin és l’<b>invers</b> de ${m(fr(x))}?`, mc:o,
-    pista:'L’invers és el nombre que multiplicat per ell dona 1: es giren numerador i denominador.',
-    res:[`L’invers de ${m(fr(x))} és ${m(fr(x.inv()))}, perquè ${m(frp(x)+' · '+frp(x.inv())+' = 1')}.`], v:{k:'invers', x, r:x.inv()} };
-});
-plantilla(1,'AS','1-absolut','Valor absolut (opció múltiple)', () => {
-  const x = coin(0.7) ? frIrr(DEN_AS,1.5).neg() : F(-rand(2,15));
-  const o = mc(fr(x.abs()), [fr(x), fr(x.inv().abs()), fr(x.inv())]);
-  return { enunciat:`Quant val ${m(abs(fr(x)))}?`, mc:o,
-    pista:'El valor absolut és la distància al 0: mai és negatiu.',
-    res:[`${m(abs(fr(x))+' = '+fr(x.abs()))}: el valor absolut treu el signe.`], v:{k:'absolut', x, r:x.abs()} };
-});
-plantilla(1,'AS','1-conjunt','Conjunt més petit (ℕ, ℤ o ℚ)', () => {
-  const n = nombreConjunt(pick(['nat','neg','dec','frac']));
-  const c = conjunt(n.v);
-  return { enunciat:`Quin és el <b>conjunt més petit</b> al qual pertany ${m(n.h)}?`, mc:{opcions:CONJ.slice(), ok:c},
-    pista:'ℕ ⊂ ℤ ⊂ ℚ. Els naturals són 0, 1, 2, …; els enters hi afegeixen els negatius; els racionals, les fraccions.',
-    res:[`${m(n.h)} ${CONJ_EXPL[c]}: pertany a ${CONJ[c]}${c<2?' (i també a '+CONJ.slice(c+1).join(' i ')+')':''}.`], v:{k:'conjunt', x:n.v, c} };
-});
-plantilla(1,'AS','1-noracional','Quin no és racional (denominador 0)', () => {
-  const a=rand(1,9);
-  const o = mc(fracRaw(a,0), shuffle([fmtInt(-rand(2,9)), decStr(F(rand(1,9),10)), fracRaw(0,rand(2,9)), fr(frIrr([3,5,7],1))]).slice(0,3));
-  return { enunciat:`Quin d’aquests <b>no</b> és un nombre racional?`, mc:o,
-    pista:'Un racional és una fracció a/b d’enters amb b ≠ 0.',
-    res:[`${m(fracRaw(a,0))} no és racional: no es pot dividir entre 0.`, `${m(fracRaw(0,2))} = 0 sí que és racional: el 0 pot anar al numerador.`], v:{k:'noracional'} };
-});
-plantilla(1,'AN','1-tres','Oposat, invers i valor absolut alhora (negatius)', () => {
-  const x = coin(0.8) ? frIrr(DEN_AN,2).neg() : F(-rand(2,20));
-  return { enunciat:`Escriu l’oposat, l’invers i el valor absolut de ${m(fr(x))}.`,
-    camps:[cFrac(x.neg(),{et:'Oposat'}), cFrac(x.inv(),{et:'Invers'}), cFrac(x.abs(),{et:'Valor absolut'})],
-    pista:'Oposat: canvia el signe. Invers: gira la fracció (el signe es manté). Valor absolut: treu el signe.',
-    res:[`Oposat: ${m(fr(x.neg()))}`, `Invers: ${m(fr(x.inv()))} (el signe no canvia: ${m(frp(x)+' · '+frp(x.inv())+' = 1')})`, `Valor absolut: ${m(abs(fr(x))+' = '+fr(x.abs()))}`],
-    v:{k:'tres', x} };
-});
-plantilla(1,'AN','1-classifica','Classificar nombres a ℕ, ℤ o ℚ', () => {
-  const tipus = shuffle(['nat','neg','dec','frac','fracEnt']);
-  const items = tipus.map(nombreConjunt);
-  return { enunciat:'Classifica cada nombre en el <b>conjunt més petit</b> al qual pertany.',
-    classifica:{cats:CONJ.slice(), items:items.map(n=>({h:n.h, c:conjunt(n.v)}))},
-    pista:'Si una fracció dona un resultat exacte, mira quin nombre és: 12/4 = 3.',
-    res: items.map(n=>`${m(n.h)} → ${CONJ[conjunt(n.v)]}${n.nota?' ('+n.nota+')':''}`), v:{k:'classifica', xs:items.map(n=>n.v)} };
-});
-plantilla(1,'AN','1-compost','Oposat de l’invers i combinacions', () => {
-  const x = frIrr(DEN_AN,2).neg();
-  const op = pick([
-    {t:'l’oposat de l’invers', f:y=>y.inv().neg(), r:[`Invers: ${m(fr(x.inv()))}`, `Oposat: ${m(fr(x.inv().neg()))}`]},
-    {t:'l’invers de l’oposat', f:y=>y.neg().inv(), r:[`Oposat: ${m(fr(x.neg()))}`, `Invers: ${m(fr(x.neg().inv()))}`]},
-    {t:'l’invers del valor absolut', f:y=>y.abs().inv(), r:[`Valor absolut: ${m(fr(x.abs()))}`, `Invers: ${m(fr(x.abs().inv()))}`]},
-  ]);
-  return { enunciat:`Calcula ${op.t} de ${m(fr(x))}.`, camps:[cFrac(op.f(x))],
-    pista:'Fes-ho per parts: primer el que hi ha més a la dreta de la frase.', res:op.r, v:{k:'compost', x, r:op.f(x)} };
-});
-const VF1 = [
-  () => ({h:'L’invers de 0 és 0.', v:false, e:'El 0 no té invers: cap nombre multiplicat per 0 dona 1.'}),
-  () => { const x=frIrr(DEN_AE,2).neg(); return {h:`L’oposat de l’oposat de ${m(fr(x))} és ${m(fr(x))}.`, v:true, e:'Canviar el signe dues vegades deixa el nombre igual.'}; },
-  () => { const x=frIrr(DEN_AE,2).neg(); return {h:`L’invers de ${m(fr(x))} és ${m(fr(x.inv().neg()))}.`, v:false, e:`L’invers manté el signe: és ${m(fr(x.inv()))}.`}; },
-  () => ({h:'El valor absolut d’un nombre sempre és positiu.', v:false, e:'El valor absolut de 0 és 0, que no és positiu: és positiu <i>o zero</i>.'}),
-  () => ({h:'Tot nombre enter és racional.', v:true, e:'Qualsevol enter es pot escriure com a fracció: −5 = −5/1.'}),
-  () => ({h:'Tot nombre racional és enter.', v:false, e:'Per exemple, 1/2 és racional i no és enter.'}),
-  () => ({h:'Un nombre i el seu oposat sempre tenen signes diferents.', v:false, e:'El 0 és el seu propi oposat.'}),
-  () => ({h:'Un nombre i el seu invers sempre tenen el mateix signe.', v:true, e:'El producte ha de ser 1, que és positiu.'}),
-  () => ({h:'El 0 és un nombre natural.', v:true, e:'A classe considerem ℕ = {0, 1, 2, 3, …}.'}),
-  () => { const a=rand(1,9), b=rand(2,9); return {h:`${m(MENYS+fracRaw(a,b))} i ${m(fracRaw(a,'−'+b))} són el mateix nombre.`, v:true, e:'El signe pot anar al numerador, al denominador o davant: el valor és el mateix.'}; },
-  () => { const x=frIrr(DEN_AE,2); return {h:`L’oposat de ${m(MENYS+fr(x))} és ${m(fr(x.inv()))}.`, v:false, e:`L’oposat només canvia el signe: és ${m(fr(x))}.`}; },
-  () => { const x=frIrr(DEN_AE,2); return {h:`${m(abs(MENYS+fr(x)))} = ${m(abs(fr(x)))}`, v:true, e:'Un nombre i el seu oposat tenen el mateix valor absolut.'}; },
-  () => { const n=rand(2,9); return {h:`L’invers de ${m(fmtInt(-n))} és ${m(fmtInt(n))}.`, v:false, e:`L’invers de ${m(fmtInt(-n))} és ${m(fr(F(-1,n)))}.`}; },
-];
-function vfDe(pool, k=3){ const fs=shuffle(pool).slice(0,k).map(f=>f()); return fs; }
-plantilla(1,'AE','1-vf','Vertader o fals amb trampa (invers de 0, oposat de l’oposat…)', () => {
-  const af=vfDe(VF1);
-  return { enunciat:'Digues si cada afirmació és vertadera o falsa.', vf:af.map(a=>({h:a.h, v:a.v})),
-    res:af.map(a=>`${a.v?'<b>V</b>':'<b>F</b>'} · ${a.e}`), v:{k:'vf'} };
-});
-plantilla(1,'AE','1-suma','Suma d’un invers i un oposat (enters i fraccions)', () => retry(() => {
-  const x = coin() ? F(-rand(2,9)) : frIrr(DEN_AE,2).neg();
-  const y = frIrr(DEN_AE,2).mul(coin()?1:-1);
-  const op = pick(['ix+oy','ox+iy','ax+iy']);
-  let a,b,ta,tb;
-  if(op==='ix+oy'){ a=x.inv(); b=y.neg(); ta=`l’invers de ${m(fr(x))}`; tb=`l’oposat de ${m(fr(y))}`; }
-  else if(op==='ox+iy'){ a=x.neg(); b=y.inv(); ta=`l’oposat de ${m(fr(x))}`; tb=`l’invers de ${m(fr(y))}`; }
-  else { a=x.abs(); b=y.inv(); ta=`el valor absolut de ${m(fr(x))}`; tb=`l’invers de ${m(fr(y))}`; }
-  const e=B('+',a,b), r=ev(e);
-  if(!amable(r) || r.n===0) return null;
-  return { enunciat:`Suma ${ta} i ${tb}. Dona el resultat simplificat.`, camps:[cFrac(r)],
-    res:[`${ta[0].toUpperCase()+ta.slice(1)}: ${m(fr(a))}`, `${tb[0].toUpperCase()+tb.slice(1)}: ${m(fr(b))}`, m(eh(e,false)+' '+resolExpr(e).join(' '))], v:{k:'expr', txt:et(e), r} };
-}));
-plantilla(1,'AE','1-classifica','Classificar amb trampes (12/4, 0/5, periòdics)', () => {
-  const tipus = shuffle(['fracEnt','fracEnt','zero','per','neg','frac']);
-  const items = tipus.map(nombreConjunt);
-  return { enunciat:'Classifica cada nombre en el <b>conjunt més petit</b> al qual pertany.',
-    classifica:{cats:CONJ.slice(), items:items.map(n=>({h:n.h, c:conjunt(n.v)}))},
-    res: items.map(n=>`${m(n.h)} → ${CONJ[conjunt(n.v)]}${n.nota?' ('+n.nota+')':''}`), v:{k:'classifica', xs:items.map(n=>n.v)} };
-});
-
-/* ─────────── 2. Equivalents i simplificació ─────────── */
-plantilla(2,'AS','2-creu','Són equivalents? (en creu)', () => retry(() => {
+/* ─────────── 1. Equivalents i simplificació ─────────── */
+plantilla(1,'AS','1-creu','Són equivalents? (en creu)', () => retry(() => {
   const p=frIrr(DEN_AS,1), k1=rand(1,4), k2=rand(2,5);
   let a=p.n*k1, b=p.d*k1, c=p.n*k2, d=p.d*k2;
   const si=coin();
@@ -314,13 +195,13 @@ plantilla(2,'AS','2-creu','Són equivalents? (en creu)', () => retry(() => {
     pista:'Multiplica en creu: si els dos productes són iguals, són equivalents.',
     res:[`${m(a+' · '+d+' = '+fmtInt(a*d))} i ${m(b+' · '+c+' = '+fmtInt(b*c))}`, a*d===b*c?'Els productes són iguals: <b>són equivalents</b>.':'Els productes són diferents: <b>no són equivalents</b>.'], v:{k:'creu', a,b,c,d, si} };
 }));
-plantilla(2,'AS','2-simplifica','Simplificar fraccions petites', () => {
+plantilla(1,'AS','1-simplifica','Simplificar fraccions petites', () => {
   const p=frIrr(DEN_AS,1.3), k=rand(2,6);
   return { enunciat:`Simplifica fins a la fracció irreductible:`, gran:fracRaw(p.n*k,p.d*k), camps:[cFrac(p)],
     pista:'Divideix el numerador i el denominador pel mateix nombre (2, 3, 5…) fins que no es pugui més.',
     res:[m(`${fracRaw(p.n*k,p.d*k)} = ${fracRaw(p.n+' · '+k, p.d+' · '+k)} = ${fr(p)}`), `Dividim tots dos termes per ${k}.`], v:{k:'simp', a:p.n*k, b:p.d*k, r:p} };
 });
-plantilla(2,'AS','2-falta','Terme que falta (amplificar)', () => {
+plantilla(1,'AS','1-falta','Terme que falta (amplificar)', () => {
   const p=frIrr(DEN_AS,1.3), k=rand(2,6), aNum=coin();
   const h = aNum ? `${fr(p)} = <span class="frac"><span><span class="buit">?</span></span><span>${p.d*k}</span></span>` : `${fr(p)} = <span class="frac"><span>${p.n*k}</span><span><span class="buit">?</span></span></span>`;
   const r = aNum ? p.n*k : p.d*k;
@@ -328,14 +209,7 @@ plantilla(2,'AS','2-falta','Terme que falta (amplificar)', () => {
     pista:'Mira per quant s’ha multiplicat el terme que coneixes i fes el mateix amb l’altre.',
     res:[aNum?`El denominador s’ha multiplicat per ${k} (${p.d} · ${k} = ${p.d*k}).`:`El numerador s’ha multiplicat per ${k} (${p.n} · ${k} = ${p.n*k}).`, `Multipliquem l’altre terme per ${k}: <b>${r}</b>.`], v:{k:'falta', p, a:aNum?r:p.n*k, b:aNum?p.d*k:r} };
 });
-plantilla(2,'AS','2-quina','Quina fracció és equivalent (opció múltiple)', () => {
-  const p=retry(()=>{ const f=frIrr(DEN_AS,1); return f.n>1?f:null; }), k=rand(2,5);
-  const o=mc(fracRaw(p.n*k,p.d*k), [fracRaw(p.n+k,p.d+k), fracRaw(p.n*k,p.d), fracRaw(p.n,p.d*k)]);
-  return { enunciat:`Quina d’aquestes fraccions és equivalent a ${m(fr(p))}?`, mc:o,
-    pista:'Per amplificar, cal multiplicar el numerador i el denominador pel mateix nombre (sumar no val).',
-    res:[`${m(`${fr(p)} = <span class="frac"><span>${p.n} · ${k}</span><span>${p.d} · ${k}</span></span> = ${fracRaw(p.n*k,p.d*k)}`)}`, 'Sumar el mateix nombre a dalt i a baix no dona una fracció equivalent.'], v:{k:'quina', p, a:p.n*k, b:p.d*k} };
-});
-plantilla(2,'AN','2-simplifica','Simplificar amb factors primers (84/126)', () => retry(() => {
+plantilla(1,'AN','1-simplifica','Simplificar amb factors primers (84/126)', () => retry(() => {
   const p=frIrr(DEN_AN,1.4), k=pick([6,10,12,14,15,18,21,22,24,28,30,35,42]);
   const a=p.n*k, b=p.d*k; if(b>400) return null;
   const g=gcd(a,b), s=coin(0.3)?-1:1;
@@ -359,8 +233,8 @@ function ordena(n, dens, neg, maxL){
       pista:'Redueix-les a comú denominador i compara els numeradors. Les negatives van davant.', res, v:{k:'ordena', xs, ord} };
   });
 }
-plantilla(2,'AN','2-ordena','Ordenar 3 fraccions (comú denominador)', () => ordena(3,[2,3,4,5,6,8,9,10,12,15],false,60));
-plantilla(2,'AN','2-falta','Terme que falta, amb negatius', () => {
+plantilla(1,'AN','1-ordena','Ordenar 3 fraccions (comú denominador)', () => ordena(3,[2,3,4,5,6,8,9,10,12,15],false,60));
+plantilla(1,'AN','1-falta','Terme que falta, amb negatius', () => {
   const p=frIrr(DEN_AN,1.5).mul(coin()?-1:1), k=rand(2,9), aNum=coin();
   const s=p.n<0?MENYS:'';
   const h = aNum ? `${fr(p)} = ${s}<span class="frac"><span><span class="buit">?</span></span><span>${p.d*k}</span></span>` : `${fr(p)} = ${s}<span class="frac"><span>${Math.abs(p.n)*k}</span><span><span class="buit">?</span></span></span>`;
@@ -369,8 +243,8 @@ plantilla(2,'AN','2-falta','Terme que falta, amb negatius', () => {
     pista:'Multiplicació en creu, o bé: per quant s’ha multiplicat el terme que coneixes?',
     res:[aNum?`${p.d} · ${k} = ${p.d*k}: s’ha multiplicat per ${k}.`:`${Math.abs(p.n)} · ${k} = ${Math.abs(p.n)*k}: s’ha multiplicat per ${k}.`, `${aNum?Math.abs(p.n):p.d} · ${k} = <b>${r}</b>`], v:{k:'falta', p:p.abs(), a:aNum?r:Math.abs(p.n)*k, b:aNum?p.d*k:r} };
 });
-plantilla(2,'AE','2-ordena','Ordenar 4 o 5 nombres amb negatius', () => ordena(rand(4,5),[2,3,4,5,6,8,9,10,12,15,18,20],true,120));
-plantilla(2,'AE','2-falta','Terme que falta (cal simplificar abans)', () => retry(() => {
+plantilla(1,'AE','1-ordena','Ordenar 4 o 5 nombres amb negatius', () => ordena(rand(4,5),[2,3,4,5,6,8,9,10,12,15,18,20],true,120));
+plantilla(1,'AE','1-falta','Terme que falta (cal simplificar abans)', () => retry(() => {
   const p=frIrr(DEN_AN,1.5), k1=rand(2,9), k2=rand(2,9);
   if(k1===k2 || k1%k2===0 || k2%k1===0) return null;
   const s=coin()?-1:1, sg=s<0?MENYS:'';
@@ -381,32 +255,9 @@ plantilla(2,'AE','2-falta','Terme que falta (cal simplificar abans)', () => retr
   return { enunciat:`Quin nombre falta perquè les fraccions siguin equivalents?`, gran:h, camps:[cEnter(r)],
     res:[`Primer simplifiquem: ${m(fracRaw(a,b)+' = '+fr(p))}`, aNum?`${p.d} · ${k2} = ${p.d*k2}, així que el numerador és ${p.n} · ${k2} = <b>${r}</b>.`:`${p.n} · ${k2} = ${p.n*k2}, així que el denominador és ${p.d} · ${k2} = <b>${r}</b>.`, `Comprovació en creu: ${a} · ${aNum?p.d*k2:r} = ${b} · ${aNum?r:p.n*k2} = ${fmtInt(a*(aNum?p.d*k2:r))}`], v:{k:'falta', p, a:aNum?r:p.n*k2, b:aNum?p.d*k2:r} };
 }));
-plantilla(2,'AE','2-vf','Quines són equivalents a una fracció negativa', () => {
-  const p=frIrr(DEN_AN,1.3), k=rand(2,6);
-  const cands = shuffle([
-    {h:fracRaw(p.n,MENYS+p.d), v:true},
-    {h:MENYS+fracRaw(p.n*k,p.d*k), v:true},
-    {h:fracRaw(MENYS+p.n*k,p.d*k), v:true},
-    {h:fracRaw(MENYS+p.n,MENYS+p.d), v:false},
-    {h:MENYS+fracRaw(p.n+k,p.d+k), v:false},
-    {h:MENYS+fracRaw(p.d,p.n), v:false},
-  ]).slice(0,3);
-  return { enunciat:`Digues si cada fracció és equivalent a ${m(MENYS+fr(p))}.`, vf:cands.map(c=>({h:m(c.h), v:c.v})), vfEt:['Sí','No'],
-    res:[`Una fracció negativa té el signe davant, al numerador o al denominador (però només en un lloc).`, `Si el signe és a dalt i a baix, la fracció és positiva. Sumar el mateix nombre o girar-la canvia el valor.`], v:{k:'vf'} };
-});
 
-/* ─────────── 3. Operacions ─────────── */
-plantilla(3,'AS','3-enters','Operació amb enters (signes)', () => retry(() => {
-  const op=pick(['+','−','·',':']);
-  let a=rand(-12,12), b=rand(-12,12); if(a===0||b===0) return null;
-  if(op===':'){ a=a*b; if(Math.abs(a)>100) return null; }
-  if(op!==':' && op!=='·' && a>0 && b>0) return null;
-  if((op==='·'||op===':') && a>0 && b>0) return null;
-  const e=B(op,a,b), r=ev(e);
-  const regla = op==='·'||op===':' ? 'Signes iguals → +; signes diferents → −.' : 'Mira els signes: si són iguals se sumen, si són diferents es resten i es posa el signe del més gran en valor absolut.';
-  return { enunciat:'Calcula:', gran:eh(e,false), camps:[cEnter(r)], pista:regla, res:[m(eh(e,false)+' = '+fr(r)), regla], v:{k:'expr', txt:et(e), r} };
-}));
-plantilla(3,'AS','3-suma','Suma o resta de dues fraccions (m.c.m.)', () => retry(() => {
+/* ─────────── 2. Operacions ─────────── */
+plantilla(2,'AS','2-suma','Suma o resta de dues fraccions (m.c.m.)', () => retry(() => {
   const a=frIrr(DEN_AS,1), b=frIrr(DEN_AS,1); if(a.d===b.d) return null;
   const op = a.cmp(b)>0 && coin() ? '−' : '+';
   const e=B(op,a,b), r=ev(e), M=lcm(a.d,b.d); if(M>36) return null;
@@ -414,7 +265,7 @@ plantilla(3,'AS','3-suma','Suma o resta de dues fraccions (m.c.m.)', () => retry
     pista:`Busca el m.c.m. dels denominadors (${a.d} i ${b.d}) i redueix a comú denominador.`,
     res:[`m.c.m.(${a.d}, ${b.d}) = ${M}`, m(`${eh(e,false)} = ${fracRaw(a.n*M/a.d,M)}<span class="opr">${op}</span>${fracRaw(b.n*M/b.d,M)} = ${fracRaw(op==='+'?a.n*M/a.d+b.n*M/b.d:a.n*M/a.d-b.n*M/b.d,M)}${F(op==='+'?a.n*M/a.d+b.n*M/b.d:a.n*M/a.d-b.n*M/b.d,M).d!==M?' = '+fr(r):''}`)], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(3,'AS','3-mateix','Suma amb el mateix denominador o amb un enter', () => retry(() => {
+plantilla(2,'AS','2-mateix','Suma amb el mateix denominador o amb un enter', () => retry(() => {
   let e;
   if(coin()){ const d=pick(DEN_AS), a=rand(1,d-1), b=rand(1,d); if(a===b) return null; e=B(a>b&&coin()?'−':'+',F(a,d),F(b,d)); if(F(a,d).d!==d||F(b,d).d!==d) return null; }
   else { const k=rand(1,5), f=frIrr(DEN_AS,1); e=coin()?B('+',k,f):B('−',k,f); }
@@ -425,13 +276,13 @@ plantilla(3,'AS','3-mateix','Suma amb el mateix denominador o amb un enter', () 
   return { enunciat:'Calcula i simplifica el resultat:', gran:eh(e,false), camps:[cFrac(r)],
     pista:'Si un terme és enter, escriu-lo com a fracció amb el mateix denominador que l’altre.', res, v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(3,'AS','3-producte','Producte de dues fraccions', () => retry(() => {
+plantilla(2,'AS','2-producte','Producte de dues fraccions', () => retry(() => {
   const a=frIrr(DEN_AS,1.2), b=frIrr(DEN_AS,1.2), e=B('·',a,b), r=ev(e);
   return { enunciat:'Calcula i simplifica el resultat:', gran:eh(e,false), camps:[cFrac(r)],
     pista:'Numerador per numerador i denominador per denominador.',
     res:[m(`${eh(e,false)} = <span class="frac"><span>${a.n} · ${b.n}</span><span>${a.d} · ${b.d}</span></span> = ${fracRaw(a.n*b.n,a.d*b.d)}${a.n*b.n!==r.n?' = '+fr(r):''}`)], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(3,'AS','3-divisio','Divisió de dues fraccions', () => retry(() => {
+plantilla(2,'AS','2-divisio','Divisió de dues fraccions', () => retry(() => {
   const a=frIrr(DEN_AS,1.2), b=frIrr(DEN_AS,1.2), e=B(':',a,b), r=ev(e); if(!amable(r,99,99)) return null;
   return { enunciat:'Calcula i simplifica el resultat:', gran:eh(e,false), camps:[cFrac(r)],
     pista:'Dividir és multiplicar per l’invers del divisor (gira la segona fracció).',
@@ -444,7 +295,7 @@ function exprQ(e, pista, maxN=99, maxD=60){
   return { enunciat:'Calcula i simplifica el resultat:', gran:eh(e,false), camps:[cFrac(r)], pista,
     res:[m(eh(e,false)), ...resolExpr(e).map(m)], v:{k:'expr', txt:et(e), r} };
 }
-plantilla(3,'AN','3-tres','Suma i resta de 3 termes amb enters (2 + 1/10 + 3/20)', () => retry(() => {
+plantilla(2,'AN','2-tres','Suma i resta de 3 termes amb enters (2 + 1/10 + 3/20)', () => retry(() => {
   const k=rand(-4,4)||2, a=fS(DEN_AN,0.25), b=frIrr(DEN_AN,1.2);
   if(lcm(a.d,b.d)>60 || a.d===b.d) return null;
   const e=B(pick(['+','−']), B(pick(['+','−']), k, a), b), r=ev(e); if(!amable(r)) return null;
@@ -452,24 +303,24 @@ plantilla(3,'AN','3-tres','Suma i resta de 3 termes amb enters (2 + 1/10 + 3/20)
   return { enunciat:'Calcula i simplifica el resultat:', gran:eh(e,false), camps:[cFrac(r)], pista:'L’enter també es passa a fracció amb el denominador comú.',
     res:[`m.c.m.(${a.d}, ${b.d}) = ${M}`, m(`${eh(e,false)} = ${(k<0?MENYS:'')+fracRaw(Math.abs(k)*M,M)}<span class="opr">${e.a.op}</span>${a.n<0?par(MENYS+fracRaw(-a.n*M/a.d,M)):fracRaw(a.n*M/a.d,M)}<span class="opr">${e.op}</span>${fracRaw(b.n*M/b.d,M)}`), m(`= ${(r.mul(M).n<0?MENYS:'')+fracRaw(Math.abs(r.mul(M).n),M)}${r.d!==M?' = '+fr(r):''}`)], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(3,'AN','3-jerarquia','Jerarquia: suma/resta amb producte o divisió', () => retry(() => {
+plantilla(2,'AN','2-jerarquia','Jerarquia: suma/resta amb producte o divisió', () => retry(() => {
   const a=fS(DEN_AN), b=fS(DEN_AN), c=fS(DEN_AN);
   const e = coin() ? B(pick(['+','−']), a, B(pick(['·',':']), b, c)) : B(pick(['+','−']), B(pick(['·',':']), a, b), c);
   return exprQ(e, 'Primer els productes i les divisions, després les sumes i les restes.');
 }));
-plantilla(3,'AN','3-parentesi','Operació amb un parèntesi', () => retry(() => {
+plantilla(2,'AN','2-parentesi','Operació amb un parèntesi', () => retry(() => {
   const a=fS(DEN_AN,0.25), b=frIrr(DEN_AN,1.2), c=fS(DEN_AN,0.3);
   const dins=P(B(pick(['+','−']),a,b));
   const e = pick([()=>B(pick(['·',':']),dins,c), ()=>B(pick(['·',':']),c,dins), ()=>B('−',rand(1,3),dins)])();
   return exprQ(e, 'Primer el parèntesi; després productes i divisions; al final sumes i restes.');
 }));
-plantilla(3,'AN','3-signes','Producte i divisió amb signes negatius', () => retry(() => {
+plantilla(2,'AN','2-signes','Producte i divisió amb signes negatius', () => retry(() => {
   const a=fS(DEN_AN,0.5,1.5), b=fS(DEN_AN,0.6,1.5), c=fS(DEN_AN,0.6,1.5);
   if(a.n>0&&b.n>0&&c.n>0) return null;
   const e=B(pick(['·',':']), B(pick(['·',':']),a,b), c);
   return exprQ(e, 'D’esquerra a dreta. Per dividir, multiplica per l’invers. Compta els signes negatius.');
 }));
-plantilla(3,'AE','3-potencia','Parèntesis amb potències dins: (1/2 − 1/3)·(−3/2)² + 1/4', () => retry(() => {
+plantilla(2,'AE','2-potencia','Parèntesis amb potències dins: (1/2 − 1/3)·(−3/2)² + 1/4', () => retry(() => {
   const a=fS(DEN_AN,0.2,1.2), b=frIrr(DEN_AN,1.2), c=frIrr([2,3,4,5],1.6).neg(), d=fS(DEN_AN,0.4,1.2);
   const pw=W(c,pick([2,2,3]));
   const e = pick([
@@ -479,72 +330,45 @@ plantilla(3,'AE','3-potencia','Parèntesis amb potències dins: (1/2 − 1/3)·(
   ])();
   return exprQ(e, null, 99, 72);
 }));
-plantilla(3,'AE','3-niats','Parèntesis niats i claudàtors', () => retry(() => {
-  const a=fS(DEN_AE,0.3,1.2), b=fS(DEN_AE,0.3,1.2), c=frIrr(DEN_AN,1.2), d=fS(DEN_AN,0.3,1.2);
+plantilla(2,'AE','2-dos','Dos parèntesis: (2/5 + 3/10) : (1/4 − 3/2)', () => retry(() => {
+  const a=fS(DEN_AE,0.2,1.2), b=frIrr(DEN_AE,1.2), c=frIrr(DEN_AN,1.2), d=fS(DEN_AN,0.2,1.2), k=rand(2,4);
   const e = pick([
-    ()=>B('−', a, P(B('·', b, P(B(pick(['+','−']),c,d))),'[]')),
-    ()=>B(':', P(B(pick(['+','−']), a, P(B('·',b,c))),'[]'), d),
-    ()=>B('·', P(B('−', rand(1,3), P(B(pick(['+','−']),c,d))),'[]'), a),
+    ()=>B(pick(['·',':']), P(B(pick(['+','−']),a,b)), P(B(pick(['+','−']),c,d))),
+    ()=>B(pick(['+','−']), P(B(pick(['+','−']),a,b)), B('·', c, P(B('−',d,b)))),
+    ()=>B('·', B('·', k, P(B('−',b,c))), d),
+    ()=>B('+', b, B(':', k, P(B('−',1,c)))),
   ])();
   return exprQ(e, null, 99, 72);
 }));
-plantilla(3,'AE','3-mixt','Enters barrejats amb fraccions: (−2 + 1/3) : (5/6 − 3)', () => retry(() => {
+plantilla(2,'AE','2-mixt','Enters barrejats amb fraccions: (−2 + 1/3) : (5/6 − 3)', () => retry(() => {
   const k1=rand(-5,5)||-2, k2=rand(1,5), a=frIrr(DEN_AE,1.2), b=frIrr(DEN_AE,1.2);
   const e = B(pick([':','·']), P(B(pick(['+','−']),k1,a)), P(B('−',b,k2)));
   return exprQ(e, null, 99, 72);
 }));
-/* Troba l'error: es mostra una resolució amb un pas equivocat */
-plantilla(3,'AE','3-error','Troba l’error en una resolució', () => retry(() => {
-  const tipus=pick(['jerarquia','invers','signe']);
-  const a=frIrr(DEN_AS,1.2), b=frIrr(DEN_AS,1.2), c=frIrr(DEN_AS,1.2);
-  let e, linies, malPas, expl;
-  if(tipus==='jerarquia'){
-    e=B('+',a,B('·',b,c));
-    const mal=a.add(b), mal2=mal.mul(c);
-    linies=[eh(e,false), `= ${fr(mal)} · ${fr(c)}`, `= ${fr(mal2)}`]; malPas=1;
-    expl=`L’error és al pas 1: s’ha sumat abans de multiplicar. Primer va el producte: ${m(eh(e,false)+' = '+fr(a)+' + '+fr(b.mul(c))+' = '+fr(ev(e)))}.`;
-    if(mal2.eq(ev(e))) return null;
-  } else if(tipus==='invers'){
-    e=B(':',P(B('+',a,b)),c);
-    const s=a.add(b), mal=F(s.n*c.n, s.d*c.d);
-    linies=[eh(e,false), `= ${fr(s)} : ${fr(c)}`, `= ${fr(mal)}`]; malPas=2;
-    expl=`L’error és al pas 2: per dividir cal multiplicar per l’invers del divisor. ${m(fr(s)+' : '+fr(c)+' = '+fr(s)+' · '+fr(c.inv())+' = '+fr(ev(e)))}.`;
-    if(mal.eq(ev(e))) return null;
-  } else {
-    e=B('−',a,P(B('−',b,c)));
-    if(b.cmp(c)<=0) return null;
-    const mal=a.sub(b).sub(c);
-    linies=[eh(e,false), `= ${fr(a)} − ${fr(b)} − ${fr(c)}`, `= ${fr(mal)}`]; malPas=1;
-    expl=`L’error és al pas 1: el menys de davant del parèntesi canvia el signe de <i>tots</i> dos termes: ${m(fr(a)+' − '+fr(b)+' + '+fr(c)+' = '+fr(ev(e)))}.`;
-  }
-  if(!amable(ev(e)) || linies.some(l=>/\d{4}/.test(l))) return null;
-  return { enunciat:'Aquesta resolució té un error. En quin pas és?', taula:linies.map((l,i)=>(i?`<span class="pas-n">Pas ${i}</span>`:'<span class="pas-n"></span>')+m(l)),
-    mc:{opcions:['Pas 1','Pas 2','No hi ha cap error'], ok:malPas-1}, res:[expl], v:{k:'error', txt:et(e), r:ev(e), tipus} };
-}));
 
-/* ─────────── 4. Part d'un total i percentatges ─────────── */
+/* ─────────── 3. Part d'un total i percentatges ─────────── */
 const COSES = [
   ['alumnes','d’una escola'], ['llibres','d’una biblioteca'], ['ovelles','d’un ramat'], ['socis','d’un club'], ['cromos','d’una col·lecció'], ['arbres','d’un bosc'],
 ];
-plantilla(4,'AS','4-fraccio','Fracció d’una quantitat (3/8 de 200)', () => retry(() => {
+plantilla(3,'AS','3-fraccio','Fracció d’una quantitat (3/8 de 200)', () => retry(() => {
   const f=frIrr([2,3,4,5,6,8,10,12],1), N=f.d*rand(2,25); if(f.n===0||N>600) return null;
   const r=f.mul(N);
   return { enunciat:`Calcula ${m(fr(f))} de ${fmtInt(N)}.`, camps:[cEnter(r)], pista:'Divideix pel denominador i multiplica pel numerador.',
     res:[m(`${fmtInt(N)} : ${f.d} = ${N/f.d}`), m(`${N/f.d} · ${f.n} = ${fmtInt(r.n)}`)], v:{k:'fracq', f, N, r} };
 }));
-plantilla(4,'AS','4-percent','Percentatge d’una quantitat (10 %, 25 %, 50 %)', () => retry(() => {
+plantilla(3,'AS','3-percent','Percentatge d’una quantitat (10 %, 25 %, 50 %)', () => retry(() => {
   const p=pick([10,20,25,50,75]), f=F(p,100), N=f.d*rand(1,40); if(N>800||N<20) return null;
   const r=f.mul(N);
   return { enunciat:`Calcula el ${p} % de ${fmtInt(N)}.`, camps:[cEnter(r)], pista:`${p} % vol dir ${p} de cada 100: escriu-lo com una fracció i simplifica-la.`,
     res:[m(`${p} % = ${fracRaw(p,100)} = ${fr(f)}`), m(`${fr(f)} de ${fmtInt(N)} = ${fmtInt(N)} : ${f.d} · ${f.n} = ${fmtInt(r.n)}`)], v:{k:'pct', p, N, r} };
 }));
-plantilla(4,'AS','4-quina','Quina fracció representa una part (18 de 48)', () => retry(() => {
+plantilla(3,'AS','3-quina','Quina fracció representa una part (18 de 48)', () => retry(() => {
   const f=frIrr([2,3,4,5,6,8,10,12],1), k=rand(2,8), [qui,on]=pick(COSES);
   const part=f.n*k*rand(1,2), tot=part/f.n*f.d; if(!Number.isInteger(tot)||tot>200) return null;
   return { enunciat:`De ${tot} ${qui} ${on}, ${part} són ${pick(['de l’equip A','nous','vermells','de primer'])}. Quina fracció del total representen? Simplifica-la.`, camps:[cFrac(F(part,tot))],
     pista:'Part entre total, i després simplifica.', res:[m(`${fracRaw(part,tot)} = ${fr(F(part,tot))}`)], v:{k:'part', part, tot, r:F(part,tot)} };
 }));
-plantilla(4,'AS','4-relacio','Percentatge, fracció i decimal (opció múltiple)', () => {
+plantilla(3,'AS','3-relacio','Percentatge, fracció i decimal (opció múltiple)', () => {
   const p=pick([5,10,20,25,40,50,75]), f=F(p,100);
   if(coin()){
     const o=mc(fr(f), [fr(F(p,10)), fr(F(p,1000)), fracRaw(1,p)]);
@@ -560,19 +384,19 @@ const RESTA_CTX = [
   {tot:'plantes', a:'són tomaqueres', b:'són pebroteres', q:'Quantes plantes són d’altres tipus?'},
 ];
 function dosFrac(){ return retry(() => { const a=frIrr([2,3,4,5,6,8,10],1), b=frIrr([3,4,5,6,8,10,12],1); if(a.d===b.d || a.add(b).cmp(1)>=0) return null; return [a,b]; }); }
-plantilla(4,'AN','4-resta','Problema de la resta: quants en queden', () => retry(() => {
+plantilla(3,'AN','3-resta','Problema de la resta: quants en queden', () => retry(() => {
   const [a,b]=dosFrac(), M=lcm(a.d,b.d), N=M*rand(1,8), c=pick(RESTA_CTX); if(N<20||N>600) return null;
   const A=a.mul(N), Bq=b.mul(N), r=F(N).sub(A).sub(Bq);
   return { enunciat:`Hi ha ${fmtInt(N)} ${c.tot}: ${m(fr(a))} ${c.a} i ${m(fr(b))} ${c.b}. ${c.q}`, camps:[cEnter(r)], pista:'Calcula cada part i resta-les del total (o calcula primer la fracció que queda).',
     res:[m(`${fr(a)} de ${N} = ${A.n}`), m(`${fr(b)} de ${N} = ${Bq.n}`), m(`${N} − ${A.n} − ${Bq.n} = ${r.n}`)], v:{k:'resta', a, b, N, r} };
 }));
-plantilla(4,'AN','4-restafrac','Problema de la resta: quina fracció queda', () => {
+plantilla(3,'AN','3-restafrac','Problema de la resta: quina fracció queda', () => {
   const [a,b]=dosFrac(), c=pick(RESTA_CTX), r=F(1).sub(a).sub(b), M=lcm(a.d,b.d);
   return { enunciat:`D’un grup de ${c.tot}, ${m(fr(a))} ${c.a} i ${m(fr(b))} ${c.b}. Quina fracció del total queda? Simplifica-la.`, camps:[cFrac(r)],
     pista:'El total és 1. Suma les dues fraccions i resta-les d’1.',
     res:[m(`${fr(a)} + ${fr(b)} = ${fracRaw(a.n*M/a.d,M)} + ${fracRaw(b.n*M/b.d,M)} = ${fr(a.add(b))}`), m(`1 − ${fr(a.add(b))} = ${fr(r)}`)], v:{k:'restafrac', a, b, r} };
 });
-plantilla(4,'AN','4-descompte','Descomptes i augments', () => retry(() => {
+plantilla(3,'AN','3-descompte','Descomptes i augments', () => retry(() => {
   const P_=rand(4,60)*5, x=pick([5,10,15,20,25,30,40]), aug=coin(0.4);
   const r=F(P_).mul(F(100+(aug?x:-x),100)); if(r.d>100) return null;
   const obj=pick(['Una jaqueta','Una bicicleta','Uns auriculars','Una entrada de concert','Un joc']);
@@ -580,12 +404,12 @@ plantilla(4,'AN','4-descompte','Descomptes i augments', () => retry(() => {
     camps:[cDec(r,{et:'Preu (€)'})], pista:aug?`Si augmenta un ${x} %, pagues el ${100+x} %.`:`Si et descompten un ${x} %, pagues el ${100-x} %.`,
     res:[`${aug?'Augment':'Descompte'}: ${m(`${x} % de ${P_} = ${eur(F(P_*x,100))}`)}`, m(`${P_} ${aug?'+':'−'} ${decStr(F(P_*x,100))} = ${eur(r)}`), `O directament: ${m(`${P_} · ${decStr(F(100+(aug?x:-x),100))} = ${eur(r)}`)}`], v:{k:'desc', P:P_, x, aug, r} };
 }));
-plantilla(4,'AN','4-relacio','Percentatge = fracció irreductible = decimal', () => {
+plantilla(3,'AN','3-relacio','Percentatge = fracció irreductible = decimal', () => {
   const p=pick([5,12,15,35,40,45,60,64,75,80,8,2]), f=F(p,100);
   return { enunciat:`Escriu el ${p} % com a fracció irreductible i com a nombre decimal.`, camps:[cFrac(f,{et:'Fracció'}), cDec(f,{et:'Decimal'})],
     pista:'Escriu-lo sobre 100 i simplifica. Per al decimal, divideix entre 100.', res:[m(`${p} % = ${fracRaw(p,100)} = ${fr(f)} = ${decStr(f)}`)], v:{k:'pctrel', p, r:f} };
 });
-plantilla(4,'AE','4-invers','Problema invers: la resta són 18, quantes n’hi ha?', () => retry(() => {
+plantilla(3,'AE','3-invers','Problema invers: la resta són 18, quantes n’hi ha?', () => retry(() => {
   const a=frIrr([3,4,5,6,7,8,9,10],1), T_=a.d*rand(2,12), R=T_-a.mul(T_).n; if(R<=0||T_>300) return null;
   const ctx=pick([
     `En un hort, ${m(fr(a))} de les plantes són tomaqueres i la resta, ${R}, són enciams. Quantes plantes hi ha?`,
@@ -595,30 +419,30 @@ plantilla(4,'AE','4-invers','Problema invers: la resta són 18, quantes n’hi h
   return { enunciat:ctx,
     camps:[cEnter(T_)], res:[m(`1 − ${fr(a)} = ${fr(F(1).sub(a))}`)+' del total són '+R+'.', m(`${fr(F(1).sub(a))} de x = ${R} → x = ${R} : ${F(1).sub(a).n} · ${a.d} = ${T_}`), `Comprovació: ${m(`${fr(a)} de ${T_} = ${a.mul(T_).n}`)} i ${a.mul(T_).n} + ${R} = ${T_}.`], v:{k:'invers1', a, R, r:F(T_)} };
 }));
-plantilla(4,'AE','4-invers2','Problema invers amb dues fraccions', () => retry(() => {
+plantilla(3,'AE','3-invers2','Problema invers amb dues fraccions', () => retry(() => {
   const [a,b]=dosFrac(), q=F(1).sub(a).sub(b), M=lcm(a.d,b.d), T_=M*rand(1,8), R=q.mul(T_); if(!R.isInt()||T_>400||R.n<2) return null;
   return { enunciat:`D’una paga, en Pol gasta ${m(fr(a))} en roba i ${m(fr(b))} en llibres. Encara li queden ${R.n} €. Quants euros tenia?`, camps:[cEnter(T_)],
     res:[m(`${fr(a)} + ${fr(b)} = ${fr(a.add(b))}`), m(`Li queda 1 − ${fr(a.add(b))} = ${fr(q)}`), m(`${fr(q)} de x = ${R.n} → x = ${R.n} : ${q.n} · ${q.d} = ${T_}`)], v:{k:'invers2', a, b, R, r:F(T_)} };
 }));
-plantilla(4,'AE','4-pctinvers','Percentatge invers (després del descompte costa 48 €)', () => retry(() => {
+plantilla(3,'AE','3-pctinvers','Percentatge invers (després del descompte costa 48 €)', () => retry(() => {
   const O=rand(4,60)*5, x=pick([5,10,15,20,25,30,40]), aug=coin(0.4), P_=F(O).mul(F(100+(aug?x:-x),100)); if(P_.d>100) return null;
   return { enunciat:aug?`Després d’un augment del ${x} %, un producte costa ${eur(P_)}. Quant costava abans de l’augment?`:`Després d’un descompte del ${x} %, un producte costa ${eur(P_)}. Quin era el preu inicial?`,
     camps:[cDec(F(O),{et:'Preu (€)'})], res:[`Ara es paga el ${100+(aug?x:-x)} % del preu inicial: ${m(`${decStr(F(100+(aug?x:-x),100))} · x = ${decStr(P_)}`)}`, m(`x = ${decStr(P_)} : ${decStr(F(100+(aug?x:-x),100))} = ${fmtInt(O)} €`)], v:{k:'pctinv', x, aug, P:P_, r:F(O)} };
 }));
-plantilla(4,'AE','4-proporcio','Proporcionalitat amb fraccions (recepta de 4 a 6 persones)', () => retry(() => {
+plantilla(3,'AE','3-proporcio','Proporcionalitat amb fraccions (recepta de 4 a 6 persones)', () => retry(() => {
   const n=pick([2,3,4,5,6,8]), mm=pick([2,3,4,5,6,8,10,12]); if(n===mm) return null;
   const q=frIrr([2,3,4,5,8],1.6), r=q.mul(mm).div(n); if(r.isInt()||!amable(r,40,24)) return null;
   const [ing,qu]=pick([['kg de farina','Quants quilos de farina'],['litres de llet','Quants litres de llet'],['kg de patates','Quants quilos de patates'],['tasses de sucre','Quantes tasses de sucre']]);
   return { enunciat:`Una recepta per a ${n} persones porta ${m(fr(q))} ${ing}. ${qu} calen per a ${mm} persones? Dona la fracció irreductible.`, camps:[cFrac(r)],
     res:[`Per a 1 persona: ${m(`${fr(q)} : ${n} = ${fr(q.div(n))}`)}`, `Per a ${mm} persones: ${m(`${fr(q.div(n))} · ${mm} = ${fr(r)}`)} ${ing}`], v:{k:'prop', q, n, mm, r} };
 }));
-plantilla(4,'AE','4-fracfrac','Fracció del que queda (gasta 2/5 i després 1/3 del que queda)', () => retry(() => {
+plantilla(3,'AE','3-fracfrac','Fracció del que queda (gasta 2/5 i després 1/3 del que queda)', () => retry(() => {
   const a=frIrr([3,4,5,6,7,8],1), b=frIrr([2,3,4,5],1), r=F(1).sub(a).mul(F(1).sub(b));
   return { enunciat:`La Laia gasta ${m(fr(a))} dels seus estalvis en una bicicleta i després ${m(fr(b))} <b>del que li queda</b> en un casc. Quina fracció dels estalvis li queda al final?`, camps:[cFrac(r)],
     res:[m(`Després de la bici li queda 1 − ${fr(a)} = ${fr(F(1).sub(a))}`), m(`El casc: ${fr(b)} de ${fr(F(1).sub(a))} = ${fr(b.mul(F(1).sub(a)))}`), m(`Li queda ${fr(F(1).sub(a))} − ${fr(b.mul(F(1).sub(a)))} = ${fr(r)}`)], v:{k:'fracfrac', a, b, r} };
 }));
 
-/* ─────────── 5. Tipus de nombres racionals ───────────
+/* ─────────── 4. Tipus de nombres racionals ───────────
    Com a classe (Apunts 5 i Activitats 17-20): fracció → decimal i tipus, classificar i
    identificar el període, decimal → fracció (exacte i periòdic, mètode de les potències
    de 10 amb barret) i quantitats com a fracció de litre. Sense negatius. */
@@ -651,13 +475,7 @@ function fracDecQ(niv){
     res:[m(divisioH(f)), `${m(fracRaw(...f.raw)+' = '+decH(f))}: <b>${TIPUS_OP[TIPUS4.indexOf(t)].toLowerCase()}</b>, perquè ${TIPUS_PER[t]}${t==='mixt'?` (${e.ante})`:''}.`],
     v:{k:'f2dt', f, t} };
 }
-plantilla(5,'AS','5-fraccio-dec','Fracció → decimal i tipus (3/4, 1/3, 7/6, 4/2)', () => fracDecQ('AS'));
-plantilla(5,'AS','5-classifica','Classificar un decimal (finit, pur o mixt)', () => {
-  const t=pick(['finit','pur','mixt']), f=fracTipus(t, DENS_TIPUS.AN[t], 60), e=expand(f);
-  const o={opcions:['Decimal finit','Periòdic pur','Periòdic mixt'], ok:['finit','pur','mixt'].indexOf(t)};
-  const ex = t==='finit' ? 'No té període: té un nombre limitat de xifres decimals.' : t==='pur' ? `El període (${e.per}) comença just després de la coma: no té avantperíode.` : `Entre la coma i el període (${e.per}) hi ha l’avantperíode (${e.ante}).`;
-  return { enunciat:`Quin tipus de nombre decimal és ${m(decH(f))}?`, mc:o, pista:'Mira si té barret i on comença.', res:[ex], v:{k:'tipus', f, t} };
-});
+plantilla(4,'AS','4-fraccio-dec','Fracció → decimal i tipus (3/4, 1/3, 7/6, 4/2)', () => fracDecQ('AS'));
 /* decimal exacte → fracció: 0,125 = 125/1000 = 1/8 */
 function decExacteQ(f){
   const e=decStr(f).split(',')[1].length, P10=10**e, N=f.n*(P10/f.d);
@@ -665,8 +483,8 @@ function decExacteQ(f){
     res:[m(`${decStr(f)} = ${fracRaw(N,P10)}${f.d!==P10?' = '+fr(f):''}`), `Hi ha ${e} ${e===1?'xifra decimal':'xifres decimals'}: denominador ${fmtInt(P10)}.`], v:{k:'d2f', s:decStr(f), r:f} };
 }
 function decExacte(maxEnt, dens){ return retry(() => { const d=pick(dens), f=F(numIrr(d, d*(maxEnt+1)-1), d); return f.isInt()?null:f; }); }
-plantilla(5,'AS','5-dec-fraccio','Decimal exacte → fracció (0,125 = 1/8; 4,25 = 17/4)', () => decExacteQ(decExacte(coin(0.6)?0:4, [2,4,5,8,10,20,25,50])));
-plantilla(5,'AS','5-litre','Quantitats com a fracció de litre (750 ml = 3/4 L)', () => {
+plantilla(4,'AS','4-dec-fraccio','Decimal exacte → fracció (0,125 = 1/8; 4,25 = 17/4)', () => decExacteQ(decExacte(coin(0.6)?0:4, [2,4,5,8,10,20,25,50])));
+plantilla(4,'AS','4-litre','Quantitats com a fracció de litre (750 ml = 3/4 L)', () => {
   const k=pick(['ml','ml','cl','L']);
   let q, f, txt, pas;
   if(k==='ml'){ q=pick([250,500,750,200,125,100,400,600,800,150]); f=F(q,1000); txt=`${q} ml`; pas=`${fracRaw(q,1000)} L`; }
@@ -696,26 +514,20 @@ function genQ(ent, ante, per, pista){
 }
 const PISTA_GEN='Anomena x el nombre. Si cal, multiplica’l per 10, 100… perquè sigui periòdic pur; multiplica’l per 10, 100… segons les xifres del període; resta les dues igualtats i aïlla x.';
 const perMin = p => !(p.length===2 && p[0]===p[1]) && !/^9+$/.test(p) && !(p.length===3 && p===p[0].repeat(3));
-plantilla(5,'AN','5-gen-pur','Periòdic pur → fracció (0,7̄ = 7/9; 0,5̄4̄ = 6/11)', () => retry(() => {
+plantilla(4,'AN','4-gen-pur','Periòdic pur → fracció (0,7̄ = 7/9; 0,5̄4̄ = 6/11)', () => retry(() => {
   const ent=coin(0.75)?0:rand(1,3), p=coin(0.55)?String(rand(1,8)):String(rand(10,98)); if(!perMin(p)) return null;
   return genQ(ent, '', p, PISTA_GEN);
 }));
-plantilla(5,'AN','5-gen-mixt','Periòdic mixt → fracció (0,23̄ = 7/30; 0,43̄ = 13/30)', () => retry(() => {
+plantilla(4,'AN','4-gen-mixt','Periòdic mixt → fracció (0,23̄ = 7/30; 0,43̄ = 13/30)', () => retry(() => {
   const ent=coin(0.75)?0:rand(1,3), a=String(rand(1,9)), p=String(rand(1,8)); if(a===p) return null;
   return genQ(ent, a, p, PISTA_GEN);
 }));
-plantilla(5,'AN','5-fraccio-dec','Fracció → decimal i tipus (2/11, 7/12, 31/12)', () => fracDecQ('AN'));
-plantilla(5,'AN','5-parts','Part entera, avantperíode i període', () => retry(() => {
-  const ent=rand(0,12), a=String(rand(1,99)), p=String(rand(1,98)); if(a.slice(-1)===p.slice(-1) || !perMin(p)) return null;
-  return { enunciat:`Escriu la part entera, l’avantperíode i el període de ${m(perH(false,ent,a,p))}.`, camps:[cDig(ent,{et:'Part entera'}), cDig(a,{et:'Avantperíode'}), cDig(p,{et:'Període'})],
-    pista:'L’avantperíode són les xifres decimals que hi ha abans del barret; el període, les que van sota el barret.',
-    res:[`Part entera: <b>${ent}</b> · avantperíode: <b>${a}</b> · període: <b>${p}</b>`, `És un periòdic mixt: ${m(perH(false,ent,a,p)+' = '+fmtInt(ent)+','+a+p+p+p+'…')}`], v:{k:'parts', ent, a, p} };
-}));
-plantilla(5,'AE','5-gen-llarg','Periòdic amb part entera → fracció (3,16̄ = 19/6; 2,38̄1̄ = 131/55)', () => retry(() => {
+plantilla(4,'AN','4-fraccio-dec','Fracció → decimal i tipus (2/11, 7/12, 31/12)', () => fracDecQ('AN'));
+plantilla(4,'AE','4-gen-llarg','Periòdic amb part entera → fracció (3,16̄ = 19/6; 2,38̄1̄ = 131/55)', () => retry(() => {
   const ent=rand(1,5), a=String(rand(1,9)), p=coin(0.6)?String(rand(10,98)):String(rand(1,8)); if(!perMin(p) || a===p.slice(-1)) return null;
   return genQ(ent, a, p, null);
 }));
-plantilla(5,'AE','5-dec-fraccio','Decimal → fracció, exacte o periòdic (12,625; 1,2̄7̄)', () => retry(() => {
+plantilla(4,'AE','4-dec-fraccio','Decimal → fracció, exacte o periòdic (12,625; 1,2̄7̄)', () => retry(() => {
   const k=pick(['exacte','pur','mixt']);
   if(k==='exacte') return decExacteQ(decExacte(15, [4,8,20,25,40,125]));
   const ent=rand(1,9), p=k==='pur'&&coin()?String(rand(10,98)):String(rand(1,8)); if(!perMin(p)) return null;
@@ -723,87 +535,52 @@ plantilla(5,'AE','5-dec-fraccio','Decimal → fracció, exacte o periòdic (12,6
   const a=String(rand(1,9)); if(a===p.slice(-1)) return null;
   return genQ(ent,a,p,null);
 }));
-plantilla(5,'AE','5-fraccio-dec','Fracció → decimal i tipus (4/27, 25/11, 31/12)', () => fracDecQ('AE'));
+plantilla(4,'AE','4-fraccio-dec','Fracció → decimal i tipus (4/27, 25/11, 31/12)', () => fracDecQ('AE'));
 
-/* ─────────── 6. Potències (exponent natural o zero) ─────────── */
-plantilla(6,'AS','6-enter','Potència d’un enter positiu (exponent 0 a 3)', () => retry(() => {
+/* ─────────── 5. Potències (exponent natural o zero) ─────────── */
+plantilla(5,'AS','5-enter','Potència d’un enter positiu (exponent 0 a 3)', () => retry(() => {
   const a=rand(2,10), n=rand(0,3); if(a**n>1000) return null;
   const e=W(a,n);
   return { enunciat:'Calcula:', gran:eh(e,false), camps:[cEnter(ev(e))], pista:n===0?'Qualsevol nombre (diferent de 0) elevat a 0 val 1.':`Multiplica la base ${a} per ella mateixa ${n} vegades.`,
     res:[n===0?m(`${sup(a,0)} = 1`):m(`${sup(a,n)} = ${Array(n).fill(a).join(' · ')} = ${fmtInt(a**n)}`)], v:{k:'expr', txt:et(e), r:ev(e)} };
 }));
-plantilla(6,'AS','6-fraccio','Potència d’una fracció positiva', () => retry(() => {
+plantilla(5,'AS','5-fraccio','Potència d’una fracció positiva', () => retry(() => {
   const f=frIrr([2,3,4,5,6],1.4), n=rand(0,3); const e=W(f,n), r=ev(e); if(!amable(r,343,216)) return null;
   return { enunciat:'Calcula:', gran:eh(e,false), camps:[cFrac(r)], pista:'S’eleva el numerador i el denominador.',
     res:[n===0?m(`${eh(e,false)} = 1`):m(`${eh(e,false)} = <span class="frac"><span>${sup(f.n,n)}</span><span>${sup(f.d,n)}</span></span> = ${fr(r)}`)], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(6,'AS','6-concepte','Base, exponent, exponent 0 i 1 (opció múltiple)', () => {
-  const k=pick(['base','exp','zero','un','zerob']);
-  const a=rand(2,9), n=rand(2,6);
-  if(k==='base'){ const o=mc(String(a), [String(n), String(a*n), fmtInt(a**n)]); return { enunciat:`Quina és la <b>base</b> de ${m(sup(a,n))}?`, mc:o, pista:'La base és el nombre que es multiplica; l’exponent diu quantes vegades.', res:[`La base és ${a} i l’exponent és ${n}: ${m(sup(a,n)+' = '+Array(n).fill(a).join(' · '))}.`], v:{k:'conc'} }; }
-  if(k==='exp'){ const o=mc(String(n), [String(a), String(a*n), fmtInt(a**n)]); return { enunciat:`Quin és l’<b>exponent</b> de ${m(sup(a,n))}?`, mc:o, pista:'L’exponent és el nombre petit de dalt.', res:[`L’exponent és ${n}: la base ${a} es multiplica ${n} vegades.`], v:{k:'conc'} }; }
-  if(k==='zero'){ const f=coin()?F(a):frIrr([3,5,7],1).neg(); const o=mc('1',['0',fr(f),'No es pot calcular']); return { enunciat:`Quant val ${m(eh(W(f,0),false))}?`, mc:o, pista:'Exponent zero.', res:[m(`${eh(W(f,0),false)} = 1`)+': tot nombre diferent de 0 elevat a 0 val 1.'], v:{k:'conc'} }; }
-  if(k==='un'){ const f=frIrr([3,5,7],1.4); const o=mc(fr(f),['1','0',fr(f.inv())]); return { enunciat:`Quant val ${m(eh(W(f,1),false))}?`, mc:o, pista:'Exponent 1.', res:[m(`${eh(W(f,1),false)} = ${fr(f)}`)+': elevar a 1 deixa el nombre igual.'], v:{k:'conc'} }; }
-  const o=mc('0',['1',String(n),'No es pot calcular']); return { enunciat:`Quant val ${m(sup(0,n))}?`, mc:o, pista:'Multiplica 0 per ell mateix.', res:[m(`${sup(0,n)} = ${Array(n).fill(0).join(' · ')} = 0`)], v:{k:'conc'} };
-});
-plantilla(6,'AN','6-negatiu','Base entera negativa (parell o senar)', () => retry(() => {
+plantilla(5,'AN','5-negatiu','Base entera negativa (parell o senar)', () => retry(() => {
   const a=rand(2,6), n=rand(2,5); if(a**n>1300) return null;
   const e=W(-a,n), r=ev(e);
   return { enunciat:'Calcula:', gran:eh(e,false), camps:[cEnter(r)], pista:'Base negativa: exponent parell → resultat positiu; senar → negatiu.',
     res:[m(`${eh(e,false)} = ${Array(n).fill(par(fmtInt(-a))).join(' · ')} = ${fmtInt(r.n)}`), `L’exponent ${n} és ${n%2?'senar: resultat negatiu':'parell: resultat positiu'}.`], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(6,'AN','6-fracneg','Potència d’una fracció negativa', () => retry(() => {
+plantilla(5,'AN','5-fracneg','Potència d’una fracció negativa', () => retry(() => {
   const f=frIrr([2,3,4,5],1.6).neg(), n=rand(2,4), e=W(f,n), r=ev(e); if(!amable(r,625,625)) return null;
   return { enunciat:'Calcula:', gran:eh(e,false), camps:[cFrac(r)], pista:'Primer el signe (parell o senar) i després numerador i denominador.',
     res:[m(`${eh(e,false)} = ${n%2?MENYS:''}<span class="frac"><span>${sup(Math.abs(f.n),n)}</span><span>${sup(f.d,n)}</span></span> = ${fr(r)}`), `Exponent ${n%2?'senar → negatiu':'parell → positiu'}.`], v:{k:'expr', txt:et(e), r} };
 }));
-plantilla(6,'AN','6-signe','Signe d’una potència de base negativa', () => {
-  const a=rand(2,9), n=rand(7,25), f=coin()?F(-a):frIrr([3,5,7],1).neg();
-  const o={opcions:['Positiu','Negatiu'], ok:n%2?1:0};
-  return { enunciat:`Sense calcular-la, quin signe té ${m(eh(W(f,n),false))}?`, mc:o, pista:'Compta si l’exponent és parell o senar.',
-    res:[`La base és negativa i l’exponent ${n} és ${n%2?'senar':'parell'}: el resultat és <b>${n%2?'negatiu':'positiu'}</b>.`], v:{k:'signe', f, n} };
+plantilla(5,'AN','5-base','Expressar un nombre com a potència de base 2 (32 = 2⁵)', () => {
+  const n=rand(0,9), N_=2**n;
+  return { enunciat:`Expressa ${m(fmtInt(N_))} com una potència de base 2. Quin és l’exponent?`, gran:`${fmtInt(N_)} = 2<sup><span class="buit">?</span></sup>`, camps:[cEnter(n,{et:'Exponent'})],
+    pista:'Divideix successivament entre 2 i compta quantes vegades ho has fet. Recorda que 1 = 2<sup>0</sup>.',
+    res:[n===0?m('1 = '+sup(2,0)):m(`${fmtInt(N_)} = ${Array(n).fill(2).join(' · ')} = ${sup(2,n)}`)], v:{k:'base', b:2, n, N:N_} };
 });
-plantilla(6,'AE','6-trampa','Trampes de signe: −2⁴ i (−2)⁴, −5⁰ i (−5)⁰', () => {
-  const k=pick(['par','frac','zero']);
-  let e1, e2;
-  if(k==='par'){ const a=rand(2,5), n=pick([2,4]); e1=W(-a,n); e2=N(W(a,n)); }
-  else if(k==='frac'){ const f=frIrr([2,3,4,5],1.4); e1=W(f.neg(),2); e2=N(W(f,2)); }
-  else { const a=rand(2,9); e1=W(-a,0); e2=N(W(a,0)); }
-  if(coin()) [e1,e2]=[e2,e1];
-  const r1=ev(e1), r2=ev(e2);
-  const expl = e => e.t==='N' ? `${m(eh(e,false))}: el menys no és a la base; primer la potència i després el signe.` : `${m(eh(e,false))}: la base és negativa (el menys és dins del parèntesi).`;
-  return { enunciat:'Calcula les dues potències. Compte amb els parèntesis!', camps:[(r1.isInt()?cEnter:cFrac)(r1,{et:eh(e1,false), etMat:true}), (r2.isInt()?cEnter:cFrac)(r2,{et:eh(e2,false), etMat:true})],
-    res:[expl(e1)+' '+m('= '+fr(r1)), expl(e2)+' '+m('= '+fr(r2))], v:{k:'expr2', txts:[et(e1),et(e2)], rs:[r1,r2]} };
-});
-plantilla(6,'AE','6-combinada','Potències dins d’operacions combinades', () => retry(() => {
-  const a=rand(2,3), b=frIrr([2,3,4],1.4), c=rand(2,5);
+plantilla(5,'AE','5-combinada','Operacions amb potències (3³ − 3², (3/4)² · (2/3)³)', () => retry(() => {
+  const a=rand(2,5), b=frIrr([2,3,4,5],1.4), c=frIrr([2,3,4,5],1.4), d=frIrr(DEN_AS,1.2);
+  if(b.eq(c)||b.eq(c.inv())) return null;   /* bases diferents: sense propietats de potències */
   const e = pick([
-    ()=>B('+', N(W(a,2)), B('·', W(-a,2), W(b,2))),
-    ()=>B('−', B('·', W(b.neg(),3), c), W(-c,0)),
-    ()=>B('+', B(':', N(W(a,2)), W(-a,2)), W(b,pick([0,1,2]))),
-    ()=>B('·', P(B('−', W(b,2), N(W(c,0)))), W(-a,pick([2,3]))),
+    ()=>B(pick(['+','−']), W(a,rand(2,3)), W(a,pick([0,1,2]))),
+    ()=>B('·', W(b,2), W(c,pick([2,3]))),
+    ()=>B(pick(['+','−']), W(b,pick([2,3])), B('·', d, W(c,pick([0,2])))),
+    ()=>B(':', W(b.neg(),pick([2,3])), P(B(pick(['+','−']), c, d))),
+    ()=>B('+', W(-a,pick([2,3])), W(b,pick([0,1,2]))),
   ])();
   const q=exprQ(e, null, 99, 72); if(!q) return null;
   q.v.pot=true; return q;
 }));
-const VF6 = [
-  () => { const a=rand(2,4), n=pick([2,4]); return {h:`${m(MENYS+sup(a,n))} = ${fmtInt(a**n)}`, v:false, e:`${m(MENYS+sup(a,n)+' = '+fmtInt(-(a**n)))}: primer la potència, després el menys.`}; },
-  () => { const a=rand(2,4), n=3; return {h:`${m(par(fmtInt(-a))+'<sup>3</sup>')} = ${fmtInt(-(a**n))}`, v:true, e:'Exponent senar: es manté el signe negatiu.'}; },
-  () => { const a=rand(2,9); return {h:`${m(MENYS+sup(a,0))} = 1`, v:false, e:`${m(MENYS+sup(a,0)+' = −1')}: el menys queda fora.`}; },
-  () => { const a=rand(2,9); return {h:`${m(par(fmtInt(-a))+'<sup>0</sup>')} = 1`, v:true, e:'Tot nombre diferent de 0 elevat a 0 val 1.'}; },
-  () => { const n=rand(2,9); return {h:`${m(sup(0,n))} = 0`, v:true, e:'0 multiplicat per ell mateix sempre dona 0.'}; },
-  () => { const n=pick([10,20,50,100]); return {h:`${m(par('−1')+'<sup>'+n+'</sup>')} = −1`, v:false, e:`Exponent parell: ${m(par('−1')+'<sup>'+n+'</sup> = 1')}.`}; },
-  () => { const f=frIrr([3,5,7],1); return {h:`${m(par(fr(f))+'<sup>3</sup>')} = ${m(fracRaw(f.n**3,f.d))}`, v:false, e:`S’eleva també el numerador: ${m(par(fr(f))+'<sup>3</sup> = '+fr(f.pow(3)))}.`}; },
-  () => { const f=frIrr([3,4,5],1); return {h:`${m(par(fr(f.neg()))+'<sup>2</sup>')} = ${m(fr(f.pow(2).neg()))}`, v:false, e:`Exponent parell: el resultat és positiu, ${m(fr(f.pow(2)))}.`}; },
-  () => { const f=frIrr([3,4,5],1); return {h:`${m(MENYS+par(fr(f))+'<sup>2</sup>')} = ${m(fr(f.pow(2).neg()))}`, v:true, e:'El menys és fora del parèntesi: es calcula la potència i després es canvia el signe.'}; },
-  () => { const a=rand(2,5); return {h:`${m(sup(a,3))} = ${a*3}`, v:false, e:`${m(sup(a,3)+' = '+a+' · '+a+' · '+a+' = '+a**3)}, no ${a} · 3.`}; },
-];
-plantilla(6,'AE','6-vf','Vertader o fals de potències amb trampa', () => {
-  const af=vfDe(VF6);
-  return { enunciat:'Digues si cada igualtat és vertadera o falsa.', vf:af.map(a=>({h:a.h, v:a.v})), res:af.map(a=>`${a.v?'<b>V</b>':'<b>F</b>'} · ${a.e}`), v:{k:'vf'} };
-});
 
-/* ─────────── 7. Arrels ─────────── */
+/* ─────────── 6. Arrels ─────────── */
 const radF = f => F(f).d===1 ? fmtInt(F(f).n) : fr(f);
 function arrelQ(idx, rad, opts={}){
   /* rad: Fr; idx: 2..5 */
@@ -828,9 +605,9 @@ function arrelQ(idx, rad, opts={}){
   return { enunciat:opts.enunciat||`Calcula ${idx===2?'l’arrel quadrada':'l’arrel '+nomI}:`, gran:h,
     camps:[cArrel(r,{forma:(F(rad).d!==1||opts.frac)?'frac':'enter', permetNo:opts.permetNo!==false})], pista:opts.pista, res, v:{k:'arrel', idx, rad, r} };
 }
-plantilla(7,'AS','7-quadrada','Arrel quadrada d’un quadrat perfecte (±)', () => { const n=rand(1,15); return arrelQ(2, n*n, {permetNo:false, pista:'Quin nombre multiplicat per ell mateix dona el radicand? Recorda que n’hi ha dos.'}); });
-plantilla(7,'AS','7-cubica','Arrel cúbica d’un cub perfecte', () => { const n=rand(1,6), s=coin(0.3)?-1:1; return arrelQ(3, s*n**3, {permetNo:false, pista:'Quin nombre multiplicat tres vegades per ell mateix dona el radicand? Només n’hi ha un.'}); });
-plantilla(7,'AS','7-quantes','Quantes arrels té? (dues, una o cap)', () => {
+plantilla(6,'AS','6-quadrada','Arrel quadrada d’un quadrat perfecte (±)', () => { const n=rand(1,15); return arrelQ(2, n*n, {permetNo:false, pista:'Quin nombre multiplicat per ell mateix dona el radicand? Recorda que n’hi ha dos.'}); });
+plantilla(6,'AS','6-cubica','Arrel cúbica d’un cub perfecte', () => { const n=rand(1,6), s=coin(0.3)?-1:1; return arrelQ(3, s*n**3, {permetNo:false, pista:'Quin nombre multiplicat tres vegades per ell mateix dona el radicand? Només n’hi ha un.'}); });
+plantilla(6,'AS','6-quantes','Quantes arrels té? (dues, una o cap)', () => {
   const k=pick(['pos','zero','neg','cub']); const n=rand(2,12);
   if(k==='cub'){ const c=-pick([8,27,64,125]); const o={opcions:['Dues','Una','Cap (no existeix en ℚ)'], ok:1}; return { enunciat:`Quantes arrels cúbiques té ${m(fmtInt(c))}?`, mc:o, pista:'Índex senar.', res:[`Una: ${m(rootH(3,fmtInt(c))+' = '+fmtInt(-Math.round(Math.cbrt(-c))))}. L’arrel cúbica sempre existeix i en té una.`], v:{k:'quantes'} }; }
   const rad = k==='pos'?n*n : k==='zero'?0 : -n*n;
@@ -838,14 +615,14 @@ plantilla(7,'AS','7-quantes','Quantes arrels té? (dues, una o cap)', () => {
   const ex = k==='pos' ? `Dues: ${m(rootH(2,rad)+' = ±'+n)}.` : k==='zero' ? `Una: ${m(rootH(2,0)+' = 0')}.` : `Cap: cap nombre al quadrat dona negatiu, així que ${m(rootH(2,fmtInt(rad)))} no existeix en ℚ.`;
   return { enunciat:`Quantes arrels quadrades té ${m(fmtInt(rad))}?`, mc:o, pista:'Radicand positiu → dues; zero → una; negatiu → cap.', res:[ex], v:{k:'quantes'} };
 });
-plantilla(7,'AN','7-fraccio','Arrel quadrada d’una fracció (±7/4)', () => retry(() => { const f=frIrr([2,3,4,5,6,7,8,9,10,11],1.6); if(f.n>12) return null; return arrelQ(2, f.pow(2), {pista:'Arrel del numerador entre arrel del denominador. I el ±!'}); }));
-plantilla(7,'AN','7-cubfrac','Arrel cúbica d’una fracció (∛(−27/64) = −3/4)', () => { const f=frIrr([2,3,4,5],1.3).mul(coin(0.6)?-1:1); return arrelQ(3, f.pow(3), {pista:'Índex senar: una arrel, amb el signe del radicand.'}); });
-plantilla(7,'AN','7-existeix','Existeix o no? (radicand negatiu, zero)', () => {
+plantilla(6,'AN','6-fraccio','Arrel quadrada d’una fracció (±7/4)', () => retry(() => { const f=frIrr([2,3,4,5,6,7,8,9,10,11],1.6); if(f.n>12) return null; return arrelQ(2, f.pow(2), {pista:'Arrel del numerador entre arrel del denominador. I el ±!'}); }));
+plantilla(6,'AN','6-cubfrac','Arrel cúbica d’una fracció (∛(−27/64) = −3/4)', () => { const f=frIrr([2,3,4,5],1.3).mul(coin(0.6)?-1:1); return arrelQ(3, f.pow(3), {pista:'Índex senar: una arrel, amb el signe del radicand.'}); });
+plantilla(6,'AN','6-existeix','Existeix o no? (radicand negatiu, zero)', () => {
   const k=pick(['neg','neg','pos','zero','cub']), n=rand(2,10);
   if(k==='cub'){ const c=rand(2,5); return arrelQ(3, -(c**3), {pista:'Fixa’t en l’índex i en el signe del radicand.'}); }
   return arrelQ(2, k==='neg'?-n*n:k==='zero'?0:n*n, {pista:'Fixa’t en l’índex i en el signe del radicand.'});
 });
-plantilla(7,'AE','7-index45','Arrels d’índex 4 i 5 (existeixen o no?)', () => retry(() => {
+plantilla(6,'AE','6-index45','Arrels d’índex 4 i 5 (existeixen o no?)', () => retry(() => {
   const idx=pick([4,5]), f = coin(0.6) ? F(rand(1,3)) : frIrr([2,3],1.6), s=coin(0.5)?-1:1;
   if(f.n>3) return null; const rad=f.pow(idx).mul(s); if(Math.abs(rad.n)>243||rad.d>243) return null;
   return arrelQ(idx, rad, {});
@@ -865,13 +642,13 @@ const IRR = [
   {h:rootH(2,fracRaw(2,9)), r:false, e:'el numerador 2 no és un quadrat perfecte'},
   {h:rootH(3,'10'), r:false, e:'10 no és un cub perfecte'},
 ];
-plantilla(7,'AE','7-racional','Racional o irracional (classificar)', () => {
+plantilla(6,'AE','6-racional','Racional o irracional (classificar)', () => {
   const it=shuffle(IRR.filter(x=>x.r)).slice(0,3).concat(shuffle(IRR.filter(x=>!x.r)).slice(0,2));
   const items=shuffle(it);
   return { enunciat:'Classifica cada nombre: és racional o irracional?', classifica:{cats:['Racional','Irracional'], items:items.map(x=>({h:m(x.h), c:x.r?0:1}))},
     res:items.map(x=>`${m(x.h)}: ${x.r?'racional':'irracional'}, perquè ${x.e}.`), v:{k:'irr'} };
 });
-plantilla(7,'AE','7-justifica','Racional o irracional: tria la justificació', () => {
+plantilla(6,'AE','6-justifica','Racional o irracional: tria la justificació', () => {
   const x=pick(IRR.filter(y=>y.h!=='π'));
   const ok = `${x.r?'Racional':'Irracional'}, perquè ${x.e}.`;
   const dist = x.r
@@ -955,8 +732,8 @@ function rawCorrecte(q, desimplificada){
     if(c.tipus==='dec') return {t:decStr(c.v).replace(MENYS,'-').replace(/\./g,'')};
     if(c.tipus==='arrel' && c.no) return {no:true};
     const v=c.v, k=desimplificada?2:1;
-    const s = c.tipus==='arrel' && c.pm ? 'pm' : v.n<0 ? '-' : '+';
-    return {s, n:String(Math.abs(v.n)*k), d:String(v.d*k)};
+    const pm = c.tipus==='arrel' && c.pm;
+    return {s:pm?'pm':'', n:String((pm?Math.abs(v.n):v.n)*k), d:String(v.d*k)};
   });
 }
 /* com s'escriu la solució (per al missatge d'incorrecte) */
@@ -975,11 +752,11 @@ function solucioH(q){
 }
 
 /* ═══════════════════ Generació de proves ═══════════════════ */
-const APARTATS = ['Definició i conjunts','Equivalents i simplificació','Operacions','Part d’un total i %','Tipus de racionals','Potències','Arrels'];
+const APARTATS = ['Equivalents i simplificació','Operacions','Part d’un total i %','Tipus de racionals','Potències','Arrels'];
 const NIVELLS = {
   AS:{nom:'AS', llarg:'Assoliment satisfactori', desc:'Un sol pas, molts d’opció múltiple. Amb pista.', pista:true},
   AN:{nom:'AN', llarg:'Assoliment notable', desc:'Resposta oberta, 2 o 3 passos, amb negatius. Pista opcional.', pista:true},
-  AE:{nom:'AE', llarg:'Assoliment excel·lent', desc:'Molts passos, problemes i «troba l’error». Sense pista.', pista:false},
+  AE:{nom:'AE', llarg:'Assoliment excel·lent', desc:'Molts passos i problemes. Sense pista.', pista:false},
 };
 const plantillesDe = (ap,niv) => T.filter(t=>t.ap===ap && t.niv===niv);
 function genera(t){
@@ -993,7 +770,7 @@ function deApartat(ap, niv, k){
   for(let i=0;i<k;i++){ if(!bossa.length) bossa=shuffle(ts); out.push(genera(bossa.pop())); }
   return out;
 }
-const SIMULACRE = [1,2,2,2,2,2,1];   /* 12 preguntes */
+const SIMULACRE = [2,2,2,2,2,2];   /* 12 preguntes */
 function prova(niv, mode, aps){
   if(mode==='simulacre') return SIMULACRE.flatMap((k,i)=>deApartat(i+1, niv, k));
   const n=aps.length, per = n===1 ? 8 : Math.max(2, Math.round(12/n));
@@ -1009,8 +786,8 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const app = $('#app');
 window.RepasRacionals = MOTOR;   /* per a proves des de la consola */
-const st = MOTOR.estat = {niv:'AS', mode:'apartats', aps:[1,2,3,4,5,6,7], qs:[], i:0, punts:[], fet:false, pistes:0};
-const DESA='repas-racionals';
+const st = MOTOR.estat = {niv:'AS', mode:'apartats', aps:[1,2,3,4,5,6], qs:[], i:0, punts:[], fet:false, pistes:0};
+const DESA='repas-racionals-v2';   /* v2: 6 apartats (abans 7) */
 /* Formulari de Google on s'envia el resultat en acabar (en segon pla).
    Buit = no s'envia res i no es demana el nom a l'inici. Es configura amb l'enllaç
    «emplenat prèviament» del formulari: url = …/formResponse i un entry.N per camp. */
@@ -1029,7 +806,7 @@ function enviaFormulari(d){
 }
 function llegeix(){ try{ return JSON.parse(localStorage.getItem(DESA)||'{}')||{}; }catch(e){ return {}; } }
 function desa(o){ try{ localStorage.setItem(DESA, JSON.stringify(Object.assign(llegeix(),o))); }catch(e){} }
-(function(){ const d=llegeix(); if(NIVELLS[d.niv]) st.niv=d.niv; if(d.mode==='simulacre'||d.mode==='apartats') st.mode=d.mode; if(Array.isArray(d.aps) && d.aps.length && d.aps.every(a=>a>=1&&a<=7)) st.aps=d.aps; })();
+(function(){ const d=llegeix(); if(NIVELLS[d.niv]) st.niv=d.niv; if(d.mode==='simulacre'||d.mode==='apartats') st.mode=d.mode; if(Array.isArray(d.aps) && d.aps.length && d.aps.every(a=>a>=1&&a<=APARTATS.length)) st.aps=d.aps; })();
 
 function inici(){
   const d=llegeix(), millors=d.millors||{};
@@ -1047,7 +824,7 @@ function inici(){
       <button type="button" class="rp-mode" role="radio" data-mode="simulacre" aria-checked="${st.mode==='simulacre'}"><b>Simulacre</b><span>12 preguntes de tot el tema, com un examen</span></button>
     </div>
     <div class="rp-aps" id="aps" ${st.mode==='apartats'?'':'hidden'}>
-      <div class="rp-aps-cap"><span>Apartats</span><button type="button" class="enllac" id="tots">${st.aps.length===7?'Cap':'Tots'}</button></div>
+      <div class="rp-aps-cap"><span>Apartats</span><button type="button" class="enllac" id="tots">${st.aps.length===APARTATS.length?'Cap':'Tots'}</button></div>
       <div class="rp-aps-llista">${APARTATS.map((a,i)=>`<label class="rp-ap"><input type="checkbox" value="${i+1}" ${st.aps.includes(i+1)?'checked':''}><span class="rp-ap-n">${i+1}</span><span>${a}</span></label>`).join('')}</div>
     </div>
     <p class="rp-avis" id="avis" hidden>Tria almenys un apartat.</p>
@@ -1062,9 +839,9 @@ function inici(){
   </section>`;
   app.querySelectorAll('.rp-niv').forEach(b=>b.onclick=()=>{ st.niv=b.dataset.niv; app.querySelectorAll('.rp-niv').forEach(x=>x.setAttribute('aria-checked', x===b)); });
   app.querySelectorAll('.rp-mode').forEach(b=>b.onclick=()=>{ st.mode=b.dataset.mode; app.querySelectorAll('.rp-mode').forEach(x=>x.setAttribute('aria-checked', x===b)); $('#aps').hidden = st.mode!=='apartats'; });
-  const llegeixAps = () => { st.aps=[...app.querySelectorAll('.rp-ap input')].filter(x=>x.checked).map(x=>+x.value); $('#tots').textContent = st.aps.length===7?'Cap':'Tots'; };
+  const llegeixAps = () => { st.aps=[...app.querySelectorAll('.rp-ap input')].filter(x=>x.checked).map(x=>+x.value); $('#tots').textContent = st.aps.length===APARTATS.length?'Cap':'Tots'; };
   app.querySelectorAll('.rp-ap input').forEach(x=>x.onchange=llegeixAps);
-  $('#tots').onclick=()=>{ const tots=st.aps.length!==7; app.querySelectorAll('.rp-ap input').forEach(x=>x.checked=tots); llegeixAps(); };
+  $('#tots').onclick=()=>{ const tots=st.aps.length!==APARTATS.length; app.querySelectorAll('.rp-ap input').forEach(x=>x.checked=tots); llegeixAps(); };
   $('#comenca').onclick=()=>{ if(st.mode==='apartats' && !st.aps.length){ $('#avis').hidden=false; return; }
     if(ambFormulari()){ st.nom=$('#nomIn').value.trim(); st.grup=$('#grupIn').value.trim(); if(!st.nom||!st.grup){ $('#avisQui').hidden=false; $('#nomIn').focus(); return; } }
     comenca(); };
@@ -1085,21 +862,28 @@ function campH(c, i){
       <label><input class="box rp-box rp-ample" data-r="a" inputmode="numeric" autocomplete="off" aria-label="xifres decimals que no es repeteixen"><small>sense barret</small></label>
       <label><span class="rp-barret"></span><input class="box rp-box rp-ample" data-r="p" inputmode="numeric" autocomplete="off" aria-label="període (amb barret)"><small>període (barret)</small></label>
     </span><span class="rp-camp-nota">Si no hi ha període, deixa’l buit; si és enter, omple només la part entera.</span></div>`;
-  const signes = c.tipus==='arrel' ? ['+','-','pm'] : ['+','-'];
-  const sH = `<span class="rp-signe" role="group" aria-label="Signe">${signes.map(s=>`<button type="button" data-s="${s}" aria-pressed="${s==='+'&&c.tipus!=='arrel'}" aria-label="${s==='+'?'positiu':s==='-'?'negatiu':'més o menys'}">${s==='+'?'+':s==='-'?'−':'±'}</button>`).join('')}</span>`;
+  /* el signe negatiu s'escriu a la casella (−3); a les arrels hi ha a més el botó ± */
+  const sH = c.tipus==='arrel' ? `<button type="button" class="rp-pm" aria-pressed="false" aria-label="més o menys" title="Dues arrels: ±">±</button>` : '';
   let cos;
   if(c.tipus==='dec') cos=`<input class="box rp-box rp-ample" inputmode="decimal" autocomplete="off" aria-label="nombre decimal" placeholder="0,0">`;
-  else if(c.tipus==='enter' || (c.tipus==='arrel' && c.forma==='enter')) cos=`<input class="box rp-box" data-r="n" inputmode="numeric" autocomplete="off" aria-label="nombre">`;
-  else cos=`<span class="rp-fin"><input class="box rp-box" data-r="n" inputmode="numeric" autocomplete="off" aria-label="numerador"><span class="rp-ratlla"></span><input class="box rp-box" data-r="d" inputmode="numeric" autocomplete="off" aria-label="denominador"></span>`;
+  else if(c.tipus==='enter' || (c.tipus==='arrel' && c.forma==='enter')) cos=`<input class="box rp-box" data-r="n" inputmode="text" autocomplete="off" aria-label="nombre">`;
+  else cos=`<span class="rp-fin"><input class="box rp-box" data-r="n" inputmode="text" autocomplete="off" aria-label="numerador"><span class="rp-ratlla"></span><input class="box rp-box" data-r="d" inputmode="numeric" autocomplete="off" aria-label="denominador"></span>`;
   const no = c.tipus==='arrel' && c.permetNo ? `<button type="button" class="rp-no" aria-pressed="false">No existeix en ℚ</button>` : '';
   return `<div class="rp-camp" data-i="${i}">${et}<span class="rp-entrada">${sH}${cos}</span>${no}</div>`;
+}
+const NOTA_SIGNE = '<p class="rp-nota-signe">Si el resultat és negatiu, escriu el signe − davant del nombre (al numerador si és una fracció).</p>';
+/* recordatori de com s'escriu el signe, només on hi pot haver resultats negatius */
+function notaSigne(q){
+  const pot = q.id!=='5-base' && (q.ap===6 || ([1,2,5].includes(q.ap) && q.niv!=='AS'));
+  if(!pot || !q.camps.some(c=>['frac','enter','arrel'].includes(c.tipus))) return '';
+  return q.camps.some(c=>c.tipus==='arrel') ? NOTA_SIGNE.replace('.</p>','. Si hi ha dues arrels, marca el botó ±.</p>') : NOTA_SIGNE;
 }
 function respostaH(q){
   if(q.mc) return `<div class="rp-opcions${q.mc.opcions.some(o=>o.length>60)?' rp-llarg':''}">${q.mc.opcions.map((o,i)=>`<button type="button" class="rp-op" data-i="${i}"><span class="rp-op-lletra">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>`;
   if(q.vf) { const [a,b]=q.vfEt||['V','F']; return `<div class="rp-vf">${q.vf.map((x,i)=>`<div class="rp-vf-fila" data-i="${i}"><span class="rp-vf-h">${x.h}</span><span class="rp-seg"><button type="button" data-v="1" aria-pressed="false">${a==='V'?'Vertader':a}</button><button type="button" data-v="0" aria-pressed="false">${b==='F'?'Fals':b}</button></span></div>`).join('')}</div>`; }
   if(q.classifica) return `<div class="rp-vf">${q.classifica.items.map((x,i)=>`<div class="rp-vf-fila" data-i="${i}"><span class="rp-vf-h">${m(x.h)}</span><span class="rp-seg">${q.classifica.cats.map((c,j)=>`<button type="button" data-v="${j}" aria-pressed="false">${c}</button>`).join('')}</span></div>`).join('')}</div>`;
   if(q.ordena) return `<p class="rp-ord-et">↑ més petit</p><ol class="rp-ord" id="ord">${shuffleNoOk(q.ordena).map(i=>`<li class="rp-ord-it" data-k="${i}"><span class="rp-ord-mans" aria-hidden="true">⠿</span><span class="mt">${q.ordena.items[i]}</span><span class="rp-ord-btns"><button type="button" data-d="-1" aria-label="Puja">▲</button><button type="button" data-d="1" aria-label="Baixa">▼</button></span></li>`).join('')}</ol><p class="rp-ord-et">↓ més gran</p>`;
-  return `<div class="rp-camps">${q.camps.map(campH).join('')}</div>`;
+  return `<div class="rp-camps">${q.camps.map(campH).join('')}</div>${notaSigne(q)}`;
 }
 function shuffleNoOk(o){ for(let k=0;k<20;k++){ const s=shuffle(o.ok); if(s.some((x,i)=>x!==o.ok[i])) return s; } return o.ok.slice().reverse(); }
 
@@ -1134,7 +918,7 @@ function pregunta(){
 }
 function enllacaControls(q){
   const R=$('#resp');
-  R.querySelectorAll('.rp-signe').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{ if(st.fet) return; g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', x===b)); const no=g.closest('.rp-camp').querySelector('.rp-no'); if(no) no.setAttribute('aria-pressed','false'); }));
+  R.querySelectorAll('.rp-pm').forEach(b=>b.onclick=()=>{ if(st.fet) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')!=='true'); const c=b.closest('.rp-camp'), no=c.querySelector('.rp-no'); if(no){ no.setAttribute('aria-pressed','false'); c.classList.remove('rp-off'); } });
   R.querySelectorAll('.rp-no').forEach(b=>b.onclick=()=>{ if(st.fet) return; const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); const c=b.closest('.rp-camp'); c.classList.toggle('rp-off',on); });
   R.querySelectorAll('input').forEach(x=>x.addEventListener('keydown',ev_=>{ if(ev_.key==='Enter'){ ev_.preventDefault(); st.fet ? seguent() : comprova(); } }));
   R.querySelectorAll('.rp-op').forEach(b=>b.onclick=()=>{ if(st.fet) return; R.querySelectorAll('.rp-op').forEach(x=>x.setAttribute('aria-pressed', x===b)); });
@@ -1175,10 +959,10 @@ function llegeixRaw(q){
     const tc=q.camps[i].tipus;
     if(tc==='tria'){ const b=c.querySelector('.rp-seg button[aria-pressed="true"]'); return {t:b?+b.dataset.v:null}; }
     if(tc==='per') return {e:c.querySelector('[data-r="e"]').value, a:c.querySelector('[data-r="a"]').value, p:c.querySelector('[data-r="p"]').value};
-    const s=c.querySelector('.rp-signe button[aria-pressed="true"]');
+    const pm=c.querySelector('.rp-pm[aria-pressed="true"]');
     const no=c.querySelector('.rp-no');
     const n=c.querySelector('[data-r="n"]'), d=c.querySelector('[data-r="d"]'), t=c.querySelector('input:not([data-r])');
-    return {s:s?s.dataset.s:'', n:n?n.value:'', d:d?d.value:'', t:t?t.value:'', no:no?no.getAttribute('aria-pressed')==='true':false};
+    return {s:pm?'pm':'', n:n?n.value:'', d:d?d.value:'', t:t?t.value:'', no:no?no.getAttribute('aria-pressed')==='true':false};
   });
 }
 function incomplet(q, raw){
