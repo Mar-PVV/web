@@ -204,8 +204,8 @@
 .repas .rp-desa-camps label:nth-child(2){flex:0 1 110px}
 .repas .rp-comp label:nth-child(2){flex:1 1 200px}
 .repas .rp-desa-camps span{font-family:var(--titol); font-weight:600; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--tenue)}
-.repas .rp-desa-camps input{font:inherit; font-size:15px; padding:9px 12px; border:1.5px solid var(--vora); border-radius:var(--radi-petit); background:var(--blanc)}
-.repas .rp-desa-camps input:focus{outline:none; border-color:var(--blau)}
+.repas .rp-desa-camps select, .repas .rp-desa-camps input{font:inherit; font-size:15px; padding:9px 12px; border:1.5px solid var(--vora); border-radius:var(--radi-petit); background:var(--blanc)}
+.repas .rp-desa-camps select:focus, .repas .rp-desa-camps input:focus{outline:none; border-color:var(--blau)}
 
 .repas .rp-qui-nota{margin:-6px 0 10px; font-size:13.5px; color:var(--suau)}
 .repas .rp-qui label:nth-child(2){flex:0 1 120px}

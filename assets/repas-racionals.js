@@ -1001,8 +1001,10 @@ const DESA='repas-racionals';
    Buit = no s'envia res i no es demana el nom a l'inici. Es configura amb l'enllaç
    «emplenat prèviament» del formulari: url = …/formResponse i un entry.N per camp. */
 const FORMULARI = {
-  url: '',
-  camps: { nom:'', grup:'', nivell:'', mode:'', nota:'', apartats:'', detall:'', codi:'' },
+  url: 'https://docs.google.com/forms/d/e/1FAIpQLScj9qFsbQWPOqOr7ClW3s-fgHm57pH16figTfjJ_HcWH2iaQw/formResponse',
+  camps: { nom:'entry.1360789373', grup:'entry.388389291', nivell:'entry.634011608', mode:'entry.1437789598',
+           nota:'entry.1477433729', apartats:'entry.147403560', detall:'entry.950916433', codi:'entry.531152409' },
+  grups: ['E3A','E3D'],   /* han de coincidir amb les opcions de la pregunta Grup del formulari */
 };
 const ambFormulari = () => !!FORMULARI.url;
 function enviaFormulari(d){
@@ -1039,7 +1041,7 @@ function inici(){
     <p class="rp-qui-nota">En acabar, el resultat s’envia a la teva professora.</p>
     <div class="rp-desa-camps rp-qui">
       <label><span>Nom i cognoms</span><input id="nomIn" autocomplete="off" maxlength="60" value="${esc(st.nom||'')}"></label>
-      <label><span>Grup</span><input id="grupIn" autocomplete="off" maxlength="10" placeholder="3r A" value="${esc(st.grup||'')}"></label>
+      <label><span>Grup</span><select id="grupIn"><option value="">—</option>${FORMULARI.grups.map(g=>`<option${st.grup===g?' selected':''}>${g}</option>`).join('')}</select></label>
     </div>
     <p class="rp-avis" id="avisQui" hidden>Escriu el teu nom i el grup.</p>`:''}
     <div class="rp-comenca"><button type="button" class="boto boto-principal rp-gran" id="comenca">Comença →</button></div>
