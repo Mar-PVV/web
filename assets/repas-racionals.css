@@ -93,7 +93,7 @@
 .repas .rp-op-lletra{flex-shrink:0; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--titol); font-weight:700; font-size:12px; background:var(--fons); color:var(--suau)}
 .repas .rp-op[aria-pressed="true"]{border-color:var(--blau); background:var(--blau-fons)}
 .repas .rp-op[aria-pressed="true"] .rp-op-lletra{background:var(--blau); color:#fff}
-.repas .rp-vf{display:grid; gap:10px}
+.repas .rp-vf{display:grid; gap:10px; max-width:720px}
 .repas .rp-vf-fila{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; padding:10px 14px; border:1px solid var(--vora); border-radius:var(--radi-petit)}
 .repas .rp-vf-h{font-size:16px; flex:1 1 220px}
 .repas .rp-vf-h .mt{font-size:1.15em}
@@ -197,3 +197,18 @@
 @media (max-width:620px){
   .repas .rp-final .rp-accions{flex-direction:column}
 }
+
+/* Nom i grup (quan hi ha formulari) */
+.repas .rp-desa-camps{display:flex; flex-wrap:wrap; gap:10px 12px; align-items:flex-end}
+.repas .rp-desa-camps label{display:grid; gap:4px; flex:1 1 200px}
+.repas .rp-desa-camps label:nth-child(2){flex:0 1 110px}
+.repas .rp-comp label:nth-child(2){flex:1 1 200px}
+.repas .rp-desa-camps span{font-family:var(--titol); font-weight:600; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--tenue)}
+.repas .rp-desa-camps input{font:inherit; font-size:15px; padding:9px 12px; border:1.5px solid var(--vora); border-radius:var(--radi-petit); background:var(--blanc)}
+.repas .rp-desa-camps input:focus{outline:none; border-color:var(--blau)}
+
+.repas .rp-qui-nota{margin:-6px 0 10px; font-size:13.5px; color:var(--suau)}
+.repas .rp-qui label:nth-child(2){flex:0 1 120px}
+.repas .rp-enviat{margin:16px 0 0; padding:10px 14px; border-radius:var(--radi-petit); background:var(--fons); color:var(--suau); font-size:14px; text-align:left}
+.repas .rp-enviat.rp-env-ok{background:var(--verd-fons); color:var(--verd); font-weight:600}
+.repas .rp-enviat.rp-env-ko{background:var(--vermell-fons); color:var(--vermell)}

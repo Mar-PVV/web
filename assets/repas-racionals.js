@@ -997,6 +997,20 @@ const app = $('#app');
 window.RepasRacionals = MOTOR;   /* per a proves des de la consola */
 const st = MOTOR.estat = {niv:'AS', mode:'apartats', aps:[1,2,3,4,5,6,7], qs:[], i:0, punts:[], fet:false, pistes:0};
 const DESA='repas-racionals';
+/* Formulari de Google on s'envia el resultat en acabar (en segon pla).
+   Buit = no s'envia res i no es demana el nom a l'inici. Es configura amb l'enllaç
+   «emplenat prèviament» del formulari: url = …/formResponse i un entry.N per camp. */
+const FORMULARI = {
+  url: '',
+  camps: { nom:'', grup:'', nivell:'', mode:'', nota:'', apartats:'', detall:'', codi:'' },
+};
+const ambFormulari = () => !!FORMULARI.url;
+function enviaFormulari(d){
+  if(!ambFormulari()) return Promise.resolve(false);
+  const cos=new URLSearchParams();
+  for(const [k,entry] of Object.entries(FORMULARI.camps)) if(entry) cos.append(entry, d[k]==null?'':String(d[k]));
+  return fetch(FORMULARI.url, {method:'POST', mode:'no-cors', body:cos}).then(()=>true, ()=>false);
+}
 function llegeix(){ try{ return JSON.parse(localStorage.getItem(DESA)||'{}')||{}; }catch(e){ return {}; } }
 function desa(o){ try{ localStorage.setItem(DESA, JSON.stringify(Object.assign(llegeix(),o))); }catch(e){} }
 (function(){ const d=llegeix(); if(NIVELLS[d.niv]) st.niv=d.niv; if(d.mode==='simulacre'||d.mode==='apartats') st.mode=d.mode; if(Array.isArray(d.aps) && d.aps.length && d.aps.every(a=>a>=1&&a<=7)) st.aps=d.aps; })();
@@ -1021,6 +1035,13 @@ function inici(){
       <div class="rp-aps-llista">${APARTATS.map((a,i)=>`<label class="rp-ap"><input type="checkbox" value="${i+1}" ${st.aps.includes(i+1)?'checked':''}><span class="rp-ap-n">${i+1}</span><span>${a}</span></label>`).join('')}</div>
     </div>
     <p class="rp-avis" id="avis" hidden>Tria almenys un apartat.</p>
+    ${ambFormulari()?`<h2 class="rp-h2">3. Qui ets?</h2>
+    <p class="rp-qui-nota">En acabar, el resultat s’envia a la teva professora.</p>
+    <div class="rp-desa-camps rp-qui">
+      <label><span>Nom i cognoms</span><input id="nomIn" autocomplete="off" maxlength="60" value="${esc(st.nom||'')}"></label>
+      <label><span>Grup</span><input id="grupIn" autocomplete="off" maxlength="10" placeholder="3r A" value="${esc(st.grup||'')}"></label>
+    </div>
+    <p class="rp-avis" id="avisQui" hidden>Escriu el teu nom i el grup.</p>`:''}
     <div class="rp-comenca"><button type="button" class="boto boto-principal rp-gran" id="comenca">Comença →</button></div>
   </section>`;
   app.querySelectorAll('.rp-niv').forEach(b=>b.onclick=()=>{ st.niv=b.dataset.niv; app.querySelectorAll('.rp-niv').forEach(x=>x.setAttribute('aria-checked', x===b)); });
@@ -1028,12 +1049,14 @@ function inici(){
   const llegeixAps = () => { st.aps=[...app.querySelectorAll('.rp-ap input')].filter(x=>x.checked).map(x=>+x.value); $('#tots').textContent = st.aps.length===7?'Cap':'Tots'; };
   app.querySelectorAll('.rp-ap input').forEach(x=>x.onchange=llegeixAps);
   $('#tots').onclick=()=>{ const tots=st.aps.length!==7; app.querySelectorAll('.rp-ap input').forEach(x=>x.checked=tots); llegeixAps(); };
-  $('#comenca').onclick=()=>{ if(st.mode==='apartats' && !st.aps.length){ $('#avis').hidden=false; return; } comenca(); };
+  $('#comenca').onclick=()=>{ if(st.mode==='apartats' && !st.aps.length){ $('#avis').hidden=false; return; }
+    if(ambFormulari()){ st.nom=$('#nomIn').value.trim(); st.grup=$('#grupIn').value.trim(); if(!st.nom||!st.grup){ $('#avisQui').hidden=false; $('#nomIn').focus(); return; } }
+    comenca(); };
   window.scrollTo(0,0);
 }
 function comenca(){
   desa({niv:st.niv, mode:st.mode, aps:st.aps});
-  st.qs=prova(st.niv, st.mode, st.aps); st.i=0; st.punts=[]; pregunta();
+  st.qs=prova(st.niv, st.mode, st.aps); st.i=0; st.punts=[]; st.data=null; pregunta();
 }
 
 /* ─── controls de resposta ─── */
@@ -1144,7 +1167,7 @@ function comprova(){
   const q=st.qs[st.i], raw=llegeixRaw(q);
   if(incomplet(q,raw)){ $('#fb').innerHTML=`<p class="fb err rp-fb">Respon totes les parts abans de comprovar.</p>`; return; }
   const r=avalua(q,raw); st.fet=true;
-  st.punts.push({ap:q.ap, p:r.p});
+  st.punts.push({ap:q.ap, p:r.p, q});
   marca(q, raw, r);
   const ok=r.p===1, mig=r.p>0&&r.p<1;
   const msgs = (r.det||[]).map(d=>d.msg).filter(Boolean);
@@ -1190,6 +1213,7 @@ function final(){
       ${Object.keys(per).map(Number).sort((a,b)=>a-b).map(a=>{ const r=per[a].p/per[a].n; return `<tr><td>${a}. ${APARTATS[a-1]}</td><td class="rp-num">${fmt(per[a].p)} / ${per[a].n}</td><td><span class="rp-estat ${r>=0.85?'rp-e-ok':r>=0.6?'rp-e-mig':'rp-e-ko'}">${r>=0.85?'✓ Ben fet':r>=0.6?'• Gairebé':'✗ Repassa'}</span></td></tr>`; }).join('')}
     </tbody></table>
     ${repassa.length?`<p class="rp-repassa"><b>Cal repassar:</b> ${repassa.map(a=>APARTATS[a-1]).join(', ')}.</p>`:`<p class="rp-repassa rp-tot-be">Cap apartat per sota del 60 %. Bona feina!</p>`}
+    ${ambFormulari()?`<p class="rp-enviat" id="enviat">Enviant el resultat a la professora…</p>`:''}
     <div class="rp-accions rp-centre">
       <button type="button" class="boto boto-principal" id="bTorna">Torna a provar</button>
       ${repassa.length && st.mode==='simulacre' ?`<button type="button" class="boto" id="bRepassa">Repassa només aquests</button>`:''}
@@ -1198,12 +1222,55 @@ function final(){
   </section>`;
   $('#bTorna').onclick=comenca;
   $('#bNivell').onclick=inici;
+  if(ambFormulari()){
+    const dd=dadesInforme(st.nom, st.grup, nota);
+    enviaFormulari({nom:dd.nom, grup:dd.grup, nivell:dd.niv, mode:dd.mode, nota:dd.nota,
+      apartats:Object.keys(per).map(Number).sort((a,b)=>a-b).map(a=>`${a}. ${APARTATS[a-1]}: ${fmt(per[a].p)}/${per[a].n}`).join(' · '),
+      detall:st.punts.map((x,i)=>`${i+1}) ${x.q.id} ${x.p===1?'✓':x.p>0?'½':'✗'}`).join(' '), codi:codiDe(dd)+' · '+dd.data})
+      .then(ok=>{ const e=$('#enviat'); if(e){ e.textContent = ok ? '✓ Resultat enviat a la professora.' : '✗ No s’ha pogut enviar el resultat (potser no hi ha connexió). Avisa la professora.'; e.classList.add(ok?'rp-env-ok':'rp-env-ko'); } });
+  }
   if($('#bRepassa')) $('#bRepassa').onclick=()=>{ st.mode='apartats'; st.aps=repassa; comenca(); };
   window.scrollTo(0,0);
 }
+/* ─── codi de comprovació del resultat que s'envia al formulari ─── */
+/* resum de les dades del resultat: la professora pot comprovar a #comprova si una fila del formulari s'ha inventat */
+function codi(txt){
+  let h1=0x811c9dc5, h2=0x01000193;
+  for(const ch of 'pv-rac-26|'+txt){ const c=ch.codePointAt(0); h1=Math.imul(h1^c,16777619)>>>0; h2=Math.imul(h2+c,2246822519)>>>0; h2^=h2>>>13; }
+  return ((h1.toString(36)+h2.toString(36)).toUpperCase().replace(/[^A-Z0-9]/g,'')+'0000000000').slice(0,10).replace(/(.{5})/,'$1-');
+}
+const codiDe = d => codi([d.nom.toLowerCase().replace(/\s+/g,' '), d.grup.toLowerCase(), d.niv, d.mode, d.nota, d.data].join('|'));
+function dadesInforme(nom, grup, nota){
+  if(!st.data){ const ara=new Date(); st.data=ara.toLocaleDateString('ca-ES',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+ara.toLocaleTimeString('ca-ES',{hour:'2-digit',minute:'2-digit'}); }
+  return {nom, grup, niv:st.niv, mode:st.mode==='simulacre'?'Simulacre':'Per apartats', nota:String(Math.round(nota*10)/10).replace('.',','), data:st.data};
+}
+/* repas-racionals.html#comprova · la professora comprova el codi d'un informe */
+function comprovaCodi(){
+  app.innerHTML = `<section class="rp-card"><h2 class="rp-h2">Comprova el codi d’un resultat</h2>
+    <p class="rp-nota-text" style="text-align:left">Copia les dades tal com surten al full de respostes del formulari (el codi i la data són a la columna Codi).</p>
+    <div class="rp-desa-camps rp-comp">
+      ${[['nom','Alumne/a'],['grup','Grup'],['niv','Nivell (AS, AN, AE)'],['mode','Mode (Simulacre o Per apartats)'],['nota','Nota (p. ex. 7,5)'],['data','Data (p. ex. 20/10/2026 19:05)'],['codi','Codi']].map(([k,e])=>`<label><span>${e}</span><input data-k="${k}"></label>`).join('')}
+      <button type="button" class="boto boto-principal" id="bComp">Comprova</button>
+    </div><div id="resComp"></div></section>`;
+  $('#bComp').onclick=()=>{ const d={}; app.querySelectorAll('[data-k]').forEach(i=>d[i.dataset.k]=i.value.trim());
+    d.niv=d.niv.toUpperCase(); d.mode=/^s/i.test(d.mode)?'Simulacre':'Per apartats';
+    const ok = codiDe(d)===d.codi.toUpperCase().replace(/\s/g,'');
+    $('#resComp').innerHTML = `<div class="rp-fb ${ok?'rp-ok':'rp-ko'}"><b><span class="rp-icona">${ok?'✓':'✗'}</span> ${ok?'El codi correspon a aquestes dades.':'El codi no correspon: alguna dada és diferent o s’ha modificat.'}</b></div>`; };
+}
+/* teclat (ordinador): Retorn = Comprova / Següent; A-D o 1-4 = tria opció */
+document.addEventListener('keydown', e=>{
+  if(!st.qs.length || !$('.rp-preg') || e.ctrlKey || e.metaKey || e.altKey) return;
+  const enInput = e.target.tagName==='INPUT';
+  if(e.key==='Enter' && !enInput && !(e.target.tagName==='BUTTON' && !e.target.classList.contains('rp-op'))){ e.preventDefault(); st.fet ? seguent() : comprova(); return; }
+  if(enInput || st.fet) return;
+  const ops=[...document.querySelectorAll('#resp .rp-op')]; if(!ops.length) return;
+  const k='abcd'.indexOf(e.key.toLowerCase()), n='1234'.indexOf(e.key), i=k>=0?k:n;
+  if(i>=0 && ops[i]){ ops[i].click(); ops[i].focus(); }
+});
 /* repas-racionals.html#plantilla=3-error&nivell=AE · per revisar una plantilla concreta */
 (function(){
   const h=new URLSearchParams(location.hash.slice(1)), id=h.get('plantilla'), niv=h.get('nivell');
+  if(h.has('comprova')){ comprovaCodi(); return; }
   const t=T.find(x=>x.id===id && (!niv || x.niv===niv));
   if(!t){ inici(); return; }
   st.niv=t.niv; st.mode='apartats'; st.aps=[t.ap];

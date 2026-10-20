@@ -217,7 +217,27 @@ n'hi ha) i, al final, la nota sobre 10, els encerts per apartat i què cal repas
   correcció funciona, i que no hi ha exponents negatius, propietats de potències ni
   notació científica. Passa-la sempre que toquis les plantilles.
 - Només desa al navegador (`localStorage`) l'últim nivell triat i la millor nota del
-  simulacre.
+  simulacre. El nom de l'alumne no es desa enlloc del navegador.
+- A l'ordinador es pot fer tot amb el teclat: Retorn = Comprova / Següent, i les
+  lletres A-D (o 1-4) trien l'opció.
+
+#### Resultats al formulari de Google
+
+En acabar cada intent, el resultat s'envia **en segon pla** a un formulari de Google
+de la professora (nom, grup, nivell, mode, nota, encerts per apartat, detall de les
+preguntes i un codi de comprovació). L'alumne escriu el nom i el grup a l'inici. Es
+configura a la constant `FORMULARI` del principi de la interfície de
+`assets/repas-racionals.js`: si `url` és buida, no s'envia res i no es demana el nom.
+
+- Per obtenir els `entry.N`: al formulari, ⋮ → «Obtén l'enllaç emplenat prèviament»,
+  omple-ho tot i copia l'enllaç. La `url` és la del formulari acabada en `/formResponse`.
+- El formulari ha de ser **obert** (sense «Restringeix als usuaris de l'institut» ni
+  «Recull adreces electròniques»): des d'una pàgina sense servidor no es pot enviar un
+  formulari que demana iniciar sessió.
+- Google no respon a la pàgina, així que no hi ha confirmació real que hagi arribat.
+- L'adreça del formulari és al codi públic: algú podria enviar files inventades. Per
+  detectar-les, cada fila porta un **codi**; es comprova a
+  `repas-racionals.html#comprova`.
 
 ---
 
