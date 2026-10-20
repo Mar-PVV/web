@@ -60,6 +60,7 @@ if vc:
 versions = {n: empremta(n)
             for n in ("estil.css", "web.js", "exercicis.js", "dades.js", "test.js",
               "decimal-fraccio.css", "decimal-fraccio.js",
-              "suma-resta-fraccions.css", "suma-resta-fraccions.js")}
+              "suma-resta-fraccions.css", "suma-resta-fraccions.js",
+              "repas-racionals.css", "repas-racionals.js")}
 tocats = posa(versions)
 print("  · " + (", ".join(tocats) if tocats else "cap canvi"))

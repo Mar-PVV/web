@@ -47,6 +47,7 @@ web/
 ├── eso.html            temes i aplicatius de 3r d'ESO · s'edita a mà
 ├── decimal-fraccio.html  aplicatiu: de decimal a fracció (3r ESO, tema 1)
 ├── suma-resta-fraccions.html  aplicatiu: suma i resta de fraccions (3r ESO, tema 1)
+├── repas-racionals.html  aplicatiu: repàs del tema 1 per nivells AS/AN/AE (3r ESO)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
@@ -59,6 +60,7 @@ web/
 │   ├── decimal-fraccio.css, decimal-fraccio.js  l'aplicatiu de decimal a fracció
 │   │                   (el CSS també té els estils comuns de tots els aplicatius)
 │   ├── suma-resta-fraccions.css, suma-resta-fraccions.js  l'aplicatiu de suma i resta
+│   ├── repas-racionals.css, repas-racionals.js  l'aplicatiu de repàs del tema 1
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
@@ -66,6 +68,8 @@ web/
 │   ├── logo.png, logo-sense-fons.png
 │   └── icona-*.png     icones (a partir de icona-mestra.png)
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
+├── proves/
+│   └── prova-repas-racionals.js  prova automàtica del repàs (node proves/prova-repas-racionals.js)
 ├── publica.sh          decideix què es publica, copia els PDF i regenera dades.js
 ├── genera-exercicis.py converteix les activitats .tex en JSON
 ├── grafics.py          converteix els gràfics TikZ en SVG (el crida genera-exercicis.py)
@@ -172,8 +176,9 @@ executar `publica.sh` i la web queda actualitzada.
 `eso.html` és la pàgina de 3r d'ESO. **No surt de `dades.js`**: els temes i els
 aplicatius s'hi escriuen a mà, perquè de 3r no es publica cap document
 (`PUBLICA_3ESO=0` a `publica.sh` continua igual). Ara hi ha el tema 1, Nombres
-racionals, amb els aplicatius **De decimal a fracció** (`decimal-fraccio.html`) i
-**Suma i resta de fraccions** (`suma-resta-fraccions.html`). Tots dos tenen nivell
+racionals, amb els aplicatius **De decimal a fracció** (`decimal-fraccio.html`),
+**Suma i resta de fraccions** (`suma-resta-fraccions.html`) i **Repàs del tema**
+(`repas-racionals.html`, vegeu més avall). Tots dos tenen nivell
 fàcil i normal; a la suma i resta, el m.c.m. es pot fer per descomposició, amb
 llistes de múltiples o directament, i el nivell fàcil no té nombres negatius. La
 suma i resta té també el nivell **Negatius**: fraccions negatives entre parèntesis,
@@ -190,6 +195,29 @@ amb un primer pas per treure els parèntesis (regla dels signes).
   targeta de 3r d'ESO a `index.html`.
 - Les estadístiques (fets, encerts, ratxa) es desen només al navegador de
   l'alumne (`localStorage`): la web no recull cap dada.
+
+### Repàs del tema 1 (`repas-racionals.html`)
+
+Repàs de tot el tema 1 (sense notació científica i amb potències només d'exponent
+natural o zero) en tres nivells: **AS**, **AN** i **AE**. L'alumne tria el nivell i el
+mode: **per apartats** (un o diversos dels 7 apartats) o **simulacre** (12 preguntes de
+tot el tema). Correcció immediata amb la resolució pas a pas, pista a AS i AN (a AE no
+n'hi ha) i, al final, la nota sobre 10, els encerts per apartat i què cal repassar.
+
+- Els exercicis surten de **plantilles** (`assets/repas-racionals.js`, secció
+  «Plantilles»), amb nombres a l'atzar i aritmètica exacta de fraccions. Cada plantilla
+  té apartat, nivell, identificador i nom.
+- Una fracció equivalent no simplificada, quan es demana simplificada, compta mig punt
+  («Correcte, però simplifica-la»). A les arrels d'índex parell cal el ±.
+- Per revisar una plantilla concreta: `repas-racionals.html#plantilla=3-error&nivell=AE`
+  (5 preguntes d'aquella plantilla).
+- **Prova automàtica:** `node proves/prova-repas-racionals.js` (cal Node). Genera
+  centenars de preguntes de cada plantilla i comprova amb un càlcul independent que la
+  solució és bona i irreductible, que l'enunciat que es veu dona aquell resultat, que la
+  correcció funciona, i que no hi ha exponents negatius, propietats de potències ni
+  notació científica. Passa-la sempre que toquis les plantilles.
+- Només desa al navegador (`localStorage`) l'últim nivell triat i la millor nota del
+  simulacre.
 
 ---
 
