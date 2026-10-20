@@ -198,10 +198,12 @@ amb un primer pas per treure els parèntesis (regla dels signes).
 
 ### Repàs del tema 1 (`repas-racionals.html`)
 
-Repàs de tot el tema 1 (sense notació científica i amb potències només d'exponent
-natural o zero) en tres nivells: **AS**, **AN** i **AE**. L'alumne tria el nivell i el
-mode: **per apartats** (un o diversos dels 6 apartats) o **simulacre** (12 preguntes de
-tot el tema, 2 de cada apartat). Només hi surten tipus d'exercici que hi ha al Quadern
+Repàs de tot el tema 1 (sense notació científica) en tres nivells: **AS**, **AN** i **AE**. L'alumne tria el nivell i el
+mode: **per apartats** (un o diversos dels 7 apartats) o **simulacre** (12 preguntes de
+tot el tema: 2 de cada apartat, i 1 de potències bàsiques i 1 d'arrels). Les
+**potències bàsiques** (apartat 5) només demanen calcular a<sup>n</sup> amb base entera o
+fracció i exponent natural o zero; la resta (propietats, exponent negatiu, base 2,
+operacions) és a l'apartat 6, **Potències**. Només hi surten tipus d'exercici que hi ha al Quadern
 o a les Activitats del tema. Correcció immediata amb la resolució pas a pas, pista a AS i AN (a AE no
 n'hi ha) i, al final, la nota sobre 10, els encerts per apartat i què cal repassar.
 
@@ -217,8 +219,8 @@ n'hi ha) i, al final, la nota sobre 10, els encerts per apartat i què cal repas
 - **Prova automàtica:** `node proves/prova-repas-racionals.js` (cal Node). Genera
   centenars de preguntes de cada plantilla i comprova amb un càlcul independent que la
   solució és bona i irreductible, que l'enunciat que es veu dona aquell resultat, que la
-  correcció funciona, i que no hi ha exponents negatius, propietats de potències ni
-  notació científica. Passa-la sempre que toquis les plantilles.
+  correcció funciona, que no hi ha notació científica i que els exponents negatius i
+  les propietats de potències només surten a l'apartat 6. Passa-la sempre que toquis les plantilles.
 - Només desa al navegador (`localStorage`) l'últim nivell triat i la millor nota del
   simulacre. El nom de l'alumne no es desa enlloc del navegador.
 - A l'ordinador es pot fer tot amb el teclat: Retorn = Comprova / Següent, i les

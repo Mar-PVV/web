@@ -5,7 +5,8 @@
    independent fet amb enters grans (BigInt), que la solució és correcta, que les
    fraccions de la solució són irreductibles, que la correcció accepta la resposta
    bona, dona mig punt a la no simplificada i zero a una d'equivocada, i que no hi
-   ha exponents negatius, propietats de potències ni notació científica. */
+   ha notació científica, ni exponents negatius o propietats de potències fora de
+   l'apartat 6 (Potències). */
 'use strict';
 const path = require('path');
 const M = require(path.join(__dirname, '..', 'assets', 'repas-racionals.js'));
@@ -15,7 +16,7 @@ const VEGADES = Number(process.argv[2]) || 400;
 const bg = (a,b) => { a=a<0n?-a:a; b=b<0n?-b:b; while(b){ [a,b]=[b,a%b]; } return a; };
 function Q(n,d=1n){ n=BigInt(n); d=BigInt(d); if(d===0n) throw new Error('÷0'); if(d<0n){n=-n;d=-d;} const g=bg(n,d)||1n; return {n:n/g, d:d/g}; }
 const qa=(x,y)=>Q(x.n*y.d+y.n*x.d, x.d*y.d), qs=(x,y)=>Q(x.n*y.d-y.n*x.d, x.d*y.d), qm=(x,y)=>Q(x.n*y.n, x.d*y.d), qd=(x,y)=>Q(x.n*y.d, x.d*y.n);
-const qp=(x,k)=>{ let r=Q(1); for(let i=0;i<k;i++) r=qm(r,x); return r; };
+const qp=(x,k)=>{ if(k<0) return qp(Q(x.d,x.n),-k); let r=Q(1); for(let i=0;i<k;i++) r=qm(r,x); return r; };
 const qeq=(x,f)=> x.n===BigInt(f.n) && x.d===BigInt(f.d);
 const qtxt=x=>x.d===1n?`${x.n}`:`${x.n}/${x.d}`;
 
@@ -25,7 +26,7 @@ function avaluaText(s){
   function expr(){ let v=term(); while(peek()==='+'||peek()==='-'){ const o=s[i++]; const w=term(); v=o==='+'?qa(v,w):qs(v,w); } return v; }
   function term(){ let v=unary(); while(peek()==='*'||peek()===':'){ const o=s[i++]; const w=unary(); v=o==='*'?qm(v,w):qd(v,w); } return v; }
   function unary(){ if(peek()==='-'){ i++; const v=unary(); return Q(-v.n,v.d); } return power(); }
-  function power(){ const b=atom(); if(peek()==='^'){ i++; const n=int(); if(n<0) throw new Error('exponent negatiu'); return qp(b,n); } return b; }
+  function power(){ const b=atom(); if(peek()==='^'){ i++; let n; if(peek()==='('){ const w=atom(); if(w.d!==1n) throw new Error('exponent no enter'); n=Number(w.n); } else n=int(); return qp(b,n); } return b; }
   function int(){ const m=/^-?\d+/.exec(s.slice(i)); if(!m) throw new Error('enter esperat a '+i+': '+s); i+=m[0].length; return Number(m[0]); }
   function atom(){
     const c=peek();
@@ -38,7 +39,7 @@ function avaluaText(s){
 }
 /* el que veu l'alumne (HTML) → text, per comprovar que els parèntesis són al seu lloc */
 function htmlAText(h){
-  let s=h.replace(/<sup>(\d+)<\/sup>/g,'^$1');
+  let s=h.replace(/<sup>([−-]?\d+)<\/sup>/g,(_,n)=>'^'+n.replace('−','-')).replace(/<sup>([^<]*)<\/sup>/g,'^($1)').replace(/<i>x<\/i>/g,'x');
   for(let k=0;k<5;k++) s=s.replace(/<span class="frac"><span>([^<]*)<\/span><span>([^<]*)<\/span><\/span>/g,'(($1):($2))');
   s=s.replace(/<[^>]+>/g,'').replace(/−/g,'-').replace(/·/g,'*').replace(/\s/g,'').replace(/(\d)\.(\d{3})/g,'$1$2');
   return s;
@@ -125,7 +126,18 @@ function verifica(q){
       const p=qp(Q(c.v.n,c.v.d), v.idx); if(!(p.n===rad.n && p.d===rad.d)) err(q,`(${c.v.n}/${c.v.d})^${v.idx} ≠ radicand`);
       if(c.pm !== (parell && rad.n>0n)) err(q,'el ± no toca'); break; }
     case 'invers2': { const T=fr(v.r); const R=qm(T, qs(qs(Q(1),fr(v.a)),fr(v.b))); if(!qeq(R,v.R)) err(q,'problema invers (2)'); break; }
-    case 'base': if(BigInt(v.b)**BigInt(v.n)!==BigInt(v.N) || !qeq(fr(q.camps[0].v),Q(v.n))) err(q,`${v.N} no és ${v.b}^${v.n}`); break;
+    case 'base': { const N=fr(v.N); if(!qeq(qp(Q(v.b),v.n),v.N) || !qeq(fr(q.camps[0].v),Q(v.n))) err(q,`${qtxt(N)} no és ${v.b}^${v.n}`);
+      const vist=htmlAText(q.gran).split('=')[0]; const vv = vist.includes(',') ? deDigits(vist) : avaluaText(vist); if(qtxt(vv)!==qtxt(N)) err(q,'el nombre que es veu ('+vist+') no és '+qtxt(N)); break; }
+    case 'unapot': { const sub=t=>t.replace(/x/g,'{2/1}'); const val=avaluaText(sub(v.txt)), obj=qp(Q(v.b),v.n);
+      if(!qeq(val,{n:Number(obj.n),d:Number(obj.d)}) && !(val.n===obj.n&&val.d===obj.d)) err(q,`${v.txt} no és ${v.b}^${v.n}`);
+      if(!qeq(fr(q.camps[0].v),Q(v.n))) err(q,'exponent de la solució');
+      const vist=htmlAText(q.gran).split('=')[0].replace(/x/g,'2'); const w=avaluaText(vist); if(w.n!==obj.n||w.d!==obj.d) err(q,`l’enunciat que es veu (${vist}) no val ${v.b}^${v.n}`);
+      q.res.forEach(l=>{ const t=htmlAText(l).replace(/x/g,'2'); const tt=t.replace(/^Hoescrivimtotenbase\d+:/,''); if(!/^[-\d()\/*:+^\[\]=,]+$/.test(tt)) return;
+        tt.split('=').filter(Boolean).forEach(part=>{ let z; try{ z=avaluaText(part); }catch(e){ err(q,'resolució il·legible: '+part); return; } if(z.n!==obj.n||z.d!==obj.d) err(q,`a la resolució, ${part} no val ${v.b}^${v.n}`); }); });
+      break; }
+    case 'negdec': { if(!qeq(qp(deDigits(v.s),v.n),fr(v.r)) || !qeq(qp(fr(v.f),v.n),fr(v.r))) err(q,`(${v.s})^${v.n} ≠ solució`); if(!qeq(fr(q.camps[0].v),fr(v.r))) err(q,'solució'); break; }
+    case 'mexp': { const base=v.op==='·'?Q(BigInt(v.a)*BigInt(v.b)):Q(v.a,v.b); if(!qeq(base,v.r)||!qeq(base,q.camps[0].v)) err(q,'base de la potència');
+      const lhs=v.op==='·'?qm(qp(Q(v.a),v.n),qp(Q(v.b),v.n)):qd(qp(Q(v.a),v.n),qp(Q(v.b),v.n)); if(lhs.n!==qp(base,v.n).n||lhs.d!==qp(base,v.n).d) err(q,'mateix exponent'); break; }
     case 'compost': case 'vf': case 'conc': case 'quantes': case 'irr': case 'noracional': break;
     default: err(q,'sense verificació: '+v.k);
   }
@@ -133,10 +145,12 @@ function verifica(q){
 
 function prohibits(q){
   const tot=[q.enunciat,q.gran||'',(q.camps||[]).map(c=>c.et||'').join(' '),(q.mc?q.mc.opcions.join(' '):''),(q.vf||[]).map(a=>a.h).join(' '),(q.taula||[]).join(' '),(q.res||[]).join(' '),(q.v&&q.v.txt)||''].join(' ');
-  if(/<sup>\s*[−-]/.test(tot) || /\^-/.test(tot)) err(q,'exponent negatiu');
+  const potencies = q.ap===6;   /* l'apartat 6 sí que té exponents negatius i propietats */
+  if(!potencies && (/<sup>\s*[−-]/.test(tot) || /\^-/.test(tot))) err(q,'exponent negatiu');
   if(/notaci[óo] cient/i.test(tot) || /·\s*10<sup>/.test(tot) || /\*\{10\/1\}\^/.test(tot)) err(q,'notació científica');
   if(/propietat/i.test(tot)) err(q,'demana propietats');
   const txt=(q.v&&q.v.txt)||'';
+  if(potencies) return;
   if(/(\{[^}]+\})\^\d+[*:]\1\^\d+/.test(txt)) err(q,'producte o quocient de potències de la mateixa base');
   if(/\([^()]*\^\d+\)\^\d+/.test(txt)) err(q,'potència d’una potència');
   if(/<sup>\d+\/\d+<\/sup>|<sup><span class="frac">/.test(tot)) err(q,'exponent fraccionari');
@@ -186,12 +200,12 @@ for(const t of M.T){
 }
 /* el mode simulacre i per apartats */
 for(const niv of ['AS','AN','AE']){
-  for(let k=0;k<50;k++){ const p=M.prova(niv,'simulacre'); if(p.length!==12) errors.push('simulacre amb '+p.length+' preguntes'); if(new Set(p.map(q=>q.ap)).size!==6) errors.push('simulacre sense tots els apartats'); }
-  for(let a=1;a<=6;a++) if(!M.plantillesDe(a,niv).length) errors.push(`no hi ha plantilles per a l’apartat ${a}, nivell ${niv}`);
+  for(let k=0;k<50;k++){ const p=M.prova(niv,'simulacre'); if(p.length!==12) errors.push('simulacre amb '+p.length+' preguntes'); if(new Set(p.map(q=>q.ap)).size!==7) errors.push('simulacre sense tots els apartats'); }
+  for(let a=1;a<=7;a++) if(!M.plantillesDe(a,niv).length) errors.push(`no hi ha plantilles per a l’apartat ${a}, nivell ${niv}`);
 }
 
 console.log(`Plantilles: ${M.T.length} · preguntes generades i comprovades: ${total} · ${Date.now()-t0} ms`);
 console.log('\nplantilla                    variants  màx |num|  màx den');
 for(const [k,s] of Object.entries(stats)) console.log(k.padEnd(28), String(s.variants).padStart(8), String(s.maxN||'-').padStart(10), String(s.maxD||'-').padStart(8));
 if(errors.length){ console.log(`\n✗ ${errors.length} errors:`); errors.slice(0,60).forEach(e=>console.log('  '+e)); process.exit(1); }
-console.log('\n✓ Tot correcte: solucions verificades, fraccions irreductibles, cap exponent negatiu, cap propietat de potències ni notació científica.');
+console.log('\n✓ Tot correcte: solucions verificades, fraccions irreductibles, cap notació científica, i exponents negatius i propietats de potències només a l’apartat 6.');

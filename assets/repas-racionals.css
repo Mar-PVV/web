@@ -67,7 +67,7 @@
 .repas .rp-gran-mt{display:block; text-align:center; font-size:clamp(23px,6.4vw,40px); padding:20px 0 12px; overflow-x:auto; white-space:nowrap; line-height:2.2}
 .repas .opr{padding:0 .12em}
 .repas .par{display:inline-block; font-weight:300; transform:scaleY(1.7); padding:0 .03em; color:var(--suau)}
-.repas .pot{display:inline-flex; align-items:center}
+.repas .pot{display:inline-flex; align-items:center; line-height:1.15}
 .repas .mt sup{font-size:.62em; line-height:1}
 .repas .pot sup{align-self:flex-start; margin-left:.05em; vertical-align:baseline}
 .repas .ov{text-decoration:overline; text-decoration-thickness:1.5px; text-underline-offset:0}
