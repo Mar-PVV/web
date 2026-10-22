@@ -336,6 +336,9 @@ function makeRect(aula, rotated){ return (x,y,w,h)=>{ if(rotated){ x=aula.cols-x
 function sizePlan(plan, aula){
   plan.style.aspectRatio=`${aula.cols}/${aula.rows}`;
   plan.style.minWidth=Math.max(320,aula.cols*34)+"px";
+  // que l'aula sencera càpiga a la pantalla: l'alçada no passa de l'alçada de la finestra
+  plan.style.maxWidth=`calc((100dvh - 190px) * ${aula.cols} / ${aula.rows})`;
+  plan.style.marginInline="auto";
   plan.style.setProperty("--u",`${100/aula.cols}cqw`);
   plan.style.backgroundSize=`${100/aula.cols}% ${100/aula.rows}%`;
 }
