@@ -52,7 +52,8 @@ web/
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
 ├── distribucions/
-│   └── index.html      eina per a docents: distribucions de l'aula (/distribucions)
+│   ├── index.html      eina per a docents: distribucions de l'aula (/distribucions)
+│   └── tutorial/       vídeo tutorial de l'eina (/distribucions/tutorial)
 ├── manifest.json       per instal·lar la web a la pantalla d'inici
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
@@ -298,6 +299,7 @@ fa servir `../assets/estil.css` per a la capçalera i el peu de la web.
   que comencen per `#` amb el grup, l'aula, la pissarra, la taula del professorat,
   les taules i les restriccions.
 - **Mai** pugis al repo cap CSV amb noms d'alumnes: el repo és públic.
+- **Tutorial:** `distribucions/tutorial/` té el vídeo (`tutorial-distribucions.mp4`, fet amb un grup inventat), la imatge de portada i la pàgina que el mostra.
 - Els colors de l'eina són variables a `.dist{...}` al principi del `<style>`.
 - Si canvies la secció de lloc o n'afegeixes una altra en carpeta, afegeix-la a
   la funció `htmls()` de `versiona.py`, perquè rebi l'empremta de versió.

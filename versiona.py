@@ -19,7 +19,7 @@ def empremta(nom):
 def htmls():
     # les pàgines de l'arrel i les de les seccions en carpeta (distribucions/index.html)
     fs = [f for f in sorted(os.listdir(WEB)) if f.endswith(".html")]
-    for d in ("distribucions",):
+    for d in ("distribucions", "distribucions/tutorial"):
         if os.path.isfile(os.path.join(WEB, d, "index.html")):
             fs.append(d + "/index.html")
     return fs
