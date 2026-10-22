@@ -17,7 +17,12 @@ def empremta(nom):
         return hashlib.sha1(fh.read()).hexdigest()[:8]
 
 def htmls():
-    return [f for f in sorted(os.listdir(WEB)) if f.endswith(".html")]
+    # les pàgines de l'arrel i les de les seccions en carpeta (distribucions/index.html)
+    fs = [f for f in sorted(os.listdir(WEB)) if f.endswith(".html")]
+    for d in ("distribucions",):
+        if os.path.isfile(os.path.join(WEB, d, "index.html")):
+            fs.append(d + "/index.html")
+    return fs
 
 def posa(versions):
     tocats = []

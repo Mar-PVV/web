@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Distribucions de l'aula · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Eina per a docents per fer distribucions de l'alumnat a l'aula. No desa cap dada: tot queda al CSV que descarregues.">
+<link rel="icon" href="../assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/estil.css?v=a1369cce">
+<style>
+/* Layout: assistent en dos passos (grup → aula) i, després, plànol de l'aula a l'esquerra amb revisió i eines al costat. */
+.dist{
+  --bg:#F8F7F4; --surface:#FFFFFF; --fg:#2B2B2B; --muted:#6B6B6B; --line:#E4DFD7; --grid:#ECE9E2;
+  --accent:#39698C; --accent-ink:#FFFFFF; --accent-soft:#EAF1F6;
+  --p1:#E6E1F7; --p2:#DCF1E4; --p3:#FDE4D3; --p4:#DBEAF7; --furn:#EFECE6;
+  --bad:#C0392B; --bad-soft:#FBE1DD; --warn:#A86A00; --warn-soft:#FFF0CC; --ok:#3A7A55; --sel:#B5561D;
+  --font:'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.dist{flex:1;color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.4;padding:28px max(24px,env(safe-area-inset-right,0px)) 48px max(24px,env(safe-area-inset-left,0px))}
+.wrap{max-width:1232px;margin:0 auto;display:grid;gap:14px}
+.dist h1{font-family:'Poppins',sans-serif;color:var(--accent);font-size:1.7rem;font-weight:700;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.dist h1 .tag{background:var(--accent);color:var(--accent-ink);padding:0 .35em;border-radius:6px}
+.dist h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px;font-weight:700}
+.dist h3{font-family:'Poppins',sans-serif;font-weight:600!important;font-size:1.15rem;margin:0 0 4px;font-weight:700}
+.dist .dist-cap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;justify-content:space-between}
+.dist .dist-cap .meta{margin:0;color:var(--muted);font-size:.85rem}
+.dist button,.dist select,.dist input,.dist textarea{font:inherit;color:inherit}
+.dist button{cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 11px;font-weight:700;font-size:.88rem}
+.dist button:hover{border-color:var(--muted)}
+.dist button:disabled{opacity:.45;cursor:default}
+.dist button:focus-visible,.dist input:focus-visible,.dist select:focus-visible,.dist textarea:focus-visible,.dist [tabindex]:focus-visible{outline:3px solid var(--sel);outline-offset:1px}
+.dist button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.dist button.primary:hover{background:#2A5070;border-color:#2A5070}
+.dist button.danger{color:var(--bad)}
+.dist button.small{padding:3px 8px;font-size:.8rem}
+.dist input[type=text],.dist input[type=number],.dist select,.dist textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;min-width:0}
+.dist textarea{width:100%;min-height:180px;resize:vertical;line-height:1.5}
+.dist label.f{display:grid;gap:3px;font-size:.8rem;color:var(--muted);font-weight:700}
+.dist label.f input,.dist label.f select,.dist label.f textarea{font-weight:400;color:var(--fg)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tab{border-radius:999px;padding:6px 14px;background:var(--surface)}
+.tab[aria-current="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tab .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-left:6px;vertical-align:middle}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
+.bar .grow{flex:1 1 170px;min-width:0}
+.sep{width:1px;align-self:stretch;background:var(--line)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;border-radius:0}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--fg)}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+@media (max-width:980px){.main{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.planscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.plan{position:relative;width:100%;container-type:inline-size;touch-action:manipulation}
+.plan.edit{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);border:1px solid var(--line);border-radius:6px;touch-action:none}
+.tbl{position:absolute;border:1.5px solid var(--fg);border-radius:4px;pointer-events:none}
+.tbl.bad{box-shadow:0 0 0 3px var(--bad)} .tbl.warn{box-shadow:0 0 0 3px var(--warn)}
+.seat{position:absolute;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:calc(var(--u)*.37);
+  cursor:pointer;user-select:none;-webkit-user-select:none;outline-offset:-2px;box-shadow:inset 0 0 0 .5px color-mix(in srgb,var(--fg) 45%,transparent);padding:0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat.empty{color:var(--muted);font-weight:400;font-style:italic}
+.seat.sel{background:var(--sel)!important;color:#fff}
+.seat.drop{background:var(--accent)!important;color:#fff}
+.seat .lock{position:absolute;top:0;right:2px;font-size:calc(var(--u)*.24)}
+.furn{position:absolute;border:1.5px solid var(--fg);background:var(--furn);display:flex;align-items:center;justify-content:center;font-size:calc(var(--u)*.34);border-radius:4px;white-space:nowrap;overflow:hidden}
+.ed-item{position:absolute;border:1.5px solid var(--fg);border-radius:4px;cursor:grab;display:flex;align-items:center;justify-content:center;font-size:calc(var(--u)*.34);font-weight:700;color:var(--muted);user-select:none}
+.ed-item.sel{box-shadow:0 0 0 3px var(--sel)}
+.ed-item.dragging{opacity:.75;cursor:grabbing}
+.ed-item .cells{position:absolute;inset:0;display:grid;pointer-events:none}
+.ed-item .cells i{border-right:1px dashed color-mix(in srgb,var(--fg) 35%,transparent);border-bottom:1px dashed color-mix(in srgb,var(--fg) 35%,transparent)}
+.ttag{position:absolute;font-size:calc(var(--u)*.26);color:var(--muted);font-weight:700;text-align:right}
+.selbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:36px;margin-bottom:8px;font-size:.9rem;color:var(--muted)}
+.selbar b{color:var(--fg)}
+.side{display:grid;gap:14px}
+.issues{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.88rem}
+.issues li{padding:6px 9px;border-radius:8px;display:flex;gap:8px;align-items:flex-start}
+.issues li.bad{background:var(--bad-soft)} .issues li.warn{background:var(--warn-soft)} .issues li.ok{color:var(--ok);font-weight:700}
+.issues .k{font-weight:700;flex:none;width:1.2em;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:34px;padding:6px;border:1.5px dashed var(--line);border-radius:10px}
+.chips.drop{border-color:var(--accent);background:var(--accent-soft)}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 10px;font-weight:700;font-size:.85rem;cursor:pointer;user-select:none}
+.chip.sel{background:var(--sel);color:#fff;border-color:var(--sel)}
+.chips .none{color:var(--muted);font-size:.85rem;padding:2px 4px}
+.dist details{border-top:1px solid var(--line);padding-top:10px}
+.dist details:first-of-type{border-top:0;padding-top:0}
+.dist summary{cursor:pointer;font-weight:700;font-size:.95rem}
+.rows{display:grid;gap:6px;margin-top:8px}
+.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.row select,.row input{flex:1 1 90px}
+.rlist{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px;font-size:.88rem}
+.rlist li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 8px;background:var(--bg);border-radius:8px}
+.pill{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:1px 7px;border-radius:999px;background:var(--accent-soft)}
+.pill.no{background:var(--bad-soft);color:var(--bad)}
+.note{font-size:.84rem;color:var(--muted);margin:6px 0 0;max-width:70ch}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:10px;font-weight:700;font-size:.9rem;z-index:20;max-width:calc(100% - 32px)}
+.confirm{display:inline-flex;gap:6px;align-items:center;font-size:.85rem;font-weight:700;color:var(--bad)}
+.hist{font-size:.85rem;width:100%;border-collapse:collapse}
+.hist td{padding:3px 4px;border-bottom:1px solid var(--line)}
+.hist td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+/* Assistent */
+.steps{display:flex;gap:8px;flex-wrap:wrap;font-size:.85rem;font-weight:700;color:var(--muted)}
+.steps span{padding:4px 12px;border-radius:999px;border:1px solid var(--line)}
+.steps span.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.wz{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:760px){.wz{grid-template-columns:minmax(0,1fr)}}
+.wz-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.palette{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.palette button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.count{font-weight:700;font-variant-numeric:tabular-nums}
+.count.ok{color:var(--ok)} .count.bad{color:var(--bad)}
+.edgrid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:14px;align-items:start}
+@media (max-width:900px){.edgrid{grid-template-columns:minmax(0,1fr)}}
+.preview-names{font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+.dist-pagina .embolcall{max-width:1280px}
+@media (max-width:620px){.dist{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+</style>
+</head>
+<body class="dist-pagina">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="../index.html">
+      <img src="../assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="../index.html">Inici</a>
+      <a href="../eso.html">3r d'ESO</a>
+      <a href="../batx.html">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="dist">
+<div class="wrap">
+  <div class="dist-cap">
+    <h1 id="title">Distribucions d'aula</h1>
+    <div class="row">
+      <select id="g-sel" aria-label="Grup"></select>
+      <button id="g-csv-open">Obre un CSV</button>
+      <button id="g-new">+ Nou grup</button>
+      <button class="primary" id="g-csv-save" hidden>⬇ Descarrega CSV</button>
+      <span class="meta" id="status">Carregant…</span>
+    </div>
+  </div>
+  <div id="view"></div>
+</div>
+<input type="file" id="imp-file" accept=".json,application/json" hidden>
+<input type="file" id="csv-file" accept=".csv,.txt,text/csv,text/plain" hidden>
+<div class="toast" id="toast" hidden></div>
+
+<noscript><p class="note">Aquesta eina necessita JavaScript.</p></noscript>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script>
+(() => {
+"use strict";
+// Unitats: un lloc fa 2 × 1 unitats de la quadrícula.
+const SW = 2, SH = 1;
+const $ = id => document.getElementById(id);
+const coll = new Intl.Collator("ca");
+const clone = o => JSON.parse(JSON.stringify(o));
+const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+function el(tag, attrs={}, ...kids){ const e=document.createElement(tag); for(const[k,v] of Object.entries(attrs)){ if(v==null||v===false) continue; if(k==="class") e.className=v; else if(k==="text") e.textContent=v; else if(k.startsWith("on")) e.addEventListener(k.slice(2),v); else e.setAttribute(k,v===true?"":v);} kids.flat().forEach(c=>c!=null&&e.append(c)); return e; }
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>t.hidden=true,2800); }
+
+// ---------- Models d'aula ----------
+function grid(n, perTable, w, h, cols, gapX, stepY){
+  const tables=Math.ceil(n/perTable), rows=Math.ceil(tables/cols), tw=w*SW;
+  const taules=[]; let k=0;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols&&k<tables;c++,k++) taules.push({id:"t"+(k+1),x:1+c*(tw+gapX),y:1+r*stepY,w,h});
+  const width=cols*tw+(cols-1)*gapX, yEnd=1+(rows-1)*stepY+h;
+  const pw=Math.min(width,Math.max(8,Math.round(width*0.6)));
+  const prof={x:1+width-4,y:yEnd+1,w:4};
+  const pissarra={x:1+Math.round((width-pw)/2),y:yEnd+3,w:pw};
+  return {cols:width+2,rows:pissarra.y+2,taules,pissarra,prof};
+}
+const PRESETS = {
+  parelles:{nom:"Files de parelles", make:n=>grid(n,2,2,1,n/2>8?3:2,2,2)},
+  individuals:{nom:"Taules individuals", make:n=>grid(n,1,1,1,n>24?6:5,1,2)},
+  trios:{nom:"Files de tres", make:n=>grid(n,3,3,1,n/3>8?3:2,2,2)},
+  grups4:{nom:"Grups de 4", make:n=>grid(n,4,2,2,Math.ceil(n/4)>6?4:3,2,3)},
+  grups6:{nom:"Grups de 6", make:n=>grid(n,6,3,2,Math.ceil(n/6)>4?3:2,2,3)},
+  mixt:{nom:"Exemple: 3 columnes amb trios", make:()=>({cols:18,rows:13,
+    taules:[[0,1,2],[0,3,2],[0,5,2],[0,7,2],[6,0,2],[6,2,2],[6,4,2],[6,6,2],[6,8,2],[14,0,2],[14,2,2],[14,4,2],[12,6,3],[12,8,3]].map(([x,y,w],i)=>({id:"t"+(i+1),x,y,w,h:1})),
+    prof:{x:14,y:10,w:4},pissarra:{x:4,y:12,w:10}})},
+};
+function seatsOf(aula){ const out=[]; for(const t of aula.taules) for(let j=0;j<t.h;j++) for(let i=0;i<t.w;i++) out.push({id:t.id+"-"+(j*t.w+i+1),t,x:t.x+i*SW,y:t.y+j*SH}); return out; }
+function frontSet(aula, seats){
+  const p=aula.pissarra; if(!p) return new Set();
+  const cx=p.x+p.w/2, cy=p.y+.5;
+  const d=t=>Math.hypot(t.x+t.w*SW/2-cx, (t.y+t.h/2-cy)*1.6);
+  const ts=aula.taules.slice().sort((a,b)=>d(a)-d(b));
+  const limit=Math.max(4,Math.round(seats.length/3)); const set=new Set(); let n=0;
+  for(const t of ts){ if(n>=limit) break; n+=t.w*t.h; set.add(t.id); }
+  return new Set(seats.filter(s=>set.has(s.t.id)).map(s=>s.id));
+}
+function itemsOverlap(a,b){ return a.x < b.x+b.W && b.x < a.x+a.W && a.y < b.y+b.H && b.y < a.y+a.H; }
+const boxT = t=>({x:t.x,y:t.y,W:t.w*SW,H:t.h*SH});
+const boxF = f=>({x:f.x,y:f.y,W:f.w,H:1});
+
+// ---------- Estat ----------
+let db=null, downloads=null, userId=null, dbOk=false;
+let groups={}, gid=null;
+let drafts={}, currentId=null, view="fons", selected=null, delConfirm=false, gDelConfirm=false;
+let mode="main"; // main | wizard | start
+const MODE="web";   // app (Claude) · local (fitxer amb memòria al navegador) · web (no desa res)
+let unsaved=false;
+let wz=null;      // {step, nom, n, noms, aula, editingGid}
+const G = () => groups[gid] || null;
+
+// ---------- Persistència ----------
+const LS="distribucions-aula-v1";
+function lsAll(){ if(MODE==="web") return {}; try{ return JSON.parse(localStorage.getItem(LS)||"{}")||{}; }catch(e){ return {}; } }
+function lsPut(){ if(MODE==="web") return; try{ localStorage.setItem(LS, JSON.stringify(groups)); }catch(e){} }
+const chains={};
+function persist(g){
+  unsaved=true; g.actualitzat=Date.now(); groups[g.id]=g; lsPut();
+  if(db && userId && dbOk){
+    const ref=db.collection("data/users/"+userId).doc(g.id);
+    chains[g.id]=(chains[g.id]||Promise.resolve()).then(()=>ref.set(clone(g))).catch(e=>{ dbOk=false; setStatus(); });
+  }
+}
+function removeGroup(id){
+  delete groups[id]; lsPut();
+  if(db && userId && dbOk) db.collection("data/users/"+userId).doc(id).delete().catch(()=>{});
+}
+function setStatus(){ $("status").textContent = MODE==="web" ? "No es desa res: descarrega el CSV abans de tancar" : dbOk ? "Desat al teu compte" : "Desat en aquest navegador"; }
+
+// ---------- Distribucions del grup actual ----------
+const sortedDists = () => { const g=G(); return g?Object.entries(g.dists||{}).sort((a,b)=>(a[1].ordre||0)-(b[1].ordre||0)):[]; };
+function cur(){ const g=G(); if(!g||!currentId) return null; return drafts[currentId] || g.dists[currentId] || null; }
+function ensureDraft(){ const g=G(); if(!g||!currentId) return null; unsaved=true; if(!drafts[currentId]) drafts[currentId]=clone(g.dists[currentId]||{nom:"Nova distribució",etiqueta:"",ordre:Date.now(),seients:{},fixats:[]}); return drafts[currentId]; }
+function isDirty(id){ const g=G(); return !!drafts[id] && JSON.stringify(drafts[id]) !== JSON.stringify(g?.dists[id]||null); }
+
+// ---------- Anàlisi ----------
+let SEATS=[], SEAT={}, FRONT=new Set();
+function computeSeats(){ const g=G(); SEATS=g?seatsOf(g.aula):[]; SEAT={}; SEATS.forEach(s=>SEAT[s.id]=s); FRONT=g?frontSet(g.aula,SEATS):new Set(); }
+function tableGroups(seients){ const g={}; for(const s of SEATS){ const n=seients[s.id]; if(!n) continue; (g[s.t.id]=g[s.t.id]||[]).push(n); } return g; }
+const pk = (a,b) => coll.compare(a,b)<0 ? a+"|"+b : b+"|"+a;
+function pairsOf(seients){ const out=[]; for(const names of Object.values(tableGroups(seients))) for(let i=0;i<names.length;i++) for(let j=i+1;j<names.length;j++) out.push(pk(names[i],names[j])); return out; }
+function history(beforeOrdre){
+  const h={}; for(const [id,d] of sortedDists()){ if(beforeOrdre!=null && (id===currentId || (d.ordre||0)>=beforeOrdre)) continue; for(const p of pairsOf(d.seients||{})) (h[p]=h[p]||[]).push(d.nom||"(sense nom)"); } return h;
+}
+function unassigned(d){ const g=G(); const seated=new Set(Object.values(d.seients).filter(Boolean)); return g.alumnes.filter(n=>!seated.has(n)).sort(coll.compare); }
+function analyse(d){
+  const g=G(), issues=[], badTables=new Set(), warnTables=new Set(), seatOf={};
+  for(const s of SEATS){ const n=d.seients[s.id]; if(n) seatOf[n]=s; }
+  for(const r of g.restriccions){
+    const sa=seatOf[r.a], sb=seatOf[r.b]; if(!sa||!sb) continue;
+    const same=sa.t.id===sb.t.id;
+    if(r.tipus==="separar"&&same){ issues.push({k:"bad",t:`${r.a} i ${r.b} són a la mateixa taula (marcat: no junts).`}); badTables.add(sa.t.id); }
+    if(r.tipus==="junts"&&!same){ issues.push({k:"bad",t:`${r.a} i ${r.b} no són a la mateixa taula (marcat: millor junts).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
+  }
+  for(const n of g.davant){ const s=seatOf[n]; if(s&&!FRONT.has(s.id)){ issues.push({k:"bad",t:`${n} no és a les primeres files.`}); badTables.add(s.t.id); } }
+  const h=history(d.ordre||Date.now());
+  for(const [t,names] of Object.entries(tableGroups(d.seients))) for(let i=0;i<names.length;i++) for(let j=i+1;j<names.length;j++){ const p=pk(names[i],names[j]); if(h[p]){ issues.push({k:"warn",t:`${names[i]} i ${names[j]} ja van seure junts a: ${h[p].join(", ")}.`}); warnTables.add(t);} }
+  const un=unassigned(d); if(un.length) issues.push({k:"warn",t:`${un.length} alumne${un.length>1?"s":""} sense lloc.`});
+  if(g.alumnes.length>SEATS.length) issues.push({k:"bad",t:`Hi ha ${g.alumnes.length} alumnes i només ${SEATS.length} llocs. Afegeix taules a «Edita l'aula».`});
+  return {issues,badTables,warnTables,placed:Object.values(d.seients).filter(Boolean).length};
+}
+
+// ---------- Proposta automàtica ----------
+function propose(){
+  const g=G(), d=ensureDraft(); if(!d) return;
+  const fix=new Set(d.fixats||[]);
+  const free=SEATS.map(s=>s.id).filter(s=>!fix.has(s));
+  const fixedNames=new Set([...fix].map(s=>d.seients[s]).filter(Boolean));
+  const pool=g.alumnes.filter(n=>!fixedNames.has(n));
+  if(pool.length>free.length) toast("Hi ha més alumnes que llocs lliures.");
+  const h=history(d.ordre||Date.now());
+  const sep=g.restriccions.filter(r=>r.tipus==="separar"), jun=g.restriccions.filter(r=>r.tipus==="junts"), front=new Set(g.davant);
+  const assign={}; for(const s of fix) if(d.seients[s]) assign[s]=d.seients[s];
+  const sh=pool.slice().sort(()=>Math.random()-.5); free.forEach((s,i)=>{ assign[s]=sh[i]||""; });
+  const cost=a=>{
+    let c=0; const seatOf={}; for(const s of SEATS) if(a[s.id]) seatOf[a[s.id]]=s;
+    const tb=n=>seatOf[n]?seatOf[n].t.id:null;
+    for(const r of sep) if(tb(r.a)&&tb(r.a)===tb(r.b)) c+=100;
+    for(const r of jun) if(tb(r.a)&&tb(r.b)&&tb(r.a)!==tb(r.b)) c+=50;
+    for(const n of front) if(seatOf[n]&&!FRONT.has(seatOf[n].id)) c+=40;
+    for(const p of pairsOf(a)) if(h[p]) c+=4*h[p].length;
+    for(const names of Object.values(tableGroups(a))) if(names.length===1) c+=2;
+    return c;
+  };
+  let curA=Object.assign({},assign), curC=cost(curA), best=Object.assign({},curA), bestC=curC; const N=6000;
+  for(let it=0; it<N && bestC>0 && free.length>1; it++){
+    const s1=free[Math.random()*free.length|0], s2=free[Math.random()*free.length|0]; if(s1===s2) continue;
+    const t=curA[s1]; curA[s1]=curA[s2]; curA[s2]=t;
+    const c=cost(curA), temp=Math.max(.01,3*(1-it/N));
+    if(c<=curC||Math.random()<Math.exp((curC-c)/temp)){ curC=c; if(c<bestC){ bestC=c; best=Object.assign({},curA);} }
+    else { curA[s2]=curA[s1]; curA[s1]=t; }
+  }
+  for(const k of Object.keys(best)) if(!best[k]) delete best[k];
+  d.seients=best; selected=null; render();
+  toast(bestC===0?"Proposta feta sense conflictes ni parelles repetides.":"Proposta feta. Revisa els avisos.");
+}
+
+// ---------- Accions sobre llocs ----------
+function placeStudent(name, seat){ const d=ensureDraft(); const prev=Object.keys(d.seients).find(s=>d.seients[s]===name); const occ=d.seients[seat]; if(prev){ if(occ) d.seients[prev]=occ; else delete d.seients[prev]; } d.seients[seat]=name; }
+function swapSeats(a,b){ const d=ensureDraft(); const x=d.seients[a], y=d.seients[b]; if(y) d.seients[a]=y; else delete d.seients[a]; if(x) d.seients[b]=x; else delete d.seients[b]; }
+function unseat(seat){ const d=ensureDraft(); delete d.seients[seat]; d.fixats=(d.fixats||[]).filter(s=>s!==seat); }
+function toggleLock(seat){ const d=ensureDraft(); const f=new Set(d.fixats||[]); f.has(seat)?f.delete(seat):f.add(seat); d.fixats=[...f]; }
+function clickSeat(seat){
+  if(selected?.type==="seat"){ if(selected.id!==seat) swapSeats(selected.id,seat); selected=null; }
+  else if(selected?.type==="student"){ placeStudent(selected.name,seat); selected=null; }
+  else selected={type:"seat",id:seat};
+  render();
+}
+function clickChip(name){
+  if(selected?.type==="seat"){ placeStudent(name,selected.id); selected=null; }
+  else if(selected?.type==="student"&&selected.name===name) selected=null;
+  else selected={type:"student",name};
+  render();
+}
+
+// ---------- Dibuix del plànol ----------
+const PASTELS=["--p1","--p2","--p3","--p4"];
+function tableColor(aula,t){ const band=Math.min(3,Math.floor((t.x+t.w)/(aula.cols/3+0.01))); return `var(${PASTELS[(band)%4]})`; }
+function makeRect(aula, rotated){ return (x,y,w,h)=>{ if(rotated){ x=aula.cols-x-w; y=aula.rows-y-h; } return {left:x/aula.cols*100+"%",top:y/aula.rows*100+"%",width:w/aula.cols*100+"%",height:h/aula.rows*100+"%"}; }; }
+function sizePlan(plan, aula){
+  plan.style.aspectRatio=`${aula.cols}/${aula.rows}`;
+  plan.style.minWidth=Math.max(320,aula.cols*34)+"px";
+  plan.style.setProperty("--u",`${100/aula.cols}cqw`);
+  plan.style.backgroundSize=`${100/aula.cols}% ${100/aula.rows}%`;
+}
+function renderPlan(plan, d, an){
+  const g=G(), aula=g.aula, rect=makeRect(aula,view==="pissarra"); plan.textContent=""; sizePlan(plan,aula);
+  const fix=new Set(d.fixats||[]), front=new Set(g.davant);
+  if(aula.pissarra){ const f=aula.pissarra, e=el("div",{class:"furn",text:"Pissarra"}); Object.assign(e.style,rect(f.x,f.y,f.w,1)); plan.append(e); }
+  if(aula.prof){ const f=aula.prof, e=el("div",{class:"furn",text:"Taula professor/a"}); Object.assign(e.style,rect(f.x,f.y,f.w,1)); plan.append(e); }
+  for(const s of SEATS){
+    const n=d.seients[s.id]||"";
+    const seat=el("div",{class:"seat"+(n?"":" empty")+(selected?.type==="seat"&&selected.id===s.id?" sel":""),tabindex:"0",role:"button","aria-label":(n||"Lloc buit"),draggable:n?"true":"false"});
+    seat.style.background=tableColor(aula,s.t);
+    Object.assign(seat.style,rect(s.x,s.y,SW,SH));
+    seat.append(n||"buit"); if(n&&front.has(n)&&!FRONT.has(s.id)) seat.style.textDecoration="underline wavy var(--bad)";
+    if(fix.has(s.id)) seat.append(el("span",{class:"lock",text:"🔒"}));
+    seat.addEventListener("click",()=>clickSeat(s.id));
+    seat.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); clickSeat(s.id);} });
+    seat.addEventListener("dragstart",e=>{ e.dataTransfer.setData("text/plain","seat:"+s.id); });
+    seat.addEventListener("dragover",e=>{ e.preventDefault(); seat.classList.add("drop"); });
+    seat.addEventListener("dragleave",()=>seat.classList.remove("drop"));
+    seat.addEventListener("drop",e=>{ e.preventDefault(); const p=e.dataTransfer.getData("text/plain"); if(p.startsWith("seat:")) swapSeats(p.slice(5),s.id); else if(p.startsWith("al:")) placeStudent(p.slice(3),s.id); selected=null; render(); });
+    plan.append(seat);
+  }
+  for(const t of aula.taules){ const b=el("div",{class:"tbl"+(an.badTables.has(t.id)?" bad":an.warnTables.has(t.id)?" warn":"")}); Object.assign(b.style,rect(t.x,t.y,t.w*SW,t.h*SH)); plan.append(b); }
+  if(d.etiqueta){ const lab=el("div",{class:"ttag",text:d.etiqueta}); Object.assign(lab.style,{right:"0",bottom:"0",width:"40%"}); plan.append(lab); }
+}
+
+// ---------- Vista principal ----------
+function renderMain(){
+  const g=G(), v=$("view"); v.textContent="";
+  computeSeats();
+  if(!g){ renderStart(); return; }
+  const d=cur(); const an=d?analyse(d):{issues:[],badTables:new Set(),warnTables:new Set(),placed:0};
+  // pestanyes
+  const tabs=el("nav",{class:"tabs","aria-label":"Distribucions desades"});
+  for(const [id,dd] of sortedDists()){ const b=el("button",{class:"tab","aria-current":String(id===currentId),onclick:()=>{currentId=id;selected=null;delConfirm=false;render();}},(drafts[id]||dd).nom||"(sense nom)"); if(isDirty(id)) b.append(el("span",{class:"dot",title:"Canvis sense desar"})); tabs.append(b); }
+  for(const [id,dd] of Object.entries(drafts)) if(!g.dists[id]&&dd.__g===g.id) tabs.append(el("button",{class:"tab","aria-current":String(id===currentId),onclick:()=>{currentId=id;selected=null;render();}},dd.nom||"Nova",el("span",{class:"dot"})));
+  tabs.append(el("button",{class:"tab",text:"+ Nova distribució",onclick:newDist}));
+  if(d) tabs.append(el("button",{class:"tab",text:"Duplica l'actual",onclick:dupDist}));
+  v.append(tabs);
+  if(!d){
+    v.append(el("section",{class:"card",style:"margin-top:14px"},el("h3",{text:"Encara no hi ha cap distribució per a "+g.nom}),el("p",{class:"note",text:"Crea'n una i fes servir «Proposa distribució» per omplir l'aula automàticament, o col·loca l'alumnat a mà."}),el("div",{class:"wz-actions",style:"justify-content:flex-start"},el("button",{class:"primary",text:"+ Nova distribució",onclick:newDist}),el("button",{text:"Edita l'aula",onclick:()=>startWizard(g.id,2)}))));
+    v.append(groupTools());
+    return;
+  }
+  // barra
+  const nom=el("input",{type:"text",id:"f-nom",maxlength:"60",value:d.nom||""}); nom.addEventListener("input",e=>{ ensureDraft().nom=e.target.value; refreshDirty(); });
+  const etq=el("input",{type:"text",id:"f-etq",maxlength:"60",value:d.etiqueta||"",placeholder:"p. ex. Novembre 2026"}); etq.addEventListener("input",e=>{ ensureDraft().etiqueta=e.target.value; refreshDirty(); });
+  const dirty=isDirty(currentId);
+  const delw=el("span",{});
+  if(delConfirm) delw.append(el("span",{class:"confirm"},"Segur?",el("button",{class:"small danger",text:"Sí, elimina",onclick:doDelete}),el("button",{class:"small",text:"No",onclick:()=>{delConfirm=false;render();}})));
+  else delw.append(el("button",{class:"danger",text:"Elimina",onclick:()=>{delConfirm=true;render();}}));
+  v.append(el("div",{class:"bar",style:"margin-top:14px"},
+    el("label",{class:"f grow"},"Nom",nom), el("label",{class:"f grow"},"Etiqueta (peu de pàgina)",etq),
+    el("button",{class:"primary",id:"b-save",text:"Desa",disabled:!dirty,onclick:doSave}),
+    el("button",{text:"Desa com a nova",onclick:doSaveAs}),
+    el("button",{id:"b-revert",text:"Desfés canvis",disabled:!dirty||!g.dists[currentId],onclick:()=>{delete drafts[currentId];selected=null;render();}}),
+    el("span",{class:"sep"}),
+    el("button",{text:"✨ Proposa distribució",title:"Omple els llocs no fixats respectant les restriccions i evitant repetir parelles",onclick:propose}),
+    el("button",{text:"Buida l'aula",onclick:()=>{ const dd=ensureDraft(); const f=new Set(dd.fixats||[]); for(const s of Object.keys(dd.seients)) if(!f.has(s)) delete dd.seients[s]; selected=null; render(); }}),
+    el("span",{class:"sep"}),
+    el("div",{class:"seg",role:"group","aria-label":"Vista"},
+      el("button",{"aria-pressed":String(view==="fons"),text:"Des del fons",onclick:()=>setView("fons")}),
+      el("button",{"aria-pressed":String(view==="pissarra"),text:"Des de la pissarra",onclick:()=>setView("pissarra")})),
+    el("div",{class:"seg",role:"group","aria-label":"Descarrega PDF"},
+      el("button",{text:"PDF des del fons",onclick:()=>exportPDF("fons")}),
+      el("button",{text:"PDF des de la pissarra",onclick:()=>exportPDF("pissarra")}),
+      el("button",{text:"PDF amb les dues",onclick:()=>exportPDF("dues")})),
+    delw));
+  // principal
+  const selbar=el("div",{class:"selbar"});
+  if(selected?.type==="seat"){
+    const n=d.seients[selected.id], locked=(d.fixats||[]).includes(selected.id);
+    selbar.append(el("span",{},"Seleccionat: ",el("b",{text:n||"lloc buit"})," · toca un altre lloc per intercanviar"),
+      el("button",{class:"small",text:locked?"🔓 Desfixa":"🔒 Fixa",onclick:()=>{toggleLock(selected.id);render();}}),
+      n?el("button",{class:"small",text:"Treu del lloc",onclick:()=>{unseat(selected.id);selected=null;render();}}):null,
+      el("button",{class:"small",text:"Cancel·la",onclick:()=>{selected=null;render();}}));
+  } else if(selected?.type==="student"){
+    selbar.append(el("span",{},"Seleccionat: ",el("b",{text:selected.name})," · toca un lloc per asseure'l"),el("button",{class:"small",text:"Cancel·la",onclick:()=>{selected=null;render();}}));
+  } else selbar.append(el("span",{text:`${an.placed} de ${SEATS.length} llocs ocupats · ${g.alumnes.length} alumnes`}));
+  const plan=el("div",{class:"plan",id:"plan"}); renderPlan(plan,d,an);
+  const left=el("section",{class:"card"},selbar,el("div",{class:"planscroll"},plan),
+    el("p",{class:"note",text:"Toca un lloc i després un altre per intercanviar-los (o arrossega). 🔒 = lloc fixat: «Proposa distribució» no el mou. Vora vermella: restricció incomplerta. Vora groga: parella que ja ha seigut junta."}));
+  // lateral
+  const issues=el("ul",{class:"issues"});
+  if(!an.issues.length) issues.append(el("li",{class:"ok"},el("span",{class:"k",text:"✓"}),"Cap conflicte ni parella repetida."));
+  an.issues.forEach(i=>issues.append(el("li",{class:i.k},el("span",{class:"k",text:i.k==="bad"?"!":"↺"}),i.t)));
+  const un=el("div",{class:"chips"}); const list=unassigned(d);
+  if(!list.length) un.append(el("span",{class:"none",text:"Tothom té lloc."}));
+  list.forEach(n=>{ const ch=el("span",{class:"chip"+(selected?.type==="student"&&selected.name===n?" sel":""),tabindex:"0",role:"button",draggable:"true",text:n}); ch.addEventListener("click",()=>clickChip(n)); ch.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();clickChip(n);} }); ch.addEventListener("dragstart",e=>e.dataTransfer.setData("text/plain","al:"+n)); un.append(ch); });
+  un.addEventListener("dragover",e=>{ e.preventDefault(); un.classList.add("drop"); });
+  un.addEventListener("dragleave",()=>un.classList.remove("drop"));
+  un.addEventListener("drop",e=>{ e.preventDefault(); const p=e.dataTransfer.getData("text/plain"); if(p.startsWith("seat:")){ unseat(p.slice(5)); selected=null; render(); } });
+  const side=el("aside",{class:"side"},
+    el("section",{class:"card"},el("h2",{text:"Revisió"}),issues),
+    el("section",{class:"card"},el("h2",{text:"Sense lloc"}),un),
+    el("section",{class:"card"},restrPanel(),histPanel(),rosterPanel()));
+  v.append(el("div",{class:"main",style:"margin-top:14px"},left,side));
+  v.append(groupTools());
+}
+function refreshDirty(){ const dirty=isDirty(currentId); const b=$("b-save"); if(b) b.disabled=!dirty; const r=$("b-revert"); if(r) r.disabled=!dirty||!G().dists[currentId]; }
+function setView(v){ view=v; try{localStorage.setItem(LS+"-vista",v);}catch(e){} render(); }
+
+function restrPanel(){
+  const g=G(), names=g.alumnes.slice().sort(coll.compare);
+  const sel=(id,opts,label)=>el("select",{id,"aria-label":label},el("option",{value:"",text:"Tria…"}),opts.map(n=>el("option",{value:n,text:n})));
+  const a=sel("r-a",names,"Alumne/a 1"), b=sel("r-b",names,"Alumne/a 2");
+  const t=el("select",{id:"r-t","aria-label":"Tipus"},el("option",{value:"separar",text:"No poden seure a la mateixa taula"}),el("option",{value:"junts",text:"Millor a la mateixa taula"}));
+  const fa=sel("f-a",names.filter(n=>!g.davant.includes(n)),"Alumne/a a primeres files");
+  const rl=el("ul",{class:"rlist"});
+  g.restriccions.forEach((r,i)=>rl.append(el("li",{},el("span",{},el("span",{class:"pill"+(r.tipus==="separar"?" no":""),text:r.tipus==="separar"?"No junts":"Junts"})," ",`${r.a} · ${r.b}`),el("button",{class:"small",text:"Treu",onclick:()=>{g.restriccions.splice(i,1);persist(g);render();}}))));
+  const fl=el("ul",{class:"rlist"});
+  g.davant.slice().sort(coll.compare).forEach(n=>fl.append(el("li",{},el("span",{},el("span",{class:"pill",text:"Primeres files"})," ",n),el("button",{class:"small",text:"Treu",onclick:()=>{g.davant=g.davant.filter(x=>x!==n);persist(g);render();}}))));
+  return el("details",{open:true},el("summary",{text:"Restriccions"}),
+    el("div",{class:"rows"},el("div",{class:"row"},a,b),el("div",{class:"row"},t,el("button",{text:"Afegeix",onclick:()=>{
+      const A=a.value,B=b.value; if(!A||!B||A===B){ toast("Tria dos alumnes diferents"); return; }
+      if(g.restriccions.some(r=>pk(r.a,r.b)===pk(A,B))){ toast("Aquesta parella ja té una restricció"); return; }
+      g.restriccions.push({a:A,b:B,tipus:t.value}); persist(g); render(); }}))),
+    rl,
+    el("div",{class:"rows",style:"margin-top:12px"},el("div",{class:"row"},fa,el("button",{text:"A primeres files",onclick:()=>{ if(!fa.value) return; g.davant.push(fa.value); persist(g); render(); }}))),
+    fl,
+    el("p",{class:"note",text:"Primeres files = les taules més properes a la pissarra (aprox. un terç dels llocs)."}));
+}
+function histPanel(){
+  const h=history(null), rows=Object.entries(h).filter(([,v])=>v.length>1).sort((a,b)=>b[1].length-a[1].length||coll.compare(a[0],b[0]));
+  const t=el("table",{class:"hist"});
+  if(!rows.length) t.append(el("tr",{},el("td",{text:"Cap parella repetida entre les distribucions desades."})));
+  rows.forEach(([p,v])=>t.append(el("tr",{},el("td",{text:p.replace("|"," · ")}),el("td",{text:v.join(", ")}),el("td",{class:"n",text:"×"+v.length}))));
+  return el("details",{},el("summary",{text:"Historial de parelles"}),el("p",{class:"note",text:"Qui ha seigut a la mateixa taula en més d'una distribució desada."}),t);
+}
+function rosterPanel(){
+  const g=G(), l=el("ul",{class:"rlist"});
+  g.alumnes.slice().sort(coll.compare).forEach((n,i)=>{ const inp=el("input",{type:"text",value:n,"aria-label":"Nom de "+n,maxlength:"30",id:"al-"+i}); inp.addEventListener("change",()=>renameStudent(n,inp.value.trim())); l.append(el("li",{},inp,el("button",{class:"small danger",text:"Treu",onclick:()=>removeStudent(n)}))); });
+  const nw=el("input",{type:"text",id:"al-new",placeholder:"Nom de pila",maxlength:"30"});
+  const add=()=>{ const n=nw.value.trim(); if(!n) return; if(g.alumnes.includes(n)){ toast("Ja hi és"); return; } g.alumnes.push(n); persist(g); render(); };
+  nw.addEventListener("keydown",e=>{ if(e.key==="Enter") add(); });
+  const bulk=el("textarea",{id:"al-bulk",placeholder:"Enganxa aquí diversos noms, un per línia (també des d'una columna d'un full de càlcul)",style:"min-height:90px"});
+  const addBulk=()=>{ const list=parseNames(bulk.value); let n=0; for(const x of list) if(!g.alumnes.includes(x)){ g.alumnes.push(x); n++; } if(!list.length) return; persist(g); toast(n?`${n} alumnes afegits`:"Ja hi eren tots"); render(); };
+  return el("details",{},el("summary",{text:`Alumnat (${g.alumnes.length})`}),el("div",{class:"row",style:"margin-top:8px"},nw,el("button",{text:"Afegeix",onclick:add})),
+    el("div",{class:"rows"},bulk,el("div",{class:"row"},el("button",{text:"Afegeix tots",onclick:addBulk}))),l,el("p",{class:"note",text:"Canviar un nom també el canvia a totes les distribucions desades."}));
+}
+function groupTools(){
+  const g=G();
+  const del=el("span",{});
+  if(gDelConfirm) del.append(el("span",{class:"confirm"},`S'esborrarà ${g.nom} amb totes les distribucions. Segur?`,el("button",{class:"small danger",text:"Sí, esborra el grup",onclick:()=>{ removeGroup(g.id); gDelConfirm=false; gid=Object.keys(groups)[0]||null; currentId=null; pickLatest(); render(); }}),el("button",{class:"small",text:"No",onclick:()=>{gDelConfirm=false;render();}})));
+  else del.append(el("button",{class:"danger",text:"Esborra el grup",onclick:()=>{gDelConfirm=true;render();}}));
+  return el("section",{class:"card",style:"margin-top:14px"},el("h2",{text:"Grup i aula"}),
+    el("div",{class:"row"},
+      el("button",{text:"Edita l'aula",onclick:()=>startWizard(g.id,2)}),
+      el("button",{text:"Canvia el nom del grup",onclick:()=>startWizard(g.id,1)}),
+      el("button",{class:"primary",text:"⬇ Descarrega CSV",title:"Alumnat, distribucions, aula i restriccions",onclick:exportCSV}),
+      el("button",{text:"Afegeix alumnes o distribucions des d'un CSV",onclick:()=>openCsv("grup")}),
+      del),
+    el("p",{class:"note",text:(MODE==="web"?"Aquesta pàgina no guarda res. Descarrega el CSV abans de tancar i torna'l a obrir la propera vegada. ":dbOk?"Les dades es desen al teu compte i només les veus tu. ":"Les dades es desen en aquest navegador: descarrega el CSV de tant en tant per no perdre-les o per passar-les a un altre ordinador. ")+"El CSV guarda l'alumnat, totes les distribucions (cada lloc com a T3-2 = taula 3, lloc 2), l'aula i les restriccions. S'obre amb Excel o Google Sheets."}));
+}
+
+// ---------- Gestió ----------
+function pickLatest(){ const s=sortedDists(); currentId=s.length?s[s.length-1][0]:null; }
+function newDist(){ const g=G(); const id=uid("d"); drafts[id]={nom:"Nova distribució",etiqueta:"",ordre:Date.now(),seients:{},fixats:[],__g:g.id}; currentId=id; selected=null; render(); const f=$("f-nom"); if(f){ f.focus(); f.select(); } }
+function dupDist(){ const g=G(), d=cur(); if(!d) return; const id=uid("d"); drafts[id]=Object.assign(clone(d),{nom:(d.nom||"")+" (còpia)",ordre:Date.now(),fixats:[],__g:g.id}); currentId=id; render(); }
+function cleanDist(d){ const c=clone(d); delete c.__g; return c; }
+function doSave(){ const g=G(), d=cur(); if(!d) return; g.dists[currentId]=cleanDist(d); delete drafts[currentId]; persist(g); toast("Desada"); delConfirm=false; render(); }
+function doSaveAs(){ const g=G(), d=cur(); if(!d) return; const id=uid("d"); g.dists[id]=Object.assign(cleanDist(d),{ordre:Date.now()}); delete drafts[currentId]; currentId=id; persist(g); toast("Desada com a nova"); render(); }
+function doDelete(){ const g=G(); delConfirm=false; delete drafts[currentId]; delete g.dists[currentId]; persist(g); pickLatest(); selected=null; toast("Eliminada"); render(); }
+function renameStudent(oldN,newN){
+  const g=G(); if(!newN||newN===oldN){ render(); return; }
+  if(g.alumnes.includes(newN)){ toast("Ja hi ha algú amb aquest nom"); render(); return; }
+  g.alumnes=g.alumnes.map(n=>n===oldN?newN:n);
+  g.restriccions=g.restriccions.map(r=>({...r,a:r.a===oldN?newN:r.a,b:r.b===oldN?newN:r.b})); g.davant=g.davant.map(n=>n===oldN?newN:n);
+  const fx=s=>{ for(const k of Object.keys(s)) if(s[k]===oldN) s[k]=newN; };
+  Object.values(g.dists).forEach(d=>fx(d.seients)); Object.values(drafts).forEach(d=>fx(d.seients));
+  persist(g); toast(`${oldN} → ${newN}`); render();
+}
+function removeStudent(n){ const g=G(); g.alumnes=g.alumnes.filter(x=>x!==n); g.restriccions=g.restriccions.filter(r=>r.a!==n&&r.b!==n); g.davant=g.davant.filter(x=>x!==n); persist(g); render(); }
+
+// ---------- Fitxers ----------
+async function saveFile(filename, data){
+  if(!downloads){
+    // Fitxer obert directament al navegador: descàrrega normal.
+    try{ const blob=data instanceof Blob?data:new Blob([data],{type:"application/json"}); const a=el("a",{href:URL.createObjectURL(blob),download:filename}); document.body.append(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000); }
+    catch(e){ toast("No s'ha pogut descarregar"); }
+    return;
+  }
+  try{ await downloads.save({filename,data}); }catch(e){ if(e.code!=="declined") toast("No s'ha pogut descarregar"); }
+}
+const slug = s => (s||"").normalize("NFC").replace(/[^\p{L}\p{N}]+/gu,"_").replace(/^_|_$/g,"");
+function exportJSON(){ const g=G(); saveFile(`Distribucions_${slug(g.nom)}.json`, JSON.stringify({format:"distribucions-aula",versio:1,grups:[g]},null,1)); }
+$("imp-file").addEventListener("change",async e=>{
+  const f=e.target.files[0]; e.target.value=""; if(!f) return;
+  try{
+    const data=JSON.parse(await f.text()); const list=data.grups||[];
+    if(!list.length||!list[0].aula) throw 0;
+    for(const g0 of list){ const g=normGroup(g0); if(groups[g.id]) g.id=uid("g"); persist(g); gid=g.id; }
+    pickLatest(); toast("Còpia importada"); render();
+  }catch(err){ toast("Aquest fitxer no és una còpia de seguretat d'aquesta eina."); }
+});
+function normGroup(g){
+  const a=g.aula||{};
+  return {id:String(g.id||uid("g")).replace(/[^A-Za-z0-9_-]/g,"").slice(0,60)||uid("g"), nom:String(g.nom||"Grup"),
+    alumnes:(g.alumnes||[]).map(String), restriccions:(g.restriccions||[]).filter(r=>r&&r.a&&r.b).map(r=>({a:String(r.a),b:String(r.b),tipus:r.tipus==="junts"?"junts":"separar"})),
+    davant:(g.davant||[]).map(String),
+    aula:{cols:+a.cols||20,rows:+a.rows||12,taules:(a.taules||[]).map(t=>({id:String(t.id),x:+t.x,y:+t.y,w:+t.w||1,h:+t.h||1})),pissarra:a.pissarra?{x:+a.pissarra.x,y:+a.pissarra.y,w:+a.pissarra.w}:null,prof:a.prof?{x:+a.prof.x,y:+a.prof.y,w:+a.prof.w}:null},
+    dists:g.dists&&typeof g.dists==="object"?g.dists:{}, actualitzat:+g.actualitzat||0};
+}
+
+// ---------- CSV ----------
+// Format: una fila per alumne i una columna per distribució (llocs com T3-2 = taula 3, lloc 2).
+// Al final, files que comencen per # guarden l'etiqueta de cada distribució, el grup, l'aula i les restriccions.
+const SEP=";";
+const csvCell=v=>{ v=String(v??""); return /[";\n\r,]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+const seatLabel=id=>id.replace(/^t/i,"T");
+function saveCurrentDraft(){ const g=G(); if(g&&currentId&&isDirty(currentId)&&drafts[currentId]){ g.dists[currentId]=cleanDist(drafts[currentId]); delete drafts[currentId]; persist(g); return true; } return false; }
+function exportCSV(){
+  const g=G(); if(!g) return;
+  const saved=saveCurrentDraft();
+  const ds=Object.values(g.dists).sort((a,b)=>(a.ordre||0)-(b.ordre||0));
+  const seen={}; const heads=ds.map(d=>{ let h=d.nom||"Distribució"; let i=2; while(seen[h]) h=(d.nom||"Distribució")+" ("+(i++)+")"; seen[h]=1; return h; });
+  const rows=[["Alumne",...heads,"Primeres files"]];
+  const where=ds.map(d=>{ const m={}; for(const [k,v] of Object.entries(d.seients||{})) m[v]=seatLabel(k); return m; });
+  g.alumnes.slice().sort(coll.compare).forEach(n=>rows.push([n,...where.map(m=>m[n]||""),g.davant.includes(n)?"sí":""]));
+  rows.push(["#etiqueta",...ds.map(d=>d.etiqueta||""),""]);
+  rows.push(["#grup",g.nom]);
+  const a=g.aula; rows.push(["#aula",a.cols,a.rows]);
+  if(a.pissarra) rows.push(["#pissarra",a.pissarra.x,a.pissarra.y,a.pissarra.w]);
+  if(a.prof) rows.push(["#prof",a.prof.x,a.prof.y,a.prof.w]);
+  a.taules.forEach(t=>rows.push(["#taula",seatLabel(t.id),t.x,t.y,t.w,t.h]));
+  g.restriccions.forEach(r=>rows.push(["#restriccio",r.a,r.b,r.tipus==="junts"?"junts":"no junts"]));
+  const txt="﻿"+rows.map(r=>r.map(csvCell).join(SEP)).join("\r\n")+"\r\n";
+  saveFile(`Distribucions_${slug(g.nom)}.csv`, new Blob([txt],{type:"text/csv;charset=utf-8"}));
+  unsaved=false;
+  if(saved){ toast("S'ha desat la distribució actual i s'ha descarregat el CSV"); render(); }
+}
+function parseCSV(text){
+  text=text.replace(/^﻿/,"");
+  const first=text.split(/\r?\n/)[0]||""; const cnt=c=>first.split(c).length;
+  const sep=[";","\t",","].sort((a,b)=>cnt(b)-cnt(a))[0];
+  const rows=[]; let row=[], cell="", q=false;
+  for(let i=0;i<text.length;i++){ const ch=text[i];
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else q=false; } else cell+=ch; }
+    else if(ch==='"') q=true; else if(ch===sep){ row.push(cell); cell=""; }
+    else if(ch==="\n"||ch==="\r"){ if(ch==="\r"&&text[i+1]==="\n") i++; row.push(cell); rows.push(row); row=[]; cell=""; }
+    else cell+=ch; }
+  if(cell||row.length){ row.push(cell); rows.push(row); }
+  return rows.map(r=>r.map(c=>c.trim())).filter(r=>r.some(Boolean));
+}
+function readCsv(text){
+  const all=parseCSV(text); if(!all.length) throw 0;
+  const meta=all.filter(r=>r[0].startsWith("#")||/^etiqueta$/i.test(r[0]));
+  const rows=all.filter(r=>!meta.includes(r)); if(!rows.length) throw 0;
+  const hasHead=/^(alumne|alumna|alumnes|nom|noms|name)$/i.test(rows[0][0]) || rows[0].slice(1).some(c=>c&&!/^T\d+-\d+$/i.test(c)&&!/^s[ií]$/i.test(c));
+  const head=hasHead?rows[0]:rows[0].map((_,i)=>i?"Distribució "+i:"Alumne");
+  const body=hasHead?rows.slice(1):rows;
+  const etq=meta.find(r=>/^#?etiqueta$/i.test(r[0]));
+  const names=[], seen={}; body.forEach(r=>{ const n=r[0]; if(n&&!seen[n]){ seen[n]=1; names.push(n); } });
+  const dists=[], davant=[];
+  head.forEach((h,ci)=>{ if(!ci) return;
+    if(/^primeres files$/i.test(h)){ body.forEach(r=>{ if(/^(s[ií]|x|1|yes)$/i.test(r[ci]||"")) davant.push(r[0]); }); return; }
+    const seients={}; body.forEach(r=>{ const v=(r[ci]||"").toUpperCase(); if(/^T\d+-\d+$/.test(v)&&r[0]) seients["t"+v.slice(1)]=r[0]; });
+    dists.push({nom:h,etiqueta:etq?(etq[ci]||""):"",seients});
+  });
+  const num=v=>{ const n=parseInt(v,10); return isNaN(n)?0:n; };
+  const m=k=>meta.filter(r=>r[0].toLowerCase()===k);
+  let aula=null; const au=m("#aula")[0];
+  if(au){
+    aula={cols:Math.max(8,num(au[1])),rows:Math.max(6,num(au[2])),taules:[],pissarra:null,prof:null};
+    const p=m("#pissarra")[0]; if(p) aula.pissarra={x:num(p[1]),y:num(p[2]),w:Math.max(2,num(p[3]))};
+    const pr=m("#prof")[0]; if(pr) aula.prof={x:num(pr[1]),y:num(pr[2]),w:Math.max(2,num(pr[3]))};
+    m("#taula").forEach(r=>{ const id=(r[1]||"").toLowerCase(); if(/^t\d+$/.test(id)) aula.taules.push({id,x:num(r[2]),y:num(r[3]),w:Math.max(1,Math.min(4,num(r[4])||1)),h:Math.max(1,Math.min(3,num(r[5])||1))}); });
+  }
+  const restr=m("#restriccio").filter(r=>r[1]&&r[2]).map(r=>({a:r[1],b:r[2],tipus:/^junts$/i.test(r[3]||"")?"junts":"separar"}));
+  const grup=(m("#grup")[0]||[])[1]||"";
+  return {names,dists,davant,aula,restr,grup};
+}
+function applyCsv(g,csv){
+  let added=0, nd=0, lost=0, skipped=0;
+  csv.names.forEach(n=>{ if(!g.alumnes.includes(n)){ g.alumnes.push(n); added++; } });
+  csv.davant.forEach(n=>{ if(!g.davant.includes(n)) g.davant.push(n); });
+  (csv.restr||[]).forEach(r=>{ if(!g.restriccions.some(x=>pk(x.a,x.b)===pk(r.a,r.b))) g.restriccions.push(r); });
+  const valid=new Set(seatsOf(g.aula).map(s=>s.id)); const base=Date.now();
+  csv.dists.forEach((d,i)=>{
+    if(Object.values(g.dists).some(x=>x.nom===d.nom&&JSON.stringify(x.seients)===JSON.stringify(d.seients))){ skipped++; return; }
+    const seients={}; for(const [k,v] of Object.entries(d.seients)){ if(valid.has(k)) seients[k]=v; else lost++; }
+    g.dists[uid("d")]={nom:d.nom,etiqueta:d.etiqueta,ordre:base+i,seients,fixats:[]}; nd++;
+  });
+  persist(g); return {added,dists:nd,lost,skipped};
+}
+function importFullCsv(csv, fileName){
+  let nom=csv.grup||fileName.replace(/\.[^.]+$/,"").replace(/^Distribucions_/,"").replace(/_/g," ")||"Grup";
+  const taken=new Set(Object.values(groups).map(g=>g.nom)); let n2=nom, i=2; while(taken.has(n2)) n2=nom+" ("+(i++)+")";
+  const g={id:uid("g"),nom:n2,alumnes:[],restriccions:[],davant:[],aula:csv.aula,dists:{},actualitzat:0};
+  const r=applyCsv(g,csv); gid=g.id; mode="main"; selected=null; computeSeats(); pickLatest(); unsaved=false; render();
+  toast(`${g.nom}: ${g.alumnes.length} alumnes i ${r.dists} distribucions carregades`);
+}
+$("csv-file").addEventListener("change",async e=>{
+  const f=e.target.files[0]; e.target.value=""; if(!f) return;
+  let csv; try{ csv=readCsv(await f.text()); }catch(err){ toast("No s'ha pogut llegir el CSV."); return; }
+  if(csv.aula&&csv.aula.taules.length&&!(mode==="wizard"&&wz?.editingGid)&&!(mode==="main"&&csvTarget==="grup")){ importFullCsv(csv,f.name); return; }
+  if(mode==="wizard"&&!wz.editingGid){ wz.noms=csv.names.join("\n"); wz.n=csv.names.length||wz.n; wz.csv=csv; render(); toast(`${csv.names.length} noms carregats`); return; }
+  const g=G(); if(!g) return;
+  const r=applyCsv(g,csv); computeSeats(); pickLatest(); render();
+  toast([`${r.added} alumnes nous`,`${r.dists} distribucions importades`,r.skipped?`${r.skipped} ja hi eren`:"",r.lost?`${r.lost} llocs no existeixen en aquesta aula`:""].filter(Boolean).join(" · "));
+});
+let csvTarget="nou";
+function openCsv(target){ csvTarget=target; $("csv-file").click(); }
+
+// ---------- PDF (sense biblioteques) ----------
+const CP1252={0x20AC:128,0x201A:130,0x0192:131,0x201E:132,0x2026:133,0x2020:134,0x2021:135,0x02C6:136,0x2030:137,0x0160:138,0x2039:139,0x0152:140,0x017D:142,0x2018:145,0x2019:146,0x201C:147,0x201D:148,0x2022:149,0x2013:150,0x2014:151,0x02DC:152,0x2122:153,0x0161:154,0x203A:155,0x0153:156,0x017E:158,0x0178:159};
+function pdfStr(s){
+  let out="";
+  for(const ch of String(s).normalize("NFC")){
+    let c=ch.codePointAt(0);
+    if(c>255) c=CP1252[c] ?? (ch.normalize("NFD").charCodeAt(0)<128?ch.normalize("NFD").charCodeAt(0):63);
+    if(c===40||c===41||c===92) out+="\\"+String.fromCharCode(c);
+    else if(c<32||c>126) out+="\\"+c.toString(8).padStart(3,"0");
+    else out+=String.fromCharCode(c);
+  }
+  return "("+out+")";
+}
+const measCtx=document.createElement("canvas").getContext("2d");
+function textW(s,size,bold){ measCtx.font=`${bold?"bold ":""}${size}px Helvetica, Arial, sans-serif`; return measCtx.measureText(s).width; }
+function pdfPageOps(g,d,v){
+  const PW=842, PH=595, aula=g.aula, top=95, bottom=45;
+  const k=Math.min((PW-80)/aula.cols,(PH-top-bottom)/aula.rows), ox=(PW-aula.cols*k)/2, oy=top;
+  const ops=["0 G 0 g 1 w"];
+  const txt=(s,x,yTop,size,bold,align)=>{ if(!s) return; const w=textW(s,size,bold); const xx=align==="center"?x-w/2:align==="right"?x-w:x; ops.push(`BT /${bold?"F2":"F1"} ${size.toFixed(2)} Tf ${xx.toFixed(2)} ${(PH-yTop).toFixed(2)} Td ${pdfStr(s)} Tj ET`); };
+  const R=(x,y,w,h)=>{ if(v==="pissarra"){x=aula.cols-x-w;y=aula.rows-y-h;} return [ox+x*k,oy+y*k,w*k,h*k]; };
+  const box=(r,s,maxSize)=>{ ops.push(`${r[0].toFixed(2)} ${(PH-r[1]-r[3]).toFixed(2)} ${r[2].toFixed(2)} ${r[3].toFixed(2)} re S`); if(s){ let size=maxSize; const w=textW(s,size); if(w>r[2]-6) size=Math.max(5,size*(r[2]-6)/w); txt(s,r[0]+r[2]/2,r[1]+r[3]/2+size*.35,size,false,"center"); } };
+  const fs=Math.max(7,Math.min(13,k*.42));
+  txt("Distribució alumnat "+g.nom,PW/2,58,24,true,"center");
+  if(aula.pissarra) box(R(aula.pissarra.x,aula.pissarra.y,aula.pissarra.w,1),"Pissarra",fs);
+  if(aula.prof) box(R(aula.prof.x,aula.prof.y,aula.prof.w,1),"Taula professor/a",fs);
+  for(const s of SEATS) box(R(s.x,s.y,SW,SH),d.seients[s.id]||"",fs);
+  txt(d.etiqueta||d.nom||"",ox+aula.cols*k,oy+aula.rows*k+22,9,false,"right");
+  txt(v==="pissarra"?"Vista des de la pissarra":"Vista des del fons de l'aula",ox,oy+aula.rows*k+22,9,false,"left");
+  return ops.join("\n");
+}
+function buildPdf(pages){
+  const objs=[]; const add=s=>{ objs.push(s); return objs.length; };
+  const cat=add(null), pagesId=add(null);
+  const f1=add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+  const f2=add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+  const kids=[];
+  for(const content of pages){
+    const c=add(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+    kids.push(add(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 ${f1} 0 R /F2 ${f2} 0 R >> >> /Contents ${c} 0 R >>`));
+  }
+  objs[cat-1]=`<< /Type /Catalog /Pages ${pagesId} 0 R >>`;
+  objs[pagesId-1]=`<< /Type /Pages /Kids [${kids.map(k=>k+" 0 R").join(" ")}] /Count ${kids.length} >>`;
+  let out="%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"; const offs=[];
+  objs.forEach((o,i)=>{ offs.push(out.length); out+=`${i+1} 0 obj\n${o}\nendobj\n`; });
+  const xref=out.length;
+  out+=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`+offs.map(o=>String(o).padStart(10,"0")+" 00000 n \n").join("");
+  out+=`trailer\n<< /Size ${objs.length+1} /Root ${cat} 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  const bytes=new Uint8Array(out.length); for(let i=0;i<out.length;i++) bytes[i]=out.charCodeAt(i)&255;
+  return new Blob([bytes],{type:"application/pdf"});
+}
+function exportPDF(which){
+  const g=G(), d=cur(); if(!d) return;
+  const views=which==="dues"?["fons","pissarra"]:[which];
+  const blob=buildPdf(views.map(v=>pdfPageOps(g,d,v)));
+  const suf=which==="dues"?"dues_vistes":which==="fons"?"des_del_fons":"des_de_la_pissarra";
+  saveFile(`Distribucio_${slug(g.nom)}_${slug(d.nom)}_${suf}.pdf`, blob);
+}
+
+// ---------- Assistent (pas previ) ----------
+function startWizard(editGid, step=1){
+  mode="wizard";
+  if(editGid){ const g=groups[editGid]; wz={step,editingGid:editGid,nom:g.nom,n:g.alumnes.length,noms:g.alumnes.join("\n"),aula:clone(g.aula),sel:null,tool:"mou"}; }
+  else { const n=30; wz={step:1,editingGid:null,nom:"",n,noms:"",aula:PRESETS.parelles.make(n),preset:"parelles",sel:null,tool:"mou"}; }
+  render();
+}
+function parseNames(txt){
+  const out=[], seen={};
+  txt.split(/\r?\n|;|\t/).map(s=>s.trim()).filter(Boolean).forEach(n=>{ let m=n; let i=2; while(seen[m]) m=n+" "+(i++); seen[m]=1; out.push(m); });
+  return out;
+}
+function wizardNames(){ const list=parseNames(wz.noms); if(list.length) return list; return Array.from({length:wz.n},(_,i)=>"Alumne "+(i+1)); }
+function renderWizard(){
+  const v=$("view"); v.textContent="";
+  const editing=!!wz.editingGid;
+  v.append(el("div",{class:"steps"},el("span",{class:wz.step===1?"on":"",text:"1 · El grup"}),el("span",{class:wz.step===2?"on":"",text:"2 · L'aula"}),el("span",{text:"3 · Distribucions"})));
+  if(wz.step===1){
+    const nom=el("input",{type:"text",id:"w-nom",maxlength:"40",value:wz.nom,placeholder:"p. ex. 3r ESO D"}); nom.addEventListener("input",e=>wz.nom=e.target.value);
+    const n=el("input",{type:"number",id:"w-n",min:"1",max:"60",value:String(wz.n),style:"width:110px"});
+    const ta=el("textarea",{id:"w-noms",placeholder:"Un nom per línia\n(nom de pila o inicials)"}); ta.value=wz.noms;
+    const info=el("p",{class:"preview-names"});
+    const upd=()=>{ const l=parseNames(wz.noms); info.textContent=l.length?`${l.length} noms detectats. El nombre d'alumnes s'ajusta a la llista.`:`Sense llista: es crearan «Alumne 1» … «Alumne ${wz.n}». Els podràs canviar després.`; if(l.length){ wz.n=l.length; n.value=String(l.length);} };
+    n.addEventListener("input",e=>{ wz.n=Math.max(1,Math.min(60,+e.target.value||1)); upd(); });
+    ta.addEventListener("input",e=>{ wz.noms=e.target.value; upd(); }); upd();
+    const next=()=>{ if(!wz.nom.trim()){ toast("Posa un nom al grup"); nom.focus(); return; }
+      if(editing){ const g=groups[wz.editingGid]; g.nom=wz.nom.trim(); const nl=parseNames(wz.noms); const old=new Set(g.alumnes); nl.forEach(x=>{ if(!old.has(x)) g.alumnes.push(x); }); persist(g); mode="main"; render(); return; }
+      if(wz.preset) wz.aula=PRESETS[wz.preset].make(wz.n); wz.step=2; render(); };
+    v.append(el("section",{class:"card",style:"margin-top:14px"},
+      el("div",{class:"wz"},
+        el("div",{},el("h3",{text:editing?"Dades del grup":"Comencem pel grup"}),el("p",{class:"note",text:"Indica el nom del grup i quants alumnes hi ha. Si vols, enganxa la llista de noms (per exemple, des d'un full de càlcul). Fes servir només el nom de pila o inicials."}),
+          el("div",{class:"rows",style:"margin-top:12px"},el("label",{class:"f"},"Nom del grup",nom),el("label",{class:"f"},"Nombre d'alumnes",n))),
+        el("div",{},el("label",{class:"f"},"Llista de noms (opcional)",ta),info,
+          !editing?el("div",{class:"row"},el("button",{class:"small",text:"Carrega els noms des d'un CSV…",onclick:()=>openCsv("nou")}),wz.csv?el("span",{class:"note",style:"margin:0",text:`CSV carregat: ${wz.csv.dists.length} distribucions s'importaran en acabar`}):null):null)),
+      el("div",{class:"wz-actions"},
+        (editing||Object.keys(groups).length)?el("button",{text:"Cancel·la",onclick:()=>{mode="main";render();}}):null,
+        el("button",{class:"primary",text:editing?"Desa":"Següent: l'aula →",onclick:next}))));
+    if(editing) ta.closest("div").prepend(el("p",{class:"note",text:"Els noms nous que afegeixis aquí s'incorporaran al grup. Per canviar o treure noms, fes-ho a l'apartat Alumnat."}));
+    return;
+  }
+  // pas 2
+  const aula=wz.aula, seats=seatsOf(aula).length, need=editing?groups[wz.editingGid].alumnes.length:wizardNames().length;
+  const presets=el("div",{class:"presets"},Object.entries(PRESETS).map(([k,p])=>el("button",{text:p.nom,"aria-pressed":String(wz.preset===k),onclick:()=>{ wz.preset=k; wz.aula=p.make(need); wz.sel=null; render(); }})));
+  const tools=[["mou","✋ Mou / selecciona"],["t1","+ Taula d'1"],["t2","+ Taula de 2"],["t3","+ Taula de 3"],["g4","+ Grup de 4"],["g6","+ Grup de 6"],["esborra","🗑 Esborra"]];
+  const palette=el("div",{class:"palette"},tools.map(([k,t])=>el("button",{text:t,"aria-pressed":String(wz.tool===k),onclick:()=>{wz.tool=k;render();}})));
+  const cols=el("input",{type:"number",id:"w-cols",min:"8",max:"60",value:String(aula.cols),style:"width:80px"});
+  const rows=el("input",{type:"number",id:"w-rows",min:"6",max:"40",value:String(aula.rows),style:"width:80px"});
+  const resize=()=>{ aula.cols=Math.max(8,Math.min(60,+cols.value||aula.cols)); aula.rows=Math.max(6,Math.min(40,+rows.value||aula.rows)); clampAll(aula); render(); };
+  cols.addEventListener("change",resize); rows.addEventListener("change",resize);
+  const plan=el("div",{class:"plan edit",id:"edplan"}); renderEditor(plan);
+  const cnt=el("span",{class:"count "+(seats>=need?"ok":"bad"),text:`${seats} llocs · ${need} alumnes`});
+  let selInfo=null;
+  if(wz.sel){ const it=getItem(wz.sel); if(it){ const isF=wz.sel==="pissarra"||wz.sel==="prof";
+    selInfo=el("div",{class:"rows"},el("b",{text:isF?(wz.sel==="pissarra"?"Pissarra":"Taula professor/a"):`Taula de ${it.w*it.h}`}),
+      isF?el("label",{class:"f"},"Amplada",(()=>{ const i=el("input",{type:"number",id:"w-fw",min:"2",max:String(aula.cols),value:String(it.w)}); i.addEventListener("change",()=>{ const old=it.w; it.w=Math.max(2,Math.min(aula.cols,+i.value||old)); if(overlapsAny(aula,wz.sel,boxF(it))||it.x+it.w>aula.cols){ it.w=old; toast("No hi cap"); } render(); }); return i; })()):null,
+      el("p",{class:"note",text:"Arrossega-la o fes servir les fletxes del teclat per moure-la."}),
+      !isF?el("button",{class:"small danger",text:"Esborra aquesta taula",onclick:()=>{ aula.taules=aula.taules.filter(t=>t.id!==wz.sel); wz.sel=null; render(); }}):null); } }
+  const finish=()=>{
+    if(seats<need){ toast(`Falten ${need-seats} llocs per a tot l'alumnat.`); return; }
+    if(editing){ const g=groups[wz.editingGid]; g.aula=clone(aula); const valid=new Set(seatsOf(aula).map(s=>s.id)); Object.values(g.dists).forEach(d=>{ for(const k of Object.keys(d.seients)) if(!valid.has(k)) delete d.seients[k]; d.fixats=(d.fixats||[]).filter(s=>valid.has(s)); }); for(const k of Object.keys(drafts)) delete drafts[k]; persist(g); mode="main"; toast("Aula desada"); render(); return; }
+    const g={id:uid("g"),nom:wz.nom.trim(),alumnes:wizardNames(),restriccions:[],davant:[],aula:clone(aula),dists:{},actualitzat:0};
+    persist(g); gid=g.id; currentId=null; mode="main";
+    if(wz.csv&&wz.csv.dists.length){ const r=applyCsv(g,wz.csv); computeSeats(); pickLatest(); render(); toast(`Importades ${r.dists} distribucions`+(r.lost?` (${r.lost} llocs no existeixen en aquesta aula)`:"")); return; }
+    newDist(); };
+  v.append(el("section",{class:"card",style:"margin-top:14px"},
+    el("h3",{text:"Com estan situades les taules?"}),
+    el("p",{class:"note",text:"Tria el model que s'assembli més a la teva aula i ajusta'l: arrossega taules, afegeix-ne amb la paleta (toca un quadre buit) o esborra-les. La quadrícula es veu des del fons de l'aula. Mou també la pissarra i la taula del professorat al seu lloc."}),
+    el("div",{class:"rows",style:"margin-top:10px"},el("h2",{text:"Models"}),presets),
+    el("div",{class:"rows",style:"margin-top:10px"},el("h2",{text:"Eines"}),palette),
+    el("div",{class:"edgrid",style:"margin-top:12px"},
+      el("div",{class:"planscroll"},plan),
+      el("div",{class:"rows"},cnt,
+        el("div",{class:"row"},el("label",{class:"f"},"Amplada (quadres)",cols),el("label",{class:"f"},"Fondària (quadres)",rows)),
+        selInfo||el("p",{class:"note",text:"Toca una taula per seleccionar-la."}))),
+    el("div",{class:"wz-actions"},
+      editing?el("button",{text:"Cancel·la",onclick:()=>{mode="main";render();}}):el("button",{text:"← Enrere",onclick:()=>{wz.step=1;render();}}),
+      el("button",{class:"primary",text:editing?"Desa l'aula":"Fet: comença a distribuir →",onclick:finish}))));
+}
+function getItem(key){ const a=wz.aula; if(key==="pissarra") return a.pissarra; if(key==="prof") return a.prof; return a.taules.find(t=>t.id===key); }
+function itemBox(key,it){ return (key==="pissarra"||key==="prof")?boxF(it):boxT(it); }
+function overlapsAny(aula,skipKey,box){
+  for(const t of aula.taules) if(t.id!==skipKey && itemsOverlap(box,boxT(t))) return true;
+  if(aula.pissarra&&skipKey!=="pissarra"&&itemsOverlap(box,boxF(aula.pissarra))) return true;
+  if(aula.prof&&skipKey!=="prof"&&itemsOverlap(box,boxF(aula.prof))) return true;
+  return false;
+}
+function clampAll(aula){
+  const fit=(it,W,H)=>{ it.x=Math.max(0,Math.min(aula.cols-W,it.x)); it.y=Math.max(0,Math.min(aula.rows-H,it.y)); };
+  aula.taules.forEach(t=>fit(t,t.w*SW,t.h)); if(aula.pissarra){ aula.pissarra.w=Math.min(aula.pissarra.w,aula.cols); fit(aula.pissarra,aula.pissarra.w,1);} if(aula.prof){ aula.prof.w=Math.min(aula.prof.w,aula.cols); fit(aula.prof,aula.prof.w,1); }
+}
+function renderEditor(plan){
+  const aula=wz.aula; sizePlan(plan,aula); plan.textContent="";
+  const rect=makeRect(aula,false);
+  const items=[["pissarra",aula.pissarra,"Pissarra"],["prof",aula.prof,"Taula professor/a"]].filter(x=>x[1]).map(([k,it,l])=>({k,it,label:l,W:it.w,H:1,furn:true}))
+    .concat(aula.taules.map(t=>({k:t.id,it:t,label:"",W:t.w*SW,H:t.h,t})));
+  for(const o of items){
+    const e=el("div",{class:"ed-item"+(wz.sel===o.k?" sel":""),tabindex:"0",role:"button","aria-label":o.furn?o.label:`Taula de ${o.t.w*o.t.h}`});
+    Object.assign(e.style,rect(o.it.x,o.it.y,o.W,o.H));
+    e.style.background=o.furn?"var(--furn)":tableColor(aula,o.t);
+    if(o.furn) e.append(o.label); else { e.append(o.k.toUpperCase()); const c=el("div",{class:"cells"}); c.style.gridTemplateColumns=`repeat(${o.t.w},1fr)`; c.style.gridTemplateRows=`repeat(${o.t.h},1fr)`; for(let i=0;i<o.t.w*o.t.h;i++) c.append(el("i")); e.append(c); }
+    e.addEventListener("pointerdown",ev=>startDrag(ev,o.k,plan));
+    e.addEventListener("keydown",ev=>{
+      const mv={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[ev.key];
+      if(mv){ ev.preventDefault(); const it=getItem(o.k), b=itemBox(o.k,it); const nb={...b,x:b.x+mv[0],y:b.y+mv[1]}; if(nb.x>=0&&nb.y>=0&&nb.x+nb.W<=aula.cols&&nb.y+nb.H<=aula.rows&&!overlapsAny(aula,o.k,nb)){ it.x=nb.x; it.y=nb.y; } wz.sel=o.k; render(); const f=document.querySelector(".ed-item.sel"); if(f) f.focus(); }
+      if((ev.key==="Delete"||ev.key==="Backspace")&&!o.furn){ aula.taules=aula.taules.filter(t=>t.id!==o.k); wz.sel=null; render(); }
+      if(ev.key==="Enter"){ wz.sel=o.k; render(); }
+    });
+    plan.append(e);
+  }
+  plan.onpointerdown=ev=>{
+    if(ev.target!==plan) return;
+    const sz={t1:[1,1],t2:[2,1],t3:[3,1],g4:[2,2],g6:[3,2]}[wz.tool];
+    if(!sz){ wz.sel=null; render(); return; }
+    const r=plan.getBoundingClientRect(), u=r.width/aula.cols;
+    const x=Math.floor((ev.clientX-r.left)/u), y=Math.floor((ev.clientY-r.top)/u);
+    const nb={x:Math.min(x,aula.cols-sz[0]*SW),y:Math.min(y,aula.rows-sz[1]),W:sz[0]*SW,H:sz[1]};
+    if(nb.x<0||nb.y<0||overlapsAny(aula,null,nb)){ toast("Aquí no hi cap. Prova en un espai buit."); return; }
+    let n=1; const ids=new Set(aula.taules.map(t=>t.id)); while(ids.has("t"+n)) n++;
+    aula.taules.push({id:"t"+n,x:nb.x,y:nb.y,w:sz[0],h:sz[1]}); wz.preset=null; wz.sel="t"+n; render();
+  };
+}
+function startDrag(ev, key, plan){
+  ev.preventDefault(); ev.stopPropagation();
+  const aula=wz.aula;
+  if(wz.tool==="esborra"){ if(key!=="pissarra"&&key!=="prof"){ aula.taules=aula.taules.filter(t=>t.id!==key); wz.preset=null; wz.sel=null; render(); } else toast("La pissarra i la taula del professorat no s'esborren; mou-les."); return; }
+  const it=getItem(key), b=itemBox(key,it), r=plan.getBoundingClientRect(), u=r.width/aula.cols;
+  const sx=ev.clientX, sy=ev.clientY, ox=it.x, oy=it.y; let moved=false;
+  const target=ev.currentTarget; target.classList.add("dragging"); wz.sel=key;
+  try{ target.setPointerCapture(ev.pointerId); }catch(e){}
+  const mv=e=>{
+    const dx=Math.round((e.clientX-sx)/u), dy=Math.round((e.clientY-sy)/u);
+    const nb={...b,x:Math.max(0,Math.min(aula.cols-b.W,ox+dx)),y:Math.max(0,Math.min(aula.rows-b.H,oy+dy))};
+    if((nb.x!==it.x||nb.y!==it.y)&&!overlapsAny(aula,key,nb)){ it.x=nb.x; it.y=nb.y; moved=true; Object.assign(target.style,makeRect(aula,false)(it.x,it.y,b.W,b.H)); }
+  };
+  const up=()=>{ target.removeEventListener("pointermove",mv); target.removeEventListener("pointerup",up); target.removeEventListener("pointercancel",up); if(moved) wz.preset=null; render(); };
+  target.addEventListener("pointermove",mv); target.addEventListener("pointerup",up); target.addEventListener("pointercancel",up);
+}
+
+// ---------- Render general ----------
+function renderHeader(){
+  const s=$("g-sel"); s.textContent="";
+  const list=Object.values(groups).sort((a,b)=>coll.compare(a.nom,b.nom));
+  list.forEach(g=>s.append(el("option",{value:g.id,text:g.nom})));
+  s.hidden=!list.length; if(gid) s.value=gid; $("g-csv-save").hidden=!(G()&&mode==="main");
+  const g=G(); $("title").textContent=""; $("title").append("Distribucions ",el("span",{class:"tag",text:mode==="wizard"&&!wz?.editingGid?(wz?.nom||"nou grup"):(g?g.nom:"d'aula")}));
+}
+function render(){ renderHeader(); if(mode==="wizard") renderWizard(); else if(mode==="start"||!G()) renderStart(); else renderMain(); }
+function renderStart(){
+  mode="start"; const v=$("view"); v.textContent="";
+  v.append(el("section",{class:"card",style:"margin-top:6px"},
+    el("h3",{text:"Distribucions de l'aula"}),
+    el("p",{class:"note",text:"Organitza on seu l'alumnat, prova distribucions noves i comprova que no es repeteixin parelles. "+(MODE==="web"?"Aquesta pàgina no guarda res: en acabar, descarrega el CSV i, la propera vegada, torna'l a obrir per continuar.":"")}),
+    el("div",{class:"wz",style:"margin-top:16px"},
+      el("div",{class:"card",style:"background:var(--accent-soft);border-color:var(--accent)"},el("h3",{text:"Ja tinc el CSV del meu grup"}),el("p",{class:"note",text:"Es carreguen l'alumnat, l'aula i totes les distribucions anteriors."}),el("div",{class:"wz-actions",style:"justify-content:flex-start"},el("button",{class:"primary",text:"Obre el CSV…",onclick:()=>openCsv("nou")}))),
+      el("div",{class:"card"},el("h3",{text:"Comença un grup nou"}),el("p",{class:"note",text:"Indica quants alumnes hi ha (o enganxa la llista) i com estan situades les taules."}),el("div",{class:"wz-actions",style:"justify-content:flex-start"},el("button",{text:"Comença →",onclick:()=>startWizard(null)}))))));
+}
+$("g-sel").addEventListener("change",e=>{ gid=e.target.value; selected=null; delConfirm=false; gDelConfirm=false; mode="main"; pickLatest(); render(); });
+$("g-new").addEventListener("click",()=>startWizard(null));
+$("g-csv-open").addEventListener("click",()=>openCsv("nou"));
+$("g-csv-save").addEventListener("click",exportCSV);
+window.addEventListener("beforeunload",e=>{ if(MODE==="web"&&unsaved&&Object.keys(groups).length){ e.preventDefault(); e.returnValue=""; } });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&selected){ selected=null; render(); } });
+try{ const v=localStorage.getItem(LS+"-vista"); if(v==="pissarra"||v==="fons") view=v; }catch(e){}
+
+// ---------- Arrencada ----------
+const SEED = null; /*SEED*/
+function boot(){
+  if(!Object.keys(groups).length && SEED){ SEED.forEach(g0=>{ const g=normGroup(g0); groups[g.id]=g; }); lsPut(); }
+  const all=Object.values(groups).sort((a,b)=>(b.actualitzat||0)-(a.actualitzat||0));
+  if(!all.length){ mode="start"; render(); return; }
+  gid=all[0].id; pickLatest(); mode="main"; render();
+}
+const local=lsAll(); for(const [k,g] of Object.entries(local)) if(g&&g.aula) groups[k]=normGroup(g);
+setStatus(); $("status").textContent="Carregant…";
+(async()=>{
+  const cl=window.claude;
+  if(cl?.use){
+    [downloads, db]=await Promise.all([cl.use("downloads").catch(()=>null), cl.use("db").catch(()=>null)]);
+    const user=await cl.use("user").catch(()=>null);
+    userId=user?await user.id().catch(()=>null):null;
+    if(db&&userId){
+      try{
+        const snap=await db.collection("data/users/"+userId).get(); dbOk=true;
+        snap.docs.forEach(d=>{ const g=normGroup(d.data()); const l=groups[g.id]; if(!l||(g.actualitzat||0)>=(l.actualitzat||0)) groups[g.id]=g; });
+        for(const g of Object.values(groups)) if(!snap.docs.some(d=>d.id===g.id)) persist(g);
+        lsPut();
+      }catch(e){ dbOk=false; }
+    }
+  }
+  setStatus(); boot();
+})();
+})();
+</script>
+</body>
+</html>

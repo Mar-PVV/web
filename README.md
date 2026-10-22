@@ -51,6 +51,8 @@ web/
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
+├── distribucions/
+│   └── index.html      eina per a docents: distribucions de l'aula (/distribucions)
 ├── manifest.json       per instal·lar la web a la pantalla d'inici
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
@@ -278,6 +280,27 @@ s'ha de tocar cap HTML.
 > El CSV es publica amb la resta de la web, o sigui que un alumne espavilat el pot
 > obrir i veure les respostes. És inevitable en una pàgina sense servidor, i per a
 > practicar no té importància — però no el facis servir per avaluar.
+
+---
+
+## Distribucions de l'aula (`distribucions/`)
+
+Eina per al professorat, a `https://mar-pvv.github.io/web/distribucions/`. És una
+sola pàgina (`distribucions/index.html`) amb el CSS i el JavaScript a dins; només
+fa servir `../assets/estil.css` per a la capçalera i el peu de la web.
+
+- **No desa cap dada**, ni al servidor ni al navegador (només recorda la vista
+  triada, des del fons o des de la pissarra). Cada docent obre el CSV del seu
+  grup o en crea un de nou, i en acabar descarrega el CSV i el PDF. Avisa abans
+  de tancar si hi ha canvis sense descarregar.
+- **CSV:** punt i coma, UTF-8. Una fila per alumne i una columna per distribució
+  (llocs com a `T3-2` = taula 3, lloc 2), una columna «Primeres files», i files
+  que comencen per `#` amb el grup, l'aula, la pissarra, la taula del professorat,
+  les taules i les restriccions.
+- **Mai** pugis al repo cap CSV amb noms d'alumnes: el repo és públic.
+- Els colors de l'eina són variables a `.dist{...}` al principi del `<style>`.
+- Si canvies la secció de lloc o n'afegeixes una altra en carpeta, afegeix-la a
+  la funció `htmls()` de `versiona.py`, perquè rebi l'empremta de versió.
 
 ---
 
