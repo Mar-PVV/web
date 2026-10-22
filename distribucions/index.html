@@ -75,6 +75,11 @@
 .ttag{position:absolute;font-size:calc(var(--u)*.26);color:var(--muted);font-weight:700;text-align:right}
 .selbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:36px;margin-bottom:8px;font-size:.9rem;color:var(--muted)}
 .selbar b{color:var(--fg)}
+.pdf-wrap{position:relative}
+.pdf-menu{position:absolute;top:calc(100% + 4px);left:0;z-index:15;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(43,43,43,.14);padding:6px;display:grid;gap:4px;min-width:230px}
+.dist .pdf-menu button{border:0;text-align:left;font-weight:600}
+.dist .pdf-menu button:hover{background:var(--accent-soft)}
+.selbar-accions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
 .side{display:grid;gap:14px}
 .issues{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.88rem}
 .issues li{padding:6px 9px;border-radius:8px;display:flex;gap:8px;align-items:flex-start}
@@ -367,6 +372,15 @@ function renderPlan(plan, d, an){
 }
 
 // ---------- Vista principal ----------
+// Un sol botó de PDF: en clicar-lo, es tria quina vista es vol.
+function pdfMenu(){
+  const menu=el("div",{class:"pdf-menu",role:"menu",hidden:true},
+    ...[["fons","Des del fons"],["pissarra","Des de la pissarra"],["dues","Les dues vistes (2 pàgines)"]].map(([v,txt])=>
+      el("button",{role:"menuitem",text:txt,onclick:()=>{menu.hidden=true;exportPDF(v);}})));
+  const btn=el("button",{text:"⬇ Descarrega PDF","aria-haspopup":"menu",onclick:ev=>{ev.stopPropagation();menu.hidden=!menu.hidden;}});
+  return el("div",{class:"pdf-wrap"},btn,menu);
+}
+document.addEventListener("click",ev=>{ document.querySelectorAll(".pdf-menu").forEach(m=>{ if(!m.parentNode.contains(ev.target)) m.hidden=true; }); });
 function renderMain(){
   const g=G(), v=$("view"); v.textContent="";
   computeSeats();
@@ -397,16 +411,10 @@ function renderMain(){
     el("button",{text:"Desa com a nova",onclick:doSaveAs}),
     el("button",{id:"b-revert",text:"Desfés canvis",disabled:!dirty||!g.dists[currentId],onclick:()=>{delete drafts[currentId];selected=null;render();}}),
     el("span",{class:"sep"}),
-    el("button",{text:"✨ Proposa distribució",title:"Omple els llocs no fixats respectant les restriccions i evitant repetir parelles",onclick:propose}),
-    el("button",{text:"Buida l'aula",onclick:()=>{ const dd=ensureDraft(); const f=new Set(dd.fixats||[]); for(const s of Object.keys(dd.seients)) if(!f.has(s)) delete dd.seients[s]; selected=null; render(); }}),
-    el("span",{class:"sep"}),
     el("div",{class:"seg",role:"group","aria-label":"Vista"},
       el("button",{"aria-pressed":String(view==="fons"),text:"Des del fons",onclick:()=>setView("fons")}),
       el("button",{"aria-pressed":String(view==="pissarra"),text:"Des de la pissarra",onclick:()=>setView("pissarra")})),
-    el("div",{class:"seg",role:"group","aria-label":"Descarrega PDF"},
-      el("button",{text:"PDF des del fons",onclick:()=>exportPDF("fons")}),
-      el("button",{text:"PDF des de la pissarra",onclick:()=>exportPDF("pissarra")}),
-      el("button",{text:"PDF amb les dues",onclick:()=>exportPDF("dues")})),
+    pdfMenu(),
     delw));
   // principal
   const selbar=el("div",{class:"selbar"});
@@ -419,6 +427,10 @@ function renderMain(){
   } else if(selected?.type==="student"){
     selbar.append(el("span",{},"Seleccionat: ",el("b",{text:selected.name})," · toca un lloc per asseure'l"),el("button",{class:"small",text:"Cancel·la",onclick:()=>{selected=null;render();}}));
   } else selbar.append(el("span",{text:`${an.placed} de ${SEATS.length} llocs ocupats · ${g.alumnes.length} alumnes`}));
+  // botons de distribuir al costat del plànol, perquè es vegin amb l'aula sencera
+  selbar.append(el("span",{class:"selbar-accions"},
+    el("button",{class:"primary",text:"✨ Proposa distribució",title:"Omple els llocs no fixats respectant les restriccions i evitant repetir parelles",onclick:propose}),
+    el("button",{text:"Buida l'aula",onclick:()=>{ const dd=ensureDraft(); const f=new Set(dd.fixats||[]); for(const s of Object.keys(dd.seients)) if(!f.has(s)) delete dd.seients[s]; selected=null; render(); }})));
   const plan=el("div",{class:"plan",id:"plan"}); renderPlan(plan,d,an);
   const left=el("section",{class:"card"},selbar,el("div",{class:"planscroll"},plan),
     el("p",{class:"note",text:"Toca un lloc i després un altre per intercanviar-los (o arrossega). 🔒 = lloc fixat: «Proposa distribució» no el mou. Vora vermella: restricció incomplerta. Vora groga: parella que ja ha seigut junta."}));
