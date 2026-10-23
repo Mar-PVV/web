@@ -234,13 +234,13 @@ function frontSet(aula, seats){
 }
 function itemsOverlap(a,b){ return a.x < b.x+b.W && b.x < a.x+a.W && a.y < b.y+b.H && b.y < a.y+a.H; }
 const boxT = t=>({x:t.x,y:t.y,W:t.w*SW,H:t.h*SH});
-// Taules a prop: la mateixa taula o qualsevol taula del voltant (davant, darrere, als costats i en diagonal),
-// és a dir, separades com a molt per 1 quadre (mig lloc). Si hi ha un passadís de l'amplada d'un lloc o més, ja són lluny.
-const PROP = 1;
-function tablesNear(ta, tb){
-  if(ta.id===tb.id) return true;
-  const a=boxT(ta), b=boxT(tb);
-  const dx=Math.max(0, b.x-(a.x+a.W), a.x-(b.x+b.W)), dy=Math.max(0, b.y-(a.y+a.H), a.y-(b.y+b.H));
+// Llocs a prop: els que envolten l'alumne a un pas (davant, darrere, als costats i en diagonal),
+// encara que hi hagi un passadís estret pel mig. Es mira lloc a lloc, no taula a taula:
+// a una taula llarga, l'altre extrem ja pot quedar lluny. La mateixa taula sempre compta com a prop.
+const PROP = 2; // quadres de separació màxima entre dos llocs (un lloc fa 2 × 1)
+function seatsNear(sa, sb){
+  if(sa.t.id===sb.t.id) return true;
+  const dx=Math.max(0, sb.x-(sa.x+SW), sa.x-(sb.x+SW)), dy=Math.max(0, sb.y-(sa.y+SH), sa.y-(sb.y+SH));
   return dx<=PROP && dy<=PROP;
 }
 const TIPUS = {separar:"No junts", lluny:"Lluny", junts:"Junts"};
@@ -304,7 +304,7 @@ function analyse(d){
   for(const r of g.restriccions){
     const sa=seatOf[r.a], sb=seatOf[r.b]; if(!sa||!sb) continue;
     const same=sa.t.id===sb.t.id;
-    if(r.tipus==="lluny"&&tablesNear(sa.t,sb.t)){ issues.push({k:"bad",t:same?`${r.a} i ${r.b} són a la mateixa taula (marcat: lluny).`:`${r.a} i ${r.b} seuen massa a prop (marcat: lluny).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
+    if(r.tipus==="lluny"&&seatsNear(sa,sb)){ issues.push({k:"bad",t:same?`${r.a} i ${r.b} són a la mateixa taula (marcat: lluny).`:`${r.a} i ${r.b} seuen massa a prop (marcat: lluny).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
     if(r.tipus==="separar"&&same){ issues.push({k:"bad",t:`${r.a} i ${r.b} són a la mateixa taula (marcat: no junts).`}); badTables.add(sa.t.id); }
     if(r.tipus==="junts"&&!same){ issues.push({k:"bad",t:`${r.a} i ${r.b} no són a la mateixa taula (marcat: millor junts).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
   }
@@ -334,7 +334,7 @@ function propose(){
     let c=0; const seatOf={}; for(const s of SEATS) if(a[s.id]) seatOf[a[s.id]]=s;
     const tb=n=>seatOf[n]?seatOf[n].t.id:null;
     for(const r of sep) if(tb(r.a)&&tb(r.a)===tb(r.b)) c+=100;
-    for(const r of llu) if(seatOf[r.a]&&seatOf[r.b]&&tablesNear(seatOf[r.a].t,seatOf[r.b].t)) c+=100;
+    for(const r of llu) if(seatOf[r.a]&&seatOf[r.b]&&seatsNear(seatOf[r.a],seatOf[r.b])) c+=100;
     for(const r of jun) if(tb(r.a)&&tb(r.b)&&tb(r.a)!==tb(r.b)) c+=50;
     for(const n of front) if(seatOf[n]&&!FRONT.has(seatOf[n].id)) c+=40;
     for(const p of pairsOf(a)) if(h[p]) c+=4*h[p].length;
@@ -538,7 +538,7 @@ function restrPanel(){
   const g=G(), names=g.alumnes.slice().sort(coll.compare);
   const sel=(id,opts,label)=>el("select",{id,"aria-label":label},el("option",{value:"",text:"Tria…"}),opts.map(n=>el("option",{value:n,text:n})));
   const a=sel("r-a",names,"Alumne/a 1"), b=sel("r-b",names,"Alumne/a 2");
-  const t=el("select",{id:"r-t","aria-label":"Tipus"},el("option",{value:"separar",text:"No a la mateixa taula"}),el("option",{value:"lluny",text:"Lluny: ni a les taules del voltant"}),el("option",{value:"junts",text:"Millor a la mateixa taula"}));
+  const t=el("select",{id:"r-t","aria-label":"Tipus"},el("option",{value:"separar",text:"No a la mateixa taula"}),el("option",{value:"lluny",text:"Lluny: ni als llocs del voltant"}),el("option",{value:"junts",text:"Millor a la mateixa taula"}));
   const fa=sel("f-a",names.filter(n=>!g.davant.includes(n)),"Alumne/a a primeres files");
   const rl=el("ul",{class:"rlist"});
   g.restriccions.forEach((r,i)=>rl.append(el("li",{},el("span",{},el("span",{class:"pill"+(r.tipus!=="junts"?" no":""),text:TIPUS[r.tipus]||"No junts"})," ",`${r.a} · ${r.b}`),el("button",{class:"small",text:"Treu",onclick:()=>{g.restriccions.splice(i,1);persist(g);render();}}))));
