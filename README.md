@@ -299,7 +299,7 @@ fa servir `../assets/estil.css` per a la capçalera i el peu de la web.
   que comencen per `#` amb el grup, l'aula, la pissarra, la taula del professorat,
   les taules i les restriccions (`#restriccio;A;B;tipus`, amb tipus `no junts`,
   `lluny` o `junts`). «Lluny» vol dir ni a la mateixa taula ni a cap taula del voltant
-  (a 2 quadres o menys, també en diagonal).
+  (a 1 quadre o menys, també en diagonal; un passadís de 2 quadres ja és lluny).
 - **Revisió:** avisa de restriccions que no es compleixen, de parelles que ja han segut juntes i
   d'alumnes que repeteixen taula respecte a les distribucions desades anteriors.
 - **Projecta a classe:** pantalla completa des de la pissarra; cada clic (o espai / fletxa) destapa

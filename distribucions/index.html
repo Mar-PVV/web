@@ -235,8 +235,8 @@ function frontSet(aula, seats){
 function itemsOverlap(a,b){ return a.x < b.x+b.W && b.x < a.x+a.W && a.y < b.y+b.H && b.y < a.y+a.H; }
 const boxT = t=>({x:t.x,y:t.y,W:t.w*SW,H:t.h*SH});
 // Taules a prop: la mateixa taula o qualsevol taula del voltant (davant, darrere, als costats i en diagonal),
-// és a dir, separades com a molt per un passadís de 2 quadres (l'amplada d'un lloc).
-const PROP = 2;
+// és a dir, separades com a molt per 1 quadre (mig lloc). Si hi ha un passadís de l'amplada d'un lloc o més, ja són lluny.
+const PROP = 1;
 function tablesNear(ta, tb){
   if(ta.id===tb.id) return true;
   const a=boxT(ta), b=boxT(tb);
