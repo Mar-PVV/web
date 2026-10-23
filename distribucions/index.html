@@ -76,6 +76,22 @@
 .selbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:36px;margin-bottom:8px;font-size:.9rem;color:var(--muted)}
 .selbar b{color:var(--fg)}
 .pdf-wrap{position:relative}
+.proj{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;padding:18px 28px 24px;gap:10px}
+.proj-cap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.proj-cap h2{font-family:'Poppins',sans-serif;font-size:1.5rem;text-transform:none;letter-spacing:0;color:var(--accent);margin:0}
+.proj-comp{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.proj-botons{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.dist .proj-botons button{font-size:1rem;padding:8px 16px}
+.proj-nom{text-align:center;font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(28px,5vh,52px);color:var(--fg);min-height:1.3em;line-height:1.3}
+.proj-nom.proj-salt{animation:projSalt .5s cubic-bezier(.2,1.4,.4,1)}
+.proj-zona{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.proj-plan{cursor:pointer}
+.proj-seat{cursor:inherit;font-size:calc(var(--u)*.42);color:var(--muted)}
+.proj-seat.proj-vist{color:var(--fg)}
+.proj-seat.proj-ara{animation:projPop .6s cubic-bezier(.2,1.6,.4,1);background:var(--accent)!important;color:#fff;z-index:2}
+@keyframes projPop{0%{transform:scale(.4) rotateY(90deg)}100%{transform:none}}
+@keyframes projSalt{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.proj-seat.proj-ara,.proj-nom.proj-salt{animation:none}}
 .pdf-menu{position:absolute;top:calc(100% + 4px);left:0;z-index:15;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(43,43,43,.14);padding:6px;display:grid;gap:4px;min-width:230px}
 .dist .pdf-menu button{border:0;text-align:left;font-weight:600}
 .dist .pdf-menu button:hover{background:var(--accent-soft)}
@@ -218,6 +234,16 @@ function frontSet(aula, seats){
 }
 function itemsOverlap(a,b){ return a.x < b.x+b.W && b.x < a.x+a.W && a.y < b.y+b.H && b.y < a.y+a.H; }
 const boxT = t=>({x:t.x,y:t.y,W:t.w*SW,H:t.h*SH});
+// Taules a prop: la mateixa taula o qualsevol taula del voltant (davant, darrere, als costats i en diagonal),
+// és a dir, separades com a molt per un passadís de 2 quadres (l'amplada d'un lloc).
+const PROP = 2;
+function tablesNear(ta, tb){
+  if(ta.id===tb.id) return true;
+  const a=boxT(ta), b=boxT(tb);
+  const dx=Math.max(0, b.x-(a.x+a.W), a.x-(b.x+b.W)), dy=Math.max(0, b.y-(a.y+a.H), a.y-(b.y+b.H));
+  return dx<=PROP && dy<=PROP;
+}
+const TIPUS = {separar:"No junts", lluny:"Lluny", junts:"Junts"};
 const boxF = f=>({x:f.x,y:f.y,W:f.w,H:1});
 
 // ---------- Estat ----------
@@ -263,6 +289,14 @@ function pairsOf(seients){ const out=[]; for(const names of Object.values(tableG
 function history(beforeOrdre){
   const h={}; for(const [id,d] of sortedDists()){ if(beforeOrdre!=null && (id===currentId || (d.ordre||0)>=beforeOrdre)) continue; for(const p of pairsOf(d.seients||{})) (h[p]=h[p]||[]).push(d.nom||"(sense nom)"); } return h;
 }
+// Qui ha segut a cada taula a les distribucions desades: clau "nom\u0001idTaula" → noms de les distribucions.
+function posHistory(beforeOrdre){
+  const h={}; for(const [id,d] of sortedDists()){ if(beforeOrdre!=null && (id===currentId || (d.ordre||0)>=beforeOrdre)) continue;
+    for(const [seat,n] of Object.entries(d.seients||{})){ if(!n) continue; const k=n+"\u0001"+seat.slice(0,seat.lastIndexOf("-")); (h[k]=h[k]||[]).push(d.nom||"(sense nom)"); } }
+  return h;
+}
+const tName = id => id.toUpperCase();
+const punt = s => /[.!?]$/.test(s) ? s : s+".";
 function unassigned(d){ const g=G(); const seated=new Set(Object.values(d.seients).filter(Boolean)); return g.alumnes.filter(n=>!seated.has(n)).sort(coll.compare); }
 function analyse(d){
   const g=G(), issues=[], badTables=new Set(), warnTables=new Set(), seatOf={};
@@ -270,12 +304,15 @@ function analyse(d){
   for(const r of g.restriccions){
     const sa=seatOf[r.a], sb=seatOf[r.b]; if(!sa||!sb) continue;
     const same=sa.t.id===sb.t.id;
+    if(r.tipus==="lluny"&&tablesNear(sa.t,sb.t)){ issues.push({k:"bad",t:same?`${r.a} i ${r.b} són a la mateixa taula (marcat: lluny).`:`${r.a} i ${r.b} seuen massa a prop (marcat: lluny).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
     if(r.tipus==="separar"&&same){ issues.push({k:"bad",t:`${r.a} i ${r.b} són a la mateixa taula (marcat: no junts).`}); badTables.add(sa.t.id); }
     if(r.tipus==="junts"&&!same){ issues.push({k:"bad",t:`${r.a} i ${r.b} no són a la mateixa taula (marcat: millor junts).`}); badTables.add(sa.t.id); badTables.add(sb.t.id); }
   }
   for(const n of g.davant){ const s=seatOf[n]; if(s&&!FRONT.has(s.id)){ issues.push({k:"bad",t:`${n} no és a les primeres files.`}); badTables.add(s.t.id); } }
   const h=history(d.ordre||Date.now());
-  for(const [t,names] of Object.entries(tableGroups(d.seients))) for(let i=0;i<names.length;i++) for(let j=i+1;j<names.length;j++){ const p=pk(names[i],names[j]); if(h[p]){ issues.push({k:"warn",t:`${names[i]} i ${names[j]} ja van seure junts a: ${h[p].join(", ")}.`}); warnTables.add(t);} }
+  for(const [t,names] of Object.entries(tableGroups(d.seients))) for(let i=0;i<names.length;i++) for(let j=i+1;j<names.length;j++){ const p=pk(names[i],names[j]); if(h[p]){ issues.push({k:"warn",t:`${names[i]} i ${names[j]} ja van seure junts a: ${punt(h[p].join(", "))}`}); warnTables.add(t);} }
+  const ph=posHistory(d.ordre||Date.now());
+  for(const s of SEATS){ const n=d.seients[s.id]; const prev=n&&ph[n+"\u0001"+s.t.id]; if(prev){ issues.push({k:"warn",t:`${n} ja va seure a la taula ${tName(s.t.id)} a: ${punt(prev.join(", "))}`}); warnTables.add(s.t.id); } }
   const un=unassigned(d); if(un.length) issues.push({k:"warn",t:`${un.length} alumne${un.length>1?"s":""} sense lloc.`});
   if(g.alumnes.length>SEATS.length) issues.push({k:"bad",t:`Hi ha ${g.alumnes.length} alumnes i només ${SEATS.length} llocs. Afegeix taules a «Edita l'aula».`});
   return {issues,badTables,warnTables,placed:Object.values(d.seients).filter(Boolean).length};
@@ -289,17 +326,19 @@ function propose(){
   const fixedNames=new Set([...fix].map(s=>d.seients[s]).filter(Boolean));
   const pool=g.alumnes.filter(n=>!fixedNames.has(n));
   if(pool.length>free.length) toast("Hi ha més alumnes que llocs lliures.");
-  const h=history(d.ordre||Date.now());
-  const sep=g.restriccions.filter(r=>r.tipus==="separar"), jun=g.restriccions.filter(r=>r.tipus==="junts"), front=new Set(g.davant);
+  const h=history(d.ordre||Date.now()), ph=posHistory(d.ordre||Date.now());
+  const sep=g.restriccions.filter(r=>r.tipus==="separar"), llu=g.restriccions.filter(r=>r.tipus==="lluny"), jun=g.restriccions.filter(r=>r.tipus==="junts"), front=new Set(g.davant);
   const assign={}; for(const s of fix) if(d.seients[s]) assign[s]=d.seients[s];
   const sh=pool.slice().sort(()=>Math.random()-.5); free.forEach((s,i)=>{ assign[s]=sh[i]||""; });
   const cost=a=>{
     let c=0; const seatOf={}; for(const s of SEATS) if(a[s.id]) seatOf[a[s.id]]=s;
     const tb=n=>seatOf[n]?seatOf[n].t.id:null;
     for(const r of sep) if(tb(r.a)&&tb(r.a)===tb(r.b)) c+=100;
+    for(const r of llu) if(seatOf[r.a]&&seatOf[r.b]&&tablesNear(seatOf[r.a].t,seatOf[r.b].t)) c+=100;
     for(const r of jun) if(tb(r.a)&&tb(r.b)&&tb(r.a)!==tb(r.b)) c+=50;
     for(const n of front) if(seatOf[n]&&!FRONT.has(seatOf[n].id)) c+=40;
     for(const p of pairsOf(a)) if(h[p]) c+=4*h[p].length;
+    for(const s of SEATS){ const n=a[s.id], prev=n&&ph[n+"\u0001"+s.t.id]; if(prev) c+=3*prev.length; }
     for(const names of Object.values(tableGroups(a))) if(names.length===1) c+=2;
     return c;
   };
@@ -371,6 +410,46 @@ function renderPlan(plan, d, an){
   if(d.etiqueta){ const lab=el("div",{class:"ttag",text:d.etiqueta}); Object.assign(lab.style,{right:"0",bottom:"0",width:"40%"}); plan.append(lab); }
 }
 
+// ---------- Projecció a classe ----------
+// Pantalla completa amb la vista des de la pissarra. Cada clic a «Següent» (o espai / fletxa dreta) destapa on seu un alumne.
+function projecta(){
+  const g=G(), d=drafts[currentId]||g.dists[currentId]; if(!d) return;
+  const aula=g.aula, rect=makeRect(aula,true);
+  const ordre=SEATS.filter(s=>d.seients[s.id]).map(s=>s.id).sort(()=>Math.random()-.5);
+  let fets=0;
+  const plan=el("div",{class:"plan proj-plan"}); sizePlan(plan,aula); plan.style.maxWidth=`calc((100dvh - 165px) * ${aula.cols} / ${aula.rows})`;
+  if(aula.pissarra){ const f=aula.pissarra, e=el("div",{class:"furn",text:"Pissarra"}); Object.assign(e.style,rect(f.x,f.y,f.w,1)); plan.append(e); }
+  if(aula.prof){ const f=aula.prof, e=el("div",{class:"furn",text:"Taula professor/a"}); Object.assign(e.style,rect(f.x,f.y,f.w,1)); plan.append(e); }
+  const cel={};
+  for(const s of SEATS){ const n=d.seients[s.id];
+    const c=el("div",{class:"seat proj-seat"+(n?"":" empty")}); c.style.background=tableColor(aula,s.t); Object.assign(c.style,rect(s.x,s.y,SW,SH));
+    c.append(n?"?":""); cel[s.id]=c; plan.append(c); }
+  for(const tt of aula.taules){ const b=el("div",{class:"tbl"}); Object.assign(b.style,rect(tt.x,tt.y,tt.w*SW,tt.h*SH)); plan.append(b); }
+  const nom=el("div",{class:"proj-nom","aria-live":"polite"},"Prem «Següent» per començar");
+  const comp=el("span",{class:"proj-comp"});
+  const bAnt=el("button",{text:"◀ Enrere"}), bSeg=el("button",{class:"primary",text:"Següent ▶"}), bTot=el("button",{text:"Mostra-ho tot"}), bSurt=el("button",{text:"✕ Surt"});
+  const ov=el("div",{class:"proj",role:"dialog","aria-label":"Projecció de la distribució"},
+    el("div",{class:"proj-cap"},el("h2",{text:g.nom+(d.nom?" · "+d.nom:"")}),comp,el("span",{class:"proj-botons"},bAnt,bSeg,bTot,bSurt)),
+    nom, el("div",{class:"proj-zona"},plan));
+  const pinta=()=>{
+    ordre.forEach((id,i)=>{ const c=cel[id]; const vist=i<fets; c.textContent=vist?d.seients[id]:"?"; c.classList.toggle("proj-vist",vist); c.classList.toggle("proj-ara",i===fets-1); });
+    comp.textContent=`${fets} de ${ordre.length}`;
+    if(fets===0) nom.textContent="Prem «Següent» per començar";
+    bAnt.disabled=fets===0; bSeg.disabled=bTot.disabled=fets===ordre.length;
+  };
+  const seg=()=>{ if(fets>=ordre.length) return; fets++; const id=ordre[fets-1];
+    nom.textContent=d.seients[id]; nom.classList.remove("proj-salt"); void nom.offsetWidth; nom.classList.add("proj-salt"); pinta(); };
+  const ant=()=>{ if(!fets) return; fets--; nom.textContent=fets?d.seients[ordre[fets-1]]:""; pinta(); };
+  const tanca=()=>{ document.removeEventListener("keydown",tecla,true); ov.remove(); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); };
+  const tecla=e=>{ if(e.key==="Escape"){ tanca(); } else if(e.key===" "||e.key==="ArrowRight"||e.key==="Enter"){ e.preventDefault(); seg(); } else if(e.key==="ArrowLeft"){ e.preventDefault(); ant(); } };
+  bSeg.onclick=seg; bAnt.onclick=ant; bTot.onclick=()=>{ fets=ordre.length; nom.textContent="Tothom té lloc!"; pinta(); plan.querySelectorAll(".proj-ara").forEach(c=>c.classList.remove("proj-ara")); }; bSurt.onclick=tanca;
+  plan.addEventListener("click",seg);
+  document.addEventListener("keydown",tecla,true);
+  document.addEventListener("fullscreenchange",function f(){ if(!document.fullscreenElement){ document.removeEventListener("fullscreenchange",f); if(ov.isConnected) tanca(); } });
+  $("view").closest("main").append(ov); pinta();
+  if(ov.requestFullscreen) ov.requestFullscreen().catch(()=>{});
+}
+
 // ---------- Vista principal ----------
 // Un sol botó de PDF: en clicar-lo, es tria quina vista es vol.
 function pdfMenu(){
@@ -430,10 +509,11 @@ function renderMain(){
   // botons de distribuir al costat del plànol, perquè es vegin amb l'aula sencera
   selbar.append(el("span",{class:"selbar-accions"},
     el("button",{class:"primary",text:"✨ Proposa distribució",title:"Omple els llocs no fixats respectant les restriccions i evitant repetir parelles",onclick:propose}),
+    el("button",{text:"📽 Projecta a classe",title:"Pantalla completa, des de la pissarra: cada clic destapa on seu un alumne",onclick:projecta}),
     el("button",{text:"Buida l'aula",onclick:()=>{ const dd=ensureDraft(); const f=new Set(dd.fixats||[]); for(const s of Object.keys(dd.seients)) if(!f.has(s)) delete dd.seients[s]; selected=null; render(); }})));
   const plan=el("div",{class:"plan",id:"plan"}); renderPlan(plan,d,an);
   const left=el("section",{class:"card"},selbar,el("div",{class:"planscroll"},plan),
-    el("p",{class:"note",text:"Toca un lloc i després un altre per intercanviar-los (o arrossega). 🔒 = lloc fixat: «Proposa distribució» no el mou. Vora vermella: restricció incomplerta. Vora groga: parella que ja ha seigut junta."}));
+    el("p",{class:"note",text:"Toca un lloc i després un altre per intercanviar-los (o arrossega). 🔒 = lloc fixat: «Proposa distribució» no el mou. Vora vermella: restricció que no es compleix. Vora groga: parella que ja ha segut junta o alumne que repeteix taula."}));
   // lateral
   const issues=el("ul",{class:"issues"});
   if(!an.issues.length) issues.append(el("li",{class:"ok"},el("span",{class:"k",text:"✓"}),"Cap conflicte ni parella repetida."));
@@ -458,10 +538,10 @@ function restrPanel(){
   const g=G(), names=g.alumnes.slice().sort(coll.compare);
   const sel=(id,opts,label)=>el("select",{id,"aria-label":label},el("option",{value:"",text:"Tria…"}),opts.map(n=>el("option",{value:n,text:n})));
   const a=sel("r-a",names,"Alumne/a 1"), b=sel("r-b",names,"Alumne/a 2");
-  const t=el("select",{id:"r-t","aria-label":"Tipus"},el("option",{value:"separar",text:"No poden seure a la mateixa taula"}),el("option",{value:"junts",text:"Millor a la mateixa taula"}));
+  const t=el("select",{id:"r-t","aria-label":"Tipus"},el("option",{value:"separar",text:"No a la mateixa taula"}),el("option",{value:"lluny",text:"Lluny: ni a les taules del voltant"}),el("option",{value:"junts",text:"Millor a la mateixa taula"}));
   const fa=sel("f-a",names.filter(n=>!g.davant.includes(n)),"Alumne/a a primeres files");
   const rl=el("ul",{class:"rlist"});
-  g.restriccions.forEach((r,i)=>rl.append(el("li",{},el("span",{},el("span",{class:"pill"+(r.tipus==="separar"?" no":""),text:r.tipus==="separar"?"No junts":"Junts"})," ",`${r.a} · ${r.b}`),el("button",{class:"small",text:"Treu",onclick:()=>{g.restriccions.splice(i,1);persist(g);render();}}))));
+  g.restriccions.forEach((r,i)=>rl.append(el("li",{},el("span",{},el("span",{class:"pill"+(r.tipus!=="junts"?" no":""),text:TIPUS[r.tipus]||"No junts"})," ",`${r.a} · ${r.b}`),el("button",{class:"small",text:"Treu",onclick:()=>{g.restriccions.splice(i,1);persist(g);render();}}))));
   const fl=el("ul",{class:"rlist"});
   g.davant.slice().sort(coll.compare).forEach(n=>fl.append(el("li",{},el("span",{},el("span",{class:"pill",text:"Primeres files"})," ",n),el("button",{class:"small",text:"Treu",onclick:()=>{g.davant=g.davant.filter(x=>x!==n);persist(g);render();}}))));
   return el("details",{open:true},el("summary",{text:"Restriccions"}),
@@ -479,7 +559,7 @@ function histPanel(){
   const t=el("table",{class:"hist"});
   if(!rows.length) t.append(el("tr",{},el("td",{text:"Cap parella repetida entre les distribucions desades."})));
   rows.forEach(([p,v])=>t.append(el("tr",{},el("td",{text:p.replace("|"," · ")}),el("td",{text:v.join(", ")}),el("td",{class:"n",text:"×"+v.length}))));
-  return el("details",{},el("summary",{text:"Historial de parelles"}),el("p",{class:"note",text:"Qui ha seigut a la mateixa taula en més d'una distribució desada."}),t);
+  return el("details",{},el("summary",{text:"Historial de parelles"}),el("p",{class:"note",text:"Qui ha segut a la mateixa taula en més d'una distribució desada."}),t);
 }
 function rosterPanel(){
   const g=G(), l=el("ul",{class:"rlist"});
@@ -550,7 +630,7 @@ $("imp-file").addEventListener("change",async e=>{
 function normGroup(g){
   const a=g.aula||{};
   return {id:String(g.id||uid("g")).replace(/[^A-Za-z0-9_-]/g,"").slice(0,60)||uid("g"), nom:String(g.nom||"Grup"),
-    alumnes:(g.alumnes||[]).map(String), restriccions:(g.restriccions||[]).filter(r=>r&&r.a&&r.b).map(r=>({a:String(r.a),b:String(r.b),tipus:r.tipus==="junts"?"junts":"separar"})),
+    alumnes:(g.alumnes||[]).map(String), restriccions:(g.restriccions||[]).filter(r=>r&&r.a&&r.b).map(r=>({a:String(r.a),b:String(r.b),tipus:r.tipus==="junts"||r.tipus==="lluny"?r.tipus:"separar"})),
     davant:(g.davant||[]).map(String),
     aula:{cols:+a.cols||20,rows:+a.rows||12,taules:(a.taules||[]).map(t=>({id:String(t.id),x:+t.x,y:+t.y,w:+t.w||1,h:+t.h||1})),pissarra:a.pissarra?{x:+a.pissarra.x,y:+a.pissarra.y,w:+a.pissarra.w}:null,prof:a.prof?{x:+a.prof.x,y:+a.prof.y,w:+a.prof.w}:null},
     dists:g.dists&&typeof g.dists==="object"?g.dists:{}, actualitzat:+g.actualitzat||0};
@@ -577,7 +657,7 @@ function exportCSV(){
   if(a.pissarra) rows.push(["#pissarra",a.pissarra.x,a.pissarra.y,a.pissarra.w]);
   if(a.prof) rows.push(["#prof",a.prof.x,a.prof.y,a.prof.w]);
   a.taules.forEach(t=>rows.push(["#taula",seatLabel(t.id),t.x,t.y,t.w,t.h]));
-  g.restriccions.forEach(r=>rows.push(["#restriccio",r.a,r.b,r.tipus==="junts"?"junts":"no junts"]));
+  g.restriccions.forEach(r=>rows.push(["#restriccio",r.a,r.b,r.tipus==="junts"?"junts":r.tipus==="lluny"?"lluny":"no junts"]));
   const txt="﻿"+rows.map(r=>r.map(csvCell).join(SEP)).join("\r\n")+"\r\n";
   saveFile(`Distribucions_${slug(g.nom)}.csv`, new Blob([txt],{type:"text/csv;charset=utf-8"}));
   unsaved=false;
@@ -620,7 +700,7 @@ function readCsv(text){
     const pr=m("#prof")[0]; if(pr) aula.prof={x:num(pr[1]),y:num(pr[2]),w:Math.max(2,num(pr[3]))};
     m("#taula").forEach(r=>{ const id=(r[1]||"").toLowerCase(); if(/^t\d+$/.test(id)) aula.taules.push({id,x:num(r[2]),y:num(r[3]),w:Math.max(1,Math.min(4,num(r[4])||1)),h:Math.max(1,Math.min(3,num(r[5])||1))}); });
   }
-  const restr=m("#restriccio").filter(r=>r[1]&&r[2]).map(r=>({a:r[1],b:r[2],tipus:/^junts$/i.test(r[3]||"")?"junts":"separar"}));
+  const restr=m("#restriccio").filter(r=>r[1]&&r[2]).map(r=>({a:r[1],b:r[2],tipus:/^junts$/i.test(r[3]||"")?"junts":/^lluny$/i.test(r[3]||"")?"lluny":"separar"}));
   const grup=(m("#grup")[0]||[])[1]||"";
   return {names,dists,davant,aula,restr,grup};
 }
@@ -679,7 +759,7 @@ function pdfPageOps(g,d,v){
   const R=(x,y,w,h)=>{ if(v==="pissarra"){x=aula.cols-x-w;y=aula.rows-y-h;} return [ox+x*k,oy+y*k,w*k,h*k]; };
   const box=(r,s,maxSize)=>{ ops.push(`${r[0].toFixed(2)} ${(PH-r[1]-r[3]).toFixed(2)} ${r[2].toFixed(2)} ${r[3].toFixed(2)} re S`); if(s){ let size=maxSize; const w=textW(s,size); if(w>r[2]-6) size=Math.max(5,size*(r[2]-6)/w); txt(s,r[0]+r[2]/2,r[1]+r[3]/2+size*.35,size,false,"center"); } };
   const fs=Math.max(7,Math.min(13,k*.42));
-  txt("Distribució alumnat "+g.nom,PW/2,58,24,true,"center");
+  txt("Distribució de l'alumnat · "+g.nom,PW/2,58,24,true,"center");
   if(aula.pissarra) box(R(aula.pissarra.x,aula.pissarra.y,aula.pissarra.w,1),"Pissarra",fs);
   if(aula.prof) box(R(aula.prof.x,aula.prof.y,aula.prof.w,1),"Taula professor/a",fs);
   for(const s of SEATS) box(R(s.x,s.y,SW,SH),d.seients[s.id]||"",fs);

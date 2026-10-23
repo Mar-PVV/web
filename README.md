@@ -297,7 +297,13 @@ fa servir `../assets/estil.css` per a la capçalera i el peu de la web.
 - **CSV:** punt i coma, UTF-8. Una fila per alumne i una columna per distribució
   (llocs com a `T3-2` = taula 3, lloc 2), una columna «Primeres files», i files
   que comencen per `#` amb el grup, l'aula, la pissarra, la taula del professorat,
-  les taules i les restriccions.
+  les taules i les restriccions (`#restriccio;A;B;tipus`, amb tipus `no junts`,
+  `lluny` o `junts`). «Lluny» vol dir ni a la mateixa taula ni a cap taula del voltant
+  (a 2 quadres o menys, també en diagonal).
+- **Revisió:** avisa de restriccions que no es compleixen, de parelles que ja han segut juntes i
+  d'alumnes que repeteixen taula respecte a les distribucions desades anteriors.
+- **Projecta a classe:** pantalla completa des de la pissarra; cada clic (o espai / fletxa) destapa
+  on seu un alumne, en ordre aleatori.
 - **Mai** pugis al repo cap CSV amb noms d'alumnes: el repo és públic.
 - **Tutorial:** `distribucions/tutorial/` té el vídeo (`tutorial-distribucions.mp4`, fet amb un grup inventat), la imatge de portada i la pàgina que el mostra.
 - Els colors de l'eina són variables a `.dist{...}` al principi del `<style>`.
