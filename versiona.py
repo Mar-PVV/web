@@ -17,9 +17,9 @@ def empremta(nom):
         return hashlib.sha1(fh.read()).hexdigest()[:8]
 
 def htmls():
-    # les pàgines de l'arrel i les de les seccions en carpeta (distribucions/index.html)
+    # les pàgines de l'arrel i les de les seccions en carpeta (distribucions/, tutoria/, acta/)
     fs = [f for f in sorted(os.listdir(WEB)) if f.endswith(".html")]
-    for d in ("distribucions", "distribucions/tutorial"):
+    for d in ("distribucions", "distribucions/tutorial", "tutoria", "acta"):
         if os.path.isfile(os.path.join(WEB, d, "index.html")):
             fs.append(d + "/index.html")
     return fs

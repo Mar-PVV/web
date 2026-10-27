@@ -54,6 +54,12 @@ web/
 ├── distribucions/
 │   ├── index.html      eina per a docents: distribucions de l'aula (/distribucions)
 │   └── tutorial/       vídeo tutorial de l'eina (/distribucions/tutorial)
+├── tutoria/
+│   └── index.html      pàgina d'eines de tutoria (/tutoria): enllaça distribucions i acta
+├── acta/
+│   ├── index.html      eina per a tutors: visualitzador d'actes d'iEduca (/acta)
+│   ├── lib/            pdf.js, pdf-lib i fontkit (còpies locals, vegeu LLICENCIES.md)
+│   └── fonts/          Work Sans i Poppins (TTF, subconjunt llatí) per al PDF
 ├── manifest.json       per instal·lar la web a la pantalla d'inici
 ├── assets/
 │   ├── estil.css       full d'estil (imatge de marca)
@@ -309,6 +315,41 @@ fa servir `../assets/estil.css` per a la capçalera i el peu de la web.
 - Els colors de l'eina són variables a `.dist{...}` al principi del `<style>`.
 - Si canvies la secció de lloc o n'afegeixes una altra en carpeta, afegeix-la a
   la funció `htmls()` de `versiona.py`, perquè rebi l'empremta de versió.
+
+---
+
+## Tutoria (`tutoria/`) i visualitzador d'actes (`acta/`)
+
+`tutoria/index.html` és una pàgina amb dues targetes: **Distribucions de l'aula**
+(`../distribucions/`) i **Visualitzador d'actes** (`../acta/`). Cap de les tres pàgines
+s'enllaça des de la portada: s'hi entra amb l'enllaç directe
+(`https://mar-pvv.github.io/web/tutoria/`).
+
+El **visualitzador d'actes** (`acta/index.html`, amb el CSS i el JavaScript a dins):
+
+- La tutora puja l'**acta en PDF d'iEduca** i, si vol, un **CSV de PSI**. Tot es llegeix
+  al navegador: **no s'envia ni es desa res** (ni al servidor ni al `localStorage`).
+  En recarregar la pàgina s'esborra tot; avisa abans de tancar si hi ha notes.
+- **Lectura de l'acta** (pdf.js, `getTextContent()`): es troba la x de cada capçalera
+  de columna de la taula i cada nota s'assigna a la columna més propera (les cel·les
+  buides no fan córrer les columnes). L'identificador (IDALU) no es guarda mai. Si el
+  nom tapa la primera nota, la cel·la surt marcada com a dubtosa i es pot corregir.
+  Els noms llargs de les matèries surten de l'annex «Codificacions»; les optatives,
+  de la llegenda `NOM [CODI]` de la capçalera. Els comentaris es llegeixen des de
+  «Comentaris individuals…» i es treu el peu de pàgina que es repeteix.
+- **CSV de PSI:** separador `,` `;` o tabulador. Accepta el format de l'exemple
+  (primera columna amb el nom «Nom Cognoms», sense títol; columna `PSI` amb el tipus,
+  en blanc si no en té) i també columnes amb títol (`Alumne`, `PSI` Sí/No, `Tipus`).
+  Aparella pel nom complet, sense tenir en compte majúscules ni accents.
+- Si falta una matèria (p. ex. matemàtiques), es pot afegir a mà a la pestanya Alumnes.
+- **PDF** (pdf-lib + fontkit, A4 vertical, vectors): pàgina del grup, una pàgina per
+  alumne i «Acords de grup». Té camps de formulari: `notes_07`, `acc_07_entrevista`
+  (també `_orientacio`, `_seguiment`, `_felicitar`, `_compromis`), `nota_07_mat` (si
+  la matèria afegida a mà no té nota) i `acords_grup`. La font Work Sans va incrustada
+  sencera perquè els camps mostrin accents i «l·l». Nom: `Preavaluacio_E3D_2026-10-26.pdf`.
+- **Mai** pugis al repo cap acta, CSV de PSI ni PDF generat amb dades reals: el repo
+  és públic. Per provar-lo, cal una acta inventada.
+- Les llibreries són còpies locals a `acta/lib/` (sense CDN) i les fonts a `acta/fonts/`.
 
 ---
 

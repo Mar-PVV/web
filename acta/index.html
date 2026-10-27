@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Visualitzador d'actes · Tutoria · INS Pere Vives</title>
+<meta name="description" content="Eina per a tutors: llegeix l'acta d'avaluació d'iEduca al navegador, en fa l'anàlisi del grup i genera un PDF per a la reunió. No envia ni desa cap dada.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="../manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/estil.css?v=a1369cce">
+<style>
+/* Layout: càrrega de fitxers → pestanyes Grup (indicadors, gràfics, punts) i Alumnes (graella + fitxa lateral). */
+.acta{
+  --bg:#F8F7F4; --surface:#FFFFFF; --fg:#2B2B2B; --muted:#6B6B6B; --line:#E4DFD7;
+  --accent:#39698C; --accent-dark:#2A5070; --accent-ink:#FFFFFF; --accent-soft:#EAF1F6;
+  --ae:#2E6E4E; --an:#79B892; --as:#F0C766; --na:#C8553D; --none:#E9E5DD;
+  --ae-ink:#FFFFFF; --an-ink:#12301F; --as-ink:#3A2C00; --na-ink:#FFFFFF;
+  --bad:#B23B2A; --bad-soft:#FBE1DD; --warn:#8A5A00; --warn-soft:#FFF0CC; --ok:#3A7A55; --ok-soft:#E9F5EF;
+  --psi:#5B4B9A; --psi-soft:#ECE8F7;
+  --font:'Work Sans','Helvetica Neue',Helvetica,Arial,sans-serif; --titol:'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.acta{flex:1;color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.45;padding:28px max(24px,env(safe-area-inset-right,0px)) 56px max(24px,env(safe-area-inset-left,0px))}
+.acta .wrap{max-width:1232px;margin:0 auto;display:grid;gap:18px}
+.acta h1{font-family:var(--titol);color:var(--accent);font-size:1.7rem;font-weight:700;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.acta h2{font-family:var(--titol);font-size:1.08rem;font-weight:600;margin:0 0 12px;text-wrap:balance}
+.acta h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px;font-weight:700}
+.acta .eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin:0 0 2px}
+.acta .meta{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.acta button,.acta select,.acta input,.acta textarea{font:inherit;color:inherit}
+.acta button{cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;font-weight:700;font-size:.88rem}
+.acta button:hover{border-color:var(--muted)}
+.acta button:disabled{opacity:.5;cursor:default}
+.acta button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.acta button.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.acta button.danger{color:var(--bad)}
+.acta button:focus-visible,.acta select:focus-visible,.acta input:focus-visible,.acta textarea:focus-visible,.acta [tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.acta select{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+.acta textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 10px;resize:vertical;min-height:110px;line-height:1.5}
+.cap{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.muted{color:var(--muted)} .small{font-size:.86rem}
+
+/* Inici */
+.inici{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:860px){.inici{grid-template-columns:minmax(0,1fr)}}
+.drop{border:2px dashed #C8DAE8;background:var(--accent-soft);border-radius:14px;padding:34px 22px;text-align:center;display:grid;gap:10px;justify-items:center;transition:background .15s,border-color .15s}
+.drop.over{background:#D9E7F1;border-color:var(--accent)}
+.drop .gran{font-family:var(--titol);font-weight:600;font-size:1.2rem;color:var(--accent)}
+.drop p{margin:0;color:var(--muted);max-width:52ch}
+.fitxers{display:grid;gap:10px;margin-top:14px}
+.fitxer{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.fitxer b{font-size:.92rem}
+.fitxer .estat{font-size:.85rem;color:var(--muted)}
+.fitxer .estat.ok{color:var(--ok);font-weight:700}
+.priv{display:grid;gap:10px;font-size:.9rem}
+.priv ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.error{background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:10px 14px;font-weight:600;font-size:.92rem}
+.carregant{display:flex;gap:10px;align-items:center;color:var(--muted);font-weight:600}
+.spin{width:18px;height:18px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:gir 0.8s linear infinite}
+@keyframes gir{to{transform:rotate(360deg)}}
+
+/* Pestanyes i opcions */
+.barra{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px}
+.tabs{display:flex;gap:6px}
+.tab{border-radius:999px!important;padding:7px 16px!important}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opcions{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.88rem}
+.switch{display:inline-flex;gap:8px;align-items:center;cursor:pointer;user-select:none}
+.switch input{appearance:none;width:34px;height:20px;border-radius:999px;background:#CFCAC0;position:relative;cursor:pointer;margin:0;transition:background .15s;flex:none}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .15s}
+.switch input:checked{background:var(--accent)}
+.switch input:checked::after{left:16px}
+
+/* Grup */
+.avis{border-radius:10px;padding:10px 14px;font-size:.92rem;background:var(--accent-soft);color:#1F4560}
+.avis.warn{background:var(--warn-soft);color:#5C3D00}
+.avis b{font-weight:700}
+.lectura{font-size:.88rem;color:var(--muted)}
+.lectura summary{cursor:pointer;font-weight:700;color:var(--fg)}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{display:block;font-family:var(--titol);font-size:1.75rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi span{color:var(--muted);font-size:.84rem}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+@media (max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:132px minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:.85rem}
+.bar .lbl{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stack{display:flex;height:22px;border-radius:5px;overflow:hidden;background:var(--none)}
+.stack i{height:100%;font-style:normal;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;font-variant-numeric:tabular-nums}
+.pct{font-size:.8rem;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:12px}
+.legend span{display:inline-flex;gap:5px;align-items:center}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+.g-AE{background:var(--ae);color:var(--ae-ink)} .g-AN{background:var(--an);color:var(--an-ink)}
+.g-AS{background:var(--as);color:var(--as-ink)} .g-NA{background:var(--na);color:var(--na-ink)}
+.g-x{background:transparent;color:var(--muted);border:1px dashed #CFCAC0}
+.hist{display:flex;align-items:flex-end;gap:8px;height:160px;padding-top:18px;border-bottom:1px solid var(--line)}
+.hist div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.hist i{display:block;width:100%;max-width:48px;border-radius:4px 4px 0 0}
+.hist small{font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums}
+.histx{display:flex;gap:8px;font-size:.78rem;color:var(--muted);margin-top:4px}
+.histx span{flex:1;text-align:center}
+ul.points{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:9px;font-size:.93rem}
+ul.points li::marker{color:var(--muted)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:#1F4560;white-space:nowrap;vertical-align:1px}
+.pill.warn{background:var(--bad-soft);color:var(--bad)}
+.pill.psi{background:var(--psi-soft);color:var(--psi)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.amb{background:var(--warn-soft);color:var(--warn)}
+.acords textarea{min-height:120px}
+
+/* Alumnes */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.88rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex-wrap:wrap}
+.acta .seg button{border:0;border-radius:0;font-weight:600;padding:6px 11px}
+.acta .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:18px;align-items:start}
+@media (max-width:1060px){.split{grid-template-columns:minmax(0,1fr)}}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table.al{border-collapse:collapse;width:100%;font-size:.84rem}
+table.al th,table.al td{padding:5px 4px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+table.al th{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);position:sticky;top:0;background:var(--surface);z-index:1}
+table.al td.nm,table.al th.nm{text-align:left;padding-left:8px}
+table.al td.nm button{background:none;border:0;padding:2px 0;font-weight:600;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+table.al tr.sel td{background:var(--accent-soft)}
+table.al tbody tr:hover td{background:#F3F1EC}
+table.al tbody tr.sel:hover td{background:var(--accent-soft)}
+.cell{display:inline-block;min-width:30px;padding:2px 4px;border-radius:4px;font-size:.75rem;font-weight:700;font-variant-numeric:tabular-nums}
+.cell.dub{box-shadow:0 0 0 2px var(--bad);position:relative}
+.optc{font-size:.66rem;color:var(--muted);display:block;max-width:76px;overflow:hidden;text-overflow:ellipsis;margin:1px auto 0}
+td.extra{background:var(--warn-soft)}
+.acta select.gsel{font-size:.78rem;padding:2px 3px;border-radius:5px;font-weight:700}
+.acta select.gsel.dub{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+.nacount{font-weight:700;color:var(--na)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);vertical-align:middle}
+.detail{position:sticky;top:12px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - 24px);overflow:auto}
+.dhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.dhead h2{margin:2px 0 0;font-size:1.3rem;color:var(--fg)}
+.nav2{display:flex;gap:6px;flex:none}
+.minigrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}
+.minigrid div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.minigrid .cell{width:100%;text-align:center}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap}
+.psibox{background:var(--psi-soft);color:var(--psi);border-radius:10px;padding:9px 12px;font-size:.88rem}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{display:inline-flex;gap:6px;align-items:center;font-size:.84rem;border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer;background:var(--surface)}
+.checks label:has(input:checked){background:var(--accent-soft);border-color:#C8DAE8}
+.checks input{accent-color:var(--accent);margin:0}
+.cmts{display:flex;flex-direction:column;gap:9px;font-size:.88rem;margin-top:10px}
+.cmts p{margin:0}
+.cmts b{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block}
+.acta details summary{cursor:pointer;font-weight:700}
+.extra-card{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.extra-card input{border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:var(--surface);min-width:0;width:200px}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:10px;font-weight:700;font-size:.9rem;z-index:20;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.stack i,.hist i{transition:width .3s,height .3s}}
+@media (max-width:620px){.acta{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+</style>
+</head>
+<body class="acta-pagina">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="../index.html">
+      <img src="../assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="../index.html">Inici</a>
+      <a href="../tutoria/">Tutoria</a>
+    </nav>
+  </div>
+</header>
+
+<main class="acta">
+<div class="wrap">
+  <div class="cap">
+    <div>
+      <p class="eyebrow" id="eyebrow">Tutoria</p>
+      <h1 id="titol">Visualitzador d'actes</h1>
+      <p class="meta" id="meta">Anàlisi de l'acta d'avaluació d'iEduca per preparar la sessió amb l'equip docent.</p>
+    </div>
+    <div class="row" id="accions" hidden>
+      <button class="primary" id="b-pdf">⬇ Descarrega el PDF</button>
+      <button id="b-psi">Carrega el CSV de PSI</button>
+      <button id="b-altra">Una altra acta</button>
+      <button class="danger" id="b-esborra">Esborra-ho tot</button>
+    </div>
+  </div>
+
+  <!-- INICI -->
+  <section id="inici" class="inici">
+    <div class="card">
+      <div class="drop" id="drop">
+        <span class="gran">Arrossega aquí l'acta en PDF</span>
+        <p>L'acta de qualificacions que descarregues d'iEduca (preavaluació o avaluació trimestral de qualsevol grup).</p>
+        <button class="primary" id="b-acta">Tria l'acta (PDF)</button>
+      </div>
+      <div class="fitxers">
+        <div class="fitxer"><span><b>Acta d'avaluació</b> <span class="muted small">(PDF d'iEduca)</span></span><span class="estat" id="e-acta">Encara no l'has triada</span></div>
+        <div class="fitxer"><span><b>CSV de PSI</b> <span class="muted small">(opcional: alumne, té PSI, tipus de PSI)</span></span><span class="row"><span class="estat" id="e-psi">Cap</span><button id="b-psi2">Tria el CSV</button></span></div>
+      </div>
+      <div id="err" class="error" hidden style="margin-top:12px"></div>
+      <div id="carregant" class="carregant" hidden style="margin-top:12px"><span class="spin"></span><span>Llegint l'acta…</span></div>
+    </div>
+    <div class="card priv">
+      <h2 style="margin:0">Les dades no surten d'aquest ordinador</h2>
+      <ul>
+        <li>L'acta i el CSV es llegeixen <b>aquí mateix, al navegador</b>. No s'envien enlloc ni es desen a cap servidor.</li>
+        <li>Les notes de la reunió no es desen a la web: es guarden al <b>PDF que descarregues</b>, que té camps per continuar-lo omplint amb qualsevol lector de PDF.</li>
+        <li>Quan tanques o recarregues la pàgina, s'esborra tot. Per tornar-hi, torna a passar l'acta.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- VISTA -->
+  <section id="vista" hidden style="display:grid;gap:18px">
+    <div class="barra">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="grup">Grup</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="alumnes">Alumnes</button>
+      </div>
+      <div class="opcions">
+        <label class="switch"><input type="checkbox" id="o-noms"> Mostra el nom complet</label>
+        <label class="switch"><input type="checkbox" id="o-psipdf" checked> Inclou el tipus de PSI al PDF</label>
+      </div>
+    </div>
+
+    <div id="p-grup" style="display:grid;gap:18px">
+      <div id="avisos" style="display:grid;gap:10px"></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="grid2">
+        <section class="card">
+          <h2>Resultats per matèria</h2>
+          <div class="bars" id="bars"></div>
+          <div class="legend"><span><i class="sw g-AE"></i>AE</span><span><i class="sw g-AN"></i>AN</span><span><i class="sw g-AS"></i>AS</span><span><i class="sw g-NA"></i>NA</span><span>% = assoliment (AS o més)</span></div>
+        </section>
+        <section class="card">
+          <h2>Quants NA té cada alumne</h2>
+          <div class="hist" id="hist"></div>
+          <div class="histx" id="histx"></div>
+          <p class="small muted" style="margin:8px 0 0">Eix horitzontal: nombre de NA. Eix vertical: alumnes.</p>
+        </section>
+      </div>
+      <div class="grid2">
+        <section class="card">
+          <h2>Punts per comentar amb l'equip</h2>
+          <ul class="points" id="points"></ul>
+        </section>
+        <section class="card">
+          <h2>Què repeteixen els comentaris</h2>
+          <p class="small muted" style="margin:-4px 0 10px">Alumnes amb almenys un comentari d'aquest tipus (lectura automàtica dels comentaris de l'acta).</p>
+          <div class="bars" id="tagbars"></div>
+          <h3 style="margin-top:18px">Dades per revisar a l'acta</h3>
+          <ul class="points small" id="checks"></ul>
+        </section>
+      </div>
+      <section class="card acords">
+        <h2><label for="acords">Acords de grup</label></h2>
+        <textarea id="acords" placeholder="Acords que pren l'equip docent per a tot el grup. Surten a l'última pàgina del PDF."></textarea>
+      </section>
+    </div>
+
+    <div id="p-alumnes" hidden style="display:grid;gap:14px">
+      <div class="toolbar">
+        <span class="muted">Mostra</span>
+        <div class="seg" id="filt">
+          <button aria-pressed="true" data-f="all">Tots</button>
+          <button aria-pressed="false" data-f="na">Amb algun NA</button>
+          <button aria-pressed="false" data-f="na3">3 NA o més</button>
+          <button aria-pressed="false" data-f="ok">Tot assolit</button>
+          <button aria-pressed="false" data-f="psi">Amb PSI</button>
+        </div>
+        <label for="sort" class="muted">Ordena</label>
+        <select id="sort"><option value="n">Llista</option><option value="na">Més NA primer</option></select>
+      </div>
+      <div class="card extra-card" id="extra-card"></div>
+      <div class="split">
+        <div class="tablebox"><table class="al" id="tbl"></table></div>
+        <section class="card detail" id="detail"></section>
+      </div>
+    </div>
+  </section>
+
+  <input type="file" id="f-acta" accept="application/pdf,.pdf" hidden>
+  <input type="file" id="f-psi" accept=".csv,.txt,text/csv,text/plain" hidden>
+  <div class="toast" id="toast" hidden></div>
+  <noscript><p class="error">Aquesta eina necessita JavaScript.</p></noscript>
+</div>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="lib/pdf.min.js"></script>
+<script src="lib/pdf-lib.min.js"></script>
+<script src="lib/fontkit.umd.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const G = ["AE","AN","AS","NA"];
+const coll = new Intl.Collator("ca");
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>t.hidden=true,3000); }
+
+// Text normalitzat per comparar: minúscules, sense accents ni puntuació.
+const norm = s => String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+const words = s => norm(s).split(" ").filter(Boolean);
+// Majúscula només a la primera lletra ("CREACIÓ D'APPS I DISSENY 3D" → "Creació d'apps i disseny 3D").
+function sentence(s){
+  const t = String(s||"").trim().toLowerCase().replace(/\b(\d+d)\b/g, m=>m.toUpperCase());
+  const r = t.charAt(0).toUpperCase() + t.slice(1);
+  return ({"Frances":"Francès"})[r] || r;
+}
+
+// ---------- Matèries ----------
+// Es reconeix la matèria pel nom (de l'annex, de la capçalera o del comentari). Els noms
+// llargs es llegeixen de l'annex de l'acta; aquí només hi ha l'etiqueta curta per als gràfics.
+function canon(s){
+  const t = " " + norm(s) + " ";
+  if (/ ed(ucacio)? ?fis| edfis| ef /.test(t)) return "ef";
+  if (/quim| fiq /.test(t)) return "fiq";
+  if (/catal| ll cat /.test(t)) return "cat";
+  if (/castell| ll cas /.test(t)) return "cas";
+  if (/angl|estrang| ll est | ll ang /.test(t)) return "ang";
+  if (/matem| mat /.test(t)) return "mat";
+  if (/social| c soc | soc |geograf|histor/.test(t)) return "soc";
+  if (/biolog|ciencies| big | bio /.test(t)) return "bio";
+  if (/visual|plastic| vip /.test(t)) return "vip";
+  if (/tecnolog| tec /.test(t)) return "tec";
+  if (/music/.test(t)) return "mus";
+  if (/religi|valors/.test(t)) return "rel";
+  if (/tutor/.test(t)) return "tut";
+  return null;
+}
+const LABEL = {cat:"Català",cas:"Castellà",ang:"Anglès",mat:"Matemàtiques",fiq:"Física i química",soc:"Socials",bio:"Biologia",ef:"Ed. física",vip:"Visual i plàstica",tec:"Tecnologia",mus:"Música",rel:"Religió / valors",tut:"Tutoria"};
+const SHORT = {cat:"Cat",cas:"Cas",ang:"Ang",mat:"Mat",fiq:"FiQ",soc:"Soc",bio:"BiG",ef:"EF",vip:"ViP",tec:"Tec",mus:"Mús",rel:"Rel",tut:"Tut"};
+
+// ---------- Etiquetes dels comentaris ----------
+const TAGS = [
+  ["aten","Atenció / distraccions", /distre|enj[uo]gass|xerraire|més atent|atenció a classe|posar atenció|centrat|escoltar atentament/i],
+  ["task","Tasques pendents", /sense acab|per entregar|no entrega|no acaba|no les presenta|No t[ée] (actualitzades|assolides)|No actualitzades|no ha entrat al Classroom/i],
+  ["exam","Preparar exàmens / estudi", /preparant millor|preparar-se millor|prepari millor|més estudi|estudiar més|examen no li|No ha preparat|preparació de/i],
+  ["orto","Ortografia", /ortogr/i],
+  ["part","Participar més", /participa(r|tiva|tiu) més|més participa/i],
+  ["assist","Assistència", /faltat|no ha vingut|No assisteix|perdut algunes classes/i],
+  ["psi","Comentari: avaluat amb PSI o adaptació", /\bPSI\b|adaptat/i],
+];
+const TAGL = Object.fromEntries(TAGS.map(t=>[t[0],t[1]]));
+const FLAGS = [["entrevista","Entrevista família"],["orientacio","Parlar amb orientació"],["seguiment","Seguiment tutoria"],["felicitar","Felicitar"],["compromis","Compromís / contracte"]];
+
+// =====================================================================
+// LECTURA DE L'ACTA (pdf.js): text amb coordenades x/y de cada fragment
+// =====================================================================
+pdfjsLib.GlobalWorkerOptions.workerSrc = "lib/pdf.worker.min.js";
+
+async function readPdf(buf){
+  const doc = await pdfjsLib.getDocument({data:buf, isEvalSupported:false}).promise;
+  let info = {};
+  try { info = (await doc.getMetadata()).info || {}; } catch(e) {}
+  const pages = [];
+  for (let i=1;i<=doc.numPages;i++){
+    const p = await doc.getPage(i), vp = p.getViewport({scale:1});
+    const tc = await p.getTextContent();
+    const items = tc.items.filter(it=>it.str && it.str.trim()).map(it=>({str:it.str, x:it.transform[4], y:it.transform[5], w:it.width, h:it.height||Math.abs(it.transform[3])}));
+    pages.push({w:vp.width, h:vp.height, items});
+  }
+  doc.destroy();
+  return {info, pages};
+}
+
+// Agrupa els fragments en línies (mateixa y) i les ordena de dalt a baix.
+function toLines(items){
+  const L = [];
+  [...items].sort((a,b)=>b.y-a.y||a.x-b.x).forEach(it=>{
+    let l = L.find(l=>Math.abs(l.y-it.y)<2.5);
+    if (!l){ l={y:it.y, items:[]}; L.push(l); }
+    l.items.push(it);
+  });
+  L.forEach(l=>{
+    l.items.sort((a,b)=>a.x-b.x);
+    let s="", end=null;
+    for (const it of l.items){
+      if (end!=null && it.x-end>1.2 && !s.endsWith(" ") && !it.str.startsWith(" ")) s+=" ";
+      s+=it.str; end=it.x+it.w;
+    }
+    l.text = s.replace(/\s+/g," ").trim();
+  });
+  return L.sort((a,b)=>b.y-a.y);
+}
+
+// Parteix un fragment en paraules amb la x estimada de cadascuna (proporcional als caràcters).
+function tokens(it){
+  const out=[], s=it.str, cw = s.length ? it.w/s.length : 0, re=/\S+/g; let m;
+  while((m=re.exec(s))){ const x0=it.x+m.index*cw, x1=x0+m[0].length*cw; out.push({s:m[0], x0, x1, cx:(x0+x1)/2, it}); }
+  return out;
+}
+const GRADE_RE = /^(AE|AN|AS|NA|N\.A\.?|A\.E\.?|A\.N\.?|A\.S\.?)$/;
+const cleanGrade = s => s.replace(/\./g,"");
+
+function parseOpt(s, codes){
+  s = s.replace(/\s+/g," ").trim();
+  if (!s) return ["",null];
+  if (GRADE_RE.test(s)) return ["", cleanGrade(s)];
+  for (const c of codes){ // els codis de la llegenda, del més llarg al més curt
+    if (s.toUpperCase().startsWith(c)){ const r=s.slice(c.length).trim(); if (!r) return [c,null]; if (GRADE_RE.test(r)) return [c, cleanGrade(r)]; }
+  }
+  const m = s.match(/^([A-Z]+?\d*)\s*(AE|AN|AS|NA)?$/);
+  if (m) return [m[1], m[2]||null];
+  return [s, null];
+}
+
+function parseActa(pdf){
+  const pages = pdf.pages, warn = [];
+  const allLines = pages.map(p=>toLines(p.items));
+  const firstText = allLines[0].map(l=>l.text).join("\n");
+  const allText = allLines.map(L=>L.map(l=>l.text).join("\n")).join("\n");
+
+  // --- Capçalera ---
+  const meta = {};
+  let m = firstText.match(/Acta de qualificacions[^\n]*?\bde (\d\S*[^\n]*?)\s*$/m); meta.nivell = m ? m[1].trim() : "";
+  meta.titol = (firstText.match(/^Acta de qualificacions[^\n]*/m)||[""])[0];
+  m = allText.match(/(\d{4})\s*-\s*(\d{4})/); meta.curs = m ? m[1]+"-"+m[2] : "";
+  m = firstText.match(/(Preavaluaci[óo]|\d\s*[ae]?\s*avaluaci[óo]|Avaluaci[óo] (?:final|ordin[àa]ria|extraordin[àa]ria))/i);
+  meta.tipus = m ? m[1].charAt(0).toUpperCase()+m[1].slice(1) : "Avaluació";
+  m = firstText.match(/\b((?:ESO|BAT|BTX|CF[GM]?)\s?[A-Z]*\d{2,}[A-Z0-9]*)\b/); meta.codi = m ? m[1] : "";
+  m = allText.match(/\bGrup:?\s+([A-Z0-9][A-Z0-9-]{1,9})\b/); meta.grup = m ? m[1] : (meta.codi||"grup");
+  m = allText.match(/Data de la sessi[óo] d'avaluaci[óo]\s*:?\s*(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})/i) || allText.match(/(\d{1,2})-(\d{1,2})-(\d{4})/);
+  meta.data = m ? `${m[1].padStart(2,"0")}-${m[2].padStart(2,"0")}-${m[3]}` : "";
+  meta.dataIso = m ? `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}` : "";
+  m = firstText.match(/Centre:?\s*([^\n]+?)(?:\s{2,}|\s+Municipi|$)/m); meta.centre = m ? m[1].trim() : "";
+
+  // Llegenda de les optatives: "ALEMANY [ALE], HORT [HORT]..."
+  const optNames = {};
+  const legRe = /([A-ZÀ-ÚÇÏÜ'’][A-ZÀ-ÚÇÏÜ'’ \d.\-]*?)\s*\[([A-Z0-9]{1,8})\]/g;
+  for (const L of allLines.slice(0,3)) for (const l of L){ let r; legRe.lastIndex=0; while((r=legRe.exec(l.text))){ const nm=r[1].replace(/^.*:\s*/,"").replace(/^,\s*/,"").trim(); if(nm) optNames[r[2]] = sentence(nm); } }
+  const optCodes = Object.keys(optNames).sort((a,b)=>b.length-a.length);
+
+  // --- Taula de qualificacions ---
+  const studs = new Map(); let colDefs = null;
+  pages.forEach((p, pi)=>{
+    const hName = p.items.find(it=>/^\s*Cognoms i nom/i.test(it.str));
+    if (!hName) return;
+    const hy = hName.y;
+    const band = p.items.filter(it=>Math.abs(it.y-hy)<4);
+    let toks = band.flatMap(tokens);
+    const nTok = toks.find(t=>/^N\.?º?$/i.test(t.s));
+    const nameX0 = hName.x - 2, nameEnd = hName.x + hName.w;
+    let ct = toks.filter(t=>t.x0 >= nameEnd-1).sort((a,b)=>a.x0-b.x0);
+    const cols = [];
+    ct.forEach(t=>{ const last=cols[cols.length-1]; if (last && /^\d+$/.test(t.s) && /^Opt/i.test(last.s)){ last.s+=" "+t.s; last.x1=t.x1; last.cx=(last.x0+last.x1)/2; } else cols.push({s:t.s,x0:t.x0,x1:t.x1,cx:t.cx}); });
+    if (!cols.length) return;
+    if (!colDefs) colDefs = cols.map(c=>c.s);
+    const nameBound = cols.length>1 ? cols[0].cx - (cols[1].cx-cols[0].cx)/2 : cols[0].x0-4;
+    // Peu de pàgina: el que queda per sota de "Signatura"
+    const foot = p.items.filter(it=>/Signatura del|Vistiplau|Segell del centre/i.test(it.str)).reduce((a,it)=>Math.max(a,it.y), -1e9);
+    const anchors = p.items.filter(it=>/^\s*\d{1,3}\s*$/.test(it.str) && it.y<hy-2 && it.y>foot+2 && (nTok ? Math.abs(it.x+it.w/2-nTok.cx)<14 : it.x<nameX0-30))
+      .map(it=>({n:+it.str.trim(), y:it.y, it})).sort((a,b)=>b.y-a.y);
+    if (!anchors.length) return;
+    const gaps = anchors.slice(1).map((a,i)=>anchors[i].y-a.y).sort((a,b)=>a-b);
+    const step = gaps.length ? gaps[Math.floor(gaps.length/2)] : 14;
+    const rows = new Map(anchors.map(a=>[a,[]]));
+    p.items.forEach(it=>{
+      if (it.y>=hy-2 || it.y<=foot+2 || anchors.some(a=>a.it===it)) return;
+      let best=null, bd=1e9; anchors.forEach(a=>{ const d=Math.abs(a.y-it.y); if(d<bd){bd=d;best=a;} });
+      if (best && bd<=Math.max(4, step*0.45)) rows.get(best).push(it);
+    });
+    const colAt = x => { let bi=0, bd=1e9; cols.forEach((c,i)=>{ const d=Math.abs(c.cx-x); if(d<bd){bd=d;bi=i;} }); return bi; };
+    anchors.forEach(a=>{
+      const s = {n:a.n, raw:"", g:{}, opt:{}, dub:new Set(), extraTxt:[]};
+      const nameParts=[], optParts={};
+      let overflow=false;
+      rows.get(a).flatMap(tokens).sort((x,y)=>x.x0-y.x0).forEach(t=>{
+        if (/^\d{6,}$/.test(t.s)) return;                      // IDALU: no es guarda mai
+        // Un nom molt llarg pot passar per sobre de la primera nota ("Mohammed AmN.A"): és part del nom
+        const intoFirst = t.x0 >= nameBound - 1 && colAt(t.cx)===0 && !GRADE_RE.test(t.s) && /[a-zà-ÿ]/.test(t.s);
+        if (t.x0 < nameBound - 1 || intoFirst){
+          if (t.x0 < nameX0 - 1) return;
+          if (t.x1 > nameBound + 1 || intoFirst){
+            overflow = true;
+            const mm = t.s.match(/^(.*?[a-zà-ÿ'’])(N\.?A|A\.?[ENS])\.?$/);
+            if (mm){ nameParts.push(mm[1]); const ci=colAt(t.x1-4); const k=cols[ci].s; if(!/^Opt/i.test(k)){ s.g[k]=cleanGrade(mm[2]); s.dub.add(k);} return; }
+          }
+          nameParts.push(t.s); return;
+        }
+        const ci = colAt(t.cx), k = cols[ci].s;
+        if (/^Opt/i.test(k)){ (optParts[k]=optParts[k]||[]).push(t.s); return; }
+        if (GRADE_RE.test(t.s)){ if (s.g[k]) s.dub.add(k); s.g[k]=cleanGrade(t.s); }
+        else { s.dub.add(k); s.extraTxt.push(t.s); }
+      });
+      if (overflow) s.dub.add(cols[0].s);
+      s.raw = nameParts.join(" ").replace(/\s+/g," ").trim();
+      Object.entries(optParts).forEach(([k,v])=>{ s.opt[k]=parseOpt(v.join(" "), optCodes); });
+      if (!studs.has(s.n)) studs.set(s.n, s);
+    });
+  });
+  if (!colDefs || !studs.size) throw new Error("No he trobat la taula de qualificacions. Comprova que és l'acta d'avaluació d'iEduca (en PDF, no escanejada).");
+
+  // --- Annex de codificacions: noms llargs de les matèries ---
+  const longNames = {};
+  const subjCodes = colDefs.filter(c=>!/^Opt/i.test(c));
+  let inAnnex=false;
+  allLines.forEach(L=>L.forEach(l=>{
+    if (/^Codificacions/i.test(l.text)) { inAnnex=true; return; }
+    if (!inAnnex) return;
+    for (const c of subjCodes){
+      if (longNames[c]) continue;
+      const re = new RegExp("^"+c.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\s*[:=\\-–]?\\s+(.{3,})$","i");
+      const r = l.text.match(re); if (r) longNames[c] = r[1].trim();
+    }
+  }));
+
+  const cols = colDefs.map((c,i)=>{
+    if (/^Opt/i.test(c)){
+      const nOpt = colDefs.filter(x=>/^Opt/i.test(x)).length;
+      return {key:"opt"+i, code:c, opt:true, canon:null, label: nOpt>1 ? "Optativa "+(c.match(/\d+/)||[""])[0] : "Optativa", short: nOpt>1 ? "Op"+((c.match(/\d+/)||[""])[0]) : "Opt", long:c};
+    }
+    const cn = canon(longNames[c]||"") || canon(c);
+    return {key:"c"+i, code:c, opt:false, canon:cn, label: cn ? LABEL[cn] : sentence(longNames[c]||c), short: cn ? SHORT[cn] : c, long: longNames[c] ? sentence(longNames[c]) : (cn?LABEL[cn]:c)};
+  });
+  const byCode = Object.fromEntries(cols.map(c=>[c.code,c]));
+  const students = [...studs.values()].sort((a,b)=>a.n-b.n).map(s=>{
+    const g = {}, dub = new Set(), opt = {};
+    cols.forEach(c=>{ if (c.opt){ const o=s.opt[c.code]||["",null]; opt[c.key]=o[0]; g[c.key]=o[1]; } else g[c.key]=s.g[c.code]||null; if (s.dub.has(c.code)) dub.add(c.key); });
+    return {n:s.n, raw:s.raw, g, opt, dub, comments:[], tags:{}, exams:[], given:"", surnames:"", headerName:""};
+  });
+  if (Object.keys(longNames).length < subjCodes.length) warn.push("No he trobat el nom llarg d'alguna matèria a l'annex de l'acta; faig servir el codi.");
+
+  // --- Comentaris ---
+  const nameIdx = students.map(s=>({s, w:words(s.raw.replace(","," "))}));
+  function matchStudent(txt){
+    const w = words(txt); let best=null, bs=0;
+    nameIdx.forEach(o=>{
+      const used=new Set(); let k=0;
+      w.forEach(x=>{ const j=o.w.findIndex((y,i)=>!used.has(i)&&(y===x||(x.length>=2&&y.startsWith(x))||(y.length>=2&&x.startsWith(y)))); if(j>=0){used.add(j);k++;} });
+      const sc = k/Math.max(w.length,o.w.length); if (sc>bs){bs=sc;best=o.s;}
+    });
+    return bs>=0.5 ? best : null;
+  }
+  let start = allLines.findIndex(L=>L.some(l=>/^Comentaris individuals/i.test(l.text)));
+  const STOP = /^(Mat[èe]ries i professorat|Professorat|Relaci[óo] de (mat[èe]ries|professorat)|Llista de (mat[èe]ries|professorat)|Codificacions)/i;
+  const SKIP = /^(Acta de qualificacions|Comentaris individuals|Grup\b|Curs\b|Codi del centre|Data de la sessi|Signatura del|Vistiplau|Segell del centre|P[àa]gina \d|\d+\s*\/\s*\d+$)/i;
+  let commentLines = 0, orphan = [];
+  if (start >= 0){
+    // Línies que es repeteixen a dalt o a baix de diverses pàgines (capçalera i peu): fora.
+    const edge = {};
+    for (let pi=start; pi<allLines.length; pi++){ const H=pages[pi].h; allLines[pi].forEach(l=>{ if (l.y<H*0.2||l.y>H*0.85) edge[l.text]=(edge[l.text]||0)+1; }); }
+    let cur=null, cmt=null, stop=false;
+    for (let pi=start; pi<allLines.length && !stop; pi++){
+      const H = pages[pi].h;
+      const foot = allLines[pi].filter(l=>/Signatura del|Vistiplau|Segell del centre/i.test(l.text)).reduce((a,l)=>Math.max(a,l.y), -1e9);
+      const L = allLines[pi].filter(l=>l.y>foot+1 && !SKIP.test(l.text) && !((l.y<H*0.2||l.y>H*0.85) && edge[l.text]>=2 && !/^[-–—•]/.test(l.text)));
+      if (pi>start && !L.some(l=>/^[-–—•]/.test(l.text))) break;   // pàgina sense comentaris: ja som a la llista de professorat
+      for (const l of L){
+        const t = l.text;
+        if (STOP.test(t)) { stop=true; break; }
+        const cm = t.match(/^[-–—•]\s*([^:]{2,60}?)\s*:\s*(.*)$/);
+        if (cm && cur){ cmt=[cm[1].trim(), cm[2].trim()]; cur.comments.push(cmt); commentLines++; continue; }
+        if (!/^[-–—•]/.test(t) && /:\s*$/.test(t) && t.length<90){
+          const nm = t.replace(/:\s*$/,"").trim(), st = matchStudent(nm);
+          if (st){ cur=st; cur.headerName=nm; cmt=null; continue; }
+          if (nm.split(" ").length<=7 && nm.split(" ").every(w=>/^[A-ZÀ-ÚÇ]/.test(w))){ cur={comments:[]}; orphan.push(nm); cmt=null; continue; }
+        }
+        if (cmt) cmt[1] = (cmt[1]+" "+t).trim();
+      }
+    }
+  } else warn.push("No he trobat l'apartat de comentaris de l'acta.");
+  if (orphan.length) warn.push(`${orphan.length} bloc${orphan.length>1?"s":""} de comentaris no s'ha${orphan.length>1?"n":""} pogut aparellar amb cap alumne de la taula.`);
+
+  // Mapa matèria del comentari → columna
+  const optCol = cols.find(c=>c.opt);
+  const optNorm = Object.values(optNames).map(norm);
+  function colForComment(name){
+    const cn = canon(name);
+    if (cn){ const c = cols.find(c=>c.canon===cn); if (c) return c.key; return "?"+cn; }
+    const n = norm(name);
+    if (optCol && optNorm.some(o=>o===n||o.startsWith(n)||n.startsWith(o))) return optCol.key;
+    const c = cols.find(c=>norm(c.long)===n||norm(c.code)===n); return c ? c.key : null;
+  }
+
+  // --- Noms i etiquetes de cada alumne ---
+  students.forEach(s=>{
+    let given="", sur="";
+    if (s.raw.includes(",")){ const [a,b]=s.raw.split(","); sur=a.trim(); given=b.trim(); }
+    else if (s.headerName){
+      const H = s.headerName.split(/\s+/), T = words(s.raw);
+      for (let k=1;k<H.length;k++){
+        const rot = words([...H.slice(k), ...H.slice(0,k)].join(" "));
+        if (rot.length>=T.length && T.every((x,i)=>rot[i]===x || rot[i].startsWith(x))){ given=H.slice(0,k).join(" "); sur=H.slice(k).join(" "); break; }
+      }
+    }
+    if (!given){ const T=s.raw.split(/\s+/); if (s.headerName){ const H=s.headerName.split(/\s+/); given=H[0]; sur=H.slice(1).join(" "); } else { given=T[T.length-1]||("Alumne "+s.n); sur=T.slice(0,-1).join(" "); } }
+    s.given=given; s.surnames=sur;
+    s.full = (given+" "+sur).trim();
+    s.short = given + (sur ? " "+sur.charAt(0).toUpperCase()+"." : "");
+    s.comments.forEach(c=>{ c[2] = colForComment(c[0]); });
+    s.comments.forEach(([subj,txt])=>{
+      TAGS.forEach(([k,,re])=>{
+        const t = k==="aten" ? txt.replace(/amb atenció i interès/gi,"") : txt;
+        if (re.test(t)) (s.tags[k]=s.tags[k]||[]).push(subj);
+      });
+      const er=/tret (?:un |una |uns |unes )?(\d+(?:[.,]\d+)?)/gi; let x;
+      while((x=er.exec(txt))) s.exams.push([subj, x[1].replace(".",",")]);
+    });
+  });
+  // Noms curts repetits: es fa servir el primer cognom sencer
+  const cnt = {}; students.forEach(s=>cnt[s.short]=(cnt[s.short]||0)+1);
+  students.forEach(s=>{ if (cnt[s.short]>1) s.short = s.given+" "+(s.surnames.split(" ")[0]||""); });
+
+  const withComments = new Set(); students.forEach(s=>s.comments.forEach(c=>{ if (c[2] && !String(c[2]).startsWith("?")) withComments.add(c[2]); }));
+  const hasMat = cols.some(c=>c.canon==="mat");
+  return {meta, cols, optNames, students, withComments, warn, commentLines, hasMat, info:pdf.info, nPages:pages.length};
+}
+
+// =====================================================================
+// CSV DE PSI (només a la memòria de la pàgina)
+// =====================================================================
+function parseCSV(text){
+  text = text.replace(/^﻿/,"");
+  const first = text.split(/\r?\n/)[0]||"";
+  const d = [";","\t",","].map(c=>[c,(first.match(new RegExp(c==="\t"?"\t":"\\"+c,"g"))||[]).length]).sort((a,b)=>b[1]-a[1])[0][0];
+  const rows=[]; let row=[], f="", q=false;
+  for (let i=0;i<text.length;i++){
+    const ch=text[i];
+    if (q){ if (ch==='"'){ if (text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=ch; continue; }
+    if (ch==='"') q=true; else if (ch===d){ row.push(f); f=""; } else if (ch==="\n"||ch==="\r"){ if (ch==="\r"&&text[i+1]==="\n") i++; row.push(f); rows.push(row); row=[]; f=""; } else f+=ch;
+  }
+  if (f||row.length){ row.push(f); rows.push(row); }
+  return rows.map(r=>r.map(x=>x.trim())).filter(r=>r.some(Boolean));
+}
+function readPsi(text){
+  const rows = parseCSV(text); if (!rows.length) return [];
+  const h = rows[0].map(norm);
+  let iNom = h.findIndex(x=>/^(alumne|nom i cognoms|cognoms i nom|nom complet|nom alumne|alumne a|estudiant)/.test(x));
+  let iCog = h.findIndex(x=>/^cognoms?$|^cognom 1|^primer cognom/.test(x));
+  let iNom2 = h.findIndex(x=>/^nom$/.test(x));
+  let iPsi = h.findIndex(x=>/^(psi|te psi|pla de suport|pla suport|pi)$|^te psi|^psi /.test(x));
+  let iTip = h.findIndex(x=>/tipus|motiu|diagnost|necessitat|observ/.test(x));
+  const hasHeader = iNom>=0 || iNom2>=0 || iPsi>=0 || iTip>=0;
+  if (!hasHeader){ iNom=0; iPsi=rows[0].length>2?1:-1; iTip=rows[0].length>2?2:1; }
+  // Sense capçalera per al nom (p. ex. ",PSI"): el nom és la primera columna que no és la del PSI ni la del tipus
+  if (iNom<0 && iNom2<0) iNom = rows[0].findIndex((_,i)=>i!==iPsi && i!==iTip);
+  const out=[];
+  rows.slice(hasHeader?1:0).forEach(r=>{
+    let name = iNom>=0 ? r[iNom] : [r[iNom2]||"", r[iCog]||""].join(" ");
+    if (iCog>=0 && iNom2>=0) name = (r[iCog]||"")+", "+(r[iNom2]||"");
+    if (!name || !name.replace(/[,\s]/g,"")) return;
+    let tipus = iTip>=0 ? (r[iTip]||"").trim() : "";
+    const raw = iPsi>=0 ? (r[iPsi]||"").trim() : "", v = norm(raw);
+    let te;
+    if (iPsi<0) te = true;                                          // només hi ha la llista d'alumnes amb PSI
+    else if (/^(no|n|0|false)$/.test(v)) te = false;
+    else if (/^(si|s|x|1|yes|true|psi)$/.test(v)) te = true;
+    else if (!v) te = !!tipus;
+    else { te = true; if (!tipus) tipus = raw; }                     // la columna PSI ja diu el tipus ("TEA", "Dislèxia"…)
+    if (te) out.push({name, tipus});
+  });
+  return out;
+}
+
+// =====================================================================
+// ESTAT (només a la memòria: res es desa al navegador)
+// =====================================================================
+const S = {acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"",
+  full:false, psiPdf:true, filt:"all", sort:"n", sel:null, tab:"grup"};
+
+function matchPsi(){
+  S.psi = new Map(); S.psiUnmatched = [];
+  if (!S.acta || !S.psiRows) return;
+  S.psiRows.forEach(r=>{
+    let nm = r.name; if (nm.includes(",")){ const [a,b]=nm.split(","); nm=b+" "+a; }
+    const w = words(nm); let best=null, bs=0;
+    S.acta.students.forEach(s=>{
+      const sw = words(s.full); const used=new Set(); let k=0;
+      w.forEach(x=>{ const j=sw.findIndex((y,i)=>!used.has(i)&&y===x); if(j>=0){used.add(j);k++;} });
+      const sc=k/Math.max(w.length,sw.length); if(sc>bs){bs=sc;best=s;}
+    });
+    if (best && bs>=0.6) S.psi.set(best.n, r.tipus); else S.psiUnmatched.push(r.name);
+  });
+}
+const psiOf = s => S.psi.has(s.n);
+const psiType = s => S.psi.get(s.n) || "";
+const nameOf = s => S.full ? s.full : s.short;
+const cols = () => S.acta.cols.concat(S.extra ? [S.extra] : []);
+const grade = (s,c) => c.key==="extra" ? (S.extra.g[s.n]||null) : s.g[c.key];
+const naCount = s => cols().reduce((a,c)=>a+(grade(s,c)==="NA"?1:0),0);
+const isNA = (s,c) => grade(s,c)==="NA";
+const colLabel = k => (cols().find(c=>c.key===k)||{label:k}).label;
+const lst = a => a.length<=1 ? a.join("") : a.slice(0,-1).join(", ")+" i "+a[a.length-1];
+const de = x => (/^[aeiouàèéíòóúh]/i.test(x) ? "d'" : "de ") + x;
+const plural = (n, u, p) => n+" "+(n===1?u:p);
+const dirty = () => Object.values(S.notes).some(v=>v.trim()) || Object.values(S.flags).some(v=>v.length) || S.acords.trim() || (S.extra && Object.keys(S.extra.g).length);
+
+// =====================================================================
+// CÀLCULS DEL GRUP (els fa servir la web i el PDF)
+// =====================================================================
+function stats(){
+  const A = S.acta, L = A.students, C = cols(), N = L.length;
+  const tot={AE:0,AN:0,AS:0,NA:0}; let n=0, buides=[];
+  L.forEach(s=>C.forEach(c=>{ const v=grade(s,c); if(v){tot[v]++;n++;} else if (c.key!=="extra") buides.push([s,c]); }));
+  const nas = L.map(naCount);
+  const per = C.map(c=>{ const k={AE:0,AN:0,AS:0,NA:0}; let m=0; L.forEach(s=>{const v=grade(s,c); if(v){k[v]++;m++;}}); return {c, k, m, p: m?Math.round(100*(m-k.NA)/m):null}; });
+  const hist=[]; const mx=Math.max(0,...nas); for(let i=0;i<=mx;i++) hist.push(nas.filter(x=>x===i).length);
+  const tc={}; L.forEach(s=>Object.keys(s.tags).forEach(t=>tc[t]=(tc[t]||0)+1));
+  const kpis = [
+    [n ? Math.round(100*(n-tot.NA)/n)+"%" : "—", `de les ${n} qualificacions són assolides`],
+    [`${nas.filter(x=>x===0).length} / ${N}`, "alumnes ho tenen tot assolit"],
+    [nas.filter(x=>x>=1&&x<=2).length, "alumnes amb 1 o 2 NA"],
+    [nas.filter(x=>x>=3).length, "alumnes amb 3 NA o més"],
+    [S.psiRows ? S.psi.size : "—", S.psiRows ? "alumnes amb PSI" : "alumnes amb PSI (carrega el CSV)"],
+    [n ? Math.round(100*(tot.AE+tot.AN)/n)+"%" : "—", "de les qualificacions són AN o AE"],
+  ];
+  return {N, n, tot, nas, per, hist, tc, kpis, buides};
+}
+
+// Punts per comentar: cada punt és {tag, cls, segs:[[text, negreta?]]}
+function points(st){
+  const A=S.acta, L=A.students, C=cols(), P=[];
+  const nm = s => nameOf(s);
+  const heavy = L.filter(s=>naCount(s)>=3).sort((a,b)=>naCount(b)-naCount(a)||a.n-b.n);
+  if (heavy.length) P.push({tag:"Prioritat", cls:"warn", segs:[[`${plural(heavy.length,"alumne té","alumnes tenen")} 3 NA o més`,1],[`: ${heavy.map(s=>`${nm(s)} (${naCount(s)})`).join(", ")}. Proposta: acordar una mesura per a cadascun (entrevista amb la família, compromís, derivació) en lloc de comentar matèria per matèria.`]]});
+  // Matèries amb més NA i llengües
+  const naBy = st.per.filter(r=>r.k.NA>0).sort((a,b)=>b.k.NA-a.k.NA);
+  if (naBy.length){
+    const top = naBy[0].k.NA, tops = naBy.filter(r=>r.k.NA===top).map(r=>r.c.label.toLowerCase());
+    const langs = ["cat","cas","ang"].map(k=>C.find(c=>c.canon===k)).filter(Boolean);
+    const segs = [[`${lst(tops).replace(/^./,x=>x.toUpperCase())} ${tops.length>1?"són les matèries":"és la matèria"} amb més NA (${top}${tops.length>1?" cadascuna":""}). `]];
+    const rest = naBy.filter(r=>r.k.NA<top).slice(0,3).map(r=>`${r.c.label.toLowerCase()} ${r.k.NA}`);
+    if (rest.length) segs.push([`Després: ${rest.join(", ")}. `]);
+    if (langs.length===3){
+      const l3 = L.filter(s=>langs.every(c=>isNA(s,c)));
+      if (l3.length) segs.push([`No tenen assolida cap llengua`,1],[` (català, castellà i anglès): ${l3.map(nm).join(", ")}. Val la pena preguntar si hi ha una dificultat de base comuna.`]);
+      else segs.push([`Cap alumne té les tres llengües sense assolir.`]);
+    }
+    P.push({tag:"Matèries", cls:"", segs});
+  }
+  // Un sol NA, per matèria
+  const single = L.filter(s=>naCount(s)===1), by={};
+  single.forEach(s=>{ const c=C.find(c=>isNA(s,c)); (by[c.key]=by[c.key]||[]).push(nm(s)); });
+  const sb = Object.entries(by).sort((a,b)=>b[1].length-a[1].length);
+  if (sb.length){
+    const segs=[]; sb.forEach(([k,v],i)=>{ segs.push([colLabel(k),1],[`: ${v.join(", ")}${i<sb.length-1?" · ":". "}`]); });
+    segs.push(["Són els casos més fàcils de reconduir: demanar a cada professor què ha de fer l'alumne per recuperar-ho."]);
+    P.push({tag:`Un sol NA (${single.length})`, cls:"", segs});
+  }
+  // Matèria amb NA d'alumnes que van bé a la resta
+  C.forEach(c=>{
+    const nac = L.filter(s=>isNA(s,c)), good = nac.filter(s=>naCount(s)===1);
+    if (good.length>=3 && good.length>=nac.length/2){
+      const ex = good.flatMap(s=>s.exams.filter(e=>colForKey(e[0])===c.key).map(e=>parseFloat(e[1].replace(",",".")))).filter(x=>!isNaN(x));
+      const segs=[[`${good.length} dels ${nac.length} NA`,1],[` són d'alumnes que van bé a la resta (${good.map(nm).join(", ")}). `]];
+      if (ex.length) segs.push([`Als comentaris surten notes d'examen entre ${String(Math.min(...ex)).replace(".",",")} i ${String(Math.max(...ex)).replace(".",",")}. `]);
+      segs.push([`Preguntar si hi haurà recuperació o una altra prova.`]);
+      P.push({tag:c.label, cls:"amb", segs});
+    }
+  });
+  // Hàbits
+  const hab = Object.entries(st.tc).filter(([k])=>k!=="psi").sort((a,b)=>b[1]-a[1]);
+  if (hab.length){
+    const segs=[[`El comentari que més es repeteix és `],[TAGL[hab[0][0]].toLowerCase(),1],[` (${plural(hab[0][1],"alumne","alumnes")})`]];
+    if (hab.length>1) segs.push([`, seguit ${de(hab.slice(1,3).map(([k,v])=>`${TAGL[k].toLowerCase()} (${v})`).join(" i "))}`]);
+    segs.push([". Pot ser un tema per treballar a tutoria amb tot el grup."]);
+    P.push({tag:"Hàbits", cls:"", segs});
+  }
+  // PSI
+  if (S.psiRows){
+    const ps = L.filter(psiOf);
+    if (ps.length){
+      const segs=[[`${plural(ps.length,"alumne té","alumnes tenen")} PSI: ${ps.map(s=>`${nm(s)} (${plural(naCount(s),"NA","NA")})`).join(", ")}. `]];
+      const subj = {}; ps.forEach(s=>(s.tags.psi||[]).forEach(m=>subj[m]=(subj[m]||0)+1));
+      const sl = Object.entries(subj).sort((a,b)=>b[1]-a[1]);
+      segs.push([sl.length ? `Matèries que diuen al comentari que avaluen segons el PSI: ${sl.map(([m,v])=>`${sentence(m).toLowerCase()} (${v})`).join(", ")}. ` : "Cap matèria diu al comentari que avalua segons el PSI. "]);
+      const miss=[]; ps.forEach(s=>C.forEach(c=>{ if (isNA(s,c) && !s.comments.some(x=>x[2]===c.key && TAGS[6][2].test(x[1]))) miss.push(`${nm(s)} a ${c.label.toLowerCase()}`); }));
+      if (miss.length) segs.push([`NA d'alumnes amb PSI on la matèria no l'esmenta: `,1],[miss.join(", ")+". Preguntar si s'hi ha aplicat el PSI."]);
+      P.push({tag:"PSI", cls:"psi", segs});
+    }
+  }
+  // Punts forts
+  const strong = st.per.filter(r=>r.m).map(r=>({r, v:(r.k.AE+r.k.AN)})).sort((a,b)=>b.v-a.v).slice(0,2);
+  const top = L.filter(s=>{ const gs=C.map(c=>grade(s,c)).filter(Boolean); return naCount(s)===0 && gs.length && gs.filter(g=>g==="AE"||g==="AN").length >= gs.length-1; });
+  if (strong.length){
+    const segs=[[`Les matèries amb més AN i AE són ${lst(strong.map(x=>`${x.r.c.label.toLowerCase()} (${x.v} de ${x.r.m})`))}. `]];
+    if (top.length) segs.push([`Perfil d'AN o AE gairebé a tot`,1],[`: ${top.map(nm).join(", ")}.`]);
+    P.push({tag:"Punts forts", cls:"ok", segs});
+  }
+  return P;
+}
+function colForKey(subjName){ const s = S.acta.students.find(s=>s.comments.some(c=>c[0]===subjName)); const c = s && s.comments.find(c=>c[0]===subjName); return c ? c[2] : null; }
+
+// Dades per revisar
+function checks(st){
+  const A=S.acta, L=A.students, out=[];
+  A.students.forEach(s=>s.dub.forEach(k=>out.push([[`${nameOf(s)} (núm. ${s.n})`,1],[`: la nota de ${colLabel(k).toLowerCase()} a l'acta no es llegeix bé (el nom la tapa o hi ha text de més). He llegit `],[grade(s,{key:k})||"cel·la buida",1],[`: comprova-la.`]])));
+  const bb = {}; st.buides.forEach(([s,c])=>(bb[c.key]=bb[c.key]||[]).push(nameOf(s)));
+  Object.entries(bb).forEach(([k,v])=>out.push([[colLabel(k),1],[` en blanc: ${v.join(", ")}.`]]));
+  A.cols.forEach(c=>{ if (!A.withComments.has(c.key)) out.push([[c.label,1],[" no ha posat cap comentari a ningú."]]); });
+  if (S.psiRows){
+    const x = L.filter(s=>!psiOf(s) && s.tags.psi && s.comments.some(c=>/\bPSI\b/i.test(c[1])));
+    if (x.length) out.push([[`Comentaris que esmenten el PSI d'alumnes que no són al CSV`,1],[`: ${x.map(s=>`${nameOf(s)} (${lst(s.tags.psi.map(m=>sentence(m).toLowerCase()))})`).join(", ")}.`]]);
+    if (S.psiUnmatched.length) out.push([[`Files del CSV de PSI que no he pogut aparellar`,1],[`: ${S.psiUnmatched.join(", ")}.`]]);
+  }
+  const mism=[];
+  L.forEach(s=>s.comments.forEach(([m,t,k])=>{
+    if (!k || String(k).startsWith("?")) return;
+    const g = grade(s,{key:k});
+    if (g==="NA" && /falta (molt )?poc|li falta poc|a punt d'assolir|gaireb[ée] (ho )?assol/i.test(t)) mism.push(`${nameOf(s)} a ${colLabel(k).toLowerCase()} (NA, però el comentari diu que li falta poc)`);
+    if ((g==="AN"||g==="AE") && /no assisteix|no ha vingut|absentis|no ve a classe/i.test(t)) mism.push(`${nameOf(s)} a ${colLabel(k).toLowerCase()} (${g}, però el comentari parla de no assistència)`);
+    if ((g==="AN"||g==="AE") && /no ha assolit|no assoleix/i.test(t)) mism.push(`${nameOf(s)} a ${colLabel(k).toLowerCase()} (${g}, però el comentari diu que no ha assolit)`);
+    if (g==="NA" && /felicit|excel·lent|molt bona feina/i.test(t)) mism.push(`${nameOf(s)} a ${colLabel(k).toLowerCase()} (NA, però el comentari és molt positiu)`);
+  }));
+  if (mism.length) out.push([[`Nota i comentari que no quadren`,1],[`: ${mism.join("; ")}.`]]);
+  if (!out.length) out.push([["No he trobat res estrany a l'acta."]]);
+  return out;
+}
+const fixDots = t => String(t).replace(/\.\.(?=\s|$)/g,".");
+const segsHtml = segs => segs.map(([t,b])=>b?`<b>${esc(fixDots(t))}</b>`:esc(fixDots(t))).join("");
+
+// =====================================================================
+// VISTA WEB
+// =====================================================================
+function cell(v, dub){ return v ? `<span class="cell g-${v}${dub?" dub":""}" ${dub?'title="Lectura dubtosa: comprova-la a l\'acta"':""}>${v}${dub?"?":""}</span>` : `<span class="cell g-x${dub?" dub":""}">—</span>`; }
+
+function renderHead(){
+  const m = S.acta.meta;
+  $("eyebrow").textContent = ["Tutoria", m.nivell, m.curs && "Curs "+m.curs].filter(Boolean).join(" · ");
+  $("titol").textContent = `${m.tipus} ${m.grup}`;
+  $("meta").textContent = [m.data && "Sessió d'avaluació: "+m.data, plural(S.acta.students.length,"alumne","alumnes")].filter(Boolean).join(" · ");
+}
+
+function renderGroup(){
+  const A=S.acta, st=stats();
+  const av=[];
+  const nSubj = A.cols.filter(c=>!c.opt).length, nOpt = A.cols.filter(c=>c.opt).length;
+  av.push(`<details class="lectura"><summary>He llegit ${plural(A.students.length,"alumne","alumnes")}, ${nSubj} matèries${nOpt?" + optativa":""}, ${st.n} qualificacions i ${A.commentLines} comentaris.</summary><p style="margin:6px 0 0">Matèries: ${A.cols.map(c=>`${esc(c.code)} = ${esc(c.long)}`).join(" · ")}.${Object.keys(A.optNames).length?` Optatives: ${Object.entries(A.optNames).map(([k,v])=>`${esc(k)} = ${esc(v)}`).join(" · ")}.`:""}</p>${A.warn.map(w=>`<p style="margin:6px 0 0">${esc(w)}</p>`).join("")}</details>`);
+  if (!A.hasMat && !S.extra) av.push(`<div class="avis warn">A l'acta <b>no hi ha matemàtiques</b>. Si falta, afegeix-la a la pestanya <b>Alumnes</b> i les estadístiques es recalculen soles.</div>`);
+  else if (S.extra){ const k=Object.keys(S.extra.g).length; av.push(`<div class="avis">${esc(S.extra.label)}, posada a mà: ${k} de ${A.students.length} notes. ${k<A.students.length?"Les que falten surten al PDF com a desplegable.":"Ja hi és a totes les estadístiques."}</div>`); }
+  if (!S.psiRows) av.push(`<div class="avis">Sense CSV de PSI. Si el carregues, veuràs el tipus de PSI a la fitxa de cada alumne i al PDF.</div>`);
+  $("avisos").innerHTML = av.join("");
+  $("kpis").innerHTML = st.kpis.map(([b,t])=>`<div class="kpi"><b>${esc(b)}</b><span>${esc(t)}</span></div>`).join("");
+  $("bars").innerHTML = st.per.map(r=>{
+    const segs = G.map(g=>r.k[g]?`<i class="g-${g}" style="width:${100*r.k[g]/st.N}%" title="${g}: ${r.k[g]}">${r.k[g]}</i>`:"").join("");
+    return `<div class="bar"><span class="lbl" title="${esc(r.c.long||r.c.label)}">${esc(r.c.label)}</span><div class="stack" title="${r.m} de ${st.N} qualificats">${segs}</div><span class="pct">${r.p==null?"—":r.p+"%"}</span></div>`;
+  }).join("");
+  const hm = Math.max(1,...st.hist);
+  $("hist").innerHTML = st.hist.map((h,i)=>`<div><small>${h||""}</small><i style="height:${h?Math.max(4,100*h/hm):0}%;background:${i===0?"var(--ae)":i<3?"var(--as)":"var(--na)"}"></i></div>`).join("");
+  $("histx").innerHTML = st.hist.map((_,i)=>`<span>${i}</span>`).join("");
+  const tcs = Object.entries(st.tc).sort((a,b)=>b[1]-a[1]);
+  $("tagbars").innerHTML = tcs.length ? tcs.map(([t,c])=>`<div class="bar"><span class="lbl" title="${esc(TAGL[t])}">${esc(TAGL[t])}</span><div class="stack"><i style="width:${100*c/st.N}%;background:var(--accent);color:#fff">${c}</i></div><span class="pct">${Math.round(100*c/st.N)}%</span></div>`).join("") : `<p class="small muted" style="margin:0">Cap aspecte repetit als comentaris.</p>`;
+  $("points").innerHTML = points(st).map(p=>`<li><span class="pill ${p.cls}">${esc(p.tag)}</span> ${segsHtml(p.segs)}</li>`).join("");
+  $("checks").innerHTML = checks(st).map(p=>`<li>${segsHtml(p)}</li>`).join("");
+  if ($("acords").value!==S.acords) $("acords").value = S.acords;
+}
+
+function visible(){
+  const L0 = S.acta.students;
+  let L = L0.filter(s=> S.filt==="all" || (S.filt==="na"&&naCount(s)>0) || (S.filt==="na3"&&naCount(s)>=3) || (S.filt==="ok"&&naCount(s)===0) || (S.filt==="psi"&&psiOf(s)));
+  if (S.sort==="na") L = L.slice().sort((a,b)=>naCount(b)-naCount(a)||a.n-b.n);
+  return L;
+}
+function gradeSelect(s, c, cls){
+  const v = grade(s,c), dub = s.dub.has(c.key);
+  return `<select class="gsel ${dub?"dub":""} ${v?"g-"+v:""}" data-n="${s.n}" data-k="${c.key}" aria-label="${esc(c.label)} · ${esc(nameOf(s))}"><option value="">—</option>${G.map(g=>`<option ${v===g?"selected":""}>${g}</option>`).join("")}</select>`;
+}
+function renderExtraCard(){
+  const el=$("extra-card");
+  if (S.extra){
+    el.innerHTML = `<span><b>${esc(S.extra.label)}</b> afegida a mà. Tria la nota de cada alumne a la columna groga. Les que no posis surten al PDF com a desplegable.</span><button class="danger small" id="x-del">Treu ${esc(S.extra.label.toLowerCase())}</button>`;
+    $("x-del").onclick=()=>{ if (Object.keys(S.extra.g).length && !confirm(`Vols treure ${S.extra.label.toLowerCase()} i les notes que hi has posat?`)) return; S.extra=null; refreshAll(); };
+  } else {
+    el.innerHTML = `<span>${S.acta.hasMat?"Falta alguna matèria a l'acta?":"<b>Falta matemàtiques</b> a l'acta?"} Afegeix-la i posa la nota de cada alumne.</span><input id="x-nom" value="${S.acta.hasMat?"":"Matemàtiques"}" placeholder="Nom de la matèria" aria-label="Nom de la matèria"><button class="primary" id="x-add">Afegeix la matèria</button>`;
+    $("x-add").onclick=()=>{ const n=$("x-nom").value.trim(); if(!n){ $("x-nom").focus(); return; } const cn=canon(n); S.extra={key:"extra", label:n, short: cn&&SHORT[cn] ? SHORT[cn] : n.slice(0,3), canon:cn, long:n, g:{}}; refreshAll(); };
+  }
+}
+function renderTable(){
+  const C = cols(), L = visible();
+  const head = `<tr><th>N.</th><th class="nm">Alumne</th>${C.map(c=>`<th title="${esc(c.long||c.label)}">${esc(c.short)}</th>`).join("")}<th>NA</th><th title="Té notes de reunió o accions">Notes</th></tr>`;
+  const body = L.map(s=>{
+    const tds = C.map(c=>{
+      if (c.key==="extra") return `<td class="extra">${gradeSelect(s,c)}</td>`;
+      if (s.dub.has(c.key)) return `<td>${gradeSelect(s,c)}</td>`;
+      if (c.opt) return `<td>${cell(s.g[c.key])}<span class="optc" title="${esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]||"")}">${esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]||"")}</span></td>`;
+      return `<td>${cell(s.g[c.key])}</td>`;
+    }).join("");
+    const has = (S.notes[s.n]||"").trim() || (S.flags[s.n]||[]).length;
+    return `<tr class="${s.n===S.sel?"sel":""}"><td class="muted">${s.n}</td><td class="nm"><button data-sel="${s.n}">${esc(nameOf(s))}</button>${psiOf(s)?` <span class="pill psi">PSI</span>`:""}</td>${tds}<td class="nacount">${naCount(s)||""}</td><td>${has?'<span class="dot" title="Té notes"></span>':""}</td></tr>`;
+  }).join("");
+  $("tbl").innerHTML = `<thead>${head}</thead><tbody>${body || `<tr><td colspan="${C.length+4}" class="muted" style="padding:18px">Cap alumne amb aquest filtre.</td></tr>`}</tbody>`;
+}
+function renderDetail(){
+  const s = S.acta.students.find(x=>x.n===S.sel), d=$("detail");
+  if (!s){ d.innerHTML = `<p class="muted">Tria un alumne de la llista.</p>`; return; }
+  const C = cols();
+  const tags = Object.entries(s.tags).map(([t,subs])=>`<span class="pill ${t==="assist"?"warn":t==="psi"?"psi":""}" title="${esc(subs.join(", "))}">${esc(TAGL[t])} · ${subs.length}</span>`).join("");
+  const fl = S.flags[s.n]||[];
+  const psiTxt = psiOf(s) ? `<div class="psibox"><b>PSI</b>${psiType(s)?": "+esc(psiType(s)):""}. Matèries que diuen al comentari que l'avaluen segons el PSI: <b>${esc((s.tags.psi||[]).map(x=>sentence(x).toLowerCase()).join(", ")||"cap")}</b>.</div>` : "";
+  d.innerHTML = `
+    <div class="dhead"><div><p class="eyebrow">Núm. ${s.n} · ${plural(naCount(s),"NA","NA")}</p><h2>${esc(nameOf(s))} ${psiOf(s)?`<span class="pill psi">PSI</span>`:""}</h2></div>
+    <div class="nav2"><button id="prev" aria-label="Alumne anterior">‹</button><button id="next" aria-label="Alumne següent">›</button></div></div>
+    <div class="minigrid">${C.map(c=>`<div title="${esc(c.long||c.label)}${c.opt&&s.opt[c.key]?" · "+esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]):""}">${esc(c.opt&&s.opt[c.key]?s.opt[c.key]:c.short)}${cell(grade(s,c), s.dub.has(c.key))}</div>`).join("")}</div>
+    ${psiTxt}
+    ${tags?`<div class="tagrow">${tags}</div>`:`<p class="small muted" style="margin:0">Cap aspecte a millorar repetit als comentaris.</p>`}
+    ${s.exams.length?`<p class="small muted" style="margin:0">Notes d'examen citades: ${esc(s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "))}</p>`:""}
+    <div><h3><label for="note">Notes de la reunió</label></h3>
+    <textarea id="note" placeholder="Què diu l'equip docent, acords, a qui cal avisar…">${esc(S.notes[s.n]||"")}</textarea></div>
+    <div class="checks">${FLAGS.map(([k,l])=>`<label><input type="checkbox" data-fl="${k}" ${fl.includes(k)?"checked":""}>${esc(l)}</label>`).join("")}</div>
+    <details ${s.comments.length<=0?"":""}><summary>Comentaris del professorat (${s.comments.length})</summary><div class="cmts">${s.comments.map(([m,t])=>`<p><b>${esc(m)}</b>${esc(t)}</p>`).join("") || `<p class="muted">Cap comentari a l'acta.</p>`}</div></details>`;
+  $("note").addEventListener("input", e=>{ S.notes[s.n]=e.target.value; markDot(); });
+  d.querySelectorAll("[data-fl]").forEach(cb=>cb.addEventListener("change", e=>{
+    const a=new Set(S.flags[s.n]||[]); e.target.checked?a.add(e.target.dataset.fl):a.delete(e.target.dataset.fl); S.flags[s.n]=[...a]; markDot(); }));
+  const L=visible(), i=L.findIndex(x=>x.n===S.sel);
+  $("prev").disabled = i<=0; $("next").disabled = i<0 || i>=L.length-1;
+  $("prev").onclick=()=>{ if(i>0){S.sel=L[i-1].n; refreshAl();} };
+  $("next").onclick=()=>{ if(i<L.length-1){S.sel=L[i+1].n; refreshAl();} };
+}
+let dotT; function markDot(){ clearTimeout(dotT); dotT=setTimeout(renderTable,500); }
+function refreshAl(){ renderExtraCard(); renderTable(); renderDetail(); }
+function refreshAll(){ renderHead(); renderGroup(); refreshAl(); }
+function tab(t){
+  S.tab=t; document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b.dataset.tab===t));
+  $("p-grup").hidden = t!=="grup"; $("p-alumnes").hidden = t!=="alumnes";
+  if (t==="grup") renderGroup(); else refreshAl();
+}
+
+// ---------- Esdeveniments ----------
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>tab(b.dataset.tab));
+$("tbl").addEventListener("click", e=>{ const b=e.target.closest("[data-sel]"); if(b){ S.sel=+b.dataset.sel; refreshAl(); if (innerWidth<1060) $("detail").scrollIntoView({behavior:"smooth"}); }});
+$("tbl").addEventListener("change", e=>{
+  const t=e.target; if (!t.dataset.k) return;
+  const n=+t.dataset.n, k=t.dataset.k, s=S.acta.students.find(x=>x.n===n);
+  if (k==="extra"){ if (t.value) S.extra.g[n]=t.value; else delete S.extra.g[n]; }
+  else { s.g[k]=t.value||null; s.dub.delete(k); toast("Nota corregida"); }
+  renderTable(); renderDetail();
+});
+document.querySelectorAll("#filt button").forEach(b=>b.onclick=()=>{ S.filt=b.dataset.f; document.querySelectorAll("#filt button").forEach(x=>x.setAttribute("aria-pressed", x===b)); const L=visible(); if (L.length && !L.some(s=>s.n===S.sel)) S.sel=L[0].n; refreshAl(); });
+$("sort").onchange=e=>{ S.sort=e.target.value; refreshAl(); };
+$("o-noms").onchange=e=>{ S.full=e.target.checked; refreshAll(); };
+$("o-psipdf").onchange=e=>{ S.psiPdf=e.target.checked; };
+$("acords").addEventListener("input", e=>{ S.acords=e.target.value; });
+window.addEventListener("beforeunload", e=>{ if (S.acta && dirty()){ e.preventDefault(); e.returnValue=""; } });
+
+// ---------- Fitxers ----------
+function showErr(msg){ $("err").textContent=msg; $("err").hidden=!msg; }
+async function loadActa(file){
+  if (!file) return;
+  if (S.acta && dirty() && !confirm("Si obres una altra acta, perdràs les notes que has escrit (si no les has descarregat al PDF). Vols continuar?")) return;
+  showErr(""); $("carregant").hidden=false; $("e-acta").textContent="Llegint…"; $("e-acta").className="estat";
+  try {
+    if (!/\.pdf$/i.test(file.name) && file.type!=="application/pdf") throw new Error("Aquest fitxer no és un PDF.");
+    const pdf = await readPdf(await file.arrayBuffer());
+    const acta = parseActa(pdf);
+    Object.assign(S, {acta, extra:null, notes:{}, flags:{}, acords:"", sel:acta.students[0].n, filt:"all"});
+    $("acords").value="";
+    document.querySelectorAll("#filt button").forEach(x=>x.setAttribute("aria-pressed", x.dataset.f==="all"));
+    matchPsi();
+    $("e-acta").textContent = "✓ "+file.name; $("e-acta").className="estat ok";
+    $("inici").hidden=true; $("vista").hidden=false; $("accions").hidden=false;
+    renderHead(); tab("grup"); window.scrollTo({top:0});
+  } catch(err){
+    console.error(err);
+    $("e-acta").textContent="No s'ha pogut llegir";
+    showErr(err && err.message && /taula|PDF|comentaris/.test(err.message) ? err.message : "No he pogut llegir l'acta. Comprova que és el PDF de l'acta d'avaluació d'iEduca.");
+  } finally { $("carregant").hidden=true; $("f-acta").value=""; }
+}
+async function loadPsi(file){
+  if (!file) return;
+  try {
+    const rows = readPsi(await file.text());
+    S.psiRows = rows; S.psiFile = file.name; matchPsi();
+    $("e-psi").textContent = `✓ ${file.name} (${plural(rows.length,"alumne","alumnes")} amb PSI)`; $("e-psi").className="estat ok";
+    if (S.acta){ refreshAll(); toast(`PSI: ${S.psi.size} alumnes aparellats${S.psiUnmatched.length?`, ${S.psiUnmatched.length} sense aparellar`:""}`); }
+  } catch(err){ console.error(err); toast("No he pogut llegir el CSV de PSI"); }
+  $("f-psi").value="";
+}
+$("b-acta").onclick=()=>$("f-acta").click();
+$("b-altra").onclick=()=>$("f-acta").click();
+$("b-psi").onclick=$("b-psi2").onclick=()=>$("f-psi").click();
+$("f-acta").onchange=e=>loadActa(e.target.files[0]);
+$("f-psi").onchange=e=>loadPsi(e.target.files[0]);
+const drop=$("drop");
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop", e=>{ const fs=[...e.dataTransfer.files]; const csv=fs.find(f=>/\.(csv|txt)$/i.test(f.name)); const pdf=fs.find(f=>/\.pdf$/i.test(f.name)); if (csv) loadPsi(csv); if (pdf) loadActa(pdf); });
+window.addEventListener("dragover", e=>e.preventDefault()); window.addEventListener("drop", e=>e.preventDefault());
+$("b-esborra").onclick=()=>{
+  if (!confirm("S'esborrarà l'acta, el CSV de PSI i totes les notes d'aquesta pàgina. Si no has descarregat el PDF, es perdran. Vols continuar?")) return;
+  Object.assign(S, {acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"", sel:null});
+  $("acords").value=""; $("vista").hidden=true; $("accions").hidden=true; $("inici").hidden=false;
+  $("e-acta").textContent="Encara no l'has triada"; $("e-acta").className="estat"; $("e-psi").textContent="Cap"; $("e-psi").className="estat";
+  $("titol").textContent="Visualitzador d'actes"; $("eyebrow").textContent="Tutoria"; $("meta").textContent="Anàlisi de l'acta d'avaluació d'iEduca per preparar la sessió amb l'equip docent.";
+  toast("Tot esborrat");
+};
+
+// =====================================================================
+// PDF AMB FORMULARI (pdf-lib + fontkit), A4 vertical, dibuixat amb vectors
+// =====================================================================
+const hex = h => PDFLib.rgb(parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255);
+const PC = {fg:hex("#2B2B2B"), muted:hex("#6B6B6B"), line:hex("#E4DFD7"), accent:hex("#39698C"), soft:hex("#EAF1F6"), none:hex("#E9E5DD"), white:hex("#FFFFFF"), bg:hex("#F8F7F4"),
+  AE:hex("#2E6E4E"), AN:hex("#79B892"), AS:hex("#F0C766"), NA:hex("#C8553D"), AEi:hex("#FFFFFF"), ANi:hex("#12301F"), ASi:hex("#3A2C00"), NAi:hex("#FFFFFF"),
+  warn:hex("#B23B2A"), warnSoft:hex("#FBE1DD"), psi:hex("#5B4B9A"), psiSoft:hex("#ECE8F7"), ok:hex("#3A7A55"), okSoft:hex("#E9F5EF"), amb:hex("#8A5A00"), ambSoft:hex("#FFF0CC"), field:hex("#FBFAF7")};
+const PILLC = {warn:[PC.warnSoft,PC.warn], psi:[PC.psiSoft,PC.psi], ok:[PC.okSoft,PC.ok], amb:[PC.ambSoft,PC.amb], "":[PC.soft,PC.accent]};
+let fontCache=null;
+async function fonts(){
+  if (fontCache) return fontCache;
+  const get = async u => { const r = await fetch(u); if (!r.ok) throw new Error("font"); return r.arrayBuffer(); };
+  fontCache = await Promise.all(["fonts/WorkSans-400.ttf","fonts/WorkSans-600.ttf","fonts/Poppins-600.ttf"].map(get));
+  return fontCache;
+}
+const clean = s => String(s??"").replace(/\t/g," ").replace(/\r/g,"");
+
+async function makePdf(){
+  const {PDFDocument, StandardFonts} = PDFLib;
+  const [r400, r600, rTit] = await fonts();
+  const doc = await PDFDocument.create();
+  doc.registerFontkit(fontkit);
+  const F = await doc.embedFont(r400, {subset:false});   // sencera: els camps del formulari l'han de tenir tota
+  const B = await doc.embedFont(r600, {subset:true});
+  const T = await doc.embedFont(rTit, {subset:true});
+  const A=S.acta, m=A.meta, C=cols(), st=stats();
+  const titol = `${m.tipus} ${m.grup}`;
+  doc.setTitle(`${titol}${m.data?" · "+m.data:""}`); doc.setAuthor("Tutoria"); doc.setCreator("Visualitzador d'actes · INS Pere Vives"); doc.setProducer("pdf-lib");
+  const form = doc.getForm();
+  const W=595.28, H=841.89, M=42, CW=W-2*M;
+  let page, y;
+  const newPage = () => { page = doc.addPage([W,H]); y = H-M; return page; };
+  const txt = (s,x,yy,o={}) => page.drawText(clean(s), {x, y:yy, size:o.size||9.5, font:o.font||F, color:o.color||PC.fg});
+  const width = (s,f,sz) => f.widthOfTextAtSize(clean(s), sz);
+  function wrap(s, f, sz, w){
+    const out=[]; clean(s).split("\n").forEach(par=>{
+      let line=""; par.split(/\s+/).filter(Boolean).forEach(wd=>{
+        const t = line ? line+" "+wd : wd;
+        if (width(t,f,sz)<=w) line=t; else { if (line) out.push(line); while (width(wd,f,sz)>w && wd.length>1){ let k=wd.length; while(k>1 && width(wd.slice(0,k),f,sz)>w) k--; out.push(wd.slice(0,k)); wd=wd.slice(k);} line=wd; }
+      }); out.push(line);
+    }); return out;
+  }
+  // Text amb trossos en negreta; retorna la nova y
+  function rich(segs, x, yy, w, sz, lh, x0first){
+    const runs=[]; segs.forEach(([t,b])=>clean(fixDots(t)).split(/(\s+)/).forEach(p=>{ if(p) runs.push([p, b?B:F]); }));
+    let cx = x0first!=null ? x0first : x, cy=yy, prevSpace=true;
+    for (const [p,f] of runs){
+      if (/^\s+$/.test(p)){ if (cx>x) cx += width(" ",f,sz); prevSpace=true; continue; }
+      const pw = width(p,f,sz), glued = !prevSpace && /^[:.,;)]/.test(p); prevSpace=false;
+      if (cx+pw > x+w && cx>x && !glued){ cx=x; cy-=lh; if (cy<M+30){ footer(); newPage(); cy=y; } }
+      page.drawText(p,{x:cx,y:cy,size:sz,font:f,color:PC.fg}); cx+=pw;
+    }
+    return cy - lh;
+  }
+  function pill(t, x, yy, cls, sz=7.5){
+    const [bg,fg] = PILLC[cls]||PILLC[""]; const w = width(t,B,sz)+10;
+    page.drawRectangle({x, y:yy-3, width:w, height:sz+6, color:bg, borderRadius:4});
+    page.drawText(t,{x:x+5,y:yy,size:sz,font:B,color:fg}); return w;
+  }
+  const pages=[];
+  function footer(){ pages.push(page); }
+  function header(sub){
+    page.drawRectangle({x:0,y:H-6,width:W,height:6,color:PC.accent});
+    txt([ "INS Pere Vives", m.nivell, m.curs && "Curs "+m.curs ].filter(Boolean).join(" · ").toUpperCase(), M, H-M+4, {size:7.5, font:B, color:PC.muted});
+    if (sub) { const sw=width(sub,B,7.5); txt(sub, W-M-sw, H-M+4, {size:7.5, font:B, color:PC.muted}); }
+    y = H-M-14;
+  }
+  function h2(t){ txt(t, M, y, {font:T, size:12.5, color:PC.fg}); y-=18; }
+  const gradeBox = (g, x, yy, w, h, dub) => {
+    if (g){ page.drawRectangle({x,y:yy,width:w,height:h,color:PC[g],borderRadius:3}); const tw=width(g+(dub?"?":""),B,8.5); page.drawText(g+(dub?"?":""),{x:x+(w-tw)/2,y:yy+(h-6.5)/2,size:8.5,font:B,color:PC[g+"i"]}); }
+    else { page.drawRectangle({x,y:yy,width:w,height:h,borderColor:PC.line,borderWidth:1,borderDashArray:[2,2],borderRadius:3}); const tw=width("—",F,8.5); page.drawText("—",{x:x+(w-tw)/2,y:yy+(h-6.5)/2,size:8.5,font:F,color:PC.muted}); }
+    if (dub) page.drawRectangle({x:x-1,y:yy-1,width:w+2,height:h+2,borderColor:PC.warn,borderWidth:1.2,borderRadius:3});
+  };
+
+  // ---------- Pàgina del grup ----------
+  newPage(); header("Document de treball · confidencial");
+  txt(titol, M, y-6, {font:T, size:24, color:PC.accent}); y-=26;
+  txt([m.data && "Sessió d'avaluació: "+m.data, plural(A.students.length,"alumne","alumnes"), m.codi].filter(Boolean).join("  ·  "), M, y, {size:9.5, color:PC.muted}); y-=22;
+  // Indicadors
+  const kw=(CW-5*8)/6;
+  st.kpis.forEach(([b,t],i)=>{
+    const x=M+i*(kw+8);
+    page.drawRectangle({x, y:y-52, width:kw, height:56, color:PC.white, borderColor:PC.line, borderWidth:1, borderRadius:6});
+    page.drawText(String(b),{x:x+8,y:y-18,size:15,font:T,color:PC.accent});
+    wrap(t,F,7,kw-14).slice(0,3).forEach((l,j)=>page.drawText(l,{x:x+8,y:y-30-j*8.5,size:7,font:F,color:PC.muted}));
+  });
+  y-=72;
+  // Barres per matèria (esquerra) i histograma (dreta)
+  const yTop=y, lw=CW*0.6, rx=M+lw+18, rw=CW-lw-18;
+  txt("Resultats per matèria", M, y, {font:T,size:11}); y-=16;
+  const bx=M+92, bw=lw-92-34;
+  st.per.forEach(r=>{
+    txt(r.c.label, M, y-1, {size:8, font:B}); let x=bx;
+    page.drawRectangle({x:bx,y:y-4,width:bw,height:12,color:PC.none,borderRadius:2});
+    G.forEach(g=>{ if(!r.k[g]) return; const w=bw*r.k[g]/st.N; page.drawRectangle({x,y:y-4,width:w,height:12,color:PC[g]}); if (w>9){ const s=String(r.k[g]), tw=width(s,B,7); page.drawText(s,{x:x+(w-tw)/2,y:y-1,size:7,font:B,color:PC[g+"i"]}); } x+=w; });
+    const p = r.p==null?"—":r.p+"%"; txt(p, M+lw-width(p,F,8), y-1, {size:8,color:PC.muted});
+    y-=16;
+  });
+  let lx=M; G.forEach(g=>{ page.drawRectangle({x:lx,y:y-1,width:7,height:7,color:PC[g],borderRadius:1.5}); txt(g,lx+10,y,{size:7,color:PC.muted}); lx+=34; }); txt("% = assoliment (AS o més)", lx, y, {size:7,color:PC.muted});
+  const yBars = y-12;
+  y=yTop; page.drawText("Quants NA té cada alumne",{x:rx,y,size:11,font:T,color:PC.fg});
+  const hb=y-28, hh=Math.min(110, yTop-yBars-60), hmax=Math.max(1,...st.hist), n=st.hist.length, gap=4, cw=(rw-(n-1)*gap)/n;
+  st.hist.forEach((h,i)=>{
+    const bh=h?Math.max(3,hh*h/hmax):0, x=rx+i*(cw+gap), base=hb-hh;
+    if (bh) page.drawRectangle({x,y:base,width:cw,height:bh,color:i===0?PC.AE:i<3?PC.AS:PC.NA});
+    if (h){ const s=String(h), tw=width(s,B,7.5); page.drawText(s,{x:x+(cw-tw)/2,y:base+bh+3,size:7.5,font:B,color:PC.fg}); }
+    const s=String(i), tw=width(s,F,7.5); page.drawText(s,{x:x+(cw-tw)/2,y:base-11,size:7.5,font:F,color:PC.muted});
+  });
+  page.drawLine({start:{x:rx,y:hb-hh},end:{x:rx+rw,y:hb-hh},thickness:.7,color:PC.line});
+  page.drawText("Eix horitzontal: nombre de NA. Eix vertical: alumnes.",{x:rx,y:hb-hh-24,size:7,font:F,color:PC.muted});
+  y = Math.min(yBars, hb-hh-40) - 6;
+  // Punts per comentar
+  txt("Punts per comentar amb l'equip", M, y, {font:T,size:11}); y-=16;
+  points(st).forEach(p=>{
+    if (y<M+60){ footer(); newPage(); header(titol); }
+    const pw = pill(p.tag, M, y, p.cls);
+    y = rich(p.segs, M, y, CW, 8.6, 11.6, M+pw+5) - 4;
+  });
+  // Etiquetes dels comentaris i dades per revisar
+  const tcs = Object.entries(st.tc).sort((a,b)=>b[1]-a[1]);
+  if (y<M+140){ footer(); newPage(); header(titol); } else y-=6;
+  txt("Què repeteixen els comentaris", M, y, {font:T,size:11}); y-=15;
+  tcs.forEach(([t,c])=>{ txt(TAGL[t], M, y-1, {size:8}); page.drawRectangle({x:M+170,y:y-3,width:CW-170-40,height:10,color:PC.none,borderRadius:2}); page.drawRectangle({x:M+170,y:y-3,width:(CW-210)*c/st.N,height:10,color:PC.accent,borderRadius:2}); const s=`${c} (${Math.round(100*c/st.N)}%)`; txt(s, W-M-width(s,F,8), y-1, {size:8,color:PC.muted}); y-=13; });
+  if (!tcs.length){ txt("Cap aspecte repetit als comentaris.", M, y, {size:8.5,color:PC.muted}); y-=13; }
+  y-=8; if (y<M+60){ footer(); newPage(); header(titol); }
+  txt("Dades per revisar a l'acta", M, y, {font:T,size:11}); y-=15;
+  checks(st).forEach(segs=>{ if (y<M+40){ footer(); newPage(); header(titol); } page.drawCircle({x:M+3,y:y+2.5,size:1.6,color:PC.muted}); y = rich(segs, M+10, y, CW-10, 8.3, 11) - 3; });
+  footer();
+
+  // ---------- Una pàgina per alumne ----------
+  for (const s of A.students){
+    newPage(); header(titol);
+    const id = String(s.n).padStart(2,"0");
+    txt(`Núm. ${s.n} · ${plural(naCount(s),"NA","NA")}`, M, y, {size:8, font:B, color:PC.muted}); y-=22;
+    txt(nameOf(s), M, y, {font:T, size:18}); let nx = M+width(nameOf(s),T,18)+10;
+    if (psiOf(s)){ const lab = S.psiPdf && psiType(s) ? "PSI · "+psiType(s) : "PSI"; pill(lab, nx, y+3, "psi", 8.5); }
+    y-=22;
+    // Graella de notes
+    const n=C.length, gw=Math.min(52,(CW-(n-1)*6)/n);
+    C.forEach((c,i)=>{
+      const x=M+i*(gw+6); const lab = c.opt && s.opt[c.key] ? s.opt[c.key] : c.short;
+      const tw=width(lab,B,6.8); page.drawText(lab,{x:x+(gw-tw)/2,y,size:6.8,font:B,color:PC.muted});
+      const g=grade(s,c);
+      if (c.key==="extra" && !g){
+        const dd = form.createDropdown(`nota_${id}_${(c.short||"extra").toLowerCase().replace(/[^a-z0-9]/g,"")}`);
+        dd.setOptions(["","AE","AN","AS","NA"]); dd.select("");
+        dd.addToPage(page,{x, y:y-21, width:gw, height:16, font:F, borderColor:PC.amb, borderWidth:1, backgroundColor:PC.ambSoft});
+        dd.setFontSize(8.5);
+      } else gradeBox(g, x, y-20, gw, 15, s.dub.has(c.key));
+    });
+    y-=36;
+    if (C.some(c=>c.opt)){ const oc=C.filter(c=>c.opt).map(c=>s.opt[c.key]?`${s.opt[c.key]} = ${A.optNames[s.opt[c.key]]||s.opt[c.key]}`:"").filter(Boolean); if (oc.length){ txt("Optativa: "+oc.join(", "), M, y, {size:7.5,color:PC.muted}); y-=13; } }
+    // PSI, etiquetes i exàmens
+    if (psiOf(s)){
+      const segs=[["PSI",1],[S.psiPdf && psiType(s) ? ": "+psiType(s)+". " : ". "],["Matèries que diuen al comentari que l'avaluen segons el PSI: "],[((s.tags.psi||[]).map(x=>sentence(x).toLowerCase()).join(", ")||"cap")+".",1]];
+      y = rich(segs, M, y, CW, 8.5, 11) - 4;
+    }
+    const tg = Object.entries(s.tags);
+    if (tg.length){ let x=M; tg.forEach(([t,subs])=>{ const lab=`${TAGL[t]} · ${subs.length}`; const w=width(lab,B,7.5)+10; if (x+w>W-M){ x=M; y-=15; } pill(lab, x, y, t==="assist"?"warn":t==="psi"?"psi":"", 7.5); x+=w+5; }); y-=17; }
+    if (s.exams.length){ y = rich([["Notes d'examen citades: "],[s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "),1]], M, y, CW, 8, 10.5) - 4; }
+    // Comentaris (resum: cap fins on hi ha lloc)
+    const formTop = M + 210;
+    y-=2; txt("Comentaris del professorat", M, y, {font:T,size:10.5}); y-=14;
+    let cut=false;
+    for (const [mt,t] of s.comments){
+      const lines = wrap(t, F, 7.8, CW-8);
+      const need = 10 + lines.length*9.6;
+      if (y-need < formTop){ const room = Math.floor((y-formTop-10)/9.6); if (room>=1){ txt(mt.toUpperCase(), M, y, {size:6.8,font:B,color:PC.muted}); y-=9.5; lines.slice(0,room).forEach((l,i)=>{ txt(i===room-1&&room<lines.length?l.replace(/\s*\S*$/," …"):l, M+8, y, {size:7.8}); y-=9.6; }); } cut=true; break; }
+      txt(mt.toUpperCase(), M, y, {size:6.8,font:B,color:PC.muted}); y-=9.5;
+      lines.forEach(l=>{ txt(l, M+8, y, {size:7.8}); y-=9.6; }); y-=3;
+    }
+    if (!s.comments.length){ txt("Cap comentari a l'acta.", M, y, {size:8,color:PC.muted}); y-=12; }
+    if (cut){ txt("(Hi ha més comentaris a l'acta.)", M, Math.max(y, formTop+4), {size:7.5,color:PC.muted}); }
+    // Formulari: notes i accions
+    let fy = Math.max(formTop, y - 8) - 4;
+    page.drawLine({start:{x:M,y:fy+8},end:{x:W-M,y:fy+8},thickness:.7,color:PC.line});
+    txt("Notes de la reunió", M, fy-6, {font:T,size:10.5}); fy-=12;
+    const tf = form.createTextField(`notes_${id}`);
+    tf.enableMultiline(); tf.setText(clean(S.notes[s.n]||""));
+    tf.addToPage(page,{x:M, y:M+44, width:CW, height:fy-(M+44)-4, font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
+    tf.setFontSize(9.5);
+    let cx=M; const fl=S.flags[s.n]||[];
+    FLAGS.forEach(([k,l])=>{
+      const cb = form.createCheckBox(`acc_${id}_${k}`);
+      cb.addToPage(page,{x:cx, y:M+18, width:11, height:11, borderColor:PC.accent, borderWidth:1, backgroundColor:PC.white});
+      if (fl.includes(k)) cb.check();
+      txt(l, cx+15, M+20, {size:8.5}); cx += 15+width(l,F,8.5)+16;
+    });
+    footer();
+  }
+
+  // ---------- Acords de grup ----------
+  newPage(); header(titol);
+  txt("Acords de grup", M, y-8, {font:T,size:18}); y-=26;
+  txt("Acords de l'equip docent per a tot el grup.", M, y, {size:9,color:PC.muted}); y-=12;
+  const ag = form.createTextField("acords_grup"); ag.enableMultiline(); ag.setText(clean(S.acords));
+  ag.addToPage(page,{x:M, y:M+16, width:CW, height:y-(M+16)-6, font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
+  ag.setFontSize(10);
+  footer();
+
+  // Peu de pàgina amb numeració
+  const all = doc.getPages();
+  all.forEach((p,i)=>{
+    const s = `${titol}${m.data?" · "+m.data:""} · pàgina ${i+1} de ${all.length}`;
+    p.drawText(s,{x:M,y:20,size:7,font:F,color:PC.muted});
+    const r = "Conté dades de l'alumnat: no el comparteixis fora de l'equip docent.";
+    p.drawText(r,{x:W-M-width(r,F,7),y:20,size:7,font:F,color:PC.muted});
+  });
+  form.updateFieldAppearances(F);
+  return doc.save();
+}
+function fileName(){
+  const m=S.acta.meta;
+  const slug = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"");
+  return `${slug(m.tipus)}_${slug(m.grup)}_${m.dataIso||"sense-data"}.pdf`;
+}
+$("b-pdf").onclick = async () => {
+  const b=$("b-pdf"); b.disabled=true; const t=b.textContent; b.textContent="Generant el PDF…";
+  try {
+    const bytes = await makePdf();
+    const url = URL.createObjectURL(new Blob([bytes],{type:"application/pdf"}));
+    const a = document.createElement("a"); a.href=url; a.download=fileName(); document.body.append(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 30000);
+    toast("PDF descarregat. Les notes que hi escriguis es desen al mateix PDF.");
+  } catch(err){ console.error(err); toast("No s'ha pogut generar el PDF. Torna-ho a provar."); }
+  finally { b.disabled=false; b.textContent=t; }
+};
+
+// Per a les proves automàtiques (no exposa cap dada fora de la pàgina)
+window.__acta = {parseActa, readPdf, makePdf, S, stats, points, checks, loadActa, loadPsi};
+})();
+</script>
+</body>
+</html>
