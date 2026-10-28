@@ -340,7 +340,7 @@ function canon(s){
   if (/catal| ll cat /.test(t)) return "cat";
   if (/castell| ll cas /.test(t)) return "cas";
   if (/angl|estrang| ll est | ll ang /.test(t)) return "ang";
-  if (/matem| mat /.test(t)) return "mat";
+  if (/matem| mat | mates /.test(t)) return "mat";
   if (/social| c soc | soc |geograf|histor/.test(t)) return "soc";
   if (/biolog|ciencies| big | bio /.test(t)) return "bio";
   if (/visual|plastic| vip /.test(t)) return "vip";
@@ -878,14 +878,21 @@ function gradeSelect(s, c, cls){
   const v = grade(s,c), dub = s.dub.has(c.key);
   return `<select class="gsel ${dub?"dub":""} ${v?"g-"+v:""}" data-n="${s.n}" data-k="${c.key}" aria-label="${esc(c.label)} · ${esc(nameOf(s))}"><option value="">—</option>${G.map(g=>`<option ${v===g?"selected":""}>${g}</option>`).join("")}</select>`;
 }
+// Els comentaris d'una matèria que no és a la taula (p. ex. «MATES») passen a la matèria afegida a mà
+function remapExtra(on){
+  const cn = S.extra && S.extra.canon; if (!cn) return;
+  S.acta.students.forEach(s=>s.comments.forEach(c=>{ if (on && c[2]==="?"+cn) c[2]="extra"; else if (!on && c[2]==="extra") c[2]="?"+cn; }));
+  S.acta.withComments.delete("extra");
+  if (on && S.acta.students.some(s=>s.comments.some(c=>c[2]==="extra"))) S.acta.withComments.add("extra");
+}
 function renderExtraCard(){
   const el=$("extra-card");
   if (S.extra){
     el.innerHTML = `<span><b>${esc(S.extra.label)}</b> afegida a mà. Tria la nota de cada alumne a la columna groga. Les que no posis surten al PDF com a desplegable.</span><button class="danger small" id="x-del">Treu ${esc(S.extra.label.toLowerCase())}</button>`;
-    $("x-del").onclick=()=>{ if (Object.keys(S.extra.g).length && !confirm(`Vols treure ${S.extra.label.toLowerCase()} i les notes que hi has posat?`)) return; S.extra=null; refreshAll(); };
+    $("x-del").onclick=()=>{ if (Object.keys(S.extra.g).length && !confirm(`Vols treure ${S.extra.label.toLowerCase()} i les notes que hi has posat?`)) return; remapExtra(false); S.extra=null; refreshAll(); };
   } else {
     el.innerHTML = `<span>${S.acta.hasMat?"Falta alguna matèria a l'acta?":"<b>Falta matemàtiques</b> a l'acta?"} Afegeix-la i posa la nota de cada alumne.</span><input id="x-nom" value="${S.acta.hasMat?"":"Matemàtiques"}" placeholder="Nom de la matèria" aria-label="Nom de la matèria"><button class="primary" id="x-add">Afegeix la matèria</button>`;
-    $("x-add").onclick=()=>{ const n=$("x-nom").value.trim(); if(!n){ $("x-nom").focus(); return; } const cn=canon(n); S.extra={key:"extra", label:n, short: cn&&SHORT[cn] ? SHORT[cn] : n.slice(0,3), canon:cn, long:n, g:{}}; refreshAll(); };
+    $("x-add").onclick=()=>{ const n=$("x-nom").value.trim(); if(!n){ $("x-nom").focus(); return; } const cn=canon(n); S.extra={key:"extra", label:n, short: cn&&SHORT[cn] ? SHORT[cn] : n.slice(0,3), canon:cn, long:n, g:{}}; remapExtra(true); refreshAll(); };
   }
 }
 function renderTable(){
