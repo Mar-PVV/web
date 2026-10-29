@@ -1359,6 +1359,448 @@
      ]
     }
    ]
+  },
+  {
+   "num": 2,
+   "nom": "Funcions",
+   "carpeta": "2 Funcions",
+   "seccions": [
+    {
+     "titol": "Concepte de funció",
+     "exercicis": [
+      {
+       "num": 1,
+       "nivell": 1,
+       "enunciat": "Per a la funció $f(x) = 3x - 5$, calcula:",
+       "parts": [
+        "$f(0)$, $f(2)$ i $f(-3)$.",
+        "L'antiimatge de $4$.",
+        "L'antiimatge de $-2$.",
+        "Existeix l'antiimatge de qualsevol nombre real? Justifica-ho."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(0)=-5$;  $f(2)=1$;  $f(-3)=-14$.",
+        "$3x-5=4\\Rightarrow x=3$.",
+        "$3x-5=-2\\Rightarrow x=1$.",
+        "Sí: $3x-5=k\\Rightarrow x=\\frac{k+5}{3}$, que existeix per a qualsevol $k\\in\\mathbb{R}$."
+       ]
+      },
+      {
+       "num": 2,
+       "nivell": 1,
+       "enunciat": "Per a la funció $g(x) = x^2 - 3x + 2$, calcula:",
+       "parts": [
+        "$g(-1)$, $g(0)$, $g(1)$ i $g(3)$.",
+        "L'antiimatge de $0$. Quants n'hi ha?",
+        "L'antiimatge de $-2$. Justifica la resposta.",
+        "L'antiimatge de $2$. Quants n'hi ha?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$g(-1)=6$;  $g(0)=2$;  $g(1)=0$;  $g(3)=2$.",
+        "$x^2-3x+2=0\\Rightarrow(x-1)(x-2)=0\\Rightarrow x=1$ o $x=2$. Dues antiimatges.",
+        "$x^2-3x+2=-2\\Rightarrow x^2-3x+4=0$. Discriminant: $9-16=-7<0$. Cap antiimatge real.",
+        "$x^2-3x+2=2\\Rightarrow x^2-3x=0\\Rightarrow x(x-3)=0\\Rightarrow x=0$ o $x=3$. Dues antiimatges."
+       ]
+      },
+      {
+       "num": 3,
+       "nivell": 1,
+       "enunciat": "Indica quines de les funcions següents tenen una gràfica que passa pel punt $(2,-3)$:",
+       "parts": [
+        "$f(x) = x^2-7$",
+        "$g(x) = \\dfrac{x-8}{x}$",
+        "$h(x) = \\sqrt{x+7}$",
+        "$p(x) = x^3-4x^2+x$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(2)=4-7=-3$. Sí que hi passa.",
+        "$g(2)=\\frac{2-8}{2}=-3$. Sí que hi passa.",
+        "$h(2)=\\sqrt{9}=3\\neq-3$. No hi passa.",
+        "$p(2)=8-16+2=-6\\neq-3$. No hi passa."
+       ]
+      },
+      {
+       "num": 4,
+       "nivell": 1,
+       "enunciat": "A partir de la gràfica de la funció $f$, troba:<br><br><img class=\"grafic\" src=\"assets/grafics/g-6cd256c59e05.svg\" alt=\"gràfic\" loading=\"lazy\">",
+       "parts": [
+        "$f(0)$ i $f(3)$.",
+        "Les antiimatges de $0$.",
+        "Les antiimatges de $3$.",
+        "El valor màxim de $f$ i on s'assoleix."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(0)=3$;  $f(3)=0$.",
+        "On la gràfica talla l'eix $OX$: $x=-1$ i $x=3$.",
+        "On la gràfica passa a altura $3$: $x=0$ i $x=2$.",
+        "El valor màxim és $4$, i s'assoleix a $x=1$ (el vèrtex és el punt $(1,4)$)."
+       ]
+      },
+      {
+       "num": 5,
+       "nivell": 1,
+       "enunciat": "A partir de la gràfica de la funció $f$, troba:<br><br><img class=\"grafic\" src=\"assets/grafics/g-f91b2c0c53ca.svg\" alt=\"gràfic\" loading=\"lazy\">",
+       "parts": [
+        "$f(-2)$, $f(-1)$, $f(0)$ i $f(1)$.",
+        "Les antiimatges de $2$.",
+        "Les antiimatges de $-2$.",
+        "Quantes antiimatges té el $0$? Digues quina és l'única que es pot llegir exactament."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(-2)=-2$;  $f(-1)=2$;  $f(0)=0$;  $f(1)=-2$.",
+        "On la gràfica passa a altura $2$: $x=-1$ i $x=2$.",
+        "On la gràfica passa a altura $-2$: $x=-2$ i $x=1$.",
+        "La gràfica talla l'eix $OX$ tres vegades: el $0$ té tres antiimatges. Només $x=0$ es llegeix exactament; les altres dues són entre $-2$ i $-1$ i entre $1$ i $2$."
+       ]
+      },
+      {
+       "num": 6,
+       "nivell": 1,
+       "enunciat": "A partir de la gràfica de la funció $g$, troba:<br><br><img class=\"grafic\" src=\"assets/grafics/g-841d7c8b508a.svg\" alt=\"gràfic\" loading=\"lazy\">",
+       "parts": [
+        "$g(-4)$, $g(0)$ i $g(5)$.",
+        "Les antiimatges de $0$ i de $2$.",
+        "Té antiimatge el $-2$? Justifica-ho."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$g(-4)=-1$;  $g(0)=1$;  $g(5)=2$.",
+        "Antiimatge de $0$: $x=-3$. Antiimatge de $2$: $x=5$.",
+        "No: la gràfica no baixa mai de l'altura $-1$, així que cap $x$ té imatge $-2$."
+       ]
+      },
+      {
+       "num": 7,
+       "nivell": 2,
+       "enunciat": "En els mateixos eixos hi ha les gràfiques de $f$ (recta) i de $g$ (paràbola).<br><br><img class=\"grafic\" src=\"assets/grafics/g-15b736dbfc9f.svg\" alt=\"gràfic\" loading=\"lazy\">",
+       "parts": [
+        "Troba $f(2)$, $g(2)$, $f(-2)$ i $g(-2)$.",
+        "Troba les antiimatges de $3$ per a $f$ i per a $g$.",
+        "Troba els punts on es tallen les dues gràfiques. Per a quins valors de $x$ és $f(x)=g(x)$?",
+        "Per a quins valors de $x$ la gràfica de $g$ queda per sota de la de $f$?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(2)=3$;  $g(2)=3$;  $f(-2)=-1$;  $g(-2)=3$.",
+        "Per a $f$: $x=2$. Per a $g$: $x=-2$ i $x=2$.",
+        "Es tallen als punts $(-1,0)$ i $(2,3)$. Per tant $f(x)=g(x)$ per a $x=-1$ i $x=2$.",
+        "Entre els dos punts de tall: $g(x)<f(x)$ per a $x\\in(-1,2)$."
+       ]
+      },
+      {
+       "num": 8,
+       "nivell": 2,
+       "enunciat": "Troba els paràmetres en cada cas:",
+       "parts": [
+        "El valor de $a$ perquè la gràfica de $f(x)=\\dfrac{ax-1}{x^2+1}$ passi pel punt $(2,1)$.",
+        "Els valors de $a$ i $b$ perquè la gràfica de $g(x)=x^2+ax+b$ passi pels punts $(1,0)$ i $(-2,9)$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Cal que $f(2)=1$: $\\frac{2a-1}{5}=1\\Rightarrow 2a-1=5\\Rightarrow a=3$.",
+        "Cal que $g(1)=0$ i $g(-2)=9$: $1+a+b=0$ i $4-2a+b=9$. Restant la primera equació a la segona: $3-3a=9\\Rightarrow a=-2$, i aleshores $b=1$. La funció és $g(x)=x^2-2x+1$. Comprovació: $g(1)=0$ i $g(-2)=4+4+1=9$ ✓."
+       ]
+      },
+      {
+       "num": 9,
+       "nivell": 2,
+       "enunciat": "Troba els paràmetres i, amb els valors trobats, respon la pregunta:",
+       "parts": [
+        "El valor de $k$ perquè $f(x)=x^2+kx-6$ compleixi $f(2)=4$. Quines són les antiimatges de $4$?",
+        "Els valors de $a$ i $b$ perquè la gràfica de $g(x)=\\sqrt{ax+b}$ passi pels punts $(0,2)$ i $(3,4)$. Quina és l'antiimatge de $6$?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(2)=4+2k-6=4\\Rightarrow 2k=6\\Rightarrow k=3$. Antiimatges de $4$: $x^2+3x-6=4\\Rightarrow x^2+3x-10=0\\Rightarrow(x+5)(x-2)=0\\Rightarrow x=-5$ i $x=2$.",
+        "$g(0)=\\sqrt{b}=2\\Rightarrow b=4$. $g(3)=\\sqrt{3a+4}=4\\Rightarrow 3a+4=16\\Rightarrow a=4$. Per tant $g(x)=\\sqrt{4x+4}$. Antiimatge de $6$: $\\sqrt{4x+4}=6\\Rightarrow 4x+4=36\\Rightarrow x=8$."
+       ]
+      },
+      {
+       "num": 10,
+       "nivell": 2,
+       "enunciat": "Sigui $f(x)=\\dfrac{ax+b}{x+1}$.",
+       "parts": [
+        "Troba $a$ i $b$ perquè la gràfica de $f$ passi pels punts $(0,3)$ i $(1,2)$.",
+        "Amb aquests valors, calcula $f(3)$ i l'antiimatge de $5$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f(0)=\\frac{b}{1}=3\\Rightarrow b=3$. $f(1)=\\frac{a+3}{2}=2\\Rightarrow a+3=4\\Rightarrow a=1$. Per tant $f(x)=\\frac{x+3}{x+1}$.",
+        "$f(3)=\\frac{6}{4}=\\frac{3}{2}$. Antiimatge de $5$: $\\frac{x+3}{x+1}=5\\Rightarrow x+3=5x+5\\Rightarrow -4x=2\\Rightarrow x=-\\frac{1}{2}$."
+       ]
+      },
+      {
+       "num": 11,
+       "nivell": 3,
+       "enunciat": "Sigui $f(x)=mx^2-8$, on $m$ és un nombre real.",
+       "parts": [
+        "Troba $m$ perquè $x=2$ sigui una antiimatge de $0$. Amb aquest valor, quines altres antiimatges té el $0$?",
+        "Per a quins valors de $m$ el $0$ no té cap antiimatge?",
+        "Per a quins valors de $m$ el $-8$ té exactament una antiimatge?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Cal $f(2)=0$: $4m-8=0\\Rightarrow m=2$. Aleshores $2x^2-8=0\\Rightarrow x^2=4\\Rightarrow x=\\pm2$: l'altra antiimatge de $0$ és $x=-2$.",
+        "$mx^2-8=0\\Rightarrow mx^2=8$. Si $m=0$, queda $0=8$: impossible. Si $m<0$, queda $x^2=\\frac{8}{m}<0$: impossible. Si $m>0$, $x=\\pm\\sqrt{\\frac{8}{m}}$: hi ha dues antiimatges. Per tant, el $0$ no té antiimatge si $m\\leq0$.",
+        "$mx^2-8=-8\\Rightarrow mx^2=0$. Si $m\\neq0$, l'única solució és $x=0$: una antiimatge. Si $m=0$, $f(x)=-8$ per a tot $x$: tots els nombres reals són antiimatges de $-8$. Per tant, el $-8$ té exactament una antiimatge si $m\\neq0$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Factorització de polinomis",
+     "exercicis": [
+      {
+       "num": 12,
+       "nivell": 1,
+       "enunciat": "Factoritza traient factor comú i fent servir les identitats notables:",
+       "parts": [
+        "$x^2-6x+9$",
+        "$4x^2-25$",
+        "$x^3-9x$",
+        "$2x^3-8x^2+8x$",
+        "$x^4-x^3-2x^2$",
+        "$3x^2-6x-9$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(x-3)^2$",
+        "$(2x-5)(2x+5)$",
+        "$x(x^2-9)=x(x-3)(x+3)$",
+        "$2x(x^2-4x+4)=2x(x-2)^2$",
+        "$x^2(x^2-x-2)=x^2(x-2)(x+1)$",
+        "$3(x^2-2x-3)=3(x-3)(x+1)$"
+       ]
+      },
+      {
+       "num": 13,
+       "nivell": 2,
+       "enunciat": "Factoritza els polinomis següents. Busca les arrels enteres entre els divisors del terme independent i fes servir la regla de Ruffini.",
+       "parts": [
+        "$x^3-2x^2-5x+6$",
+        "$x^3+2x^2-x-2$",
+        "$x^3-3x+2$",
+        "$x^3-6x^2+12x-8$",
+        "$2x^3-3x^2-11x+6$",
+        "$x^3+x^2+x+1$",
+        "$x^4-10x^2+9$",
+        "$x^4-2x^3-3x^2+4x+4$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Divisors de $6$: $\\pm1,\\pm2,\\pm3,\\pm6$. $P(1)=0$: \\[\n  \\begin{array}{r|rrrr}\n   & 1 & -2 & -5 & 6\\\\\n  1 &  & 1 & -1 & -6\\\\ \\hline\n   & 1 & -1 & -6 & 0\n  \\end{array}\n  \\] $x^2-x-6=(x-3)(x+2)$. Per tant $x^3-2x^2-5x+6=(x-1)(x-3)(x+2)$.",
+        "$P(1)=0$; quocient $x^2+3x+2=(x+1)(x+2)$. Resultat: $(x-1)(x+1)(x+2)$.",
+        "$P(1)=0$; quocient $x^2+x-2=(x-1)(x+2)$. Resultat: $(x-1)^2(x+2)$ ($x=1$ és arrel doble).",
+        "$P(2)=0$; quocient $x^2-4x+4=(x-2)^2$. Resultat: $(x-2)^3$ ($x=2$ és arrel triple).",
+        "$P(3)=54-27-33+6=0$; quocient $2x^2+3x-2=(2x-1)(x+2)$. Resultat: $(x-3)(2x-1)(x+2)$. (L'arrel $x=\\frac{1}{2}$ no és entera: surt de l'equació de segon grau.)",
+        "$P(-1)=0$; quocient $x^2+1$, que no té arrels reals. Resultat: $(x+1)(x^2+1)$.",
+        "Biquadrada: amb $t=x^2$, $t^2-10t+9=0\\Rightarrow t=1$ o $t=9$. Resultat: $(x-1)(x+1)(x-3)(x+3)$.",
+        "$P(-1)=0$; quocient $x^3-3x^2+4$. De nou $x=-1$: quocient $x^2-4x+4=(x-2)^2$. Resultat: $(x+1)^2(x-2)^2$."
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Domini de funcions",
+     "exercicis": [
+      {
+       "num": 14,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions racionals (denominador lineal o constant):",
+       "parts": [
+        "$f(x) = \\dfrac{3x-1}{x-5}$",
+        "$g(x) = \\dfrac{2}{3x+1}$",
+        "$h(x) = \\dfrac{x^2+4}{2x-8}$",
+        "$p(x) = \\dfrac{x-3}{5x-2}$",
+        "$q(x) = \\dfrac{7}{x+9}$",
+        "$r(x) = \\dfrac{4x+6}{6x-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=\\mathbb{R}\\setminus\\{5\\}$",
+        "$D(g)=\\mathbb{R}\\setminus\\left\\{-\\frac{1}{3}\\right\\}$",
+        "$D(h)=\\mathbb{R}\\setminus\\{4\\}$",
+        "$D(p)=\\mathbb{R}\\setminus\\left\\{\\frac{2}{5}\\right\\}$",
+        "$D(q)=\\mathbb{R}\\setminus\\{-9\\}$",
+        "$D(r)=\\mathbb{R}\\setminus\\left\\{\\frac{1}{6}\\right\\}$"
+       ]
+      },
+      {
+       "num": 15,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions racionals (denominador de grau 2):",
+       "parts": [
+        "$f(x) = \\dfrac{1}{x^2-9}$",
+        "$g(x) = \\dfrac{x+1}{x^2+3x+2}$",
+        "$h(x) = \\dfrac{2x}{x^2-4x}$",
+        "$k(x) = \\dfrac{x+1}{x^2-x-6}$",
+        "$p(x) = \\dfrac{3x^2+1}{2x^2-x-1}$",
+        "$q(x) = \\dfrac{4}{x^2+4}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-9=(x-3)(x+3)=0\\Rightarrow x=\\pm3$. $D(f)=\\mathbb{R}\\setminus\\{-3,3\\}$.",
+        "$x^2+3x+2=(x+1)(x+2)=0\\Rightarrow x=-1,\\,-2$. $D(g)=\\mathbb{R}\\setminus\\{-2,-1\\}$.",
+        "$x^2-4x=x(x-4)=0\\Rightarrow x=0,\\,4$. $D(h)=\\mathbb{R}\\setminus\\{0,4\\}$.",
+        "$x^2-x-6=(x-3)(x+2)=0\\Rightarrow x=3,\\,-2$. $D(k)=\\mathbb{R}\\setminus\\{-2,3\\}$.",
+        "$2x^2-x-1=(2x+1)(x-1)=0\\Rightarrow x=-\\frac{1}{2},\\,1$. $D(p)=\\mathbb{R}\\setminus\\left\\{-\\frac{1}{2},1\\right\\}$.",
+        "$x^2+4=0\\Rightarrow x^2=-4$: sense solució real. $D(q)=\\mathbb{R}$."
+       ]
+      },
+      {
+       "num": 16,
+       "nivell": 1,
+       "enunciat": "Determina el domini de les funcions irracionals següents:",
+       "parts": [
+        "$f(x) = \\sqrt{x-3}$",
+        "$g(x) = \\sqrt{2x+1}$",
+        "$h(x) = \\sqrt{5-x}$",
+        "$p(x) = \\sqrt{9-3x}$",
+        "$q(x) = \\sqrt{7x+14}$",
+        "$r(x) = \\sqrt[3]{x^2-1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=[3,+\\infty)$",
+        "$D(g)=\\left[-\\frac{1}{2},+\\infty\\right)$",
+        "$D(h)=(-\\infty,5]$",
+        "$D(p)=(-\\infty,3]$",
+        "$D(q)=[-2,+\\infty)$",
+        "$D(r)=\\mathbb{R}$ (índex senar)"
+       ]
+      },
+      {
+       "num": 17,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions irracionals amb radicand quadràtic:",
+       "parts": [
+        "$f(x) = \\sqrt{x^2-4}$",
+        "$g(x) = \\sqrt{-x^2+5x-4}$",
+        "$h(x) = \\sqrt{2x^2+3x-2}$",
+        "$p(x) = \\sqrt{-x^2+2x+8}$",
+        "$q(x) = \\sqrt{x^2+6x+5}$",
+        "$r(x) = \\sqrt{3x^2-12x+9}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^2-4\\geq0\\Rightarrow(x-2)(x+2)\\geq0$. $D(f)=(-\\infty,-2]\\cup[2,+\\infty)$.",
+        "$-x^2+5x-4\\geq0\\Rightarrow x^2-5x+4\\leq0\\Rightarrow(x-1)(x-4)\\leq0$. $D(g)=[1,4]$.",
+        "$2x^2+3x-2\\geq0\\Rightarrow(2x-1)(x+2)\\geq0$. $D(h)=(-\\infty,-2]\\cup\\left[\\frac{1}{2},+\\infty\\right)$.",
+        "$-x^2+2x+8\\geq0\\Rightarrow x^2-2x-8\\leq0\\Rightarrow(x-4)(x+2)\\leq0$. $D(p)=[-2,4]$.",
+        "$x^2+6x+5\\geq0\\Rightarrow(x+1)(x+5)\\geq0$. $D(q)=(-\\infty,-5]\\cup[-1,+\\infty)$.",
+        "$3x^2-12x+9\\geq0\\Rightarrow3(x-1)(x-3)\\geq0$. $D(r)=(-\\infty,1]\\cup[3,+\\infty)$."
+       ]
+      },
+      {
+       "num": 18,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions irracionals amb radicand cúbic:",
+       "parts": [
+        "$f(x) = \\sqrt{x^3 - x^2 - 4x + 4}$",
+        "$g(x) = \\sqrt{x^3 - 4x^2 + x + 6}$",
+        "$h(x) = \\sqrt{-x^3 + 4x}$",
+        "$p(x) = \\sqrt{x^3 - 3x^2 - x + 3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$x^3-x^2-4x+4=(x-1)(x-2)(x+2)\\geq0$. Arrels: $-2,\\,1,\\,2$. Taula de signes: $-$ a $(-\\infty,-2)$, $+$ a $(-2,1)$, $-$ a $(1,2)$, $+$ a $(2,+\\infty)$. $D(f)=[-2,1]\\cup[2,+\\infty)$.",
+        "Ruffini amb $x=2$: $(x-2)(x^2-2x-3)=(x-2)(x-3)(x+1)\\geq0$. Arrels: $-1,\\,2,\\,3$. Taula de signes: $+$ a $(-1,2)$ i a $(3,+\\infty)$. $D(g)=[-1,2]\\cup[3,+\\infty)$.",
+        "$-x^3+4x=-x(x-2)(x+2)\\geq0\\Rightarrow x(x-2)(x+2)\\leq0$. Arrels: $-2,\\,0,\\,2$. Taula de signes: $x(x-2)(x+2)$ és $-$ a $(-\\infty,-2)$ i a $(0,2)$. $D(h)=(-\\infty,-2]\\cup[0,2]$.",
+        "Ruffini amb $x=1$: $(x-1)(x^2-2x-3)=(x-1)(x-3)(x+1)\\geq0$. Arrels: $-1,\\,1,\\,3$. Taula de signes: $+$ a $(-1,1)$ i a $(3,+\\infty)$. $D(p)=[-1,1]\\cup[3,+\\infty)$."
+       ]
+      },
+      {
+       "num": 19,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions amb denominadors que cal factoritzar:",
+       "parts": [
+        "$f(x) = \\dfrac{1}{x^3-6x^2+11x-6}$",
+        "$g(x) = \\dfrac{x+1}{x^3-3x^2-4x+12}$",
+        "$h(x) = \\dfrac{2x+1}{x^3-x^2-2x}$",
+        "$p(x) = \\dfrac{x^2-1}{2x^3-5x^2+2x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Ruffini amb $x=1$: $(x-1)(x^2-5x+6)=(x-1)(x-2)(x-3)$. $D(f)=\\mathbb{R}\\setminus\\{1,2,3\\}$.",
+        "Ruffini amb $x=2$: $(x-2)(x^2-x-6)=(x-2)(x-3)(x+2)$. $D(g)=\\mathbb{R}\\setminus\\{-2,2,3\\}$.",
+        "Traient factor comú: $x(x^2-x-2)=x(x-2)(x+1)$. $D(h)=\\mathbb{R}\\setminus\\{-1,0,2\\}$.",
+        "Traient factor comú: $x(2x^2-5x+2)=x(2x-1)(x-2)$. $D(p)=\\mathbb{R}\\setminus\\left\\{0,\\frac{1}{2},2\\right\\}$."
+       ]
+      },
+      {
+       "num": 20,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions racionals amb denominador de grau 4:",
+       "parts": [
+        "$f(x) = \\dfrac{x+2}{x^4-5x^2+4}$",
+        "$g(x) = \\dfrac{3}{x^4-2x^3-x^2+2x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Equació biquadrada: amb $t=x^2$, $t^2-5t+4=0\\Rightarrow t=1$ o $t=4$, i per tant $x=\\pm1$ o $x=\\pm2$. Es factoritza com $(x-1)(x+1)(x-2)(x+2)$. $D(f)=\\mathbb{R}\\setminus\\{-2,-1,1,2\\}$.",
+        "Traient factor comú: $x(x^3-2x^2-x+2)$. Agrupant: $x^3-2x^2-x+2=x^2(x-2)-(x-2)=(x-2)(x^2-1)$. Per tant el denominador és $x(x-2)(x-1)(x+1)$. $D(g)=\\mathbb{R}\\setminus\\{-1,0,1,2\\}$."
+       ]
+      },
+      {
+       "num": 21,
+       "nivell": 2,
+       "enunciat": "Determina el domini de les funcions combinades (fraccions i arrels):",
+       "parts": [
+        "$f(x) = \\dfrac{3x-1}{x^2-4} + \\sqrt{6-2x}$",
+        "$g(x) = \\dfrac{\\sqrt{x^2+x-6}}{x-1}$",
+        "$h(x) = \\dfrac{x+2}{\\sqrt{9-x^2}}$",
+        "$p(x) = \\sqrt{\\dfrac{x+1}{x-3}}$",
+        "$q(x) = \\dfrac{x-1}{\\sqrt{x+4}} + \\dfrac{1}{x^2-1}$",
+        "$r(x) = \\sqrt{\\dfrac{x-2}{x+5}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Fracció: $x^2-4\\neq0\\Rightarrow x\\neq\\pm2$. Arrel: $6-2x\\geq0\\Rightarrow x\\leq3$. $D(f)=(-\\infty,-2)\\cup(-2,2)\\cup(2,3]$.",
+        "Arrel: $x^2+x-6\\geq0\\Rightarrow(x+3)(x-2)\\geq0$: $(-\\infty,-3]\\cup[2,+\\infty)$. Denominador: $x\\neq1$, que ja queda fora. $D(g)=(-\\infty,-3]\\cup[2,+\\infty)$.",
+        "Arrel al denominador: $9-x^2>0\\Rightarrow-3<x<3$. $D(h)=(-3,3)$.",
+        "Cal $\\frac{x+1}{x-3}\\geq0$ i $x\\neq3$. Taula de signes (punts $-1$ i $3$): $+$ a $(-\\infty,-1)$ i a $(3,+\\infty)$. $D(p)=(-\\infty,-1]\\cup(3,+\\infty)$.",
+        "Arrel al denominador: $x+4>0\\Rightarrow x>-4$. Fracció: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$. $D(q)=(-4,-1)\\cup(-1,1)\\cup(1,+\\infty)$.",
+        "Cal $\\frac{x-2}{x+5}\\geq0$ i $x\\neq-5$. Taula de signes (punts $-5$ i $2$): $+$ a $(-\\infty,-5)$ i a $(2,+\\infty)$. $D(r)=(-\\infty,-5)\\cup[2,+\\infty)$."
+       ]
+      },
+      {
+       "num": 22,
+       "nivell": 3,
+       "enunciat": "Determina el domini de les funcions següents:",
+       "parts": [
+        "$f(x) = \\sqrt{\\dfrac{2x-1}{x^2-x-6}}$",
+        "$g(x) = \\dfrac{x}{\\sqrt{x^2-5x+6}} + \\dfrac{1}{x+1}$",
+        "$h(x) = \\sqrt{x^2-4} + \\dfrac{1}{\\sqrt{9-x^2}}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Factoritzem el denominador: $x^2-x-6=(x-3)(x+2)$. Cal que $\\frac{2x-1}{(x-3)(x+2)}\\geq0$ i que el denominador no s'anul·li ($x\\neq-2$, $x\\neq3$). Taula de signes amb els punts $-2$, $\\frac{1}{2}$ i $3$: a $(-\\infty,-2)$ és $\\frac{-}{+}<0$; a $\\left(-2,\\frac{1}{2}\\right)$ és $\\frac{-}{-}>0$; a $\\left(\\frac{1}{2},3\\right)$ és $\\frac{+}{-}<0$; a $(3,+\\infty)$ és $\\frac{+}{+}>0$. El numerador s'anul·la a $x=\\frac{1}{2}$, que sí que hi entra. $D(f)=\\left(-2,\\frac{1}{2}\\right]\\cup(3,+\\infty)$.",
+        "L'arrel és al denominador, per tant el radicand ha de ser estrictament positiu: $x^2-5x+6=(x-2)(x-3)>0\\Rightarrow x\\in(-\\infty,2)\\cup(3,+\\infty)$. L'altra fracció demana $x+1\\neq0\\Rightarrow x\\neq-1$, que és dins de $(-\\infty,2)$ i s'ha de treure. $D(g)=(-\\infty,-1)\\cup(-1,2)\\cup(3,+\\infty)$.",
+        "Cal que es compleixin les dues condicions alhora: $x^2-4\\geq0\\Rightarrow x\\in(-\\infty,-2]\\cup[2,+\\infty)$, i $9-x^2>0$ (arrel al denominador) $\\Rightarrow x\\in(-3,3)$. La intersecció és $D(h)=(-3,-2]\\cup[2,3)$."
+       ]
+      },
+      {
+       "num": 23,
+       "nivell": 3,
+       "enunciat": "Considera la funció $f(x)=\\dfrac{x+1}{x^2+kx+4}$, on $k$ és un nombre real.",
+       "parts": [
+        "Discuteix el domini de $f$ segons els valors de $k$.",
+        "Troba el domini de $f$ per a $k=5$ i per a $k=-4$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "S'han de treure les arrels del denominador, $x^2+kx+4=0$. Quantes n'hi ha depèn del discriminant, $\\Delta=k^2-16$: <ul> <li>Si $-4<k<4$, $\\Delta<0$: el denominador no s'anul·la mai i $D(f)=\\mathbb{R}$. <li>Si $k=4$ o $k=-4$, $\\Delta=0$: hi ha una arrel doble, $x=-\\frac{k}{2}$. Si $k=4$, $D(f)=\\mathbb{R}\\setminus\\{-2\\}$; si $k=-4$, $D(f)=\\mathbb{R}\\setminus\\{2\\}$. <li>Si $k<-4$ o $k>4$, $\\Delta>0$: hi ha dues arrels, $x=\\frac{-k\\pm\\sqrt{k^2-16}}{2}$, i el domini és $\\mathbb{R}$ menys aquests dos valors. </ul>",
+        "Per a $k=5$: $x^2+5x+4=(x+1)(x+4)=0\\Rightarrow x=-1,\\,-4$. $D(f)=\\mathbb{R}\\setminus\\{-4,-1\\}$. Per a $k=-4$: $x^2-4x+4=(x-2)^2=0\\Rightarrow x=2$. $D(f)=\\mathbb{R}\\setminus\\{2\\}$."
+       ]
+      }
+     ]
+    }
+   ]
   }
  ]
 }

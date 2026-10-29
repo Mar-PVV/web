@@ -39,7 +39,7 @@ fi
 #                     Els altres surten com a "properament" i els seus PDF i
 #                     exercicis NO pugen al repositori públic.
 PUBLICA_3ESO=0
-TEMES_BATX="1"
+TEMES_BATX="1 2"
 TIPUS_3ESO=("Apunts" "Activitats" "Quadern de classe")
 TIPUS_BATX=("Activitats")
 

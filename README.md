@@ -13,7 +13,7 @@ de 3r d'ESO i 1r de batxillerat.
 Portada → tries curs → tries tema → fas les activitats en línia, amb les solucions
 desplegables, i te'n pots descarregar el PDF.
 
-**Ara mateix només es publica el tema 1 de batxillerat.** Els altres temes de
+**Ara mateix es publiquen els temes 1 i 2 de batxillerat.** Els altres temes de
 batxillerat surten com a *properament* fins que estiguin revisats. De 3r d'ESO no
 es publiquen documents (l'alumnat té el material al Classroom): només
 **aplicatius** per practicar, tema a tema (vegeu [Aplicatius de 3r d'ESO](#aplicatius-de-3r-deso)). **Els apunts no es publiquen**:
@@ -124,7 +124,7 @@ Tot es decideix a les primeres línies de `publica.sh`:
 
 ```bash
 PUBLICA_3ESO=0                  # 0 = 3r d'ESO surt com a "properament"
-TEMES_BATX="1"                  # quins temes de batxillerat es publiquen
+TEMES_BATX="1 2"                # quins temes de batxillerat es publiquen
 TIPUS_BATX=("Activitats")       # quins documents, i en quin ordre
 ```
 
