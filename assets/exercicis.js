@@ -18,16 +18,82 @@
       + '<span style="color:var(--punt-buit)">' + '●'.repeat(3 - n) + '</span></span>';
   };
 
-  const llista = (items, columnes) =>
+  // extra(i) afegeix contingut al final de l'apartat i (p. ex. el botó del vídeo)
+  const llista = (items, columnes, extra) =>
     '<ul class="ex-parts' + (columnes && items.length > 3 ? ' columnes' : '') + '">' +
     items.map((p, i) => '<li data-lletra="' + LLETRES[i] + '.">' +
-      '<span>' + p + '</span></li>').join('') + '</ul>';
+      '<span>' + p + (extra ? extra(i) : '') + '</span></li>').join('') + '</ul>';
+
+  // ── Vídeos de les solucions ─────────────────────────────────────────────
+  // Surten d'assets/videos-batx.csv (s'edita a mà): tema, exercici, apartat
+  // (lletra, o buit si és tot l'exercici), vídeo i segon on comença.
+  const ICONA_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+  const segons = s => (s || '0').split(':').reduce((a, x) => a * 60 + (parseFloat(x) || 0), 0);
+  const videos = fetch('assets/videos-batx.csv?v=0')
+    .then(r => r.ok ? r.text() : '')
+    .catch(() => '')
+    .then(txt => {
+      const m = {};
+      txt.split('\n').slice(1).forEach(l => {
+        const c = l.split(',').map(x => x.trim());
+        if (c.length < 4 || parseInt(c[0], 10) !== numTema || !c[3]) return;
+        m[c[1] + (c[2] || '').toLowerCase()] = { src: c[3], inici: segons(c[4]) };
+      });
+      return m;
+    });
+
+  const botoVideo = (v, apartat) => v
+    ? '<button type="button" class="boto-video" data-src="' + v.src + '" data-inici="' + v.inici + '"' +
+      ' data-titol="' + apartat + '">' + ICONA_PLAY + 'Mira-ho en vídeo</button>'
+    : '';
+
+  // Finestra del vídeo: un <dialog> amb botó de tancar (a l'app de l'iPad no hi ha barra del navegador)
+  function obreVideo(src, inici, titol) {
+    let dlg = document.getElementById('finestra-video');
+    if (!dlg) {
+      dlg = document.createElement('dialog');
+      dlg.id = 'finestra-video';
+      dlg.className = 'finestra-video';
+      dlg.innerHTML = '<div class="fv-cap"><span class="fv-titol"></span>' +
+        '<button type="button" class="fv-tanca" aria-label="Tanca el vídeo">✕</button></div>' +
+        '<div class="fv-cos"></div>';
+      document.body.appendChild(dlg);
+      const tanca = () => dlg.close();
+      dlg.querySelector('.fv-tanca').addEventListener('click', tanca);
+      dlg.addEventListener('click', e => { if (e.target === dlg) tanca(); });
+      dlg.addEventListener('close', () => { dlg.querySelector('.fv-cos').innerHTML = ''; });
+    }
+    dlg.querySelector('.fv-titol').textContent = titol;
+    const cos = dlg.querySelector('.fv-cos');
+    const yt = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+    if (yt) {
+      cos.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt[1] +
+        '?autoplay=1&rel=0&start=' + Math.floor(inici) + '" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+    } else {
+      const v = document.createElement('video');
+      v.controls = true; v.playsInline = true; v.preload = 'auto';
+      v.src = src + '#t=' + inici;
+      v.addEventListener('loadedmetadata', () => {
+        if (Math.abs(v.currentTime - inici) > 1) v.currentTime = inici;
+        v.play().catch(() => {});
+      }, { once: true });
+      cos.appendChild(v);
+    }
+    dlg.showModal();
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.boto-video');
+    if (b) obreVideo(b.dataset.src, parseFloat(b.dataset.inici) || 0, b.dataset.titol);
+  });
 
   const ENLLAC_PDF = document.getElementById('baixa');
 
-  fetch('assets/exercicis-batx.json?v=0cc7f188')
-    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-    .then(dades => {
+  Promise.all([
+    fetch('assets/exercicis-batx.json?v=0cc7f188')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+    videos,
+  ])
+    .then(([dades, vids]) => {
       const tema = dades.temes.find(t => t.num === numTema);
       if (!tema) {
         document.getElementById('titol').textContent = 'Properament';
@@ -69,22 +135,29 @@
       cont.innerHTML = tema.seccions.map((sec, i) => `
         <section class="seccio-ex" id="sec-${i}">
           <h2>${sec.titol}</h2>
-          ${sec.exercicis.map(e => `
+          ${sec.exercicis.map(e => {
+            const titolEx = 'Tema ' + numTema + ' · Exercici ' + e.num;
+            const vTot = vids[String(e.num)];
+            const vPart = i => botoVideo(vids[e.num + LLETRES[i]], titolEx + LLETRES[i]);
+            const teVideo = vTot || e.solucioParts.some((_, i) => vids[e.num + LLETRES[i]]);
+            return `
             <article class="exercici" data-nivell="${e.nivell}">
               <div class="ex-cap">
                 <span class="ex-num">${e.num}.</span>
                 ${punts(e.nivell)}
                 <div class="ex-enunciat">${e.enunciat}</div>
+                ${teVideo ? '<span class="ex-te-video" title="La solució té vídeo">' + ICONA_PLAY + 'Vídeo</span>' : ''}
               </div>
               ${e.parts.length ? llista(e.parts, true) : ''}
               <details class="ex-solucio">
                 <summary>Solució</summary>
                 <div class="sol-cos">
                   ${e.solucio ? '<div>' + e.solucio + '</div>' : ''}
-                  ${e.solucioParts.length ? llista(e.solucioParts, false) : ''}
+                  ${e.solucioParts.length ? llista(e.solucioParts, false, vPart) : ''}
+                  ${botoVideo(vTot, titolEx)}
                 </div>
               </details>
-            </article>`).join('')}
+            </article>`; }).join('')}
         </section>`).join('') +
         '<p class="res-filtre" id="res-filtre" hidden>Cap exercici d\'aquesta dificultat en aquest tema.</p>';
 

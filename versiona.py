@@ -61,6 +61,15 @@ if vc:
         if t != o:
             open(p, "w", encoding="utf-8").write(t)
 
+# 1 ter) el CSV dels vídeos de les solucions el demana exercicis.js
+vv = empremta("videos-batx.csv")
+if vv:
+    p = os.path.join(WEB, "assets", "exercicis.js")
+    t = o = open(p, encoding="utf-8").read()
+    t = re.sub(r"(assets/videos-batx\.csv)(\?v=[0-9a-f]+)?", r"\1?v=" + vv, t)
+    if t != o:
+        open(p, "w", encoding="utf-8").write(t)
+
 # 2) i ara les versions de tots els assets als HTML
 versions = {n: empremta(n)
             for n in ("estil.css", "web.js", "exercicis.js", "dades.js", "test.js",

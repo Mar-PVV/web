@@ -71,11 +71,13 @@ web/
 │   ├── suma-resta-fraccions.css, suma-resta-fraccions.js  l'aplicatiu de suma i resta
 │   ├── repas-racionals.css, repas-racionals.js  l'aplicatiu de repàs del tema 1
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
+│   ├── videos-batx.csv quins exercicis tenen vídeo a la solució · s'edita a mà
 │   ├── dades.js              ← GENERAT · no editar a mà
 │   ├── exercicis-batx.json   ← GENERAT · no editar a mà
 │   ├── grafics/              ← GENERAT · SVG dels gràfics TikZ
 │   ├── logo.png, logo-sense-fons.png
 │   └── icona-*.png     icones (a partir de icona-mestra.png)
+├── videos/             vídeos de les solucions de batxillerat (MP4)
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
 ├── proves/
 │   └── prova-repas-racionals.js  prova automàtica del repàs (node proves/prova-repas-racionals.js)
@@ -177,6 +179,31 @@ executar `publica.sh` i la web queda actualitzada.
     gràfic de la web es veu igual que el del PDF.
   - Si dins d'un exercici hi ha diversos gràfics seguits, es posen en graella
     (3 per fila a l'ordinador, menys a mòbil).
+
+### Vídeos a les solucions
+
+Alguns exercicis tenen, dins de la solució, un botó **Mira-ho en vídeo** que obre el
+vídeo en una finestra (amb botó de tancar, perquè a l'app de l'iPad no hi ha barra
+del navegador). A la capçalera de l'exercici surt l'etiqueta «Vídeo».
+
+- Els vídeos són a `videos/` (MP4, H.264). Nom sense espais: `t1-ex50-a-e.mp4`.
+- Quins exercicis en tenen es diu a **`assets/videos-batx.csv`** (s'edita a mà, com
+  el CSV del test). No toca el LaTeX ni `exercicis-batx.json`. Columnes:
+
+| columna | què hi va |
+|---|---|
+| `tema` | el número de tema |
+| `exercici` | el número de l'exercici, el mateix que a la web i al PDF |
+| `apartat` | la lletra (`a`, `e`…). Buida = el botó surt al final de la solució |
+| `video` | el camí del fitxer (`videos/t1-ex50-a-e.mp4`) o un enllaç de YouTube |
+| `inici` | on comença aquell apartat dins del vídeo (`3:14`). Buida = des del principi |
+
+- Un mateix vídeo pot servir per a diversos apartats: una fila per apartat, cadascuna
+  amb el seu `inici`.
+- Si la numeració dels exercicis canvia al LaTeX, cal revisar aquest CSV.
+- El repo és públic i GitHub Pages té un límit d'1 GB: vídeos lleugers (720p o 1080p
+  amb poc moviment, uns 2-10 MB cadascun). Si en fossin molts, millor pujar-los a
+  YouTube (ocults) i posar-ne l'enllaç a la columna `video`.
 
 ---
 
