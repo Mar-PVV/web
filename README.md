@@ -369,8 +369,9 @@ El **visualitzador d'actes** (`acta/index.html`, amb el CSS i el JavaScript a di
   en blanc si no en té) i també columnes amb títol (`Alumne`, `PSI` Sí/No, `Tipus`).
   Aparella pel nom complet, sense tenir en compte majúscules ni accents.
 - Si falta una matèria (p. ex. matemàtiques), es pot afegir a mà a la pestanya Alumnes.
-- **PDF** (pdf-lib + fontkit, A4 vertical, vectors): pàgina del grup, una pàgina per
-  alumne i «Acords de grup». Té camps de formulari: `notes_07`, `acc_07_entrevista`
+- **PDF** (pdf-lib + fontkit, A4 horitzontal, vectors): dues pàgines del grup, una pàgina
+  per alumne (notes, tira AE/AN/AS/NA, notes de la reunió a l'esquerra i comentaris a la
+  dreta) i «Acords de grup». Té camps de formulari: `notes_07`, `acc_07_entrevista`
   (també `_orientacio`, `_seguiment`, `_felicitar`, `_compromis`), `nota_07_mat` (si
   la matèria afegida a mà no té nota) i `acords_grup`. La font Work Sans va incrustada
   sencera perquè els camps mostrin accents i «l·l». Nom: `Preavaluacio_E3D_2026-10-26.pdf`.

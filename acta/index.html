@@ -910,6 +910,10 @@ function renderTable(){
   }).join("");
   $("tbl").innerHTML = `<thead>${head}</thead><tbody>${body || `<tr><td colspan="${C.length+4}" class="muted" style="padding:18px">Cap alumne amb aquest filtre.</td></tr>`}</tbody>`;
 }
+function tira(s){
+  const C=cols(), k={AE:0,AN:0,AS:0,NA:0}; let q=0; C.forEach(c=>{ const g=grade(s,c); if(g){k[g]++;q++;} });
+  return `<div><div class="stack" title="${G.map(g=>k[g]+" "+g).join(", ")}">${G.map(g=>k[g]?`<i class="g-${g}" style="width:${100*k[g]/C.length}%">${k[g]} ${g}</i>`:"").join("")}</div><p class="small muted" style="margin:4px 0 0">${G.map(g=>`${k[g]} ${g}`).join(" · ")}${q<C.length?` · ${C.length-q} sense nota`:""}</p></div>`;
+}
 function renderDetail(){
   const s = S.acta.students.find(x=>x.n===S.sel), d=$("detail");
   if (!s){ d.innerHTML = `<p class="muted">Tria un alumne de la llista.</p>`; return; }
@@ -921,6 +925,7 @@ function renderDetail(){
     <div class="dhead"><div><p class="eyebrow">Núm. ${s.n} · ${plural(naCount(s),"NA","NA")}</p><h2>${esc(nameOf(s))} ${psiOf(s)?`<span class="pill psi">PSI</span>`:""}</h2></div>
     <div class="nav2"><button id="prev" aria-label="Alumne anterior">‹</button><button id="next" aria-label="Alumne següent">›</button></div></div>
     <div class="minigrid">${C.map(c=>`<div title="${esc(c.long||c.label)}${c.opt&&s.opt[c.key]?" · "+esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]):""}">${esc(c.opt&&s.opt[c.key]?s.opt[c.key]:c.short)}${cell(grade(s,c), s.dub.has(c.key))}</div>`).join("")}</div>
+    ${tira(s)}
     ${psiTxt}
     ${tags?`<div class="tagrow">${tags}</div>`:`<p class="small muted" style="margin:0">Cap aspecte a millorar repetit als comentaris.</p>`}
     ${s.exams.length?`<p class="small muted" style="margin:0">Notes d'examen citades: ${esc(s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "))}</p>`:""}
@@ -1015,7 +1020,7 @@ $("b-esborra").onclick=()=>{
 };
 
 // =====================================================================
-// PDF AMB FORMULARI (pdf-lib + fontkit), A4 vertical, dibuixat amb vectors
+// PDF AMB FORMULARI (pdf-lib + fontkit), A4 horitzontal, dibuixat amb vectors
 // =====================================================================
 const hex = h => PDFLib.rgb(parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255);
 const PC = {fg:hex("#2B2B2B"), muted:hex("#6B6B6B"), line:hex("#E4DFD7"), accent:hex("#39698C"), soft:hex("#EAF1F6"), none:hex("#E9E5DD"), white:hex("#FFFFFF"), bg:hex("#F8F7F4"),
@@ -1043,7 +1048,8 @@ async function makePdf(){
   const titol = `${m.tipus} ${m.grup}`;
   doc.setTitle(`${titol}${m.data?" · "+m.data:""}`); doc.setAuthor("Tutoria"); doc.setCreator("Visualitzador d'actes · INS Pere Vives"); doc.setProducer("pdf-lib");
   const form = doc.getForm();
-  const W=595.28, H=841.89, M=42, CW=W-2*M;
+  // A4 horitzontal: es llegeix a l'ordinador i, si s'imprimeix, també va bé així.
+  const W=841.89, H=595.28, M=36, CW=W-2*M;
   let page, y;
   const newPage = () => { page = doc.addPage([W,H]); y = H-M; return page; };
   const txt = (s,x,yy,o={}) => page.drawText(clean(s), {x, y:yy, size:o.size||9.5, font:o.font||F, color:o.color||PC.fg});
@@ -1056,14 +1062,14 @@ async function makePdf(){
       }); out.push(line);
     }); return out;
   }
-  // Text amb trossos en negreta; retorna la nova y
-  function rich(segs, x, yy, w, sz, lh, x0first){
+  // Text amb trossos en negreta; retorna la nova y. brk() decideix on continua si no hi cap.
+  function rich(segs, x, yy, w, sz, lh, x0first, brk){
     const runs=[]; segs.forEach(([t,b])=>clean(fixDots(t)).split(/(\s+)/).forEach(p=>{ if(p) runs.push([p, b?B:F]); }));
     let cx = x0first!=null ? x0first : x, cy=yy, prevSpace=true;
     for (const [p,f] of runs){
       if (/^\s+$/.test(p)){ if (cx>x) cx += width(" ",f,sz); prevSpace=true; continue; }
       const pw = width(p,f,sz), glued = !prevSpace && /^[:.,;)]/.test(p); prevSpace=false;
-      if (cx+pw > x+w && cx>x && !glued){ cx=x; cy-=lh; if (cy<M+30){ footer(); newPage(); cy=y; } }
+      if (cx+pw > x+w && cx>x && !glued){ cx=x; cy-=lh; if (cy<M+24){ cy = brk ? brk() : (newPage(), header(titol), y); } }
       page.drawText(p,{x:cx,y:cy,size:sz,font:f,color:PC.fg}); cx+=pw;
     }
     return cy - lh;
@@ -1073,136 +1079,150 @@ async function makePdf(){
     page.drawRectangle({x, y:yy-3, width:w, height:sz+6, color:bg, borderRadius:4});
     page.drawText(t,{x:x+5,y:yy,size:sz,font:B,color:fg}); return w;
   }
-  const pages=[];
-  function footer(){ pages.push(page); }
   function header(sub){
     page.drawRectangle({x:0,y:H-6,width:W,height:6,color:PC.accent});
     txt([ "INS Pere Vives", m.nivell, m.curs && "Curs "+m.curs ].filter(Boolean).join(" · ").toUpperCase(), M, H-M+4, {size:7.5, font:B, color:PC.muted});
     if (sub) { const sw=width(sub,B,7.5); txt(sub, W-M-sw, H-M+4, {size:7.5, font:B, color:PC.muted}); }
     y = H-M-14;
   }
-  function h2(t){ txt(t, M, y, {font:T, size:12.5, color:PC.fg}); y-=18; }
   const gradeBox = (g, x, yy, w, h, dub) => {
     if (g){ page.drawRectangle({x,y:yy,width:w,height:h,color:PC[g],borderRadius:3}); const tw=width(g+(dub?"?":""),B,8.5); page.drawText(g+(dub?"?":""),{x:x+(w-tw)/2,y:yy+(h-6.5)/2,size:8.5,font:B,color:PC[g+"i"]}); }
     else { page.drawRectangle({x,y:yy,width:w,height:h,borderColor:PC.line,borderWidth:1,borderDashArray:[2,2],borderRadius:3}); const tw=width("—",F,8.5); page.drawText("—",{x:x+(w-tw)/2,y:yy+(h-6.5)/2,size:8.5,font:F,color:PC.muted}); }
     if (dub) page.drawRectangle({x:x-1,y:yy-1,width:w+2,height:h+2,borderColor:PC.warn,borderWidth:1.2,borderRadius:3});
   };
 
-  // ---------- Pàgina del grup ----------
+  // ---------- Pàgina 1 del grup: indicadors, barres i histograma ----------
   newPage(); header("Document de treball · confidencial");
-  txt(titol, M, y-6, {font:T, size:24, color:PC.accent}); y-=26;
-  txt([m.data && "Sessió d'avaluació: "+m.data, plural(A.students.length,"alumne","alumnes"), m.codi].filter(Boolean).join("  ·  "), M, y, {size:9.5, color:PC.muted}); y-=22;
-  // Indicadors
-  const kw=(CW-5*8)/6;
+  txt(titol, M, y-6, {font:T, size:24, color:PC.accent});
+  const sub = [m.data && "Sessió d'avaluació: "+m.data, plural(A.students.length,"alumne","alumnes"), m.codi].filter(Boolean).join("  ·  ");
+  txt(sub, M+width(titol,T,24)+16, y-4, {size:9.5, color:PC.muted}); y-=28;
+  const kw=(CW-5*10)/6;
   st.kpis.forEach(([b,t],i)=>{
-    const x=M+i*(kw+8);
-    page.drawRectangle({x, y:y-52, width:kw, height:56, color:PC.white, borderColor:PC.line, borderWidth:1, borderRadius:6});
-    page.drawText(String(b),{x:x+8,y:y-18,size:15,font:T,color:PC.accent});
-    wrap(t,F,7,kw-14).slice(0,3).forEach((l,j)=>page.drawText(l,{x:x+8,y:y-30-j*8.5,size:7,font:F,color:PC.muted}));
+    const x=M+i*(kw+10);
+    page.drawRectangle({x, y:y-50, width:kw, height:54, color:PC.white, borderColor:PC.line, borderWidth:1, borderRadius:6});
+    page.drawText(String(b),{x:x+10,y:y-18,size:16,font:T,color:PC.accent});
+    wrap(t,F,7.5,kw-18).slice(0,2).forEach((l,j)=>page.drawText(l,{x:x+10,y:y-31-j*9,size:7.5,font:F,color:PC.muted}));
   });
-  y-=72;
-  // Barres per matèria (esquerra) i histograma (dreta)
-  const yTop=y, lw=CW*0.6, rx=M+lw+18, rw=CW-lw-18;
-  txt("Resultats per matèria", M, y, {font:T,size:11}); y-=16;
-  const bx=M+92, bw=lw-92-34;
+  y-=74;
+  const yTop=y, lw=CW*0.6, rx=M+lw+28, rw=CW-lw-28;
+  txt("Resultats per matèria", M, y, {font:T,size:12}); y-=20;
+  const rowH = Math.min(26, (y-M-40)/Math.max(1,st.per.length)), bh0=Math.min(15,rowH-5);
+  const bx=M+104, bw=lw-104-40;
   st.per.forEach(r=>{
-    txt(r.c.label, M, y-1, {size:8, font:B}); let x=bx;
-    page.drawRectangle({x:bx,y:y-4,width:bw,height:12,color:PC.none,borderRadius:2});
-    G.forEach(g=>{ if(!r.k[g]) return; const w=bw*r.k[g]/st.N; page.drawRectangle({x,y:y-4,width:w,height:12,color:PC[g]}); if (w>9){ const s=String(r.k[g]), tw=width(s,B,7); page.drawText(s,{x:x+(w-tw)/2,y:y-1,size:7,font:B,color:PC[g+"i"]}); } x+=w; });
-    const p = r.p==null?"—":r.p+"%"; txt(p, M+lw-width(p,F,8), y-1, {size:8,color:PC.muted});
-    y-=16;
+    txt(r.c.label, M, y-1, {size:8.8, font:B}); let x=bx;
+    page.drawRectangle({x:bx,y:y-4,width:bw,height:bh0,color:PC.none,borderRadius:2});
+    G.forEach(g=>{ if(!r.k[g]) return; const w=bw*r.k[g]/st.N; page.drawRectangle({x,y:y-4,width:w,height:bh0,color:PC[g]}); if (w>10){ const s=String(r.k[g]), tw=width(s,B,7.5); page.drawText(s,{x:x+(w-tw)/2,y:y-4+(bh0-5.5)/2,size:7.5,font:B,color:PC[g+"i"]}); } x+=w; });
+    const p = r.p==null?"—":r.p+"%"; txt(p, M+lw-width(p,F,8.5), y-1, {size:8.5,color:PC.muted});
+    y-=rowH;
   });
-  let lx=M; G.forEach(g=>{ page.drawRectangle({x:lx,y:y-1,width:7,height:7,color:PC[g],borderRadius:1.5}); txt(g,lx+10,y,{size:7,color:PC.muted}); lx+=34; }); txt("% = assoliment (AS o més)", lx, y, {size:7,color:PC.muted});
-  const yBars = y-12;
-  y=yTop; page.drawText("Quants NA té cada alumne",{x:rx,y,size:11,font:T,color:PC.fg});
-  const hb=y-28, hh=Math.min(110, yTop-yBars-60), hmax=Math.max(1,...st.hist), n=st.hist.length, gap=4, cw=(rw-(n-1)*gap)/n;
+  let lx=M; G.forEach(g=>{ page.drawRectangle({x:lx,y:y-1,width:7,height:7,color:PC[g],borderRadius:1.5}); txt(g,lx+10,y,{size:7.5,color:PC.muted}); lx+=36; }); txt("% = assoliment (AS o més)", lx, y, {size:7.5,color:PC.muted});
+  const yBottom = y;
+  page.drawText("Quants NA té cada alumne",{x:rx,y:yTop,size:12,font:T,color:PC.fg});
+  const hh = yTop-yBottom-70, base=yBottom+30, hmax=Math.max(1,...st.hist), n=st.hist.length, gap=6, cw=(rw-(n-1)*gap)/n;
   st.hist.forEach((h,i)=>{
-    const bh=h?Math.max(3,hh*h/hmax):0, x=rx+i*(cw+gap), base=hb-hh;
+    const bh=h?Math.max(3,hh*h/hmax):0, x=rx+i*(cw+gap);
     if (bh) page.drawRectangle({x,y:base,width:cw,height:bh,color:i===0?PC.AE:i<3?PC.AS:PC.NA});
-    if (h){ const s=String(h), tw=width(s,B,7.5); page.drawText(s,{x:x+(cw-tw)/2,y:base+bh+3,size:7.5,font:B,color:PC.fg}); }
-    const s=String(i), tw=width(s,F,7.5); page.drawText(s,{x:x+(cw-tw)/2,y:base-11,size:7.5,font:F,color:PC.muted});
+    if (h){ const s=String(h), tw=width(s,B,8.5); page.drawText(s,{x:x+(cw-tw)/2,y:base+bh+4,size:8.5,font:B,color:PC.fg}); }
+    const s=String(i), tw=width(s,F,8); page.drawText(s,{x:x+(cw-tw)/2,y:base-12,size:8,font:F,color:PC.muted});
   });
-  page.drawLine({start:{x:rx,y:hb-hh},end:{x:rx+rw,y:hb-hh},thickness:.7,color:PC.line});
-  page.drawText("Eix horitzontal: nombre de NA. Eix vertical: alumnes.",{x:rx,y:hb-hh-24,size:7,font:F,color:PC.muted});
-  y = Math.min(yBars, hb-hh-40) - 6;
-  // Punts per comentar
-  txt("Punts per comentar amb l'equip", M, y, {font:T,size:11}); y-=16;
+  page.drawLine({start:{x:rx,y:base},end:{x:rx+rw,y:base},thickness:.7,color:PC.line});
+  page.drawText("Eix horitzontal: nombre de NA. Eix vertical: alumnes.",{x:rx,y:yBottom,size:7.5,font:F,color:PC.muted});
+
+  // ---------- Pàgina 2 del grup, en dues columnes ----------
+  // Esquerra: punts per comentar. Dreta: què repeteixen els comentaris i dades per revisar.
+  const gp=[]; const gpage = i => { while (gp.length<=i){ newPage(); header(titol); gp.push(page); } page=gp[i]; return page; };
+  const colL = {x:M, w:CW*0.6, pi:0, y:0}, colR = {x:M+CW*0.6+28, w:CW*0.4-28, pi:0, y:0};
+  gpage(0); colL.y = colR.y = H-M-14;
+  const brkOf = col => () => { col.pi++; gpage(col.pi); return H-M-14; };
+  const need = (col, h) => { gpage(col.pi); if (col.y-h < M+24){ col.pi++; gpage(col.pi); col.y=H-M-14; } };
+  page=gp[0]; txt("Punts per comentar amb l'equip", colL.x, colL.y, {font:T,size:12}); colL.y-=20;
   points(st).forEach(p=>{
-    if (y<M+60){ footer(); newPage(); header(titol); }
-    const pw = pill(p.tag, M, y, p.cls);
-    y = rich(p.segs, M, y, CW, 8.6, 11.6, M+pw+5) - 4;
+    need(colL, 40);
+    const pw = pill(p.tag, colL.x, colL.y, p.cls, 8);
+    colL.y = rich(p.segs, colL.x, colL.y, colL.w, 9, 12.4, colL.x+pw+6, brkOf(colL)) - 6;
   });
-  // Etiquetes dels comentaris i dades per revisar
   const tcs = Object.entries(st.tc).sort((a,b)=>b[1]-a[1]);
-  if (y<M+140){ footer(); newPage(); header(titol); } else y-=6;
-  txt("Què repeteixen els comentaris", M, y, {font:T,size:11}); y-=15;
-  tcs.forEach(([t,c])=>{ txt(TAGL[t], M, y-1, {size:8}); page.drawRectangle({x:M+170,y:y-3,width:CW-170-40,height:10,color:PC.none,borderRadius:2}); page.drawRectangle({x:M+170,y:y-3,width:(CW-210)*c/st.N,height:10,color:PC.accent,borderRadius:2}); const s=`${c} (${Math.round(100*c/st.N)}%)`; txt(s, W-M-width(s,F,8), y-1, {size:8,color:PC.muted}); y-=13; });
-  if (!tcs.length){ txt("Cap aspecte repetit als comentaris.", M, y, {size:8.5,color:PC.muted}); y-=13; }
-  y-=8; if (y<M+60){ footer(); newPage(); header(titol); }
-  txt("Dades per revisar a l'acta", M, y, {font:T,size:11}); y-=15;
-  checks(st).forEach(segs=>{ if (y<M+40){ footer(); newPage(); header(titol); } page.drawCircle({x:M+3,y:y+2.5,size:1.6,color:PC.muted}); y = rich(segs, M+10, y, CW-10, 8.3, 11) - 3; });
-  footer();
+  page=gp[0]; txt("Què repeteixen els comentaris", colR.x, colR.y, {font:T,size:12}); colR.y-=18;
+  const tbx = colR.x+178, tbw = colR.w-178-52;
+  tcs.forEach(([t,c])=>{ need(colR, 14); wrap(TAGL[t],F,8,174).slice(0,1).forEach(l=>txt(l, colR.x, colR.y-1, {size:8})); page.drawRectangle({x:tbx,y:colR.y-3,width:tbw,height:10,color:PC.none,borderRadius:2}); page.drawRectangle({x:tbx,y:colR.y-3,width:tbw*c/st.N,height:10,color:PC.accent,borderRadius:2}); const s=`${c} (${Math.round(100*c/st.N)}%)`; txt(s, colR.x+colR.w-width(s,F,8), colR.y-1, {size:8,color:PC.muted}); colR.y-=14; });
+  if (!tcs.length){ txt("Cap aspecte repetit als comentaris.", colR.x, colR.y, {size:8.5,color:PC.muted}); colR.y-=14; }
+  colR.y-=12; need(colR, 40);
+  txt("Dades per revisar a l'acta", colR.x, colR.y, {font:T,size:12}); colR.y-=18;
+  checks(st).forEach(segs=>{ need(colR, 24); page.drawCircle({x:colR.x+3,y:colR.y+2.5,size:1.6,color:PC.muted}); colR.y = rich(segs, colR.x+10, colR.y, colR.w-10, 8.4, 11.2, null, brkOf(colR)) - 4; });
+  page = gp[gp.length-1];
 
   // ---------- Una pàgina per alumne ----------
+  // A dalt, tota l'amplada: nom, notes, PSI i etiquetes. A sota, esquerra: notes de la reunió i accions; dreta: comentaris.
   for (const s of A.students){
     newPage(); header(titol);
     const id = String(s.n).padStart(2,"0");
     txt(`Núm. ${s.n} · ${plural(naCount(s),"NA","NA")}`, M, y, {size:8, font:B, color:PC.muted}); y-=22;
-    txt(nameOf(s), M, y, {font:T, size:18}); let nx = M+width(nameOf(s),T,18)+10;
-    if (psiOf(s)){ const lab = S.psiPdf && psiType(s) ? "PSI · "+psiType(s) : "PSI"; pill(lab, nx, y+3, "psi", 8.5); }
-    y-=22;
-    // Graella de notes
-    const n=C.length, gw=Math.min(52,(CW-(n-1)*6)/n);
+    txt(nameOf(s), M, y, {font:T, size:18}); let nx = M+width(nameOf(s),T,18)+12;
+    if (psiOf(s)){ const lab = S.psiPdf && psiType(s) ? "PSI · "+psiType(s) : "PSI"; nx += pill(lab, nx, y+3, "psi", 8.5)+12; }
+    if (C.some(c=>c.opt)){ const oc=C.filter(c=>c.opt).map(c=>s.opt[c.key]?`${s.opt[c.key]} = ${A.optNames[s.opt[c.key]]||s.opt[c.key]}`:"").filter(Boolean); if (oc.length) txt("Optativa: "+oc.join(", "), nx, y+3, {size:8,color:PC.muted}); }
+    y-=24;
+    const n=C.length, gw=Math.min(62,(CW-(n-1)*8)/n);
     C.forEach((c,i)=>{
-      const x=M+i*(gw+6); const lab = c.opt && s.opt[c.key] ? s.opt[c.key] : c.short;
-      const tw=width(lab,B,6.8); page.drawText(lab,{x:x+(gw-tw)/2,y,size:6.8,font:B,color:PC.muted});
+      const x=M+i*(gw+8); const lab = c.opt && s.opt[c.key] ? s.opt[c.key] : c.short;
+      const tw=width(lab,B,7); page.drawText(lab,{x:x+(gw-tw)/2,y,size:7,font:B,color:PC.muted});
       const g=grade(s,c);
       if (c.key==="extra" && !g){
         const dd = form.createDropdown(`nota_${id}_${(c.short||"extra").toLowerCase().replace(/[^a-z0-9]/g,"")}`);
         dd.setOptions(["","AE","AN","AS","NA"]); dd.select("");
-        dd.addToPage(page,{x, y:y-21, width:gw, height:16, font:F, borderColor:PC.amb, borderWidth:1, backgroundColor:PC.ambSoft});
+        dd.addToPage(page,{x, y:y-22, width:gw, height:17, font:F, borderColor:PC.amb, borderWidth:1, backgroundColor:PC.ambSoft});
         dd.setFontSize(8.5);
-      } else gradeBox(g, x, y-20, gw, 15, s.dub.has(c.key));
+      } else gradeBox(g, x, y-21, gw, 16, s.dub.has(c.key));
     });
-    y-=36;
-    if (C.some(c=>c.opt)){ const oc=C.filter(c=>c.opt).map(c=>s.opt[c.key]?`${s.opt[c.key]} = ${A.optNames[s.opt[c.key]]||s.opt[c.key]}`:"").filter(Boolean); if (oc.length){ txt("Optativa: "+oc.join(", "), M, y, {size:7.5,color:PC.muted}); y-=13; } }
-    // PSI, etiquetes i exàmens
+    y-=40;
+    // Tira de l'alumne: quantes matèries té amb AE, AN, AS i NA (com les barres per matèria)
+    { const k={AE:0,AN:0,AS:0,NA:0}; let q=0; C.forEach(c=>{ const g=grade(s,c); if(g){k[g]++;q++;} });
+      const sw = Math.min(CW*0.55, n*(gw+8)-8), sh=14; let x=M;
+      page.drawRectangle({x:M,y:y-3,width:sw,height:sh,color:PC.none,borderRadius:2});
+      G.forEach(g=>{ if(!k[g]) return; const w=sw*k[g]/n; page.drawRectangle({x,y:y-3,width:w,height:sh,color:PC[g]}); const t=`${k[g]} ${g}`, tw=width(t,B,7.5); if (w>tw+6) page.drawText(t,{x:x+(w-tw)/2,y:y-3+(sh-5.5)/2,size:7.5,font:B,color:PC[g+"i"]}); x+=w; });
+      const info = `${G.map(g=>`${k[g]} ${g}`).join(" · ")}${q<n?` · ${n-q} sense nota`:""}`;
+      txt(info, M+sw+12, y, {size:8.5,color:PC.muted});
+      y-=22; }
     if (psiOf(s)){
       const segs=[["PSI",1],[S.psiPdf && psiType(s) ? ": "+psiType(s)+". " : ". "],["Matèries que diuen al comentari que l'avaluen segons el PSI: "],[((s.tags.psi||[]).map(x=>sentence(x).toLowerCase()).join(", ")||"cap")+".",1]];
-      y = rich(segs, M, y, CW, 8.5, 11) - 4;
+      y = rich(segs, M, y, CW, 8.5, 11) - 3;
     }
     const tg = Object.entries(s.tags);
-    if (tg.length){ let x=M; tg.forEach(([t,subs])=>{ const lab=`${TAGL[t]} · ${subs.length}`; const w=width(lab,B,7.5)+10; if (x+w>W-M){ x=M; y-=15; } pill(lab, x, y, t==="assist"?"warn":t==="psi"?"psi":"", 7.5); x+=w+5; }); y-=17; }
-    if (s.exams.length){ y = rich([["Notes d'examen citades: "],[s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "),1]], M, y, CW, 8, 10.5) - 4; }
-    // Comentaris (resum: cap fins on hi ha lloc)
-    const formTop = M + 210;
-    y-=2; txt("Comentaris del professorat", M, y, {font:T,size:10.5}); y-=14;
-    let cut=false;
-    for (const [mt,t] of s.comments){
-      const lines = wrap(t, F, 7.8, CW-8);
-      const need = 10 + lines.length*9.6;
-      if (y-need < formTop){ const room = Math.floor((y-formTop-10)/9.6); if (room>=1){ txt(mt.toUpperCase(), M, y, {size:6.8,font:B,color:PC.muted}); y-=9.5; lines.slice(0,room).forEach((l,i)=>{ txt(i===room-1&&room<lines.length?l.replace(/\s*\S*$/," …"):l, M+8, y, {size:7.8}); y-=9.6; }); } cut=true; break; }
-      txt(mt.toUpperCase(), M, y, {size:6.8,font:B,color:PC.muted}); y-=9.5;
-      lines.forEach(l=>{ txt(l, M+8, y, {size:7.8}); y-=9.6; }); y-=3;
-    }
-    if (!s.comments.length){ txt("Cap comentari a l'acta.", M, y, {size:8,color:PC.muted}); y-=12; }
-    if (cut){ txt("(Hi ha més comentaris a l'acta.)", M, Math.max(y, formTop+4), {size:7.5,color:PC.muted}); }
-    // Formulari: notes i accions
-    let fy = Math.max(formTop, y - 8) - 4;
-    page.drawLine({start:{x:M,y:fy+8},end:{x:W-M,y:fy+8},thickness:.7,color:PC.line});
-    txt("Notes de la reunió", M, fy-6, {font:T,size:10.5}); fy-=12;
+    let tx=M;
+    if (tg.length){ tg.forEach(([t,subs])=>{ const lab=`${TAGL[t]} · ${subs.length}`; const w=width(lab,B,7.5)+10; if (tx+w>W-M){ tx=M; y-=15; } pill(lab, tx, y, t==="assist"?"warn":t==="psi"?"psi":"", 7.5); tx+=w+6; }); }
+    if (s.exams.length){ const e = "Notes d'examen citades: "+s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "); if (tg.length && tx+width(e,F,8)+10 < W-M) txt(e, tx+6, y, {size:8,color:PC.muted}); else { if (tg.length) y-=15; txt(e, M, y, {size:8,color:PC.muted}); } }
+    if (tg.length || s.exams.length) y-=18;
+    page.drawLine({start:{x:M,y:y+4},end:{x:W-M,y:y+4},thickness:.7,color:PC.line});
+    y-=12;
+    const top=y, lwid=CW*0.42, cx0=M+lwid+24, cwid=CW-lwid-24;
+    // Esquerra: notes i accions
+    txt("Notes de la reunió", M, top-4, {font:T,size:11});
+    const actH = FLAGS.length*16 + 18;
     const tf = form.createTextField(`notes_${id}`);
     tf.enableMultiline(); tf.setText(clean(S.notes[s.n]||""));
-    tf.addToPage(page,{x:M, y:M+44, width:CW, height:fy-(M+44)-4, font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
+    tf.addToPage(page,{x:M, y:M+22+actH, width:lwid, height:top-14-(M+22+actH), font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
     tf.setFontSize(9.5);
-    let cx=M; const fl=S.flags[s.n]||[];
-    FLAGS.forEach(([k,l])=>{
+    txt("Accions", M, M+22+actH-16, {font:B,size:8.5,color:PC.muted});
+    const fl=S.flags[s.n]||[];
+    FLAGS.forEach(([k,l],i)=>{
+      const yy = M+22+actH-34-i*16;
       const cb = form.createCheckBox(`acc_${id}_${k}`);
-      cb.addToPage(page,{x:cx, y:M+18, width:11, height:11, borderColor:PC.accent, borderWidth:1, backgroundColor:PC.white});
+      cb.addToPage(page,{x:M, y:yy, width:11, height:11, borderColor:PC.accent, borderWidth:1, backgroundColor:PC.white});
       if (fl.includes(k)) cb.check();
-      txt(l, cx+15, M+20, {size:8.5}); cx += 15+width(l,F,8.5)+16;
+      txt(l, M+17, yy+2, {size:9});
     });
-    footer();
+    // Dreta: comentaris (fins on hi ha lloc)
+    let cy = top-4;
+    txt("Comentaris del professorat", cx0, cy, {font:T,size:11}); cy-=16;
+    const floor = M+22; let cut=false;
+    for (const [mt,t] of s.comments){
+      const lines = wrap(t, F, 8, cwid-8);
+      const need2 = 10 + lines.length*10;
+      if (cy-need2 < floor){ const room = Math.floor((cy-floor-20)/10); if (room>=1){ txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10; lines.slice(0,room).forEach((l,i)=>{ txt(i===room-1&&room<lines.length?l.replace(/\s*\S*$/," …"):l, cx0+8, cy, {size:8}); cy-=10; }); } cut=true; break; }
+      txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10;
+      lines.forEach(l=>{ txt(l, cx0+8, cy, {size:8}); cy-=10; }); cy-=4;
+    }
+    if (!s.comments.length) txt("Cap comentari a l'acta.", cx0, cy, {size:8.5,color:PC.muted});
+    if (cut) txt("(Hi ha més comentaris a l'acta.)", cx0, floor, {size:7.5,color:PC.muted});
   }
 
   // ---------- Acords de grup ----------
@@ -1210,17 +1230,16 @@ async function makePdf(){
   txt("Acords de grup", M, y-8, {font:T,size:18}); y-=26;
   txt("Acords de l'equip docent per a tot el grup.", M, y, {size:9,color:PC.muted}); y-=12;
   const ag = form.createTextField("acords_grup"); ag.enableMultiline(); ag.setText(clean(S.acords));
-  ag.addToPage(page,{x:M, y:M+16, width:CW, height:y-(M+16)-6, font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
+  ag.addToPage(page,{x:M, y:M+22, width:CW, height:y-(M+22)-6, font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
   ag.setFontSize(10);
-  footer();
 
   // Peu de pàgina amb numeració
   const all = doc.getPages();
   all.forEach((p,i)=>{
     const s = `${titol}${m.data?" · "+m.data:""} · pàgina ${i+1} de ${all.length}`;
-    p.drawText(s,{x:M,y:20,size:7,font:F,color:PC.muted});
+    p.drawText(s,{x:M,y:16,size:7,font:F,color:PC.muted});
     const r = "Conté dades de l'alumnat: no el comparteixis fora de l'equip docent.";
-    p.drawText(r,{x:W-M-width(r,F,7),y:20,size:7,font:F,color:PC.muted});
+    p.drawText(r,{x:W-M-width(r,F,7),y:16,size:7,font:F,color:PC.muted});
   });
   form.updateFieldAppearances(F);
   return doc.save();
