@@ -157,7 +157,6 @@ td.extra{background:var(--warn-soft)}
 .checks input{accent-color:var(--accent);margin:0}
 .cmts{display:flex;flex-direction:column;gap:9px;font-size:.88rem;margin-top:10px}
 .cmts p{margin:0}
-.cmts mark.kw{background:none;color:var(--accent);font-weight:700}
 .cmts b{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block}
 .acta details summary{cursor:pointer;font-weight:700}
 .extra-card{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
@@ -364,9 +363,6 @@ const TAGS = [
   ["assist","Assistència", /faltat|no ha vingut|No assisteix|perdut algunes classes/i],
   ["psi","Comentari: avaluat amb PSI o adaptació", /\bPSI\b|adaptat/i],
 ];
-// Paraules clau que es destaquen als comentaris del professorat
-const KW = /(?<!\p{L})(deures|feina a casa|treball a casa|feines|tasques|entreg\p{L}*|exàmens|examen|proves|prova|controls?|estudi\p{L}*|actitud|comportament|atenci[óo]|atent|distre\p{L}*|xerra\p{L}*|concentra\p{L}*|participa\p{L}*|esfor[çc]\p{L}*|interès|motivaci[óo]|hàbits?|organitzaci[óo]|agenda|material|ortografia|classroom|assist\p{L}*|absènc\p{L}*|faltes|retards?|puntual\p{L}*|mòbil|PSI)(?!\p{L})/giu;
-function kwSegs(t){ const out=[]; let last=0; t=String(t); for (const m of t.matchAll(KW)){ if (m.index>last) out.push([t.slice(last,m.index),0]); out.push([m[0],1]); last=m.index+m[0].length; } if (last<t.length) out.push([t.slice(last),0]); return out; }
 const TAGL = Object.fromEntries(TAGS.map(t=>[t[0],t[1]]));
 const FLAGS = [["entrevista","Entrevista família"],["avis","Avís a la família"],["orientacio","Parlar amb orientació"],["cad","Portar a la CAD"],
   ["seguiment","Seguiment tutoria"],["agenda","Control d'agenda i deures"],["recuperacio","Pla de recuperació"],["psi","Revisar el PSI"],
@@ -939,7 +935,7 @@ function renderDetail(){
     <div><h3><label for="note">Notes de la reunió</label></h3>
     <textarea id="note" placeholder="Què diu l'equip docent, acords, a qui cal avisar…">${esc(S.notes[s.n]||"")}</textarea></div>
     <div class="checks">${FLAGS.map(([k,l])=>`<label><input type="checkbox" data-fl="${k}" ${fl.includes(k)?"checked":""}>${esc(l)}</label>`).join("")}</div>
-    <details ${s.comments.length<=0?"":""}><summary>Comentaris del professorat (${s.comments.length})</summary><div class="cmts">${s.comments.map(([m,t])=>`<p><b>${esc(m)}</b>${kwSegs(t).map(([x,k])=>k?`<mark class="kw">${esc(x)}</mark>`:esc(x)).join("")}</p>`).join("") || `<p class="muted">Cap comentari a l'acta.</p>`}</div></details>`;
+    <details ${s.comments.length<=0?"":""}><summary>Comentaris del professorat (${s.comments.length})</summary><div class="cmts">${s.comments.map(([m,t])=>`<p><b>${esc(m)}</b>${esc(t)}</p>`).join("") || `<p class="muted">Cap comentari a l'acta.</p>`}</div></details>`;
   $("note").addEventListener("input", e=>{ S.notes[s.n]=e.target.value; markDot(); });
   d.querySelectorAll("[data-fl]").forEach(cb=>cb.addEventListener("change", e=>{
     const a=new Set(S.flags[s.n]||[]); e.target.checked?a.add(e.target.dataset.fl):a.delete(e.target.dataset.fl); S.flags[s.n]=[...a]; markDot(); }));
@@ -1081,7 +1077,7 @@ async function makePdf(){
     }
     return cy - lh;
   }
-  // Parteix trossos [text, clau?] en línies d'amplada w; les paraules clau van en negreta i en blau
+  // Parteix el text en línies d'amplada w
   function layout(segs, w, sz){
     const lines=[[]]; let cx=0, prevSpace=true;
     segs.forEach(([t,k])=>clean(t).split(/(\s+)/).forEach(p=>{
@@ -1246,7 +1242,7 @@ async function makePdf(){
     const floor = M+22; let cut=false;
     const drawLine = (ln, yy, last) => { ln.forEach((r,i)=>{ let t=r.t; if (last && i===ln.length-1) t=t+" …"; page.drawText(t,{x:cx0+8+r.x,y:yy,size:8,font:r.f,color:r.c}); }); };
     for (const [mt,t] of s.comments){
-      const lines = layout(kwSegs(t), cwid-8, 8);
+      const lines = layout([[t,0]], cwid-8, 8);
       const need2 = 10 + lines.length*10;
       if (cy-need2 < floor){ const room = Math.floor((cy-floor-20)/10); if (room>=1){ txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10; lines.slice(0,room).forEach((l,i)=>{ drawLine(l, cy, i===room-1&&room<lines.length); cy-=10; }); } cut=true; break; }
       txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10;
