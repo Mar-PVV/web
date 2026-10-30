@@ -364,9 +364,8 @@ const TAGS = [
   ["psi","Comentari: avaluat amb PSI o adaptació", /\bPSI\b|adaptat/i],
 ];
 const TAGL = Object.fromEntries(TAGS.map(t=>[t[0],t[1]]));
-const FLAGS = [["entrevista","Entrevista família"],["avis","Avís a la família"],["orientacio","Parlar amb orientació"],["cad","Portar a la CAD"],
-  ["seguiment","Seguiment tutoria"],["agenda","Control d'agenda i deures"],["recuperacio","Pla de recuperació"],["psi","Revisar el PSI"],
-  ["lloc","Canvi de lloc a l'aula"],["compromis","Compromís / contracte"],["felicitar","Felicitar"]];
+const FLAGS = [["alumne","Parlar amb l'alumne"],["entrevista","Entrevista família"],["orientacio","Parlar amb orientació"],["proposarpsi","Proposar PSI"],
+  ["psi","Revisar el PSI"],["reforc","Proposar reforç"],["lloc","Canvi de lloc a l'aula"],["felicitar","Felicitar"]];
 
 // =====================================================================
 // LECTURA DE L'ACTA (pdf.js): text amb coordenades x/y de cada fragment
