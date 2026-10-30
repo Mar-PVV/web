@@ -372,7 +372,7 @@ El **visualitzador d'actes** (`acta/index.html`, amb el CSS i el JavaScript a di
 - **PDF** (pdf-lib + fontkit, A4 horitzontal, vectors): dues pàgines del grup, una pàgina
   per alumne (notes, tira AE/AN/AS/NA, notes de la reunió a l'esquerra i comentaris a la
   dreta) i «Acords de grup». Té camps de formulari: `notes_07`, `acc_07_entrevista`
-  (també `_orientacio`, `_seguiment`, `_felicitar`, `_compromis`), `nota_07_mat` (si
+  (també `_avis`, `_orientacio`, `_cad`, `_seguiment`, `_agenda`, `_recuperacio`, `_psi`, `_lloc`, `_compromis`, `_felicitar`), `notes_grup` (pàgina 2), `nota_07_mat` (si
   la matèria afegida a mà no té nota) i `acords_grup`. La font Work Sans va incrustada
   sencera perquè els camps mostrin accents i «l·l». Nom: `Preavaluacio_E3D_2026-10-26.pdf`.
 - **Mai** pugis al repo cap acta, CSV de PSI ni PDF generat amb dades reals: el repo

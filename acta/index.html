@@ -157,6 +157,7 @@ td.extra{background:var(--warn-soft)}
 .checks input{accent-color:var(--accent);margin:0}
 .cmts{display:flex;flex-direction:column;gap:9px;font-size:.88rem;margin-top:10px}
 .cmts p{margin:0}
+.cmts mark.kw{background:none;color:var(--accent);font-weight:700}
 .cmts b{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block}
 .acta details summary{cursor:pointer;font-weight:700}
 .extra-card{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
@@ -363,8 +364,13 @@ const TAGS = [
   ["assist","Assistència", /faltat|no ha vingut|No assisteix|perdut algunes classes/i],
   ["psi","Comentari: avaluat amb PSI o adaptació", /\bPSI\b|adaptat/i],
 ];
+// Paraules clau que es destaquen als comentaris del professorat
+const KW = /(?<!\p{L})(deures|feina a casa|treball a casa|feines|tasques|entreg\p{L}*|exàmens|examen|proves|prova|controls?|estudi\p{L}*|actitud|comportament|atenci[óo]|atent|distre\p{L}*|xerra\p{L}*|concentra\p{L}*|participa\p{L}*|esfor[çc]\p{L}*|interès|motivaci[óo]|hàbits?|organitzaci[óo]|agenda|material|ortografia|classroom|assist\p{L}*|absènc\p{L}*|faltes|retards?|puntual\p{L}*|mòbil|PSI)(?!\p{L})/giu;
+function kwSegs(t){ const out=[]; let last=0; t=String(t); for (const m of t.matchAll(KW)){ if (m.index>last) out.push([t.slice(last,m.index),0]); out.push([m[0],1]); last=m.index+m[0].length; } if (last<t.length) out.push([t.slice(last),0]); return out; }
 const TAGL = Object.fromEntries(TAGS.map(t=>[t[0],t[1]]));
-const FLAGS = [["entrevista","Entrevista família"],["orientacio","Parlar amb orientació"],["seguiment","Seguiment tutoria"],["felicitar","Felicitar"],["compromis","Compromís / contracte"]];
+const FLAGS = [["entrevista","Entrevista família"],["avis","Avís a la família"],["orientacio","Parlar amb orientació"],["cad","Portar a la CAD"],
+  ["seguiment","Seguiment tutoria"],["agenda","Control d'agenda i deures"],["recuperacio","Pla de recuperació"],["psi","Revisar el PSI"],
+  ["lloc","Canvi de lloc a l'aula"],["compromis","Compromís / contracte"],["felicitar","Felicitar"]];
 
 // =====================================================================
 // LECTURA DE L'ACTA (pdf.js): text amb coordenades x/y de cada fragment
@@ -912,7 +918,7 @@ function renderTable(){
 }
 function tira(s){
   const C=cols(), k={AE:0,AN:0,AS:0,NA:0}; let q=0; C.forEach(c=>{ const g=grade(s,c); if(g){k[g]++;q++;} });
-  return `<div><div class="stack" title="${G.map(g=>k[g]+" "+g).join(", ")}">${G.map(g=>k[g]?`<i class="g-${g}" style="width:${100*k[g]/C.length}%">${k[g]} ${g}</i>`:"").join("")}</div><p class="small muted" style="margin:4px 0 0">${G.map(g=>`${k[g]} ${g}`).join(" · ")}${q<C.length?` · ${C.length-q} sense nota`:""}</p></div>`;
+  return `<div><div class="stack" title="${G.map(g=>k[g]+" "+g).join(", ")}">${G.map(g=>k[g]?`<i class="g-${g}" style="width:${100*k[g]/C.length}%">${k[g]} ${g}</i>`:"").join("")}</div><p class="small muted" style="margin:4px 0 0">De ${plural(C.length,"matèria","matèries")}: ${G.filter(g=>k[g]).map(g=>`${k[g]} ${g}`).join(", ")}${q<C.length?`, ${C.length-q} sense nota`:""}</p></div>`;
 }
 function renderDetail(){
   const s = S.acta.students.find(x=>x.n===S.sel), d=$("detail");
@@ -924,15 +930,16 @@ function renderDetail(){
   d.innerHTML = `
     <div class="dhead"><div><p class="eyebrow">Núm. ${s.n} · ${plural(naCount(s),"NA","NA")}</p><h2>${esc(nameOf(s))} ${psiOf(s)?`<span class="pill psi">PSI</span>`:""}</h2></div>
     <div class="nav2"><button id="prev" aria-label="Alumne anterior">‹</button><button id="next" aria-label="Alumne següent">›</button></div></div>
-    <div class="minigrid">${C.map(c=>`<div title="${esc(c.long||c.label)}${c.opt&&s.opt[c.key]?" · "+esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]):""}">${esc(c.opt&&s.opt[c.key]?s.opt[c.key]:c.short)}${cell(grade(s,c), s.dub.has(c.key))}</div>`).join("")}</div>
-    ${tira(s)}
+    <div><h3 style="margin-bottom:6px">Recompte</h3>${tira(s)}</div>
+    <div><h3 style="margin-bottom:6px">Per matèria</h3>
+    <div class="minigrid">${C.map(c=>`<div title="${esc(c.long||c.label)}${c.opt&&s.opt[c.key]?" · "+esc(S.acta.optNames[s.opt[c.key]]||s.opt[c.key]):""}">${esc(c.opt&&s.opt[c.key]?s.opt[c.key]:c.short)}${cell(grade(s,c), s.dub.has(c.key))}</div>`).join("")}</div></div>
     ${psiTxt}
     ${tags?`<div class="tagrow">${tags}</div>`:`<p class="small muted" style="margin:0">Cap aspecte a millorar repetit als comentaris.</p>`}
     ${s.exams.length?`<p class="small muted" style="margin:0">Notes d'examen citades: ${esc(s.exams.map(e=>`${sentence(e[0]).toLowerCase()} ${e[1]}`).join(", "))}</p>`:""}
     <div><h3><label for="note">Notes de la reunió</label></h3>
     <textarea id="note" placeholder="Què diu l'equip docent, acords, a qui cal avisar…">${esc(S.notes[s.n]||"")}</textarea></div>
     <div class="checks">${FLAGS.map(([k,l])=>`<label><input type="checkbox" data-fl="${k}" ${fl.includes(k)?"checked":""}>${esc(l)}</label>`).join("")}</div>
-    <details ${s.comments.length<=0?"":""}><summary>Comentaris del professorat (${s.comments.length})</summary><div class="cmts">${s.comments.map(([m,t])=>`<p><b>${esc(m)}</b>${esc(t)}</p>`).join("") || `<p class="muted">Cap comentari a l'acta.</p>`}</div></details>`;
+    <details ${s.comments.length<=0?"":""}><summary>Comentaris del professorat (${s.comments.length})</summary><div class="cmts">${s.comments.map(([m,t])=>`<p><b>${esc(m)}</b>${kwSegs(t).map(([x,k])=>k?`<mark class="kw">${esc(x)}</mark>`:esc(x)).join("")}</p>`).join("") || `<p class="muted">Cap comentari a l'acta.</p>`}</div></details>`;
   $("note").addEventListener("input", e=>{ S.notes[s.n]=e.target.value; markDot(); });
   d.querySelectorAll("[data-fl]").forEach(cb=>cb.addEventListener("change", e=>{
     const a=new Set(S.flags[s.n]||[]); e.target.checked?a.add(e.target.dataset.fl):a.delete(e.target.dataset.fl); S.flags[s.n]=[...a]; markDot(); }));
@@ -1074,6 +1081,18 @@ async function makePdf(){
     }
     return cy - lh;
   }
+  // Parteix trossos [text, clau?] en línies d'amplada w; les paraules clau van en negreta i en blau
+  function layout(segs, w, sz){
+    const lines=[[]]; let cx=0, prevSpace=true;
+    segs.forEach(([t,k])=>clean(t).split(/(\s+)/).forEach(p=>{
+      if (!p) return;
+      if (/^\s+$/.test(p)){ if (cx>0) cx+=width(" ",F,sz); prevSpace=true; return; }
+      const f=k?B:F, pw=width(p,f,sz), glued=!prevSpace && /^[:.,;)]/.test(p); prevSpace=false;
+      if (cx+pw>w && cx>0 && !glued){ lines.push([]); cx=0; }
+      lines[lines.length-1].push({t:p, f, c:k?PC.accent:PC.fg, x:cx}); cx+=pw;
+    }));
+    return lines;
+  }
   function pill(t, x, yy, cls, sz=7.5){
     const [bg,fg] = PILLC[cls]||PILLC[""]; const w = width(t,B,sz)+10;
     page.drawRectangle({x, y:yy-3, width:w, height:sz+6, color:bg, borderRadius:4});
@@ -1149,6 +1168,14 @@ async function makePdf(){
   colR.y-=12; need(colR, 40);
   txt("Dades per revisar a l'acta", colR.x, colR.y, {font:T,size:12}); colR.y-=18;
   checks(st).forEach(segs=>{ need(colR, 24); page.drawCircle({x:colR.x+3,y:colR.y+2.5,size:1.6,color:PC.muted}); colR.y = rich(segs, colR.x+10, colR.y, colR.w-10, 8.4, 11.2, null, brkOf(colR)) - 4; });
+  // Notes de la sessió: camp lliure sota les dues columnes (o en una pàgina nova si no hi cap)
+  { const last=Math.max(colL.pi,colR.pi); const yl=colL.pi===last?colL.y:H-M-14, yr=colR.pi===last?colR.y:H-M-14;
+    let top=Math.min(yl,yr)-10; gpage(last);
+    if (top-(M+24) < 110){ gpage(last+1); top=H-M-14; }
+    txt("Notes de la sessió", M, top-4, {font:T,size:12});
+    const nf = form.createTextField("notes_grup"); nf.enableMultiline(); nf.setText("");
+    nf.addToPage(page,{x:M, y:M+24, width:CW, height:top-16-(M+24), font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
+    nf.setFontSize(9.5); }
   page = gp[gp.length-1];
 
   // ---------- Una pàgina per alumne ----------
@@ -1161,9 +1188,20 @@ async function makePdf(){
     if (psiOf(s)){ const lab = S.psiPdf && psiType(s) ? "PSI · "+psiType(s) : "PSI"; nx += pill(lab, nx, y+3, "psi", 8.5)+12; }
     if (C.some(c=>c.opt)){ const oc=C.filter(c=>c.opt).map(c=>s.opt[c.key]?`${s.opt[c.key]} = ${A.optNames[s.opt[c.key]]||s.opt[c.key]}`:"").filter(Boolean); if (oc.length) txt("Optativa: "+oc.join(", "), nx, y+3, {size:8,color:PC.muted}); }
     y-=24;
-    const n=C.length, gw=Math.min(62,(CW-(n-1)*8)/n);
+    // Fila 1: recompte (quantes AE, AN, AS i NA té). Fila 2: la nota de cada matèria.
+    const LW=82, gx=M+LW, n=C.length, gw=Math.min(60,(CW-LW-(n-1)*7)/n), gridW=n*(gw+7)-7;
+    { const k={AE:0,AN:0,AS:0,NA:0}; let q=0; C.forEach(c=>{ const g=grade(s,c); if(g){k[g]++;q++;} });
+      txt("RECOMPTE", M, y-7, {size:7,font:B,color:PC.muted});
+      const sw = Math.min(gridW, CW*0.5), sh=17; let x=gx;
+      page.drawRectangle({x:gx,y:y-11,width:sw,height:sh,color:PC.none,borderRadius:3});
+      G.forEach(g=>{ if(!k[g]) return; const w=sw*k[g]/n; page.drawRectangle({x,y:y-11,width:w,height:sh,color:PC[g]}); const t=`${k[g]} ${g}`, tw=width(t,B,8.5); if (w>tw+6) page.drawText(t,{x:x+(w-tw)/2,y:y-11+(sh-6.2)/2,size:8.5,font:B,color:PC[g+"i"]}); x+=w; });
+      const info = `de ${plural(n,"matèria","matèries")}: ${G.filter(g=>k[g]).map(g=>`${k[g]} ${g}`).join(", ")}${q<n?`, ${n-q} sense nota`:""}`;
+      txt(info, gx+sw+12, y-6, {size:8.5,color:PC.muted});
+      y-=30; }
+    page.drawLine({start:{x:M,y:y+9},end:{x:gx+gridW,y:y+9},thickness:.5,color:PC.line,dashArray:[2,2]});
+    txt("PER MATÈRIA", M, y-15, {size:7,font:B,color:PC.muted});
     C.forEach((c,i)=>{
-      const x=M+i*(gw+8); const lab = c.opt && s.opt[c.key] ? s.opt[c.key] : c.short;
+      const x=gx+i*(gw+7); const lab = c.opt && s.opt[c.key] ? s.opt[c.key] : c.short;
       const tw=width(lab,B,7); page.drawText(lab,{x:x+(gw-tw)/2,y,size:7,font:B,color:PC.muted});
       const g=grade(s,c);
       if (c.key==="extra" && !g){
@@ -1173,15 +1211,7 @@ async function makePdf(){
         dd.setFontSize(8.5);
       } else gradeBox(g, x, y-21, gw, 16, s.dub.has(c.key));
     });
-    y-=40;
-    // Tira de l'alumne: quantes matèries té amb AE, AN, AS i NA (com les barres per matèria)
-    { const k={AE:0,AN:0,AS:0,NA:0}; let q=0; C.forEach(c=>{ const g=grade(s,c); if(g){k[g]++;q++;} });
-      const sw = Math.min(CW*0.55, n*(gw+8)-8), sh=14; let x=M;
-      page.drawRectangle({x:M,y:y-3,width:sw,height:sh,color:PC.none,borderRadius:2});
-      G.forEach(g=>{ if(!k[g]) return; const w=sw*k[g]/n; page.drawRectangle({x,y:y-3,width:w,height:sh,color:PC[g]}); const t=`${k[g]} ${g}`, tw=width(t,B,7.5); if (w>tw+6) page.drawText(t,{x:x+(w-tw)/2,y:y-3+(sh-5.5)/2,size:7.5,font:B,color:PC[g+"i"]}); x+=w; });
-      const info = `${G.map(g=>`${k[g]} ${g}`).join(" · ")}${q<n?` · ${n-q} sense nota`:""}`;
-      txt(info, M+sw+12, y, {size:8.5,color:PC.muted});
-      y-=22; }
+    y-=42;
     if (psiOf(s)){
       const segs=[["PSI",1],[S.psiPdf && psiType(s) ? ": "+psiType(s)+". " : ". "],["Matèries que diuen al comentari que l'avaluen segons el PSI: "],[((s.tags.psi||[]).map(x=>sentence(x).toLowerCase()).join(", ")||"cap")+".",1]];
       y = rich(segs, M, y, CW, 8.5, 11) - 3;
@@ -1196,7 +1226,7 @@ async function makePdf(){
     const top=y, lwid=CW*0.42, cx0=M+lwid+24, cwid=CW-lwid-24;
     // Esquerra: notes i accions
     txt("Notes de la reunió", M, top-4, {font:T,size:11});
-    const actH = FLAGS.length*16 + 18;
+    const rowsA = Math.ceil(FLAGS.length/2), actH = rowsA*16 + 18;
     const tf = form.createTextField(`notes_${id}`);
     tf.enableMultiline(); tf.setText(clean(S.notes[s.n]||""));
     tf.addToPage(page,{x:M, y:M+22+actH, width:lwid, height:top-14-(M+22+actH), font:F, borderColor:PC.line, borderWidth:1, backgroundColor:PC.field});
@@ -1204,22 +1234,23 @@ async function makePdf(){
     txt("Accions", M, M+22+actH-16, {font:B,size:8.5,color:PC.muted});
     const fl=S.flags[s.n]||[];
     FLAGS.forEach(([k,l],i)=>{
-      const yy = M+22+actH-34-i*16;
+      const yy = M+22+actH-34-(i%rowsA)*16, xx = M + (i<rowsA ? 0 : lwid/2);
       const cb = form.createCheckBox(`acc_${id}_${k}`);
-      cb.addToPage(page,{x:M, y:yy, width:11, height:11, borderColor:PC.accent, borderWidth:1, backgroundColor:PC.white});
+      cb.addToPage(page,{x:xx, y:yy, width:11, height:11, borderColor:PC.accent, borderWidth:1, backgroundColor:PC.white});
       if (fl.includes(k)) cb.check();
-      txt(l, M+17, yy+2, {size:9});
+      txt(l, xx+17, yy+2, {size:9});
     });
     // Dreta: comentaris (fins on hi ha lloc)
     let cy = top-4;
     txt("Comentaris del professorat", cx0, cy, {font:T,size:11}); cy-=16;
     const floor = M+22; let cut=false;
+    const drawLine = (ln, yy, last) => { ln.forEach((r,i)=>{ let t=r.t; if (last && i===ln.length-1) t=t+" …"; page.drawText(t,{x:cx0+8+r.x,y:yy,size:8,font:r.f,color:r.c}); }); };
     for (const [mt,t] of s.comments){
-      const lines = wrap(t, F, 8, cwid-8);
+      const lines = layout(kwSegs(t), cwid-8, 8);
       const need2 = 10 + lines.length*10;
-      if (cy-need2 < floor){ const room = Math.floor((cy-floor-20)/10); if (room>=1){ txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10; lines.slice(0,room).forEach((l,i)=>{ txt(i===room-1&&room<lines.length?l.replace(/\s*\S*$/," …"):l, cx0+8, cy, {size:8}); cy-=10; }); } cut=true; break; }
+      if (cy-need2 < floor){ const room = Math.floor((cy-floor-20)/10); if (room>=1){ txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10; lines.slice(0,room).forEach((l,i)=>{ drawLine(l, cy, i===room-1&&room<lines.length); cy-=10; }); } cut=true; break; }
       txt(mt.toUpperCase(), cx0, cy, {size:7,font:B,color:PC.muted}); cy-=10;
-      lines.forEach(l=>{ txt(l, cx0+8, cy, {size:8}); cy-=10; }); cy-=4;
+      lines.forEach(l=>{ drawLine(l, cy, false); cy-=10; }); cy-=4;
     }
     if (!s.comments.length) txt("Cap comentari a l'acta.", cx0, cy, {size:8.5,color:PC.muted});
     if (cut) txt("(Hi ha més comentaris a l'acta.)", cx0, floor, {size:7.5,color:PC.muted});
