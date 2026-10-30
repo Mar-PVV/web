@@ -58,6 +58,7 @@ web/
 │   └── index.html      pàgina d'eines de tutoria (/tutoria): enllaça distribucions i acta
 ├── acta/
 │   ├── index.html      eina per a tutors: visualitzador d'actes d'iEduca (/acta)
+│   ├── tutorial/       vídeo tutorial de l'eina (/acta/tutorial), fet amb un grup inventat
 │   ├── lib/            pdf.js, pdf-lib i fontkit (còpies locals, vegeu LLICENCIES.md)
 │   └── fonts/          Work Sans i Poppins (TTF, subconjunt llatí) per al PDF
 ├── manifest.json       per instal·lar la web a la pantalla d'inici
@@ -380,6 +381,8 @@ El **visualitzador d'actes** (`acta/index.html`, amb el CSS i el JavaScript a di
 - **Mai** pugis al repo cap acta, CSV de PSI ni PDF generat amb dades reals: el repo
   és públic. Per provar-lo, cal una acta inventada.
 - Les llibreries són còpies locals a `acta/lib/` (sense CDN) i les fonts a `acta/fonts/`.
+- **Tutorial:** `acta/tutorial/` té el vídeo (`tutorial-acta.mp4`), la imatge de portada i la pàgina
+  que el mostra. Està fet amb una acta i un CSV de PSI **del tot inventats** (noms i comentaris).
 
 ---
 
