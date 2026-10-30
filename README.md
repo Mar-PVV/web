@@ -354,7 +354,9 @@ s'enllaça des de la portada: s'hi entra amb l'enllaç directe
 
 El **visualitzador d'actes** (`acta/index.html`, amb el CSS i el JavaScript a dins):
 
-- La tutora puja l'**acta en PDF d'iEduca** i, si vol, un **CSV de PSI**. Tot es llegeix
+- **Portada en tres passos:** grup i avaluació (Preavaluació, 1a, 2a, 3a o Final; surten al títol
+  de la pàgina i del PDF), l'**acta en PDF d'iEduca** i, si vol, un **CSV de PSI** (amb un botó per
+  baixar-ne la plantilla, que ja porta els noms si l'acta ja s'ha penjat). L'anàlisi s'obre amb el botó «Obre l'anàlisi». Tot es llegeix
   al navegador: **no s'envia ni es desa res** (ni al servidor ni al `localStorage`).
   En recarregar la pàgina s'esborra tot; avisa abans de tancar si hi ha notes.
 - **Lectura de l'acta** (pdf.js, `getTextContent()`): es troba la x de cada capçalera

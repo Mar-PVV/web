@@ -58,6 +58,19 @@
 .fitxer b{font-size:.92rem}
 .fitxer .estat{font-size:.85rem;color:var(--muted)}
 .fitxer .estat.ok{color:var(--ok);font-weight:700}
+.passos{display:grid;gap:0;padding:6px 18px}
+.pas{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.pas .num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--titol);font-weight:600;display:flex;align-items:center;justify-content:center}
+.pas.fet .num{background:var(--ok)}
+.pas h2{margin:4px 0 10px}
+.camp{display:grid;gap:4px;font-size:.8rem;font-weight:700;color:var(--muted)}
+.camp input{font-weight:400;font-size:1rem;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--surface);width:150px}
+.acta .seg button[role=radio][aria-checked="true"]{background:var(--accent);color:var(--accent-ink)}
+.pas .drop{padding:20px 16px;gap:8px}
+.pas .estat{margin:8px 0 0;font-size:.88rem;color:var(--muted)}
+.pas .estat.ok{color:var(--ok);font-weight:700}
+.obre{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:18px 0 14px 48px}
+.acta button.gran{font-size:1.02rem;padding:11px 22px;border-radius:10px}
 .priv{display:grid;gap:10px;font-size:.9rem}
 .priv ul{margin:0;padding-left:18px;display:grid;gap:6px}
 .error{background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:10px 14px;font-weight:600;font-size:.92rem}
@@ -194,26 +207,63 @@ td.extra{background:var(--warn-soft)}
     </div>
     <div class="row" id="accions" hidden>
       <button class="primary" id="b-pdf">⬇ Descarrega el PDF</button>
-      <button id="b-psi">Carrega el CSV de PSI</button>
-      <button id="b-altra">Una altra acta</button>
+      <button id="b-inici">Grup, acta i PSI</button>
       <button class="danger" id="b-esborra">Esborra-ho tot</button>
     </div>
   </div>
 
   <!-- INICI -->
   <section id="inici" class="inici">
-    <div class="card">
-      <div class="drop" id="drop">
-        <span class="gran">Arrossega aquí l'acta en PDF</span>
-        <p>L'acta de qualificacions que descarregues d'iEduca (preavaluació o avaluació trimestral de qualsevol grup).</p>
-        <button class="primary" id="b-acta">Tria l'acta (PDF)</button>
+    <div class="card passos">
+      <div class="pas">
+        <span class="num">1</span>
+        <div class="cos">
+          <h2>Grup i avaluació</h2>
+          <div class="row" style="gap:10px 14px">
+            <label class="camp"><span>Grup</span><input id="i-grup" placeholder="p. ex. E3D" autocomplete="off"></label>
+            <div class="camp"><span>Avaluació</span>
+              <div class="seg" id="i-aval" role="radiogroup" aria-label="Avaluació">
+                <button type="button" role="radio" aria-checked="false" data-v="Preavaluació">Preavaluació</button>
+                <button type="button" role="radio" aria-checked="false" data-v="1a avaluació">1a</button>
+                <button type="button" role="radio" aria-checked="false" data-v="2a avaluació">2a</button>
+                <button type="button" role="radio" aria-checked="false" data-v="3a avaluació">3a</button>
+                <button type="button" role="radio" aria-checked="false" data-v="Avaluació final">Final</button>
+              </div>
+            </div>
+          </div>
+          <p class="small muted" style="margin:8px 0 0">Surten al títol de la pàgina i del PDF (p. ex. «Preavaluació E3D»).</p>
+        </div>
       </div>
-      <div class="fitxers">
-        <div class="fitxer"><span><b>Acta d'avaluació</b> <span class="muted small">(PDF d'iEduca)</span></span><span class="estat" id="e-acta">Encara no l'has triada</span></div>
-        <div class="fitxer"><span><b>CSV de PSI</b> <span class="muted small">(opcional: alumne, té PSI, tipus de PSI)</span></span><span class="row"><span class="estat" id="e-psi">Cap</span><button id="b-psi2">Tria el CSV</button></span></div>
+      <div class="pas">
+        <span class="num">2</span>
+        <div class="cos">
+          <h2>Acta d'avaluació d'iEduca <span class="muted small">(PDF)</span></h2>
+          <div class="drop" id="drop">
+            <span class="gran">Arrossega aquí l'acta</span>
+            <button class="primary" id="b-acta">Tria l'acta (PDF)</button>
+          </div>
+          <p class="estat" id="e-acta">Encara no l'has penjada.</p>
+          <div id="carregant" class="carregant" hidden><span class="spin"></span><span>Llegint l'acta…</span></div>
+          <div id="err" class="error" hidden></div>
+        </div>
       </div>
-      <div id="err" class="error" hidden style="margin-top:12px"></div>
-      <div id="carregant" class="carregant" hidden style="margin-top:12px"><span class="spin"></span><span>Llegint l'acta…</span></div>
+      <div class="pas">
+        <span class="num">3</span>
+        <div class="cos">
+          <h2>Alumnes amb PSI <span class="muted small">(opcional)</span></h2>
+          <p class="small" style="margin:0 0 10px">Un CSV amb una fila per alumne: el <b>nom i cognoms</b> a la primera columna i, a la columna <b>PSI</b>, el tipus (TEA, dislèxia…). Deixa-la en blanc si no en té.</p>
+          <div class="row">
+            <button id="b-psi2">Tria el CSV</button>
+            <button id="b-plantilla">⬇ Baixa la plantilla</button>
+            <span class="estat" id="e-psi">Cap CSV.</span>
+          </div>
+          <p class="small muted" style="margin:8px 0 0" id="plantilla-nota">Si primer penges l'acta, la plantilla ja porta els noms de l'alumnat. Obre-la amb Google Sheets o Excel, omple la columna PSI i desa-la com a CSV.</p>
+        </div>
+      </div>
+      <div class="obre">
+        <button class="primary gran" id="b-obre" disabled>Obre l'anàlisi →</button>
+        <span class="small muted" id="falta"></span>
+      </div>
     </div>
     <div class="card priv">
       <h2 style="margin:0">Les dades no surten d'aquest ordinador</h2>
@@ -679,7 +729,7 @@ function readPsi(text){
 // =====================================================================
 // ESTAT (només a la memòria: res es desa al navegador)
 // =====================================================================
-const S = {acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"",
+const S = {grup:"", aval:"", acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"",
   full:false, psiPdf:true, filt:"all", sort:"n", sel:null, tab:"grup"};
 
 function matchPsi(){
@@ -841,7 +891,7 @@ function cell(v, dub){ return v ? `<span class="cell g-${v}${dub?" dub":""}" ${d
 function renderHead(){
   const m = S.acta.meta;
   $("eyebrow").textContent = ["Tutoria", m.nivell, m.curs && "Curs "+m.curs].filter(Boolean).join(" · ");
-  $("titol").textContent = `${m.tipus} ${m.grup}`;
+  $("titol").textContent = `${S.aval||m.tipus} ${S.grup||m.grup}`;
   $("meta").textContent = [m.data && "Sessió d'avaluació: "+m.data, plural(S.acta.students.length,"alumne","alumnes")].filter(Boolean).join(" · ");
 }
 
@@ -971,40 +1021,76 @@ window.addEventListener("beforeunload", e=>{ if (S.acta && dirty()){ e.preventDe
 
 // ---------- Fitxers ----------
 function showErr(msg){ $("err").textContent=msg; $("err").hidden=!msg; }
+function setAval(v){ S.aval=v; document.querySelectorAll("#i-aval [data-v]").forEach(b=>b.setAttribute("aria-checked", b.dataset.v===v)); checkReady(); }
+function checkReady(){
+  S.grup = $("i-grup").value.trim();
+  const falta = [!S.grup && "el grup", !S.aval && "l'avaluació", !S.acta && "l'acta"].filter(Boolean);
+  $("b-obre").disabled = falta.length>0;
+  $("falta").textContent = falta.length ? "Falta "+lst(falta)+"." : "";
+  document.querySelectorAll(".pas")[0].classList.toggle("fet", !!(S.grup && S.aval));
+  document.querySelectorAll(".pas")[1].classList.toggle("fet", !!S.acta);
+  document.querySelectorAll(".pas")[2].classList.toggle("fet", !!S.psiRows);
+}
+function showInici(){ $("vista").hidden=true; $("accions").hidden=true; $("inici").hidden=false; $("b-obre").textContent = S.acta && $("vista").dataset.oberta ? "Torna a l'anàlisi →" : "Obre l'anàlisi →"; checkReady(); window.scrollTo({top:0}); }
+function obre(){
+  checkReady(); if ($("b-obre").disabled) return;
+  matchPsi(); $("vista").dataset.oberta="1";
+  $("inici").hidden=true; $("vista").hidden=false; $("accions").hidden=false;
+  renderHead(); tab(S.tab||"grup"); window.scrollTo({top:0});
+}
 async function loadActa(file){
   if (!file) return;
-  if (S.acta && dirty() && !confirm("Si obres una altra acta, perdràs les notes que has escrit (si no les has descarregat al PDF). Vols continuar?")) return;
+  if (S.acta && dirty() && !confirm("Si canvies l'acta, perdràs les notes que has escrit (si no les has descarregat al PDF). Vols continuar?")) return;
   showErr(""); $("carregant").hidden=false; $("e-acta").textContent="Llegint…"; $("e-acta").className="estat";
   try {
     if (!/\.pdf$/i.test(file.name) && file.type!=="application/pdf") throw new Error("Aquest fitxer no és un PDF.");
     const pdf = await readPdf(await file.arrayBuffer());
     const acta = parseActa(pdf);
-    Object.assign(S, {acta, extra:null, notes:{}, flags:{}, acords:"", sel:acta.students[0].n, filt:"all"});
+    Object.assign(S, {acta, extra:null, notes:{}, flags:{}, acords:"", sel:acta.students[0].n, filt:"all", tab:"grup"});
+    delete $("vista").dataset.oberta;
     $("acords").value="";
     document.querySelectorAll("#filt button").forEach(x=>x.setAttribute("aria-pressed", x.dataset.f==="all"));
     matchPsi();
-    $("e-acta").textContent = "✓ "+file.name; $("e-acta").className="estat ok";
-    $("inici").hidden=true; $("vista").hidden=false; $("accions").hidden=false;
-    renderHead(); tab("grup"); window.scrollTo({top:0});
+    const m = acta.meta;
+    $("e-acta").textContent = `✓ ${file.name}: ${plural(acta.students.length,"alumne","alumnes")}, ${plural(acta.cols.length,"matèria","matèries")}${m.data?", sessió del "+m.data:""}.`; $("e-acta").className="estat ok";
+    if (!$("i-grup").value.trim() && m.grup) $("i-grup").value = m.grup;
+    if (!S.aval){ const t=norm(m.tipus); const v = /preav/.test(t)?"Preavaluació":/^1/.test(t)?"1a avaluació":/^2/.test(t)?"2a avaluació":/^3/.test(t)?"3a avaluació":/final|ordinaria/.test(t)?"Avaluació final":""; if (v) setAval(v); }
+    if (S.psiRows) psiStatus();
   } catch(err){
     console.error(err);
-    $("e-acta").textContent="No s'ha pogut llegir";
+    $("e-acta").textContent="No s'ha pogut llegir."; S.acta=null;
     showErr(err && err.message && /taula|PDF|comentaris/.test(err.message) ? err.message : "No he pogut llegir l'acta. Comprova que és el PDF de l'acta d'avaluació d'iEduca.");
-  } finally { $("carregant").hidden=true; $("f-acta").value=""; }
+  } finally { $("carregant").hidden=true; $("f-acta").value=""; checkReady(); }
+}
+function psiStatus(){
+  $("e-psi").textContent = `✓ ${S.psiFile}: ${plural(S.psiRows.length,"alumne","alumnes")} amb PSI${S.acta?` (${S.psi.size} trobats a l'acta${S.psiUnmatched.length?`, ${S.psiUnmatched.length} sense trobar`:""})`:""}.`;
+  $("e-psi").className="estat ok";
 }
 async function loadPsi(file){
   if (!file) return;
   try {
     const rows = readPsi(await file.text());
-    S.psiRows = rows; S.psiFile = file.name; matchPsi();
-    $("e-psi").textContent = `✓ ${file.name} (${plural(rows.length,"alumne","alumnes")} amb PSI)`; $("e-psi").className="estat ok";
-    if (S.acta){ refreshAll(); toast(`PSI: ${S.psi.size} alumnes aparellats${S.psiUnmatched.length?`, ${S.psiUnmatched.length} sense aparellar`:""}`); }
-  } catch(err){ console.error(err); toast("No he pogut llegir el CSV de PSI"); }
-  $("f-psi").value="";
+    S.psiRows = rows; S.psiFile = file.name; matchPsi(); psiStatus();
+    if (S.acta && !$("vista").hidden) refreshAll();
+  } catch(err){ console.error(err); $("e-psi").textContent="No he pogut llegir el CSV."; $("e-psi").className="estat"; }
+  $("f-psi").value=""; checkReady();
 }
+// Plantilla del CSV de PSI: amb els noms de l'acta, si ja s'ha penjat
+$("b-plantilla").onclick=()=>{
+  const q = v => /[",;\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v;
+  const rows = [["Alumne","PSI"]].concat(S.acta ? S.acta.students.map(s=>[s.full, S.psi.get(s.n)||""]) : [["Nom Cognom1 Cognom2","TEA"],["Nom Cognom1 Cognom2",""]]);
+  const csv = "\uFEFF"+rows.map(r=>r.map(q).join(",")).join("\r\n")+"\r\n";
+  const url = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a"); a.href=url; a.download=`PSI_${(S.grup||"grup").replace(/[^A-Za-z0-9]+/g,"_")}.csv`; document.body.append(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 30000);
+};
+document.querySelectorAll("#i-aval [data-v]").forEach(b=>b.onclick=()=>setAval(b.dataset.v));
+$("i-grup").addEventListener("input", checkReady);
+$("i-grup").addEventListener("keydown", e=>{ if (e.key==="Enter") obre(); });
+$("b-obre").onclick=obre;
+$("b-inici").onclick=showInici;
 $("b-acta").onclick=()=>$("f-acta").click();
-$("b-altra").onclick=()=>$("f-acta").click();
-$("b-psi").onclick=$("b-psi2").onclick=()=>$("f-psi").click();
+$("b-psi2").onclick=()=>$("f-psi").click();
 $("f-acta").onchange=e=>loadActa(e.target.files[0]);
 $("f-psi").onchange=e=>loadPsi(e.target.files[0]);
 const drop=$("drop");
@@ -1014,10 +1100,11 @@ drop.addEventListener("drop", e=>{ const fs=[...e.dataTransfer.files]; const csv
 window.addEventListener("dragover", e=>e.preventDefault()); window.addEventListener("drop", e=>e.preventDefault());
 $("b-esborra").onclick=()=>{
   if (!confirm("S'esborrarà l'acta, el CSV de PSI i totes les notes d'aquesta pàgina. Si no has descarregat el PDF, es perdran. Vols continuar?")) return;
-  Object.assign(S, {acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"", sel:null});
-  $("acords").value=""; $("vista").hidden=true; $("accions").hidden=true; $("inici").hidden=false;
-  $("e-acta").textContent="Encara no l'has triada"; $("e-acta").className="estat"; $("e-psi").textContent="Cap"; $("e-psi").className="estat";
+  Object.assign(S, {grup:"", aval:"", acta:null, psiRows:null, psiFile:"", psi:new Map(), psiUnmatched:[], extra:null, notes:{}, flags:{}, acords:"", sel:null, tab:"grup"});
+  delete $("vista").dataset.oberta; $("acords").value=""; $("i-grup").value=""; setAval("");
+  $("e-acta").textContent="Encara no l'has penjada."; $("e-acta").className="estat"; $("e-psi").textContent="Cap CSV."; $("e-psi").className="estat";
   $("titol").textContent="Visualitzador d'actes"; $("eyebrow").textContent="Tutoria"; $("meta").textContent="Anàlisi de l'acta d'avaluació d'iEduca per preparar la sessió amb l'equip docent.";
+  showInici();
   toast("Tot esborrat");
 };
 
@@ -1047,7 +1134,7 @@ async function makePdf(){
   const B = await doc.embedFont(r600, {subset:true});
   const T = await doc.embedFont(rTit, {subset:true});
   const A=S.acta, m=A.meta, C=cols(), st=stats();
-  const titol = `${m.tipus} ${m.grup}`;
+  const titol = `${S.aval||m.tipus} ${S.grup||m.grup}`;
   doc.setTitle(`${titol}${m.data?" · "+m.data:""}`); doc.setAuthor("Tutoria"); doc.setCreator("Visualitzador d'actes · INS Pere Vives"); doc.setProducer("pdf-lib");
   const form = doc.getForm();
   // A4 horitzontal: es llegeix a l'ordinador i, si s'imprimeix, també va bé així.
@@ -1273,7 +1360,7 @@ async function makePdf(){
 function fileName(){
   const m=S.acta.meta;
   const slug = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"");
-  return `${slug(m.tipus)}_${slug(m.grup)}_${m.dataIso||"sense-data"}.pdf`;
+  return `${slug(S.aval||m.tipus)}_${slug(S.grup||m.grup)}_${m.dataIso||"sense-data"}.pdf`;
 }
 $("b-pdf").onclick = async () => {
   const b=$("b-pdf"); b.disabled=true; const t=b.textContent; b.textContent="Generant el PDF…";
@@ -1288,7 +1375,8 @@ $("b-pdf").onclick = async () => {
 };
 
 // Per a les proves automàtiques (no exposa cap dada fora de la pàgina)
-window.__acta = {parseActa, readPdf, makePdf, S, stats, points, checks, loadActa, loadPsi};
+window.__acta = {parseActa, readPdf, makePdf, S, stats, points, checks, loadActa, loadPsi, obre};
+checkReady();
 })();
 </script>
 </body>
