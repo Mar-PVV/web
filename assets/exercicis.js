@@ -25,11 +25,11 @@
       '<span>' + p + (extra ? extra(i) : '') + '</span></li>').join('') + '</ul>';
 
   // ── Vídeos de les solucions ─────────────────────────────────────────────
-  // Surten d'assets/videos-batx.csv (s'edita a mà): tema, exercici, apartat
+  // Surten d'assets/videos-batx.csv?v=3a1578e4 (s'edita a mà): tema, exercici, apartat
   // (lletra, o buit si és tot l'exercici), vídeo i segon on comença.
   const ICONA_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
   const segons = s => (s || '0').split(':').reduce((a, x) => a * 60 + (parseFloat(x) || 0), 0);
-  const videos = fetch('assets/videos-batx.csv?v=0')
+  const videos = fetch('assets/videos-batx.csv?v=3a1578e4')
     .then(r => r.ok ? r.text() : '')
     .catch(() => '')
     .then(txt => {

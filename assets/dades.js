@@ -1,6 +1,6 @@
 /* Generat per publica.sh — no editar a mà */
 window.DADES = {
-  "generat": "29/10/2026",
+  "generat": "02/11/2026",
   "cursos": {
     "3eso": {
       "nom": "3r d'ESO",
