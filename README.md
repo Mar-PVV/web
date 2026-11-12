@@ -47,13 +47,13 @@ web/
 ├── eso.html            temes i aplicatius de 3r d'ESO · s'edita a mà
 ├── decimal-fraccio.html  aplicatiu: de decimal a fracció (3r ESO, tema 1)
 ├── suma-resta-fraccions.html  aplicatiu: suma i resta de fraccions (3r ESO, tema 1)
-├── suma-resta-polinomis.html  aplicatiu: suma i resta de polinomis (3r ESO, tema 2; encara sense enllaç a eso.html)
-├── multiplica-polinomis.html  aplicatiu: multiplicació de monomis i polinomis (3r ESO, tema 2; encara sense enllaç)
-├── factor-comu.html   aplicatiu: treure factor comú (3r ESO, tema 2; encara sense enllaç)
-├── identitats-notables.html  aplicatiu: identitats notables, desenvolupar i reconèixer (3r ESO, tema 2; encara sense enllaç)
-├── monomis-polinomis.html  aplicatiu: parts d'un monomi i d'un polinomi, monomis semblants (3r ESO, tema 2; encara sense enllaç)
+├── suma-resta-polinomis.html  aplicatiu: suma i resta de polinomis (3r ESO, tema 2)
+├── multiplica-polinomis.html  aplicatiu: multiplicació de monomis i polinomis (3r ESO, tema 2)
+├── factor-comu.html   aplicatiu: treure factor comú (3r ESO, tema 2)
+├── identitats-notables.html  aplicatiu: identitats notables, desenvolupar i reconèixer (3r ESO, tema 2)
+├── monomis-polinomis.html  aplicatiu: parts d'un monomi i d'un polinomi, monomis semblants (3r ESO, tema 2)
 ├── repas-racionals.html  aplicatiu: repàs del tema 1 per nivells AS/AN/AE (3r ESO)
-├── repas-polinomis.html  aplicatiu: repàs del tema 2 per nivells AS/AN/AE (3r ESO; encara sense enllaç)
+├── repas-polinomis.html  aplicatiu: repàs del tema 2 per nivells AS/AN/AE (3r ESO)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
