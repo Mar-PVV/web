@@ -31,10 +31,10 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/batx/2 Funcions/Activitats - Funcions.pdf",
-              "mida": "226 kB"
+              "mida": "230 kB"
             }
           ],
-          "enLinia": 25
+          "enLinia": 26
         },
         {
           "num": 3,
