@@ -50,6 +50,7 @@ web/
 ├── suma-resta-polinomis.html  aplicatiu: suma i resta de polinomis (3r ESO, tema 2; encara sense enllaç a eso.html)
 ├── multiplica-polinomis.html  aplicatiu: multiplicació de monomis i polinomis (3r ESO, tema 2; encara sense enllaç)
 ├── factor-comu.html   aplicatiu: treure factor comú (3r ESO, tema 2; encara sense enllaç)
+├── identitats-notables.html  aplicatiu: identitats notables, desenvolupar i reconèixer (3r ESO, tema 2; encara sense enllaç)
 ├── repas-racionals.html  aplicatiu: repàs del tema 1 per nivells AS/AN/AE (3r ESO)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
@@ -76,6 +77,7 @@ web/
 │   ├── suma-resta-polinomis.js  l'aplicatiu de suma i resta de polinomis
 │   ├── multiplica-polinomis.js  l'aplicatiu de multiplicació de polinomis
 │   ├── factor-comu.js     l'aplicatiu de factor comú
+│   ├── identitats-notables.js  l'aplicatiu d'identitats notables
 │   ├── repas-racionals.css, repas-racionals.js  l'aplicatiu de repàs del tema 1
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── videos-batx.csv quins exercicis tenen vídeo a la solució · s'edita a mà

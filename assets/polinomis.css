@@ -70,3 +70,18 @@
 .dec2frac .prod-op{justify-self:end; white-space:nowrap}
 .dec2frac .box.ex{width:2em; font-size:15px; padding:0 .05em; line-height:1.15}
 .dec2frac sup.supbox{vertical-align:baseline; position:relative; top:-.62em; margin-left:.08em}
+
+/* Identitats notables: tria de la identitat, mode i caselles amb etiqueta (a², 2ab, b²) */
+.dec2frac .tria{display:flex; flex-wrap:wrap; gap:8px; flex-basis:100%}
+.dec2frac .tria-op{font-family:var(--titol); font-weight:600; font-size:14px; padding:9px 16px; border:1.5px solid var(--vora); border-radius:22px; background:var(--blanc); color:var(--text); cursor:pointer}
+.dec2frac .tria-op:hover{background:var(--blau-fons); border-color:var(--blau-vora)}
+.dec2frac .tria-op[aria-pressed="true"]{background:var(--blau); border-color:var(--blau); color:#fff}
+.dec2frac .tria-op.bad{background:var(--vermell-fons); border-color:var(--vermell); color:var(--vermell)}
+.dec2frac .tria-op:focus-visible{outline:3px solid var(--blau-vora); outline-offset:2px}
+.dec2frac .amb-et{display:inline-flex; flex-direction:column; align-items:center; gap:2px}
+.dec2frac .amb-et small{font-family:var(--mates); font-size:14px; color:var(--tenue)}
+.dec2frac .copia{color:var(--suau)}
+.dec2frac .modes{display:inline-flex; padding:3px; background:var(--fons); border:1px solid var(--vora); border-radius:10px}
+.dec2frac .mode{font-family:var(--titol); font-weight:600; font-size:13.5px; padding:6px 14px; border:0; border-radius:7px; background:transparent; color:var(--suau); cursor:pointer}
+.dec2frac .mode[aria-pressed="true"]{background:var(--blau); color:#fff; box-shadow:0 1px 3px rgba(43,43,43,.18)}
+.dec2frac .mode:focus-visible{outline:3px solid var(--blau-vora); outline-offset:2px}
