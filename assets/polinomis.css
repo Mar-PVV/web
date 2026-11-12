@@ -1,0 +1,65 @@
+/* Aplicatius del tema 2 de 3r d'ESO (Polinomis).
+   Fan servir els estils comuns dels aplicatius (decimal-fraccio.css, dins de
+   main.dec2frac); aquí hi ha el que és propi dels polinomis: caselles per terme
+   (coeficient amb el seu signe + part literal), grups de semblants i vista prèvia. */
+
+.dec2frac .nivells .boto-metode{margin-left:auto}
+.dec2frac i{font-style:italic}
+.dec2frac sup{font-size:.62em; vertical-align:.55em; line-height:0; margin-left:.04em}
+
+/* Termes: el signe d'entre termes amb una mica d'aire */
+.dec2frac .t{white-space:nowrap}
+.dec2frac .pol{display:inline; white-space:normal}
+.dec2frac .lit{white-space:nowrap}
+.dec2frac .t .sg, .dec2frac .sg{padding:0 .28em}
+.dec2frac .pr{color:var(--suau); padding:0 .04em}
+
+/* Enunciat */
+.dec2frac .objectiu-pol{font-size:clamp(32px,6vw,46px); padding:30px 0 14px; display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline}
+.dec2frac .defs{display:flex; flex-wrap:wrap; justify-content:center; gap:6px 28px; padding:0 0 22px; font-family:var(--mates); font-size:22px; color:var(--blau-fosc)}
+.dec2frac .def{white-space:nowrap}
+
+/* Fila de treball */
+.dec2frac .pol-work{font-size:26px; align-items:center; gap:.45em .5em}
+.dec2frac .pol-work .lbl.fila-pol{flex-basis:auto; font-family:var(--mates); font-size:26px; gap:.45em; flex-wrap:wrap}
+.dec2frac .fix{display:inline-flex; align-items:baseline}
+
+/* Caselles: coeficient (amb signe) + part literal, sense cap + fix entre elles */
+.dec2frac .caselles{display:inline-flex; flex-wrap:wrap; align-items:center; gap:.3em .45em}
+.dec2frac .cterme{display:inline-flex; align-items:baseline; gap:.06em; white-space:nowrap}
+.dec2frac .box.cf{width:3.1em; font-size:24px; padding:.08em .1em}
+.dec2frac .cterme sup{font-size:.6em}
+
+/* Grups de semblants */
+.dec2frac .grups{display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; flex-basis:100%}
+.dec2frac .grup{display:inline-flex; flex-direction:column; gap:6px; padding:8px 12px 10px; background:var(--fons); border:1px solid var(--vora); border-radius:var(--radi-petit)}
+.dec2frac .grup-et{font-family:var(--titol); font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--tenue)}
+.dec2frac .grup-et .lit{text-transform:none}
+.dec2frac .grup-et i{font-family:var(--mates); font-size:15px; text-transform:none; letter-spacing:0; color:var(--suau)}
+.dec2frac .grup-et sup{font-size:.7em}
+
+/* Vista prèvia «Així queda» */
+.dec2frac .previ{margin:0; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; padding:8px 14px; border:1px dashed var(--vora); border-radius:var(--radi-petit); background:var(--blanc)}
+.dec2frac .previ-et{font-family:var(--titol); font-weight:700; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--tenue)}
+.dec2frac .previ-m{font-family:var(--mates); font-size:22px; color:var(--text)}
+.dec2frac .forat{color:var(--tenue)}
+
+/* Pas fet i resultat */
+.dec2frac .fet{font-family:var(--mates); font-size:22px}
+.dec2frac .fet .nota-m{font-family:var(--cos); font-size:13px; color:var(--suau)}
+.dec2frac .step.skipped .fet{background:var(--fons); border-color:var(--vora)}
+.dec2frac .final-r{color:var(--verd)}
+.dec2frac .pol-final{font-size:30px}
+.dec2frac .partim .m{font-size:21px}
+
+/* Panell del mètode */
+.dec2frac .pol-ex{font-size:24px}
+.dec2frac .mcap .exnum{font-size:18px}
+.dec2frac .pex{font-size:16px}
+
+@media (max-width:620px){
+  .dec2frac .nivells .boto-metode{margin-left:0}
+  .dec2frac .pol-work, .dec2frac .pol-work .lbl.fila-pol{font-size:21px}
+  .dec2frac .box.cf{font-size:20px}
+  .dec2frac .defs{font-size:18px}
+}

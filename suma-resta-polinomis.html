@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suma i resta de polinomis · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Aplicatiu de 3r d'ESO per practicar pas a pas la suma i la resta de polinomis.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=af0daac1">
+<link rel="stylesheet" href="assets/decimal-fraccio.css?v=aa370179">
+<link rel="stylesheet" href="assets/polinomis.css">
+</head>
+<body data-curs="3eso">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="eso.html" aria-current="page">3r d'ESO</a>
+      <a href="batx.html">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall dec2frac">
+  <div class="titol-curs">
+    <span class="etiq">Polinomis</span>
+    <h1>Suma i resta <em>de polinomis</em></h1>
+    <p>Practica pas a pas: treure els parèntesis, agrupar els termes semblants i reduir-los. A cada casella hi va un terme: escriu-hi el coeficient amb el seu signe (si és positiu, no cal el +) i prem <b>Comprova</b> (o la tecla Retorn).</p>
+  </div>
+
+  <div class="nivells" id="barraNivell" role="group" aria-labelledby="nivellEt">
+    <span class="nivells-et" id="nivellEt">Nivell</span>
+    <span class="interruptor">
+      <button class="nivell" data-nivell="facil" aria-pressed="true" type="button">Fàcil</button>
+      <button class="nivell" data-nivell="normal" aria-pressed="false" type="button">Normal</button>
+    </span>
+    <span class="nivells-desc" id="nivellDesc">reduir i sumar, sense nombres negatius</span>
+    <button class="boto boto-metode" id="btnMetode" aria-expanded="false" aria-controls="metode" type="button">Recorda el mètode <span class="fletxa" aria-hidden="true">▾</span></button>
+  </div>
+
+  <section class="metode" id="metode" hidden aria-label="Recorda el mètode">
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
+      <div class="mcos">
+        <span class="tag" style="background:var(--verd-fons);color:var(--verd)">Termes semblants</span>
+        <p>Tenen la <b>mateixa part literal</b>: la mateixa lletra amb el mateix exponent. Només es poden sumar o restar els semblants: se sumen els coeficients i la part literal es manté.</p>
+        <div class="exemple pol-ex"><span>3<i>x</i><sup>2</sup> + 5<i>x</i><sup>2</sup> = 8<i>x</i><sup>2</sup></span></div>
+        <p><b>Ull!</b> 2<i>x</i><sup>2</sup> + 3<i>x</i> ja és el resultat: no dona 5<i>x</i><sup>3</sup> ni 5<i>x</i><sup>2</sup>.</p>
+      </div>
+    </article>
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#FFD576,#FFAC78,#F99EB5)"></span>
+      <div class="mcos">
+        <div class="mcap">
+          <span class="tag" style="background:var(--blau-fons);color:var(--blau)">Suma i resta</span>
+          <span class="exnum"><small>Exemple</small>(3<i>x</i><sup>2</sup> + 2<i>x</i> − 1) − (5<i>x</i> − 3)</span>
+        </div>
+        <ol class="passos">
+          <li><span class="pnum" style="background:#FFE7AE">1</span><span class="ptext"><b>Treu els parèntesis</b><span>un − davant canvia el signe de tots els termes de dins</span></span><span class="pex">3<i>x</i><sup>2</sup> + 2<i>x</i> − 1 − 5<i>x</i> + 3</span></li>
+          <li><span class="pnum" style="background:#FFD3B8">2</span><span class="ptext"><b>Agrupa els termes semblants</b><span>cada terme s'emporta el seu signe</span></span><span class="pex">3<i>x</i><sup>2</sup> + 2<i>x</i> − 5<i>x</i> − 1 + 3</span></li>
+          <li><span class="pnum" style="background:#FBCCD8">3</span><span class="ptext"><b>Redueix i ordena</b><span>de grau més gran a més petit</span></span><span class="pex">3<i>x</i><sup>2</sup> − 3<i>x</i> + 2</span></li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <div class="marcador" id="stats" aria-live="polite"></div>
+
+  <section class="exercici" id="card">
+    <p class="enunciat"><span id="enunciat">Calcula i ordena el resultat</span><span class="tipus" id="tag"></span></p>
+    <div class="objectiu objectiu-pol" id="target"></div>
+    <div class="defs" id="defs" hidden></div>
+    <div class="steps" id="steps"></div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/suma-resta-polinomis.js"></script>
+</body>
+</html>

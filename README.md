@@ -47,6 +47,7 @@ web/
 ├── eso.html            temes i aplicatius de 3r d'ESO · s'edita a mà
 ├── decimal-fraccio.html  aplicatiu: de decimal a fracció (3r ESO, tema 1)
 ├── suma-resta-fraccions.html  aplicatiu: suma i resta de fraccions (3r ESO, tema 1)
+├── suma-resta-polinomis.html  aplicatiu: suma i resta de polinomis (3r ESO, tema 2; encara sense enllaç a eso.html)
 ├── repas-racionals.html  aplicatiu: repàs del tema 1 per nivells AS/AN/AE (3r ESO)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
@@ -69,6 +70,8 @@ web/
 │   ├── decimal-fraccio.css, decimal-fraccio.js  l'aplicatiu de decimal a fracció
 │   │                   (el CSS també té els estils comuns de tots els aplicatius)
 │   ├── suma-resta-fraccions.css, suma-resta-fraccions.js  l'aplicatiu de suma i resta
+│   ├── polinomis.css      estils comuns dels aplicatius del tema 2 (caselles per terme, grups, «Així queda»)
+│   ├── suma-resta-polinomis.js  l'aplicatiu de suma i resta de polinomis
 │   ├── repas-racionals.css, repas-racionals.js  l'aplicatiu de repàs del tema 1
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── videos-batx.csv quins exercicis tenen vídeo a la solució · s'edita a mà
