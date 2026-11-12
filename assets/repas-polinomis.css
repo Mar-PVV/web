@@ -1,0 +1,16 @@
+/* Aplicatiu «Repàs del tema 2 · Polinomis» (3r d'ESO).
+   Fa servir els estils del repàs del tema 1 (repas-racionals.css) i els dels
+   aplicatius de polinomis (polinomis.css); aquí només hi ha el que és propi. */
+.repas .rp-gran-mt sup{font-size:.6em; vertical-align:.6em; line-height:0}
+.repas .rp-camp-pol{gap:8px}
+.repas .rp-polin{display:inline-flex; align-items:center; gap:.2em; font-family:var(--mates); font-size:24px}
+.repas .rp-polin .caselles{gap:.3em .4em}
+.repas .rp-polin .cterme{font-size:24px}
+.repas .rp-pr{font-size:1.5em; line-height:1; color:var(--suau)}
+.repas .rp-camp-pol .previ{min-height:2.4em}
+.repas .rp-camp-pol .previ-m{font-size:20px}
+.repas .rp-camp-pol .previ-m .mt{font-size:1em}
+/* factor comú: el factor i el parèntesi un al costat de l'altre */
+.repas .rp-camps-fc{align-items:flex-start; gap:16px 10px}
+.repas .rp-opcions .mt sup, .repas .rp-res .mt sup, .repas .rp-enunciat .mt sup, .repas .rp-sol .mt sup{font-size:.62em; vertical-align:.5em; line-height:0}
+.repas .rp-c-ok .rp-camp-et::after{content:" ✓"; color:var(--verd)}
