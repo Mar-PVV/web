@@ -63,3 +63,10 @@
   .dec2frac .box.cf{font-size:20px}
   .dec2frac .defs{font-size:18px}
 }
+
+/* Multiplicació: una fila per producte, amb casella d'exponent petita */
+.dec2frac .prods{display:grid; grid-template-columns:max-content; gap:8px; flex-basis:100%}
+.dec2frac .work .lbl.fila-prod{font-family:var(--mates); font-size:24px; display:grid; grid-template-columns:minmax(7em,max-content) auto auto; justify-content:start; align-items:center; gap:.45em}
+.dec2frac .prod-op{justify-self:end; white-space:nowrap}
+.dec2frac .box.ex{width:2em; font-size:15px; padding:0 .05em; line-height:1.15}
+.dec2frac sup.supbox{vertical-align:baseline; position:relative; top:-.62em; margin-left:.08em}
