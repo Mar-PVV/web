@@ -51,6 +51,7 @@ web/
 ├── multiplica-polinomis.html  aplicatiu: multiplicació de monomis i polinomis (3r ESO, tema 2; encara sense enllaç)
 ├── factor-comu.html   aplicatiu: treure factor comú (3r ESO, tema 2; encara sense enllaç)
 ├── identitats-notables.html  aplicatiu: identitats notables, desenvolupar i reconèixer (3r ESO, tema 2; encara sense enllaç)
+├── monomis-polinomis.html  aplicatiu: parts d'un monomi i d'un polinomi, monomis semblants (3r ESO, tema 2; encara sense enllaç)
 ├── repas-racionals.html  aplicatiu: repàs del tema 1 per nivells AS/AN/AE (3r ESO)
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
@@ -78,6 +79,7 @@ web/
 │   ├── multiplica-polinomis.js  l'aplicatiu de multiplicació de polinomis
 │   ├── factor-comu.js     l'aplicatiu de factor comú
 │   ├── identitats-notables.js  l'aplicatiu d'identitats notables
+│   ├── monomis-polinomis.js  l'aplicatiu de monomis i polinomis
 │   ├── repas-racionals.css, repas-racionals.js  l'aplicatiu de repàs del tema 1
 │   ├── preguntes-limits.csv  preguntes del test · s'edita a mà
 │   ├── videos-batx.csv quins exercicis tenen vídeo a la solució · s'edita a mà
@@ -89,7 +91,8 @@ web/
 ├── videos/             vídeos de les solucions de batxillerat (MP4)
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
 ├── proves/
-│   └── prova-repas-racionals.js  prova automàtica del repàs (node proves/prova-repas-racionals.js)
+│   ├── prova-repas-racionals.js  prova automàtica del repàs (node proves/prova-repas-racionals.js)
+│   └── prova-*-polinomis.js, prova-factor-comu.js, prova-identitats-notables.js  proves dels aplicatius del tema 2 (node proves/<fitxer>)
 ├── publica.sh          decideix què es publica, copia els PDF i regenera dades.js
 ├── genera-exercicis.py converteix les activitats .tex en JSON
 ├── grafics.py          converteix els gràfics TikZ en SVG (el crida genera-exercicis.py)

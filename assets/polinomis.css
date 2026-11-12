@@ -85,3 +85,19 @@
 .dec2frac .mode{font-family:var(--titol); font-weight:600; font-size:13.5px; padding:6px 14px; border:0; border-radius:7px; background:transparent; color:var(--suau); cursor:pointer}
 .dec2frac .mode[aria-pressed="true"]{background:var(--blau); color:#fff; box-shadow:0 1px 3px rgba(43,43,43,.18)}
 .dec2frac .mode:focus-visible{outline:3px solid var(--blau-vora); outline-offset:2px}
+
+/* Monomis i polinomis: un camp per fila (etiqueta, resposta i ajuda) */
+.dec2frac .parts{display:grid; gap:14px; font-size:22px}
+.dec2frac .work .lbl.camp{display:grid; grid-template-columns:13em minmax(0,1fr); align-items:center; gap:6px 14px; font-size:16px}
+.dec2frac .lbl.camp > b{font-family:var(--titol); font-weight:600; font-size:15px}
+.dec2frac .lbl.camp > small{grid-column:2; font-size:12.5px; color:var(--tenue)}
+.dec2frac .lbl.camp .box{justify-self:start; font-family:var(--mates); font-size:22px}
+.dec2frac .lbl.camp .tria{padding:0}
+.dec2frac .lbl.camp .tria-op{font-family:var(--mates); font-weight:400; font-size:21px; padding:4px 16px}
+.dec2frac .lbl.camp .tria-op.ok{background:var(--verd-fons); border-color:var(--verd); color:var(--verd)}
+.dec2frac .lbl.camp .tria-op .frac{font-size:.8em}
+.dec2frac .lbl.camp .tria-op sup, .dec2frac .resum-parts sup{font-size:.62em}
+.dec2frac .resum-parts{font-size:22px !important}
+.dec2frac .resum-parts .frac{font-size:.8em}
+.dec2frac .objectiu-pol .frac{font-size:.7em}
+@media (max-width:620px){ .dec2frac .work .lbl.camp{grid-template-columns:minmax(0,1fr)} .dec2frac .lbl.camp > small{grid-column:1} }

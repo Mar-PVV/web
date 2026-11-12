@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monomis i polinomis · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Aplicatiu de 3r d'ESO per reconèixer les parts dels monomis i dels polinomis i els monomis semblants.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=af0daac1">
+<link rel="stylesheet" href="assets/decimal-fraccio.css?v=aa370179">
+<link rel="stylesheet" href="assets/polinomis.css">
+</head>
+<body data-curs="3eso">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="eso.html" aria-current="page">3r d'ESO</a>
+      <a href="batx.html">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall dec2frac">
+  <div class="titol-curs">
+    <span class="etiq">Polinomis</span>
+    <h1>Monomis <em>i polinomis</em></h1>
+    <p>Coeficient, part literal i grau d'un monomi; termes, grau i terme independent d'un polinomi; i monomis semblants. Omple-ho i prem <b>Comprova</b> (o la tecla Retorn).</p>
+  </div>
+
+  <div class="nivells" id="barraNivell" role="group" aria-labelledby="nivellEt">
+    <span class="nivells-et">Practica</span>
+    <span class="modes" role="group" aria-label="Què practiques">
+      <button class="mode" data-tipus="barreja" aria-pressed="true" type="button">De tot</button>
+      <button class="mode" data-tipus="monomi" aria-pressed="false" type="button">Monomis</button>
+      <button class="mode" data-tipus="polinomi" aria-pressed="false" type="button">Polinomis</button>
+      <button class="mode" data-tipus="semblants" aria-pressed="false" type="button">Semblants</button>
+    </span>
+    <span class="nivells-et" id="nivellEt">Nivell</span>
+    <span class="interruptor">
+      <button class="nivell" data-nivell="facil" aria-pressed="true" type="button">Fàcil</button>
+      <button class="nivell" data-nivell="normal" aria-pressed="false" type="button">Normal</button>
+    </span>
+    <span class="nivells-desc" id="nivellDesc">una sola lletra, sense negatius</span>
+    <button class="boto boto-metode" id="btnMetode" aria-expanded="false" aria-controls="metode" type="button">Recorda <span class="fletxa" aria-hidden="true">▾</span></button>
+  </div>
+
+  <section class="metode" id="metode" hidden aria-label="Recorda">
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#A8CEFA,#7AD5CC,#CAE8C8)"></span>
+      <div class="mcos">
+        <span class="tag" style="background:var(--verd-fons);color:var(--verd)">Monomis</span>
+        <p><b>Coeficient</b>: el nombre, amb el seu signe. <b>Part literal</b>: les lletres amb els exponents. <b>Grau</b>: la suma dels exponents.</p>
+        <div class="exemple pol-ex"><span>−3<i>x</i><sup>2</sup><i>y</i> → coef. −3, part literal <i>x</i><sup>2</sup><i>y</i>, grau 3</span></div>
+        <p><b>Ull!</b> <i>x</i><sup>2</sup> = 1<i>x</i><sup>2</sup> i −<i>y</i> = −1<i>y</i>. Una lletra sense exponent té exponent 1, i un nombre sol té grau 0.</p>
+        <p><b>Semblants</b>: la mateixa part literal (mateixes lletres i mateixos exponents). El coeficient pot ser diferent.</p>
+      </div>
+    </article>
+    <article class="mcard">
+      <span class="banda" style="background:linear-gradient(90deg,#FFD576,#FFAC78,#F99EB5)"></span>
+      <div class="mcos">
+        <span class="tag" style="background:var(--blau-fons);color:var(--blau)">Polinomis</span>
+        <div class="exemple pol-ex"><span><i>P</i>(<i>x</i>) = 3<i>x</i><sup>4</sup> − 2<i>x</i><sup>2</sup> + <i>x</i> − 5</span></div>
+        <ol class="passos">
+          <li><span class="pnum" style="background:#FFE7AE">1</span><span class="ptext"><b>Termes</b><span>cada monomi és un terme</span></span><span class="pex">4 termes</span></li>
+          <li><span class="pnum" style="background:#FFD3B8">2</span><span class="ptext"><b>Grau</b><span>el del terme de grau més alt</span></span><span class="pex">3<i>x</i><sup>4</sup> → grau 4</span></li>
+          <li><span class="pnum" style="background:#FBCCD8">3</span><span class="ptext"><b>Terme independent</b><span>el que no té lletra</span></span><span class="pex">−5</span></li>
+        </ol>
+      </div>
+    </article>
+  </section>
+
+  <div class="marcador" id="stats" aria-live="polite"></div>
+
+  <section class="exercici" id="card">
+    <p class="enunciat"><span id="enunciat"></span></p>
+    <div class="objectiu objectiu-pol" id="target"></div>
+    <div class="steps" id="steps"></div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/monomis-polinomis.js"></script>
+</body>
+</html>
