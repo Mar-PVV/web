@@ -195,7 +195,7 @@
        "solucioParts": [
         "$a_1=-1$;  $a_2=1$;  $a_4=2$;  $a_{10}=2{,}6$;  $a_{100}=2{,}96$;  $a_{1000}=2{,}996$.",
         "Els termes s'acosten al valor $3$.",
-        "No superen mai $3$ (ja que $-\\tfrac{4}{n}<0$ per a tot $n$) i tampoc no l'assoleixen."
+        "No superen mai $3$ (ja que $-\\tfrac{4}{n}&lt;0$ per a tot $n$) i tampoc no l'assoleixen."
        ]
       },
       {
@@ -467,7 +467,7 @@
       {
        "num": 23,
        "nivell": 3,
-       "enunciat": "Determina la condició que ha de complir el paràmetre $k \\in \\mathbb{R}$ ($k > a$, $k < a$, etc.) en cada cas:",
+       "enunciat": "Determina la condició que ha de complir el paràmetre $k \\in \\mathbb{R}$ ($k &gt; a$, $k &lt; a$, etc.) en cada cas:",
        "parts": [
         "$\\Lim\\!\\left((5 - k)n^3 + 2n^2 - 1\\right) = +\\infty$",
         "$\\Lim\\!\\left((k - 4)n^2 + 5n\\right) = -\\infty$",
@@ -478,12 +478,12 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "El terme dominant és $(5-k)n^3$. Perquè el límit sigui $+\\infty$: \\[5 - k > 0 \\Rightarrow k < 5\\]",
-        "El terme dominant és $(k-4)n^2$. Perquè el límit sigui $-\\infty$: \\[k - 4 < 0 \\Rightarrow k < 4\\]",
-        "El grau del numerador ($3$) és major que el del denominador ($2$). Perquè el límit sigui $+\\infty$: \\[k + 1 > 0 \\Rightarrow k > -1\\]",
-        "El grau del numerador ($2$) és major que el del denominador ($1$). Perquè el límit sigui $-\\infty$: \\[2k - 6 < 0 \\Rightarrow 2k < 6 \\Rightarrow k < 3\\]",
-        "El terme dominant és $(3k+9)n$. Perquè el límit sigui $+\\infty$: \\[3k + 9 > 0 \\Rightarrow 3k > -9 \\Rightarrow k > -3\\]",
-        "Com que el coeficient del denominador és negatiu ($-2$), el coeficient del numerador ha de ser negatiu perquè el quocient sigui positiu ($+\\infty$): \\[k - 1 < 0 \\Rightarrow k < 1\\]"
+        "El terme dominant és $(5-k)n^3$. Perquè el límit sigui $+\\infty$: \\[5 - k &gt; 0 \\Rightarrow k &lt; 5\\]",
+        "El terme dominant és $(k-4)n^2$. Perquè el límit sigui $-\\infty$: \\[k - 4 &lt; 0 \\Rightarrow k &lt; 4\\]",
+        "El grau del numerador ($3$) és major que el del denominador ($2$). Perquè el límit sigui $+\\infty$: \\[k + 1 &gt; 0 \\Rightarrow k &gt; -1\\]",
+        "El grau del numerador ($2$) és major que el del denominador ($1$). Perquè el límit sigui $-\\infty$: \\[2k - 6 &lt; 0 \\Rightarrow 2k &lt; 6 \\Rightarrow k &lt; 3\\]",
+        "El terme dominant és $(3k+9)n$. Perquè el límit sigui $+\\infty$: \\[3k + 9 &gt; 0 \\Rightarrow 3k &gt; -9 \\Rightarrow k &gt; -3\\]",
+        "Com que el coeficient del denominador és negatiu ($-2$), el coeficient del numerador ha de ser negatiu perquè el quocient sigui positiu ($+\\infty$): \\[k - 1 &lt; 0 \\Rightarrow k &lt; 1\\]"
        ]
       },
       {
@@ -491,7 +491,7 @@
        "nivell": 3,
        "enunciat": "Considera la successió $a_n = \\dfrac{5n^k - 2n^2 + 1}{3n^3 + 4}$, on $k \\in \\mathbb{N}$ és un nombre natural. Discuteix el valor del límit $\\Lim a_n$ segons els diferents valors del paràmetre $k$.",
        "parts": [],
-       "solucio": "Per determinar el límit d'una fracció algebraica, cal comparar el grau del numerador amb el grau del denominador (que és $3$). El grau del numerador depèn del valor de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k < 3$ ($k = 0, 1, 2$)</strong> <ul> <li>Si $k = 0$ o $k = 1$, el terme de major grau del numerador és $-2n^2$ (grau $2$). <li>Si $k = 2$, el numerador és $(5n^2 - 2n^2 + 1) = 3n^2 + 1$ (grau $2$). </ul> En tots aquests casos, $\\text{grau(numerador)} = 2 < \\text{grau(denominador)} = 3$. Per tant: \\[\\Lim a_n = 0\\]<br><br>  <li><strong>Cas 2: $k = 3$</strong> El numerador i el denominador tenen el mateix grau ($3$). El numerador queda $5n^3 - 2n^2 + 1$. El límit és el quocient dels coeficients principals: \\[\\Lim a_n = \\Lim \\dfrac{5n^3 - 2n^2 + 1}{3n^3 + 4} = \\dfrac{5}{3}\\]<br><br>  <li><strong>Cas 3: $k > 3$ ($k \\geq 4$)</strong> En aquest cas, el terme $5n^k$ domina el numerador, de manera que $\\text{grau(numerador)} = k > \\text{grau(denominador)} = 3$. Com que el coeficient principal del numerador ($5$) és positiu: \\[\\Lim a_n = +\\infty\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{5n^k - 2n^2 + 1}{3n^3 + 4} = \n\\begin{cases} \n0 & \\text{si } k < 3 \\\\[1ex]\n\\dfrac{5}{3} & \\text{si } k = 3 \\\\[1.5ex]\n+\\infty & \\text{si } k > 3 \n\\end{cases}\n\\]",
+       "solucio": "Per determinar el límit d'una fracció algebraica, cal comparar el grau del numerador amb el grau del denominador (que és $3$). El grau del numerador depèn del valor de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k &lt; 3$ ($k = 0, 1, 2$)</strong> <ul> <li>Si $k = 0$ o $k = 1$, el terme de major grau del numerador és $-2n^2$ (grau $2$). <li>Si $k = 2$, el numerador és $(5n^2 - 2n^2 + 1) = 3n^2 + 1$ (grau $2$). </ul> En tots aquests casos, $\\text{grau(numerador)} = 2 &lt; \\text{grau(denominador)} = 3$. Per tant: \\[\\Lim a_n = 0\\]<br><br>  <li><strong>Cas 2: $k = 3$</strong> El numerador i el denominador tenen el mateix grau ($3$). El numerador queda $5n^3 - 2n^2 + 1$. El límit és el quocient dels coeficients principals: \\[\\Lim a_n = \\Lim \\dfrac{5n^3 - 2n^2 + 1}{3n^3 + 4} = \\dfrac{5}{3}\\]<br><br>  <li><strong>Cas 3: $k &gt; 3$ ($k \\geq 4$)</strong> En aquest cas, el terme $5n^k$ domina el numerador, de manera que $\\text{grau(numerador)} = k &gt; \\text{grau(denominador)} = 3$. Com que el coeficient principal del numerador ($5$) és positiu: \\[\\Lim a_n = +\\infty\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{5n^k - 2n^2 + 1}{3n^3 + 4} = \n\\begin{cases} \n0 &amp; \\text{si } k &lt; 3 \\\\[1ex]\n\\dfrac{5}{3} &amp; \\text{si } k = 3 \\\\[1.5ex]\n+\\infty &amp; \\text{si } k &gt; 3 \n\\end{cases}\n\\]",
        "solucioParts": []
       },
       {
@@ -499,7 +499,7 @@
        "nivell": 3,
        "enunciat": "Considera la successió $b_n = \\dfrac{4n^4 - 7n + 2}{-2n^k + 5n^2 + 1}$, on $k \\in \\mathbb{N}$ és un nombre natural. Discuteix el valor del límit $\\Lim b_n$ segons els diferents valors del paràmetre $k$.",
        "parts": [],
-       "solucio": "Per determinar el límit d'aquesta fracció algebraica, comparem el grau del numerador (que és fixe, grau $4$) amb el grau del denominador, el qual depèn de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k < 2$ ($k = 0, 1$)</strong> El terme de major grau del denominador és $5n^2$ (grau $2$). Com que $\\text{grau(num)} = 4 > \\text{grau(den)} = 2$, i els coeficients principals són positius ($4$ i $5$): \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 2: $k = 2$</strong> El denominador queda $(-2n^2 + 5n^2 + 1) = 3n^2 + 1$ (grau $2$). Com que $\\text{grau(num)} = 4 > \\text{grau(den)} = 2$, el límit continua essent: \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 3: $k = 3, 4$</strong> <ul> <li>Si $k = 3$: el denominador té grau $3 < 4$ (terme dominant $-2n^3$). Com que el coeficient del denominador és negatiu, $\\Lim b_n = -\\infty$. <li>Si $k = 4$: els graus del numerador i denominador s'igualen ($4$). El límit és el quocient dels coeficients principals: \\[\\Lim b_n = \\Lim \\dfrac{4n^4 - 7n + 2}{-2n^4 + 5n^2 + 1} = \\dfrac{4}{-2} = -2\\] </ul><br><br>  <li><strong>Cas 4: $k > 4$ ($k \\geq 5$)</strong> El terme dominant del denominador és $-2n^k$, de manera que $\\text{grau(den)} = k > \\text{grau(num)} = 4$. Per tant: \\[\\Lim b_n = 0\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{4n^4 - 7n + 2}{-2n^k + 5n^2 + 1} = \n\\begin{cases} \n+\\infty & \\text{si } k \\leq 2 \\\\[1ex]\n-\\infty & \\text{si } k = 3 \\\\[1ex]\n-2 & \\text{si } k = 4 \\\\[1.5ex]\n0 & \\text{si } k > 4 \n\\end{cases}\n\\]",
+       "solucio": "Per determinar el límit d'aquesta fracció algebraica, comparem el grau del numerador (que és fixe, grau $4$) amb el grau del denominador, el qual depèn de l'exponent $k \\in \\mathbb{N}$:<br><br><ul> <li><strong>Cas 1: $k &lt; 2$ ($k = 0, 1$)</strong> El terme de major grau del denominador és $5n^2$ (grau $2$). Com que $\\text{grau(num)} = 4 &gt; \\text{grau(den)} = 2$, i els coeficients principals són positius ($4$ i $5$): \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 2: $k = 2$</strong> El denominador queda $(-2n^2 + 5n^2 + 1) = 3n^2 + 1$ (grau $2$). Com que $\\text{grau(num)} = 4 &gt; \\text{grau(den)} = 2$, el límit continua essent: \\[\\Lim b_n = +\\infty\\]<br><br>  <li><strong>Cas 3: $k = 3, 4$</strong> <ul> <li>Si $k = 3$: el denominador té grau $3 &lt; 4$ (terme dominant $-2n^3$). Com que el coeficient del denominador és negatiu, $\\Lim b_n = -\\infty$. <li>Si $k = 4$: els graus del numerador i denominador s'igualen ($4$). El límit és el quocient dels coeficients principals: \\[\\Lim b_n = \\Lim \\dfrac{4n^4 - 7n + 2}{-2n^4 + 5n^2 + 1} = \\dfrac{4}{-2} = -2\\] </ul><br><br>  <li><strong>Cas 4: $k &gt; 4$ ($k \\geq 5$)</strong> El terme dominant del denominador és $-2n^k$, de manera que $\\text{grau(den)} = k &gt; \\text{grau(num)} = 4$. Per tant: \\[\\Lim b_n = 0\\] </ul><br><br><strong>Resum de la discussió:</strong> \\[\n\\Lim \\dfrac{4n^4 - 7n + 2}{-2n^k + 5n^2 + 1} = \n\\begin{cases} \n+\\infty &amp; \\text{si } k \\leq 2 \\\\[1ex]\n-\\infty &amp; \\text{si } k = 3 \\\\[1ex]\n-2 &amp; \\text{si } k = 4 \\\\[1.5ex]\n0 &amp; \\text{si } k &gt; 4 \n\\end{cases}\n\\]",
        "solucioParts": []
       }
      ]
@@ -855,15 +855,15 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$+\\infty$  ($4>1$)",
-        "$0$  ($a=7>1$, exponent $-n$)",
-        "$0$  ($|0{,}8|<1$)",
-        "$+\\infty$  ($|1/4|<1$, exponent $-n$)",
-        "$0$  (oscil·la però $|-0{,}7|<1$)",
-        "$\\nexists$  (oscil·la, $-3/2<-1$)",
+        "$+\\infty$  ($4&gt;1$)",
+        "$0$  ($a=7&gt;1$, exponent $-n$)",
+        "$0$  ($|0{,}8|&lt;1$)",
+        "$+\\infty$  ($|1/4|&lt;1$, exponent $-n$)",
+        "$0$  (oscil·la però $|-0{,}7|&lt;1$)",
+        "$\\nexists$  (oscil·la, $-3/2&lt;-1$)",
         "$1$",
         "$\\nexists$  (oscil·la entre $-1$ i $1$)",
-        "$0$  ($5/3>1$, exponent $-n$)"
+        "$0$  ($5/3&gt;1$, exponent $-n$)"
        ]
       },
       {
@@ -882,14 +882,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Base $\\to+\\infty$, $k=4>0$: $(+\\infty)^4=+\\infty$.",
-        "Base $\\to+\\infty$, $k=-2<0$: $\\dfrac{1}{(+\\infty)^2}=0$.",
+        "Base $\\to+\\infty$, $k=4&gt;0$: $(+\\infty)^4=+\\infty$.",
+        "Base $\\to+\\infty$, $k=-2&lt;0$: $\\dfrac{1}{(+\\infty)^2}=0$.",
         "Base $\\to-\\infty$, $k=4$ parell: $(-\\infty)^4=+\\infty$.",
         "Base $\\to-\\infty$, $k=3$ senar: $(-\\infty)^3=-\\infty$.",
-        "És $(5-2n)^{-3}$. Base $\\to-\\infty$, $k=-3<0$: $\\dfrac{1}{(-\\infty)^3}=0$.",
-        "Base $\\to+\\infty$, $k=-\\tfrac12<0$: $\\dfrac{1}{\\sqrt{n+7}}\\to 0$.",
-        "Base $\\to+\\infty$; exponent $\\dfrac{3n}{n+2}\\to 3>0$: $(+\\infty)^3=+\\infty$.",
-        "Base $\\to+\\infty$; exponent $\\dfrac{1-2n}{n+1}\\to -2<0$: $\\dfrac{1}{(+\\infty)^2}=0$."
+        "És $(5-2n)^{-3}$. Base $\\to-\\infty$, $k=-3&lt;0$: $\\dfrac{1}{(-\\infty)^3}=0$.",
+        "Base $\\to+\\infty$, $k=-\\tfrac12&lt;0$: $\\dfrac{1}{\\sqrt{n+7}}\\to 0$.",
+        "Base $\\to+\\infty$; exponent $\\dfrac{3n}{n+2}\\to 3&gt;0$: $(+\\infty)^3=+\\infty$.",
+        "Base $\\to+\\infty$; exponent $\\dfrac{1-2n}{n+1}\\to -2&lt;0$: $\\dfrac{1}{(+\\infty)^2}=0$."
        ]
       },
       {
@@ -1080,10 +1080,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Base fixa: cal $\\left|\\dfrac{k-1}{2}\\right|<1 \\Rightarrow |k-1|<2 \\Rightarrow -1<k<3$.",
-        "Exponent fix $k-2$, base $n\\to+\\infty$: el límit és $0$ si $k-2<0$, és a dir $k<2$; és $+\\infty$ si $k>2$. (Si $k=2$, $n^0=1$ i el límit és $1$.)",
+        "Base fixa: cal $\\left|\\dfrac{k-1}{2}\\right|&lt;1 \\Rightarrow |k-1|&lt;2 \\Rightarrow -1&lt;k&lt;3$.",
+        "Exponent fix $k-2$, base $n\\to+\\infty$: el límit és $0$ si $k-2&lt;0$, és a dir $k&lt;2$; és $+\\infty$ si $k&gt;2$. (Si $k=2$, $n^0=1$ i el límit és $1$.)",
         "Base fixa: només $\\Lim 1^n=1$. Cal $k^2-3=1\\Rightarrow k=\\pm 2$. (Si $k^2-3=-1$, la successió $(-1)^n$ oscil·la.)",
-        "Base $\\to+\\infty$, exponent $\\dfrac{kn}{n+3}\\to k$. Per obtenir $0$ cal $k<0$."
+        "Base $\\to+\\infty$, exponent $\\dfrac{kn}{n+3}\\to k$. Per obtenir $0$ cal $k&lt;0$."
        ]
       }
      ]
@@ -1105,12 +1105,12 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &= e \\quad\\text{(és la definició del nombre $e$, amb $A=n$)}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n\\cdot\\frac{n}{3}\\cdot\\frac{3}{n}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{3}{n}} = e^{\\Lim\\frac{3n}{n}} = e^{3}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim n\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{n}{2n}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{-2}{n}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n\\cdot\\frac{n}{-2}\\cdot\\frac{-2}{n}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{-2}{n}} = e^{\\Lim\\frac{-2n}{n}} = e^{-2} = \\dfrac{1}{e^2}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n\\cdot\\frac{n}{5}\\cdot\\frac{5}{n}}\\\\\n  &= e^{\\Lim 2n\\cdot\\frac{5}{n}} = e^{\\Lim\\frac{10n}{n}} = e^{10}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{(3n+1)\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim (3n+1)\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{3n+1}{2n}} = e^{3/2}\n  \\end{aligned}\n  \\]"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n} &amp;= e \\quad\\text{(és la definició del nombre $e$, amb $A=n$)}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{3}{n}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{3}}\\right)^{n\\cdot\\frac{n}{3}\\cdot\\frac{3}{n}}\\\\\n  &amp;= e^{\\Lim n\\cdot\\frac{3}{n}} = e^{\\Lim\\frac{3n}{n}} = e^{3}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{n\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim n\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{n}{2n}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1-\\dfrac{2}{n}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{-2}{n}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{-2}}\\right)^{n\\cdot\\frac{n}{-2}\\cdot\\frac{-2}{n}}\\\\\n  &amp;= e^{\\Lim n\\cdot\\frac{-2}{n}} = e^{\\Lim\\frac{-2n}{n}} = e^{-2} = \\dfrac{1}{e^2}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{5}{n}\\right)^{2n} &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{5}}\\right)^{2n\\cdot\\frac{n}{5}\\cdot\\frac{5}{n}}\\\\\n  &amp;= e^{\\Lim 2n\\cdot\\frac{5}{n}} = e^{\\Lim\\frac{10n}{n}} = e^{10}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{3n+1} &amp;= \\Lim\\left(1+\\dfrac{1}{2n}\\right)^{(3n+1)\\cdot 2n\\cdot\\frac{1}{2n}}\n  = e^{\\Lim (3n+1)\\cdot\\frac{1}{2n}} = e^{\\Lim\\frac{3n+1}{2n}} = e^{3/2}\n  \\end{aligned}\n  \\]"
        ]
       },
       {
@@ -1125,10 +1125,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+5}{n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n\\cdot\\frac{n+3}{2}\\cdot\\frac{2}{n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{n+3}} = e^{\\Lim\\frac{2n}{n+3}} = e^{2}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+2}{n-1}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{3}{n-1}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n\\cdot\\frac{n-1}{3}\\cdot\\frac{3}{n-1}}\n  = e^{\\Lim n\\cdot\\frac{3}{n-1}} = e^{\\Lim\\frac{3n}{n-1}} = e^{3}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{2n+1}{2n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{-2}{2n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n\\cdot\\frac{2n+3}{-2}\\cdot\\frac{-2}{2n+3}}\n  = e^{\\Lim n\\cdot\\frac{-2}{2n+3}} = e^{\\Lim\\frac{-2n}{2n+3}} = e^{-1} = \\dfrac{1}{e}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &= \\Lim\\left(1+\\dfrac{n+3}{n+5}-1\\right)^{n^2+3n+2}\n  = \\Lim\\left(1+\\dfrac{-2}{n+5}\\right)^{n^2+3n+2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{n^2+3n+2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{(n^2+3n+2)\\cdot\\frac{n+5}{-2}\\cdot\\frac{-2}{n+5}}\n  = e^{\\Lim (n^2+3n+2)\\cdot\\frac{-2}{n+5}}\\\\\n  &= e^{\\Lim\\frac{-2n^2-6n-4}{n+5}} = e^{-\\infty} = \\dfrac{1}{e^{+\\infty}} = \\dfrac{1}{+\\infty} = 0\n  \\end{aligned}\n  \\]"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+5}{n+3}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{n+5}{n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{2}}\\right)^{n\\cdot\\frac{n+3}{2}\\cdot\\frac{2}{n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{n+3}} = e^{\\Lim\\frac{2n}{n+3}} = e^{2}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+2}{n-1}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{n+2}{n-1}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{3}{n-1}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{3}}\\right)^{n\\cdot\\frac{n-1}{3}\\cdot\\frac{3}{n-1}}\n  = e^{\\Lim n\\cdot\\frac{3}{n-1}} = e^{\\Lim\\frac{3n}{n-1}} = e^{3}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n+1}{2n+3}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{2n+1}{2n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{-2}{2n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{2n+3}{-2}}\\right)^{n\\cdot\\frac{2n+3}{-2}\\cdot\\frac{-2}{2n+3}}\n  = e^{\\Lim n\\cdot\\frac{-2}{2n+3}} = e^{\\Lim\\frac{-2n}{2n+3}} = e^{-1} = \\dfrac{1}{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+3}{n+5}\\right)^{n^2+3n+2} &amp;= \\Lim\\left(1+\\dfrac{n+3}{n+5}-1\\right)^{n^2+3n+2}\n  = \\Lim\\left(1+\\dfrac{-2}{n+5}\\right)^{n^2+3n+2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{n^2+3n+2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n+5}{-2}}\\right)^{(n^2+3n+2)\\cdot\\frac{n+5}{-2}\\cdot\\frac{-2}{n+5}}\n  = e^{\\Lim (n^2+3n+2)\\cdot\\frac{-2}{n+5}}\\\\\n  &amp;= e^{\\Lim\\frac{-2n^2-6n-4}{n+5}} = e^{-\\infty} = \\dfrac{1}{e^{+\\infty}} = \\dfrac{1}{+\\infty} = 0\n  \\end{aligned}\n  \\]"
        ]
       },
       {
@@ -1143,10 +1143,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &= \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n\\cdot n^2\\cdot\\frac{1}{n^2}}\n  = e^{\\Lim n\\cdot\\frac{1}{n^2}} = e^{\\Lim\\frac{n}{n^2}} = e^{0} = 1\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{n^2+5}{n^2+1}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{4}{n^2+1}\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2\\cdot\\frac{n^2+1}{4}\\cdot\\frac{4}{n^2+1}}\n  = e^{\\Lim n^2\\cdot\\frac{4}{n^2+1}} = e^{\\Lim\\frac{4n^2}{n^2+1}} = e^{4}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &= \\Lim\\left(1+\\dfrac{4n+5}{4n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{4n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n\\cdot\\frac{4n+3}{2}\\cdot\\frac{2}{4n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{4n+3}} = e^{\\Lim\\frac{2n}{4n+3}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &= \\Lim\\left(1+\\dfrac{n+1}{n}-1\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n\\cdot n\\cdot\\frac{1}{n}}\\\\\n  &= e^{\\Lim 2n\\cdot\\frac{1}{n}} = e^{\\Lim\\frac{2n}{n}} = e^{2}\n  \\end{aligned}\n  \\]"
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{1}{n^2}\\right)^{n\\cdot n^2\\cdot\\frac{1}{n^2}}\n  = e^{\\Lim n\\cdot\\frac{1}{n^2}} = e^{\\Lim\\frac{n}{n^2}} = e^{0} = 1\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+5}{n^2+1}\\right)^{n^2} &amp;= \\Lim\\left(1+\\dfrac{n^2+5}{n^2+1}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{4}{n^2+1}\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{4}}\\right)^{n^2\\cdot\\frac{n^2+1}{4}\\cdot\\frac{4}{n^2+1}}\n  = e^{\\Lim n^2\\cdot\\frac{4}{n^2+1}} = e^{\\Lim\\frac{4n^2}{n^2+1}} = e^{4}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{4n+5}{4n+3}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{4n+5}{4n+3}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{4n+3}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{4n+3}{2}}\\right)^{n\\cdot\\frac{4n+3}{2}\\cdot\\frac{2}{4n+3}}\n  = e^{\\Lim n\\cdot\\frac{2}{4n+3}} = e^{\\Lim\\frac{2n}{4n+3}} = e^{1/2} = \\sqrt{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+1}{n}\\right)^{2n} &amp;= \\Lim\\left(1+\\dfrac{n+1}{n}-1\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{n}\\right)^{2n\\cdot n\\cdot\\frac{1}{n}}\\\\\n  &amp;= e^{\\Lim 2n\\cdot\\frac{1}{n}} = e^{\\Lim\\frac{2n}{n}} = e^{2}\n  \\end{aligned}\n  \\]"
        ]
       },
       {
@@ -1165,14 +1165,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{2n^2+k}{2n^2+5}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{k-5}{2n^2+5}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2\\cdot\\frac{2n^2+5}{k-5}\\cdot\\frac{k-5}{2n^2+5}}\\\\\n  &= e^{\\Lim n^2\\cdot\\frac{k-5}{2n^2+5}} = e^{\\Lim\\frac{(k-5)n^2}{2n^2+5}} = e^{\\frac{k-5}{2}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{k-5}{2}} = e^{3} \\;\\Rightarrow\\; \\dfrac{k-5}{2} = 3 \\;\\Rightarrow\\; k = 11$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{n+3}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{(n+3)\\cdot\\frac{n}{k}\\cdot\\frac{k}{n}}\\\\\n  &= e^{\\Lim (n+3)\\cdot\\frac{k}{n}} = e^{\\Lim\\frac{kn+3k}{n}} = e^{k}\n  \\end{aligned}\n  \\] Igualem: $e^{k} = e^{2} \\;\\Rightarrow\\; k = 2$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &= \\Lim\\left(1+\\dfrac{n-1}{n+3}-1\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{n-1-(n+3)}{n+3}\\right)^{kn}\\\\\n  &= \\Lim\\left(1+\\dfrac{-4}{n+3}\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn\\cdot\\frac{n+3}{-4}\\cdot\\frac{-4}{n+3}}\\\\\n  &= e^{\\Lim kn\\cdot\\frac{-4}{n+3}} = e^{\\Lim\\frac{-4kn}{n+3}} = e^{-4k}\n  \\end{aligned}\n  \\] Igualem: $e^{-4k} = e^{2} \\;\\Rightarrow\\; -4k = 2 \\;\\Rightarrow\\; k = -\\dfrac{1}{2}$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &= \\Lim\\left(1+\\dfrac{3n+k}{3n-1}-1\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{3n+k-(3n-1)}{3n-1}\\right)^{2n+5}\\\\\n  &= \\Lim\\left(1+\\dfrac{k+1}{3n-1}\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{2n+5}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{(2n+5)\\cdot\\frac{3n-1}{k+1}\\cdot\\frac{k+1}{3n-1}}\\\\\n  &= e^{\\Lim (2n+5)\\cdot\\frac{k+1}{3n-1}} = e^{\\Lim\\frac{(2k+2)n+5k+5}{3n-1}} = e^{\\frac{2(k+1)}{3}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{2(k+1)}{3}} = e^{4} \\;\\Rightarrow\\; \\dfrac{2(k+1)}{3} = 4 \\;\\Rightarrow\\; k+1 = 6 \\;\\Rightarrow\\; k = 5$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+a}{n+b}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{a-b}{n+b}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n\\cdot\\frac{n+b}{a-b}\\cdot\\frac{a-b}{n+b}}\n  = e^{\\Lim n\\cdot\\frac{a-b}{n+b}} = e^{\\Lim\\frac{(a-b)n}{n+b}} = e^{a-b}\n  \\end{aligned}\n  \\] Igualem: $e^{a-b} = e^{-4} \\;\\Rightarrow\\; a - b = -4$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &= \\Lim\\left(1+\\dfrac{an+1}{an-2}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{an+1-(an-2)}{an-2}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{3}{an-2}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn\\cdot\\frac{an-2}{3}\\cdot\\frac{3}{an-2}}\\\\\n  &= e^{\\Lim bn\\cdot\\frac{3}{an-2}} = e^{\\Lim\\frac{3bn}{an-2}} = e^{\\frac{3b}{a}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{3b}{a}} = e^{6} \\;\\Rightarrow\\; \\dfrac{3b}{a} = 6 \\;\\Rightarrow\\; b = 2a$  (amb $a\\neq 0$).",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &= \\Lim\\left(1+\\dfrac{n^2+a}{n^2+b}-1\\right)^{2n^2}\n  = \\Lim\\left(1+\\dfrac{a-b}{n^2+b}\\right)^{2n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2\\cdot\\frac{n^2+b}{a-b}\\cdot\\frac{a-b}{n^2+b}}\\\\\n  &= e^{\\Lim 2n^2\\cdot\\frac{a-b}{n^2+b}} = e^{\\Lim\\frac{2(a-b)n^2}{n^2+b}} = e^{2(a-b)}\n  \\end{aligned}\n  \\] Igualem: $e^{2(a-b)} = e^{-2} \\;\\Rightarrow\\; 2(a-b) = -2 \\;\\Rightarrow\\; a - b = -1$.",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &= \\Lim\\left(1+\\dfrac{n+a}{n}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{a}{n}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn\\cdot\\frac{n}{a}\\cdot\\frac{a}{n}}\n  = e^{\\Lim bn\\cdot\\frac{a}{n}} = e^{\\Lim\\frac{abn}{n}} = e^{ab}\n  \\end{aligned}\n  \\] Igualem: $e^{ab} = e^{6} \\;\\Rightarrow\\; ab = 6$."
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{2n^2+k}{2n^2+5}\\right)^{n^2} &amp;= \\Lim\\left(1+\\dfrac{2n^2+k}{2n^2+5}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{k-5}{2n^2+5}\\right)^{n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{2n^2+5}{k-5}}\\right)^{n^2\\cdot\\frac{2n^2+5}{k-5}\\cdot\\frac{k-5}{2n^2+5}}\\\\\n  &amp;= e^{\\Lim n^2\\cdot\\frac{k-5}{2n^2+5}} = e^{\\Lim\\frac{(k-5)n^2}{2n^2+5}} = e^{\\frac{k-5}{2}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{k-5}{2}} = e^{3} \\;\\Rightarrow\\; \\dfrac{k-5}{2} = 3 \\;\\Rightarrow\\; k = 11$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{k}{n}\\right)^{n+3} &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{n+3}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{k}}\\right)^{(n+3)\\cdot\\frac{n}{k}\\cdot\\frac{k}{n}}\\\\\n  &amp;= e^{\\Lim (n+3)\\cdot\\frac{k}{n}} = e^{\\Lim\\frac{kn+3k}{n}} = e^{k}\n  \\end{aligned}\n  \\] Igualem: $e^{k} = e^{2} \\;\\Rightarrow\\; k = 2$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n-1}{n+3}\\right)^{kn} &amp;= \\Lim\\left(1+\\dfrac{n-1}{n+3}-1\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{n-1-(n+3)}{n+3}\\right)^{kn}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{-4}{n+3}\\right)^{kn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n+3}{-4}}\\right)^{kn\\cdot\\frac{n+3}{-4}\\cdot\\frac{-4}{n+3}}\\\\\n  &amp;= e^{\\Lim kn\\cdot\\frac{-4}{n+3}} = e^{\\Lim\\frac{-4kn}{n+3}} = e^{-4k}\n  \\end{aligned}\n  \\] Igualem: $e^{-4k} = e^{2} \\;\\Rightarrow\\; -4k = 2 \\;\\Rightarrow\\; k = -\\dfrac{1}{2}$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n+k}{3n-1}\\right)^{2n+5} &amp;= \\Lim\\left(1+\\dfrac{3n+k}{3n-1}-1\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{3n+k-(3n-1)}{3n-1}\\right)^{2n+5}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{k+1}{3n-1}\\right)^{2n+5}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{2n+5}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{3n-1}{k+1}}\\right)^{(2n+5)\\cdot\\frac{3n-1}{k+1}\\cdot\\frac{k+1}{3n-1}}\\\\\n  &amp;= e^{\\Lim (2n+5)\\cdot\\frac{k+1}{3n-1}} = e^{\\Lim\\frac{(2k+2)n+5k+5}{3n-1}} = e^{\\frac{2(k+1)}{3}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{2(k+1)}{3}} = e^{4} \\;\\Rightarrow\\; \\dfrac{2(k+1)}{3} = 4 \\;\\Rightarrow\\; k+1 = 6 \\;\\Rightarrow\\; k = 5$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n+b}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{n+a}{n+b}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{a-b}{n+b}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n+b}{a-b}}\\right)^{n\\cdot\\frac{n+b}{a-b}\\cdot\\frac{a-b}{n+b}}\n  = e^{\\Lim n\\cdot\\frac{a-b}{n+b}} = e^{\\Lim\\frac{(a-b)n}{n+b}} = e^{a-b}\n  \\end{aligned}\n  \\] Igualem: $e^{a-b} = e^{-4} \\;\\Rightarrow\\; a - b = -4$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{an+1}{an-2}\\right)^{bn} &amp;= \\Lim\\left(1+\\dfrac{an+1}{an-2}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{an+1-(an-2)}{an-2}\\right)^{bn}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{3}{an-2}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{an-2}{3}}\\right)^{bn\\cdot\\frac{an-2}{3}\\cdot\\frac{3}{an-2}}\\\\\n  &amp;= e^{\\Lim bn\\cdot\\frac{3}{an-2}} = e^{\\Lim\\frac{3bn}{an-2}} = e^{\\frac{3b}{a}}\n  \\end{aligned}\n  \\] Igualem: $e^{\\frac{3b}{a}} = e^{6} \\;\\Rightarrow\\; \\dfrac{3b}{a} = 6 \\;\\Rightarrow\\; b = 2a$  (amb $a\\neq 0$).",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+a}{n^2+b}\\right)^{2n^2} &amp;= \\Lim\\left(1+\\dfrac{n^2+a}{n^2+b}-1\\right)^{2n^2}\n  = \\Lim\\left(1+\\dfrac{a-b}{n^2+b}\\right)^{2n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+b}{a-b}}\\right)^{2n^2\\cdot\\frac{n^2+b}{a-b}\\cdot\\frac{a-b}{n^2+b}}\\\\\n  &amp;= e^{\\Lim 2n^2\\cdot\\frac{a-b}{n^2+b}} = e^{\\Lim\\frac{2(a-b)n^2}{n^2+b}} = e^{2(a-b)}\n  \\end{aligned}\n  \\] Igualem: $e^{2(a-b)} = e^{-2} \\;\\Rightarrow\\; 2(a-b) = -2 \\;\\Rightarrow\\; a - b = -1$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+a}{n}\\right)^{bn} &amp;= \\Lim\\left(1+\\dfrac{n+a}{n}-1\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{a}{n}\\right)^{bn}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{a}}\\right)^{bn\\cdot\\frac{n}{a}\\cdot\\frac{a}{n}}\n  = e^{\\Lim bn\\cdot\\frac{a}{n}} = e^{\\Lim\\frac{abn}{n}} = e^{ab}\n  \\end{aligned}\n  \\] Igualem: $e^{ab} = e^{6} \\;\\Rightarrow\\; ab = 6$."
        ]
       }
      ]
@@ -1199,10 +1199,10 @@
         "$\\Lim(-3n^4 + 2n^3 - 7) = \\Lim(-3n^4) = \\mathbf{-\\infty}$",
         "$\\Lim\\dfrac{-2n^3 + n}{5n^3 + 2} = \\Lim\\dfrac{-2n^3}{5n^3} = \\mathbf{-\\dfrac{2}{5}}$",
         "$\\Lim\\dfrac{6n^2 - 1}{2n^3 + n} = \\Lim\\dfrac{6n^2}{2n^3} = \\Lim\\dfrac{3}{n} = \\mathbf{0}$",
-        "$\\Lim\\left(\\dfrac{5}{4}\\right)^{-n} = \\Lim\\left(\\dfrac{4}{5}\\right)^{n} = \\mathbf{0}$   ($|4/5|<1$)",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{n^2+4n}-n\\right) &= \\Lim\\dfrac{n^2+4n-n^2}{\\sqrt{n^2+4n}+n} = \\Lim\\dfrac{4n}{\\sqrt{n^2+4n}+n}\\\\\n  &= \\Lim\\dfrac{4n}{2n} = \\mathbf{2}\n  \\end{aligned}\n  \\]",
+        "$\\Lim\\left(\\dfrac{5}{4}\\right)^{-n} = \\Lim\\left(\\dfrac{4}{5}\\right)^{n} = \\mathbf{0}$   ($|4/5|&lt;1$)",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{n^2+4n}-n\\right) &amp;= \\Lim\\dfrac{n^2+4n-n^2}{\\sqrt{n^2+4n}+n} = \\Lim\\dfrac{4n}{\\sqrt{n^2+4n}+n}\\\\\n  &amp;= \\Lim\\dfrac{4n}{2n} = \\mathbf{2}\n  \\end{aligned}\n  \\]",
         "La base tendeix a $2$ i l'exponent a $\\frac{1}{2}$: $\\Lim\\left(\\dfrac{2n+1}{n+3}\\right)^{\\frac{n+1}{2n}} = 2^{1/2} = \\mathbf{\\sqrt{2}}$",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+2}{n}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+2}{n}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+2}{n}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{n}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{2}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{2}}\\right)^{n\\cdot\\frac{n}{2}\\cdot\\frac{2}{n}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{2}{n}} = e^{\\Lim\\frac{2n}{n}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+2}{n}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+2}{n}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{n+2}{n}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{2}{n}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n}{2}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n}{2}}\\right)^{n\\cdot\\frac{n}{2}\\cdot\\frac{2}{n}}\\\\\n  &amp;= e^{\\Lim n\\cdot\\frac{2}{n}} = e^{\\Lim\\frac{2n}{n}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
         "$\\Lim\\dfrac{n^3-n}{\\sqrt{n^6+1}} = \\Lim\\dfrac{n^3}{\\sqrt{n^6}} = \\Lim\\dfrac{n^3}{n^3} = \\mathbf{1}$"
        ]
       },
@@ -1225,10 +1225,10 @@
         "$\\Lim(5n^3 - 2n^5 + n) = \\Lim(-2n^5) = \\mathbf{-\\infty}$",
         "$\\Lim\\dfrac{4n^2 - 3n + 1}{2 - 8n^2} = \\Lim\\dfrac{4n^2}{-8n^2} = \\mathbf{-\\dfrac{1}{2}}$",
         "$\\Lim\\dfrac{n^4 + 1}{3n^2 - n} = \\Lim\\dfrac{n^4}{3n^2} = \\Lim\\dfrac{n^2}{3} = \\mathbf{+\\infty}$",
-        "$\\Lim\\left(\\dfrac{3}{2}\\right)^{n} = \\mathbf{+\\infty}$   ($3/2>1$)",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{n^2-6n}-n\\right) &= \\Lim\\dfrac{n^2-6n-n^2}{\\sqrt{n^2-6n}+n} = \\Lim\\dfrac{-6n}{\\sqrt{n^2-6n}+n}\\\\\n  &= \\Lim\\dfrac{-6n}{2n} = \\mathbf{-3}\n  \\end{aligned}\n  \\]",
+        "$\\Lim\\left(\\dfrac{3}{2}\\right)^{n} = \\mathbf{+\\infty}$   ($3/2&gt;1$)",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{n^2-6n}-n\\right) &amp;= \\Lim\\dfrac{n^2-6n-n^2}{\\sqrt{n^2-6n}+n} = \\Lim\\dfrac{-6n}{\\sqrt{n^2-6n}+n}\\\\\n  &amp;= \\Lim\\dfrac{-6n}{2n} = \\mathbf{-3}\n  \\end{aligned}\n  \\]",
         "La base tendeix a $+\\infty$ i l'exponent a $\\Lim\\dfrac{2-4n}{2n+1} = -2$: \\[\n  \\Lim\\left(n^2+1\\right)^{\\frac{2-4n}{2n+1}} = (+\\infty)^{-2} = \\dfrac{1}{(+\\infty)^2} = \\mathbf{0}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n-1}{3n+2}\\right)^{2n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n-1}{3n+2}\\right)^{2n} &= \\Lim\\left(1+\\dfrac{3n-1}{3n+2}-1\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{-3}{3n+2}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{3n+2}{-3}}\\right)^{2n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{3n+2}{-3}}\\right)^{2n\\cdot\\frac{3n+2}{-3}\\cdot\\frac{-3}{3n+2}}\\\\\n  &= e^{\\Lim 2n\\cdot\\frac{-3}{3n+2}} = e^{\\Lim\\frac{-6n}{3n+2}} = \\mathbf{e^{-2}} = \\mathbf{\\dfrac{1}{e^2}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n-1}{3n+2}\\right)^{2n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n-1}{3n+2}\\right)^{2n} &amp;= \\Lim\\left(1+\\dfrac{3n-1}{3n+2}-1\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{-3}{3n+2}\\right)^{2n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{3n+2}{-3}}\\right)^{2n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{3n+2}{-3}}\\right)^{2n\\cdot\\frac{3n+2}{-3}\\cdot\\frac{-3}{3n+2}}\\\\\n  &amp;= e^{\\Lim 2n\\cdot\\frac{-3}{3n+2}} = e^{\\Lim\\frac{-6n}{3n+2}} = \\mathbf{e^{-2}} = \\mathbf{\\dfrac{1}{e^2}}\n  \\end{aligned}\n  \\]",
         "$\\Lim\\dfrac{\\sqrt{4n^2+1}}{3n-2} = \\Lim\\dfrac{\\sqrt{4n^2}}{3n} = \\Lim\\dfrac{2n}{3n} = \\mathbf{\\dfrac{2}{3}}$"
        ]
       },
@@ -1248,14 +1248,14 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{n^4+2n^3-1}{n^3+1} - \\dfrac{n^4-3n^2+2}{n^3-n}\\right)\\\\\n  &= \\Lim\\dfrac{(n^4+2n^3-1)(n^3-n)-(n^4-3n^2+2)(n^3+1)}{(n^3+1)(n^3-n)}\\\\\n  &= \\Lim\\dfrac{2n^6+2n^5-3n^4-3n^3+3n^2+n-2}{n^6-n^4+n^3-n} = \\Lim\\dfrac{2n^6}{n^6} = \\mathbf{2}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{3n^5-2n^3+n}{n^4+2n^2-1} - \\dfrac{3n^4+n^2}{n^3+n+5}\\right)\\\\\n  &= \\Lim\\dfrac{(3n^5-2n^3+n)(n^3+n+5)-(3n^4+n^2)(n^4+2n^2-1)}{(n^4+2n^2-1)(n^3+n+5)}\\\\\n  &= \\Lim\\dfrac{-6n^6+15n^5-10n^3+2n^2+5n}{n^7+3n^5+5n^4+n^3+10n^2-n-5} = \\mathbf{0}\n  \\quad\\text{(grau num.\\ $6$ $<$ grau den.\\ $7$)}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{3n^3-5n^2+4n-1}{n^2-3n+5} - \\dfrac{3n^4+n^3-6}{n^3+n^2}\\right)\\\\\n  &= \\Lim\\dfrac{(3n^3-5n^2+4n-1)(n^3+n^2)-(3n^4+n^3-6)(n^2-3n+5)}{(n^2-3n+5)(n^3+n^2)}\\\\\n  &= \\Lim\\dfrac{6n^5-13n^4-2n^3+5n^2-18n+30}{n^5-2n^4+2n^3+5n^2} = \\Lim\\dfrac{6n^5}{n^5} = \\mathbf{6}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{n^6+4n^5-n^2}{n^5-2n^3+1} - \\dfrac{n^5-n}{n^4+3}\\right)\\\\\n  &= \\Lim\\dfrac{(n^6+4n^5-n^2)(n^4+3)-(n^5-n)(n^5-2n^3+1)}{(n^5-2n^3+1)(n^4+3)}\\\\\n  &= \\Lim\\dfrac{4n^9+2n^8+3n^6+11n^5-2n^4-3n^2+n}{n^9-2n^7+3n^5+n^4-6n^3+3} = \\Lim\\dfrac{4n^9}{n^9} = \\mathbf{4}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{4n^4-n^3+2n-7}{2n^3+n^2-5} - 2n\\right)\\\\\n  &= \\Lim\\dfrac{4n^4-n^3+2n-7-2n(2n^3+n^2-5)}{2n^3+n^2-5}\\\\\n  &= \\Lim\\dfrac{-3n^3+12n-7}{2n^3+n^2-5} = \\Lim\\dfrac{-3n^3}{2n^3} = \\mathbf{-\\dfrac{3}{2}}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{n^3+2n^2-n+1}{n^2+n} - \\dfrac{n^3-n^2+4}{n^2-n}\\right)\\\\\n  &= \\Lim\\dfrac{(n^3+2n^2-n+1)(n^2-n)-(n^3-n^2+4)(n^2+n)}{(n^2+n)(n^2-n)}\\\\\n  &= \\Lim\\dfrac{n^4-2n^3-2n^2-5n}{n^4-n^2} = \\Lim\\dfrac{n^4}{n^4} = \\mathbf{1}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{n^5+n^3}{n^2+1} - \\dfrac{n^5-n^4}{n^2-1}\\right)\\\\\n  &= \\Lim\\dfrac{(n^5+n^3)(n^2-1)-(n^5-n^4)(n^2+1)}{(n^2+1)(n^2-1)}\\\\\n  &= \\Lim\\dfrac{n^6-n^5+n^4-n^3}{n^4-1} = \\mathbf{+\\infty}\n  \\quad\\text{(grau num.\\ $6$ $>$ grau den.\\ $4$, coeficients positius)}\n  \\end{aligned}\n  \\]",
-        "Les dues fraccions ja tenen el mateix denominador: \\[\n  \\begin{aligned}\n  &\\Lim\\left(\\dfrac{(n^3+2)^2}{n^3} - \\dfrac{(n^3-2)^2}{n^3}\\right)\\\\\n  &= \\Lim\\dfrac{(n^6+4n^3+4)-(n^6-4n^3+4)}{n^3}\n  = \\Lim\\dfrac{8n^3}{n^3} = \\mathbf{8}\n  \\end{aligned}\n  \\]"
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{n^4+2n^3-1}{n^3+1} - \\dfrac{n^4-3n^2+2}{n^3-n}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(n^4+2n^3-1)(n^3-n)-(n^4-3n^2+2)(n^3+1)}{(n^3+1)(n^3-n)}\\\\\n  &amp;= \\Lim\\dfrac{2n^6+2n^5-3n^4-3n^3+3n^2+n-2}{n^6-n^4+n^3-n} = \\Lim\\dfrac{2n^6}{n^6} = \\mathbf{2}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{3n^5-2n^3+n}{n^4+2n^2-1} - \\dfrac{3n^4+n^2}{n^3+n+5}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(3n^5-2n^3+n)(n^3+n+5)-(3n^4+n^2)(n^4+2n^2-1)}{(n^4+2n^2-1)(n^3+n+5)}\\\\\n  &amp;= \\Lim\\dfrac{-6n^6+15n^5-10n^3+2n^2+5n}{n^7+3n^5+5n^4+n^3+10n^2-n-5} = \\mathbf{0}\n  \\quad\\text{(grau num.\\ $6$ $&lt;$ grau den.\\ $7$)}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{3n^3-5n^2+4n-1}{n^2-3n+5} - \\dfrac{3n^4+n^3-6}{n^3+n^2}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(3n^3-5n^2+4n-1)(n^3+n^2)-(3n^4+n^3-6)(n^2-3n+5)}{(n^2-3n+5)(n^3+n^2)}\\\\\n  &amp;= \\Lim\\dfrac{6n^5-13n^4-2n^3+5n^2-18n+30}{n^5-2n^4+2n^3+5n^2} = \\Lim\\dfrac{6n^5}{n^5} = \\mathbf{6}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{n^6+4n^5-n^2}{n^5-2n^3+1} - \\dfrac{n^5-n}{n^4+3}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(n^6+4n^5-n^2)(n^4+3)-(n^5-n)(n^5-2n^3+1)}{(n^5-2n^3+1)(n^4+3)}\\\\\n  &amp;= \\Lim\\dfrac{4n^9+2n^8+3n^6+11n^5-2n^4-3n^2+n}{n^9-2n^7+3n^5+n^4-6n^3+3} = \\Lim\\dfrac{4n^9}{n^9} = \\mathbf{4}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{4n^4-n^3+2n-7}{2n^3+n^2-5} - 2n\\right)\\\\\n  &amp;= \\Lim\\dfrac{4n^4-n^3+2n-7-2n(2n^3+n^2-5)}{2n^3+n^2-5}\\\\\n  &amp;= \\Lim\\dfrac{-3n^3+12n-7}{2n^3+n^2-5} = \\Lim\\dfrac{-3n^3}{2n^3} = \\mathbf{-\\dfrac{3}{2}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{n^3+2n^2-n+1}{n^2+n} - \\dfrac{n^3-n^2+4}{n^2-n}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(n^3+2n^2-n+1)(n^2-n)-(n^3-n^2+4)(n^2+n)}{(n^2+n)(n^2-n)}\\\\\n  &amp;= \\Lim\\dfrac{n^4-2n^3-2n^2-5n}{n^4-n^2} = \\Lim\\dfrac{n^4}{n^4} = \\mathbf{1}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{n^5+n^3}{n^2+1} - \\dfrac{n^5-n^4}{n^2-1}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(n^5+n^3)(n^2-1)-(n^5-n^4)(n^2+1)}{(n^2+1)(n^2-1)}\\\\\n  &amp;= \\Lim\\dfrac{n^6-n^5+n^4-n^3}{n^4-1} = \\mathbf{+\\infty}\n  \\quad\\text{(grau num.\\ $6$ $&gt;$ grau den.\\ $4$, coeficients positius)}\n  \\end{aligned}\n  \\]",
+        "Les dues fraccions ja tenen el mateix denominador: \\[\n  \\begin{aligned}\n  &amp;\\Lim\\left(\\dfrac{(n^3+2)^2}{n^3} - \\dfrac{(n^3-2)^2}{n^3}\\right)\\\\\n  &amp;= \\Lim\\dfrac{(n^6+4n^3+4)-(n^6-4n^3+4)}{n^3}\n  = \\Lim\\dfrac{8n^3}{n^3} = \\mathbf{8}\n  \\end{aligned}\n  \\]"
        ]
       },
       {
@@ -1273,10 +1273,10 @@
        "solucio": "",
        "solucioParts": [
         "Multipliquem i dividim pel conjugat: \\[\n  \\Lim\\sqrt{n}\\left(\\sqrt{n+1}-\\sqrt{n-1}\\right)\n  = \\Lim\\dfrac{\\sqrt{n}\\,\\big((n+1)-(n-1)\\big)}{\\sqrt{n+1}+\\sqrt{n-1}}\n  = \\Lim\\dfrac{2\\sqrt{n}}{\\sqrt{n+1}+\\sqrt{n-1}}\n  \\] \\[\n  = \\Lim\\dfrac{2\\sqrt{n}}{2\\sqrt{n}} = \\mathbf{1}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n} &= \\Lim\\left(1+\\dfrac{n^2+n+1}{n^2+n-1}-1\\right)^{n^2+n}\n  = \\Lim\\left(1+\\dfrac{2}{n^2+n-1}\\right)^{n^2+n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+n-1}{2}}\\right)^{(n^2+n)\\cdot\\frac{n^2+n-1}{2}\\cdot\\frac{2}{n^2+n-1}}\\\\\n  &= e^{\\Lim (n^2+n)\\cdot\\frac{2}{n^2+n-1}} = e^{\\Lim\\frac{2n^2+2n}{n^2+n-1}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{4n^2+5n}-2n\\right) &= \\Lim\\dfrac{4n^2+5n-4n^2}{\\sqrt{4n^2+5n}+2n} = \\Lim\\dfrac{5n}{\\sqrt{4n^2+5n}+2n}\\\\\n  &= \\Lim\\dfrac{5n}{4n} = \\mathbf{\\dfrac{5}{4}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+n+1}{n^2+n-1}\\right)^{n^2+n} &amp;= \\Lim\\left(1+\\dfrac{n^2+n+1}{n^2+n-1}-1\\right)^{n^2+n}\n  = \\Lim\\left(1+\\dfrac{2}{n^2+n-1}\\right)^{n^2+n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+n-1}{2}}\\right)^{(n^2+n)\\cdot\\frac{n^2+n-1}{2}\\cdot\\frac{2}{n^2+n-1}}\\\\\n  &amp;= e^{\\Lim (n^2+n)\\cdot\\frac{2}{n^2+n-1}} = e^{\\Lim\\frac{2n^2+2n}{n^2+n-1}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\sqrt{4n^2+5n}-2n\\right) &amp;= \\Lim\\dfrac{4n^2+5n-4n^2}{\\sqrt{4n^2+5n}+2n} = \\Lim\\dfrac{5n}{\\sqrt{4n^2+5n}+2n}\\\\\n  &amp;= \\Lim\\dfrac{5n}{4n} = \\mathbf{\\dfrac{5}{4}}\n  \\end{aligned}\n  \\]",
         "\\[\n  \\Lim\\left(\\sqrt{n^4+n^2}-n^2\\right) = \\Lim\\dfrac{n^4+n^2-n^4}{\\sqrt{n^4+n^2}+n^2}\n  \\] \\[\n  = \\Lim\\dfrac{n^2}{\\sqrt{n^4+n^2}+n^2} = \\Lim\\dfrac{n^2}{2n^2} = \\mathbf{\\dfrac{1}{2}}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n^2+1}{3n^2-2}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n^2+1}{3n^2-2}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{3n^2+1}{3n^2-2}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{3}{3n^2-2}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{3n^2-2}{3}}\\right)^{n^2}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{3n^2-2}{3}}\\right)^{n^2\\cdot\\frac{3n^2-2}{3}\\cdot\\frac{3}{3n^2-2}}\\\\\n  &= e^{\\Lim n^2\\cdot\\frac{3}{3n^2-2}} = e^{\\Lim\\frac{3n^2}{3n^2-2}} = \\mathbf{e}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{3n^2+1}{3n^2-2}\\right)^{n^2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{3n^2+1}{3n^2-2}\\right)^{n^2} &amp;= \\Lim\\left(1+\\dfrac{3n^2+1}{3n^2-2}-1\\right)^{n^2}\n  = \\Lim\\left(1+\\dfrac{3}{3n^2-2}\\right)^{n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{3n^2-2}{3}}\\right)^{n^2}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{3n^2-2}{3}}\\right)^{n^2\\cdot\\frac{3n^2-2}{3}\\cdot\\frac{3}{3n^2-2}}\\\\\n  &amp;= e^{\\Lim n^2\\cdot\\frac{3}{3n^2-2}} = e^{\\Lim\\frac{3n^2}{3n^2-2}} = \\mathbf{e}\n  \\end{aligned}\n  \\]",
         "<strong>Compte:</strong> no és $1^\\infty$. La base tendeix a $\\dfrac{1}{2}$ i l'exponent a $+\\infty$: $\\Lim\\left(\\dfrac{n^2+1}{2n^2}\\right)^{n} = \\left(\\dfrac{1}{2}\\right)^{+\\infty} = \\mathbf{0}$"
        ]
       },
@@ -1292,9 +1292,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2} &= \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2\\cdot n\\cdot\\frac{1}{n}}\\\\\n  &= e^{\\Lim n^2\\cdot\\frac{1}{n}} = e^{\\Lim n} = e^{+\\infty} = \\mathbf{+\\infty}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+3}{n^2+1}\\right)^{\\frac{n^3}{n+1}} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+3}{n^2+1}\\right)^{\\frac{n^3}{n+1}} &= \\Lim\\left(1+\\dfrac{n^2+3}{n^2+1}-1\\right)^{\\frac{n^3}{n+1}}\n  = \\Lim\\left(1+\\dfrac{2}{n^2+1}\\right)^{\\frac{n^3}{n+1}}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{2}}\\right)^{\\frac{n^3}{n+1}\\cdot\\frac{n^2+1}{2}\\cdot\\frac{2}{n^2+1}}\\\\\n  &= e^{\\Lim \\frac{n^3}{n+1}\\cdot\\frac{2}{n^2+1}} = e^{\\Lim\\frac{2n^3}{n^3+n^2+n+1}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
-        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+k}{n-1}\\right)^{n} &= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+k}{n-1}\\right)^{n} &= \\Lim\\left(1+\\dfrac{n+k}{n-1}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{k+1}{n-1}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{k+1}}\\right)^{n}\\\\\n  &= \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{k+1}}\\right)^{n\\cdot\\frac{n-1}{k+1}\\cdot\\frac{k+1}{n-1}}\\\\\n  &= e^{\\Lim n\\cdot\\frac{k+1}{n-1}} = e^{\\Lim\\frac{(k+1)n}{n-1}} = e^{k+1}\n  \\end{aligned}\n  \\] Igualem: $e^{k+1} = e^{3} \\;\\Rightarrow\\; k+1 = 3 \\;\\Rightarrow\\; \\mathbf{k = 2}$.",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2} &amp;= \\Lim\\left(1+\\dfrac{1}{n}\\right)^{n^2\\cdot n\\cdot\\frac{1}{n}}\\\\\n  &amp;= e^{\\Lim n^2\\cdot\\frac{1}{n}} = e^{\\Lim n} = e^{+\\infty} = \\mathbf{+\\infty}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n^2+3}{n^2+1}\\right)^{\\frac{n^3}{n+1}} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n^2+3}{n^2+1}\\right)^{\\frac{n^3}{n+1}} &amp;= \\Lim\\left(1+\\dfrac{n^2+3}{n^2+1}-1\\right)^{\\frac{n^3}{n+1}}\n  = \\Lim\\left(1+\\dfrac{2}{n^2+1}\\right)^{\\frac{n^3}{n+1}}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n^2+1}{2}}\\right)^{\\frac{n^3}{n+1}\\cdot\\frac{n^2+1}{2}\\cdot\\frac{2}{n^2+1}}\\\\\n  &amp;= e^{\\Lim \\frac{n^3}{n+1}\\cdot\\frac{2}{n^2+1}} = e^{\\Lim\\frac{2n^3}{n^3+n^2+n+1}} = \\mathbf{e^{2}}\n  \\end{aligned}\n  \\]",
+        "\\[\n  \\begin{aligned}\n  \\Lim\\left(\\dfrac{n+k}{n-1}\\right)^{n} &amp;= 1^{+\\infty} = \\text{ind}\\\\\n  \\Lim\\left(\\dfrac{n+k}{n-1}\\right)^{n} &amp;= \\Lim\\left(1+\\dfrac{n+k}{n-1}-1\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{k+1}{n-1}\\right)^{n}\n  = \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{k+1}}\\right)^{n}\\\\\n  &amp;= \\Lim\\left(1+\\dfrac{1}{\\frac{n-1}{k+1}}\\right)^{n\\cdot\\frac{n-1}{k+1}\\cdot\\frac{k+1}{n-1}}\\\\\n  &amp;= e^{\\Lim n\\cdot\\frac{k+1}{n-1}} = e^{\\Lim\\frac{(k+1)n}{n-1}} = e^{k+1}\n  \\end{aligned}\n  \\] Igualem: $e^{k+1} = e^{3} \\;\\Rightarrow\\; k+1 = 3 \\;\\Rightarrow\\; \\mathbf{k = 2}$.",
         "\\[\n  \\Lim\\left(\\sqrt{n^2+an}-\\sqrt{n^2+n}\\right)\n  = \\Lim\\dfrac{(a-1)n}{\\sqrt{n^2+an}+\\sqrt{n^2+n}}\n  \\] \\[\n  = \\Lim\\dfrac{(a-1)n}{2n} = \\dfrac{a-1}{2}\n  \\] Igualem: $\\dfrac{a-1}{2} = 3 \\;\\Rightarrow\\; \\mathbf{a = 7}$."
        ]
       },
@@ -1400,7 +1400,7 @@
        "solucioParts": [
         "$g(-1)=6$;  $g(0)=2$;  $g(1)=0$;  $g(3)=2$.",
         "$x^2-3x+2=0\\Rightarrow(x-1)(x-2)=0\\Rightarrow x=1$ o $x=2$. Dues antiimatges.",
-        "$x^2-3x+2=-2\\Rightarrow x^2-3x+4=0$. Discriminant: $9-16=-7<0$. Cap antiimatge real.",
+        "$x^2-3x+2=-2\\Rightarrow x^2-3x+4=0$. Discriminant: $9-16=-7&lt;0$. Cap antiimatge real.",
         "$x^2-3x+2=2\\Rightarrow x^2-3x=0\\Rightarrow x(x-3)=0\\Rightarrow x=0$ o $x=3$. Dues antiimatges."
        ]
       },
@@ -1489,7 +1489,7 @@
         "$f(2)=3$;  $g(2)=3$;  $f(-2)=-1$;  $g(-2)=3$.",
         "Per a $f$: $x=2$. Per a $g$: $x=-2$ i $x=2$.",
         "Es tallen als punts $(-1,0)$ i $(2,3)$. Per tant $f(x)=g(x)$ per a $x=-1$ i $x=2$.",
-        "Entre els dos punts de tall: $g(x)< f(x)$ per a $x\\in(-1,2)$."
+        "Entre els dos punts de tall: $g(x)&lt; f(x)$ per a $x\\in(-1,2)$."
        ]
       },
       {
@@ -1546,7 +1546,7 @@
        "solucio": "",
        "solucioParts": [
         "Cal $f(2)=0$: $4m-8=0\\Rightarrow m=2$. Aleshores $2x^2-8=0\\Rightarrow x^2=4\\Rightarrow x=\\pm2$: l'altra antiimatge de $0$ és $x=-2$.",
-        "$mx^2-8=0\\Rightarrow mx^2=8$. Si $m=0$, queda $0=8$: impossible. Si $m<0$, queda $x^2=\\frac{8}{m}<0$: impossible. Si $m>0$, $x=\\pm\\sqrt{\\frac{8}{m}}$: hi ha dues antiimatges. Per tant, el $0$ no té antiimatge si $m\\leq0$.",
+        "$mx^2-8=0\\Rightarrow mx^2=8$. Si $m=0$, queda $0=8$: impossible. Si $m&lt;0$, queda $x^2=\\frac{8}{m}&lt;0$: impossible. Si $m&gt;0$, $x=\\pm\\sqrt{\\frac{8}{m}}$: hi ha dues antiimatges. Per tant, el $0$ no té antiimatge si $m\\leq0$.",
         "$mx^2-8=-8\\Rightarrow mx^2=0$. Si $m\\neq0$, l'única solució és $x=0$: una antiimatge. Si $m=0$, $f(x)=-8$ per a tot $x$: tots els nombres reals són antiimatges de $-8$. Per tant, el $-8$ té exactament una antiimatge si $m\\neq0$."
        ]
       }
@@ -1593,7 +1593,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Divisors de $6$: $\\pm1,\\pm2,\\pm3,\\pm6$. $P(1)=0$: \\[\n  \\begin{array}{r|rrrr}\n   & 1 & -2 & -5 & 6\\\\\n  1 &  & 1 & -1 & -6\\\\ \\hline\n   & 1 & -1 & -6 & 0\n  \\end{array}\n  \\] $x^2-x-6=(x-3)(x+2)$. Per tant $x^3-2x^2-5x+6=(x-1)(x-3)(x+2)$.",
+        "Divisors de $6$: $\\pm1,\\pm2,\\pm3,\\pm6$. $P(1)=0$: \\[\n  \\begin{array}{r|rrrr}\n   &amp; 1 &amp; -2 &amp; -5 &amp; 6\\\\\n  1 &amp;  &amp; 1 &amp; -1 &amp; -6\\\\ \\hline\n   &amp; 1 &amp; -1 &amp; -6 &amp; 0\n  \\end{array}\n  \\] $x^2-x-6=(x-3)(x+2)$. Per tant $x^3-2x^2-5x+6=(x-1)(x-3)(x+2)$.",
         "$P(1)=0$; quocient $x^2+3x+2=(x+1)(x+2)$. Resultat: $(x-1)(x+1)(x+2)$.",
         "$P(1)=0$; quocient $x^2+x-2=(x-1)(x+2)$. Resultat: $(x-1)^2(x+2)$ ($x=1$ és arrel doble).",
         "$P(2)=0$; quocient $x^2-4x+4=(x-2)^2$. Resultat: $(x-2)^3$ ($x=2$ és arrel triple).",
@@ -1762,9 +1762,9 @@
        "solucioParts": [
         "Fracció: $x^2-4\\neq0\\Rightarrow x\\neq\\pm2$. Arrel: $6-2x\\geq0\\Rightarrow x\\leq3$. $D(f)=(-\\infty,-2)\\cup(-2,2)\\cup(2,3]$.",
         "Arrel: $x^2+x-6\\geq0\\Rightarrow(x+3)(x-2)\\geq0$: $(-\\infty,-3]\\cup[2,+\\infty)$. Denominador: $x\\neq1$, que ja queda fora. $D(g)=(-\\infty,-3]\\cup[2,+\\infty)$.",
-        "Arrel al denominador: $9-x^2>0\\Rightarrow-3< x<3$. $D(h)=(-3,3)$.",
+        "Arrel al denominador: $9-x^2&gt;0\\Rightarrow-3&lt; x&lt;3$. $D(h)=(-3,3)$.",
         "Cal $\\frac{x+1}{x-3}\\geq0$ i $x\\neq3$. Taula de signes (punts $-1$ i $3$): $+$ a $(-\\infty,-1)$ i a $(3,+\\infty)$. $D(p)=(-\\infty,-1]\\cup(3,+\\infty)$.",
-        "Arrel al denominador: $x+4>0\\Rightarrow x>-4$. Fracció: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$. $D(q)=(-4,-1)\\cup(-1,1)\\cup(1,+\\infty)$.",
+        "Arrel al denominador: $x+4&gt;0\\Rightarrow x&gt;-4$. Fracció: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$. $D(q)=(-4,-1)\\cup(-1,1)\\cup(1,+\\infty)$.",
         "Cal $\\frac{x-2}{x+5}\\geq0$ i $x\\neq-5$. Taula de signes (punts $-5$ i $2$): $+$ a $(-\\infty,-5)$ i a $(2,+\\infty)$. $D(r)=(-\\infty,-5)\\cup[2,+\\infty)$."
        ]
       },
@@ -1779,9 +1779,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Factoritzem el denominador: $x^2-x-6=(x-3)(x+2)$. Cal que $\\frac{2x-1}{(x-3)(x+2)}\\geq0$ i que el denominador no s'anul·li ($x\\neq-2$, $x\\neq3$). Taula de signes amb els punts $-2$, $\\frac{1}{2}$ i $3$: a $(-\\infty,-2)$ és $\\frac{-}{+}<0$; a $\\left(-2,\\frac{1}{2}\\right)$ és $\\frac{-}{-}>0$; a $\\left(\\frac{1}{2},3\\right)$ és $\\frac{+}{-}<0$; a $(3,+\\infty)$ és $\\frac{+}{+}>0$. El numerador s'anul·la a $x=\\frac{1}{2}$, que sí que hi entra. $D(f)=\\left(-2,\\frac{1}{2}\\right]\\cup(3,+\\infty)$.",
-        "L'arrel és al denominador, per tant el radicand ha de ser estrictament positiu: $x^2-5x+6=(x-2)(x-3)>0\\Rightarrow x\\in(-\\infty,2)\\cup(3,+\\infty)$. L'altra fracció demana $x+1\\neq0\\Rightarrow x\\neq-1$, que és dins de $(-\\infty,2)$ i s'ha de treure. $D(g)=(-\\infty,-1)\\cup(-1,2)\\cup(3,+\\infty)$.",
-        "Cal que es compleixin les dues condicions alhora: $x^2-4\\geq0\\Rightarrow x\\in(-\\infty,-2]\\cup[2,+\\infty)$, i $9-x^2>0$ (arrel al denominador) $\\Rightarrow x\\in(-3,3)$. La intersecció és $D(h)=(-3,-2]\\cup[2,3)$."
+        "Factoritzem el denominador: $x^2-x-6=(x-3)(x+2)$. Cal que $\\frac{2x-1}{(x-3)(x+2)}\\geq0$ i que el denominador no s'anul·li ($x\\neq-2$, $x\\neq3$). Taula de signes amb els punts $-2$, $\\frac{1}{2}$ i $3$: a $(-\\infty,-2)$ és $\\frac{-}{+}&lt;0$; a $\\left(-2,\\frac{1}{2}\\right)$ és $\\frac{-}{-}&gt;0$; a $\\left(\\frac{1}{2},3\\right)$ és $\\frac{+}{-}&lt;0$; a $(3,+\\infty)$ és $\\frac{+}{+}&gt;0$. El numerador s'anul·la a $x=\\frac{1}{2}$, que sí que hi entra. $D(f)=\\left(-2,\\frac{1}{2}\\right]\\cup(3,+\\infty)$.",
+        "L'arrel és al denominador, per tant el radicand ha de ser estrictament positiu: $x^2-5x+6=(x-2)(x-3)&gt;0\\Rightarrow x\\in(-\\infty,2)\\cup(3,+\\infty)$. L'altra fracció demana $x+1\\neq0\\Rightarrow x\\neq-1$, que és dins de $(-\\infty,2)$ i s'ha de treure. $D(g)=(-\\infty,-1)\\cup(-1,2)\\cup(3,+\\infty)$.",
+        "Cal que es compleixin les dues condicions alhora: $x^2-4\\geq0\\Rightarrow x\\in(-\\infty,-2]\\cup[2,+\\infty)$, i $9-x^2&gt;0$ (arrel al denominador) $\\Rightarrow x\\in(-3,3)$. La intersecció és $D(h)=(-3,-2]\\cup[2,3)$."
        ]
       },
       {
@@ -1794,7 +1794,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$f$ és una fracció: no existeix on el denominador val $0$. Per tant, cal saber quantes solucions té l'equació \\[\n  x^2+kx+4=0.\n  \\] És una equació de segon grau amb $a=1$, $b=k$ i $c=4$. El nombre de solucions depèn del signe del discriminant: \\[\n  \\Delta=b^2-4ac=k^2-4\\cdot1\\cdot4=k^2-16.\n  \\] El discriminant val $0$ quan $k^2=16$, és a dir, quan $k=-4$ o $k=4$. Aquests dos valors separen tres casos:<br><br>  <ul> <li><strong>Cas 1: $-4< k<4$.</strong> Per exemple, si $k=0$, $\\Delta=-16<0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=4$ o $k=-4$.</strong> Ara $\\Delta=0$: el denominador s'anul·la en un sol punt (arrel doble), $x=\\dfrac{-k}{2}$. \\[\n    \\text{Si } k=4:\\quad x=-2,\\quad D(f)=\\mathbb{R}\\setminus\\{-2\\}.\n    \\] \\[\n    \\text{Si } k=-4:\\quad x=2,\\quad D(f)=\\mathbb{R}\\setminus\\{2\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k<-4$ o $k>4$.</strong> Per exemple, si $k=5$, $\\Delta=9>0$. El denominador s'anul·la en dos punts: \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-16}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-16}}{2},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\{x_1,x_2\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} & \\text{si } -4< k<4\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{-\\frac{k}{2}\\right\\} & \\text{si } k=\\pm4\\\\[1ex]\n  \\mathbb{R}\\setminus\\{x_1,x_2\\} & \\text{si } k<-4 \\text{ o } k>4\n  \\end{cases}\n  \\]",
+        "$f$ és una fracció: no existeix on el denominador val $0$. Per tant, cal saber quantes solucions té l'equació \\[\n  x^2+kx+4=0.\n  \\] És una equació de segon grau amb $a=1$, $b=k$ i $c=4$. El nombre de solucions depèn del signe del discriminant: \\[\n  \\Delta=b^2-4ac=k^2-4\\cdot1\\cdot4=k^2-16.\n  \\] El discriminant val $0$ quan $k^2=16$, és a dir, quan $k=-4$ o $k=4$. Aquests dos valors separen tres casos:<br><br>  <ul> <li><strong>Cas 1: $-4&lt; k&lt;4$.</strong> Per exemple, si $k=0$, $\\Delta=-16&lt;0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=4$ o $k=-4$.</strong> Ara $\\Delta=0$: el denominador s'anul·la en un sol punt (arrel doble), $x=\\dfrac{-k}{2}$. \\[\n    \\text{Si } k=4:\\quad x=-2,\\quad D(f)=\\mathbb{R}\\setminus\\{-2\\}.\n    \\] \\[\n    \\text{Si } k=-4:\\quad x=2,\\quad D(f)=\\mathbb{R}\\setminus\\{2\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k&lt;-4$ o $k&gt;4$.</strong> Per exemple, si $k=5$, $\\Delta=9&gt;0$. El denominador s'anul·la en dos punts: \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-16}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-16}}{2},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\{x_1,x_2\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} &amp; \\text{si } -4&lt; k&lt;4\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{-\\frac{k}{2}\\right\\} &amp; \\text{si } k=\\pm4\\\\[1ex]\n  \\mathbb{R}\\setminus\\{x_1,x_2\\} &amp; \\text{si } k&lt;-4 \\text{ o } k&gt;4\n  \\end{cases}\n  \\]",
         "Per a $k=5$ (cas 3, dues arrels): \\[\n  x^2+5x+4=0\\Rightarrow x=\\dfrac{-5\\pm\\sqrt{9}}{2}=\\dfrac{-5\\pm3}{2}\\Rightarrow x=-1 \\text{ o } x=-4.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{-4,-1\\}.\n  \\] Per a $k=-4$ (cas 2, una arrel doble): \\[\n  x^2-4x+4=(x-2)^2=0\\Rightarrow x=2.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{2\\}.\n  \\]"
        ]
       },
@@ -1808,7 +1808,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Cal treure del domini els valors que anul·len el denominador, és a dir, les solucions de \\[\n  x^2-2x+k=0.\n  \\] Aquí $a=1$, $b=-2$ i $c=k$: \\[\n  \\Delta=(-2)^2-4\\cdot1\\cdot k=4-4k.\n  \\] El discriminant val $0$ quan $4-4k=0$, és a dir, quan $k=1$. Compte: ara el discriminant és positiu quan $k$ és petit ($k<1$) i negatiu quan $k$ és gran ($k>1$).<br><br>  <ul> <li><strong>Cas 1: $k>1$.</strong> Per exemple, si $k=2$, $\\Delta=-4<0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=1$.</strong> Ara $\\Delta=0$: arrel doble, $x=\\dfrac{2}{2}=1$. \\[\n    D(f)=\\mathbb{R}\\setminus\\{1\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k<1$.</strong> Per exemple, si $k=0$, $\\Delta=4>0$. Hi ha dues arrels: \\[\n    x=\\dfrac{2\\pm\\sqrt{4-4k}}{2}=1\\pm\\sqrt{1-k},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\left\\{1-\\sqrt{1-k},\\ 1+\\sqrt{1-k}\\right\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} & \\text{si } k>1\\\\[1ex]\n  \\mathbb{R}\\setminus\\{1\\} & \\text{si } k=1\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{1-\\sqrt{1-k},\\ 1+\\sqrt{1-k}\\right\\} & \\text{si } k<1\n  \\end{cases}\n  \\]",
+        "Cal treure del domini els valors que anul·len el denominador, és a dir, les solucions de \\[\n  x^2-2x+k=0.\n  \\] Aquí $a=1$, $b=-2$ i $c=k$: \\[\n  \\Delta=(-2)^2-4\\cdot1\\cdot k=4-4k.\n  \\] El discriminant val $0$ quan $4-4k=0$, és a dir, quan $k=1$. Compte: ara el discriminant és positiu quan $k$ és petit ($k&lt;1$) i negatiu quan $k$ és gran ($k&gt;1$).<br><br>  <ul> <li><strong>Cas 1: $k&gt;1$.</strong> Per exemple, si $k=2$, $\\Delta=-4&lt;0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=1$.</strong> Ara $\\Delta=0$: arrel doble, $x=\\dfrac{2}{2}=1$. \\[\n    D(f)=\\mathbb{R}\\setminus\\{1\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k&lt;1$.</strong> Per exemple, si $k=0$, $\\Delta=4&gt;0$. Hi ha dues arrels: \\[\n    x=\\dfrac{2\\pm\\sqrt{4-4k}}{2}=1\\pm\\sqrt{1-k},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\left\\{1-\\sqrt{1-k},\\ 1+\\sqrt{1-k}\\right\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} &amp; \\text{si } k&gt;1\\\\[1ex]\n  \\mathbb{R}\\setminus\\{1\\} &amp; \\text{si } k=1\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{1-\\sqrt{1-k},\\ 1+\\sqrt{1-k}\\right\\} &amp; \\text{si } k&lt;1\n  \\end{cases}\n  \\]",
         "Per a $k=-3$ (cas 3): \\[\n  x^2-2x-3=0\\Rightarrow x=1\\pm\\sqrt{4}=1\\pm2\\Rightarrow x=-1 \\text{ o } x=3.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{-1,3\\}.\n  \\] Per a $k=1$ (cas 2): \\[\n  x^2-2x+1=(x-1)^2=0\\Rightarrow x=1.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{1\\}.\n  \\]"
        ]
       },
@@ -1822,7 +1822,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "És una arrel quadrada: el radicand ha de ser positiu o zero, \\[\n  x^2+kx+9\\geq0.\n  \\] El radicand és una paràbola que obre cap amunt ($a=1>0$). Si no talla l'eix $OX$ o només el toca, és sempre $\\geq0$. Si el talla en dos punts, és negativa entre aquests dos punts. Ho decideix el discriminant: \\[\n  \\Delta=k^2-4\\cdot1\\cdot9=k^2-36,\n  \\] que val $0$ quan $k^2=36$, és a dir, quan $k=-6$ o $k=6$.<br><br>  <ul> <li><strong>Cas 1: $-6\\leq k\\leq6$.</strong> Ara $\\Delta\\leq0$: el radicand no és mai negatiu. \\[\n    D(g)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k<-6$ o $k>6$.</strong> Ara $\\Delta>0$: el radicand té dues arrels, \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-36}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-36}}{2},\n    \\] i és negatiu entre elles. Per tant: \\[\n    D(g)=(-\\infty,x_1]\\cup[x_2,+\\infty).\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(g)=\\begin{cases}\n  \\mathbb{R} & \\text{si } -6\\leq k\\leq6\\\\[1ex]\n  (-\\infty,x_1]\\cup[x_2,+\\infty) & \\text{si } k<-6 \\text{ o } k>6\n  \\end{cases}\n  \\]",
+        "És una arrel quadrada: el radicand ha de ser positiu o zero, \\[\n  x^2+kx+9\\geq0.\n  \\] El radicand és una paràbola que obre cap amunt ($a=1&gt;0$). Si no talla l'eix $OX$ o només el toca, és sempre $\\geq0$. Si el talla en dos punts, és negativa entre aquests dos punts. Ho decideix el discriminant: \\[\n  \\Delta=k^2-4\\cdot1\\cdot9=k^2-36,\n  \\] que val $0$ quan $k^2=36$, és a dir, quan $k=-6$ o $k=6$.<br><br>  <ul> <li><strong>Cas 1: $-6\\leq k\\leq6$.</strong> Ara $\\Delta\\leq0$: el radicand no és mai negatiu. \\[\n    D(g)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k&lt;-6$ o $k&gt;6$.</strong> Ara $\\Delta&gt;0$: el radicand té dues arrels, \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-36}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-36}}{2},\n    \\] i és negatiu entre elles. Per tant: \\[\n    D(g)=(-\\infty,x_1]\\cup[x_2,+\\infty).\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(g)=\\begin{cases}\n  \\mathbb{R} &amp; \\text{si } -6\\leq k\\leq6\\\\[1ex]\n  (-\\infty,x_1]\\cup[x_2,+\\infty) &amp; \\text{si } k&lt;-6 \\text{ o } k&gt;6\n  \\end{cases}\n  \\]",
         "Per a $k=10$ (cas 2): \\[\n  x^2+10x+9=(x+1)(x+9)\\geq0.\n  \\] Les arrels són $-9$ i $-1$, i el radicand és negatiu només a $(-9,-1)$: \\[\n  D(g)=(-\\infty,-9]\\cup[-1,+\\infty).\n  \\] Per a $k=6$ (cas 1): \\[\n  x^2+6x+9=(x+3)^2\\geq0 \\text{ per a tot } x,\n  \\] \\[\n  D(g)=\\mathbb{R}.\n  \\]"
        ]
       },
@@ -1836,7 +1836,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "És una arrel quadrada: cal que \\[\n  x^2-6x+k\\geq0.\n  \\] El radicand és una paràbola que obre cap amunt ($a=1>0$): és negativa només entre les seves arrels, si en té dues. Ho decideix el discriminant: \\[\n  \\Delta=(-6)^2-4\\cdot1\\cdot k=36-4k,\n  \\] que val $0$ quan $k=9$. Compte: el discriminant és positiu quan $k$ és petit ($k<9$).<br><br>  <ul> <li><strong>Cas 1: $k\\geq9$.</strong> Ara $\\Delta\\leq0$: el radicand no és mai negatiu. \\[\n    D(h)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k<9$.</strong> Ara $\\Delta>0$: el radicand té dues arrels, \\[\n    x=\\dfrac{6\\pm\\sqrt{36-4k}}{2}=3\\pm\\sqrt{9-k},\n    \\] i és negatiu entre elles. Per tant: \\[\n    D(h)=\\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right).\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(h)=\\begin{cases}\n  \\mathbb{R} & \\text{si } k\\geq9\\\\[1ex]\n  \\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right) & \\text{si } k<9\n  \\end{cases}\n  \\]",
+        "És una arrel quadrada: cal que \\[\n  x^2-6x+k\\geq0.\n  \\] El radicand és una paràbola que obre cap amunt ($a=1&gt;0$): és negativa només entre les seves arrels, si en té dues. Ho decideix el discriminant: \\[\n  \\Delta=(-6)^2-4\\cdot1\\cdot k=36-4k,\n  \\] que val $0$ quan $k=9$. Compte: el discriminant és positiu quan $k$ és petit ($k&lt;9$).<br><br>  <ul> <li><strong>Cas 1: $k\\geq9$.</strong> Ara $\\Delta\\leq0$: el radicand no és mai negatiu. \\[\n    D(h)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k&lt;9$.</strong> Ara $\\Delta&gt;0$: el radicand té dues arrels, \\[\n    x=\\dfrac{6\\pm\\sqrt{36-4k}}{2}=3\\pm\\sqrt{9-k},\n    \\] i és negatiu entre elles. Per tant: \\[\n    D(h)=\\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right).\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(h)=\\begin{cases}\n  \\mathbb{R} &amp; \\text{si } k\\geq9\\\\[1ex]\n  \\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right) &amp; \\text{si } k&lt;9\n  \\end{cases}\n  \\]",
         "Per a $k=5$ (cas 2): \\[\n  x^2-6x+5=(x-1)(x-5)\\geq0.\n  \\] Les arrels són $1$ i $5$ (i $3\\pm\\sqrt{4}=3\\pm2$ ho confirma), i el radicand és negatiu només a $(1,5)$: \\[\n  D(h)=(-\\infty,1]\\cup[5,+\\infty).\n  \\] Per a $k=9$ (cas 1): \\[\n  x^2-6x+9=(x-3)^2\\geq0 \\text{ per a tot } x,\n  \\] \\[\n  D(h)=\\mathbb{R}.\n  \\]"
        ]
       }
@@ -1914,7 +1914,7 @@
         "$D(f)=\\mathbb{R}\\setminus\\{-2\\}$. $OY$: $f(0)=-2$, punt $(0,-2)$. $OX$: $x-4=0\\Rightarrow x=4\\in D(f)$. Punt $(4,0)$.",
         "$D(g)=\\mathbb{R}\\setminus\\{3\\}$. $OY$: $g(0)=\\frac{-1}{-3}=\\frac{1}{3}$, punt $\\left(0,\\frac{1}{3}\\right)$. $OX$: $x^2-1=0\\Rightarrow x=\\pm1\\in D(g)$. Punts $(\\pm1,0)$.",
         "$D(h)=\\mathbb{R}\\setminus\\{-2,2\\}$. $OY$: $h(0)=\\frac{6}{-4}=-\\frac{3}{2}$, punt $\\left(0,-\\frac{3}{2}\\right)$. $OX$: $2x+6=0\\Rightarrow x=-3\\in D(h)$. Punt $(-3,0)$.",
-        "$D(p)=\\mathbb{R}$ ($x^2+1>0$ sempre). $OY$: $p(0)=6$, punt $(0,6)$. $OX$: $x^2-5x+6=(x-2)(x-3)=0\\Rightarrow x=2,3$. Punts $(2,0),(3,0)$."
+        "$D(p)=\\mathbb{R}$ ($x^2+1&gt;0$ sempre). $OY$: $p(0)=6$, punt $(0,6)$. $OX$: $x^2-5x+6=(x-2)(x-3)=0\\Rightarrow x=2,3$. Punts $(2,0),(3,0)$."
        ]
       },
       {
