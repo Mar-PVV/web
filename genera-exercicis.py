@@ -146,6 +146,10 @@ def html(t):
     t = re.sub(r"\\begin\{multicols\}\{\d+\}", "", t)
     t = re.sub(r"\\end\{multicols\}", "", t)
     t = re.sub(r"\\(begin|end)\{center\}", "", t)
+    # minipage (gràfics costat a costat al PDF): a la web, agrupa() ja els
+    # posa en graella; només cal treure l'entorn
+    t = re.sub(r"\\begin\{minipage\}(\[[^\]]*\])*\{[^{}]*\}", "", t)
+    t = re.sub(r"\\end\{minipage\}", "", t)
     t = re.sub(r"\\(dis|text)?style\b", "", t)
     # protegeix les mates
     trossos, guardat = [], []
