@@ -1435,7 +1435,7 @@
        "solucio": "",
        "solucioParts": [
         "$f(0)=3$;  $f(3)=0$.",
-        "On la gràfica talla l'eix $OX$: $x=-1$ i $x=3$.",
+        "On la gràfica talla l'eix $OX$ (l'eix d'abscisses): $x=-1$ i $x=3$.",
         "On la gràfica passa a altura $3$: $x=0$ i $x=2$.",
         "El valor màxim és $4$, i s'assoleix a $x=1$ (el vèrtex és el punt $(1,4)$)."
        ]
@@ -1489,7 +1489,7 @@
         "$f(2)=3$;  $g(2)=3$;  $f(-2)=-1$;  $g(-2)=3$.",
         "Per a $f$: $x=2$. Per a $g$: $x=-2$ i $x=2$.",
         "Es tallen als punts $(-1,0)$ i $(2,3)$. Per tant $f(x)=g(x)$ per a $x=-1$ i $x=2$.",
-        "Entre els dos punts de tall: $g(x)<f(x)$ per a $x\\in(-1,2)$."
+        "Entre els dos punts de tall: $g(x)< f(x)$ per a $x\\in(-1,2)$."
        ]
       },
       {
@@ -1762,7 +1762,7 @@
        "solucioParts": [
         "Fracció: $x^2-4\\neq0\\Rightarrow x\\neq\\pm2$. Arrel: $6-2x\\geq0\\Rightarrow x\\leq3$. $D(f)=(-\\infty,-2)\\cup(-2,2)\\cup(2,3]$.",
         "Arrel: $x^2+x-6\\geq0\\Rightarrow(x+3)(x-2)\\geq0$: $(-\\infty,-3]\\cup[2,+\\infty)$. Denominador: $x\\neq1$, que ja queda fora. $D(g)=(-\\infty,-3]\\cup[2,+\\infty)$.",
-        "Arrel al denominador: $9-x^2>0\\Rightarrow-3<x<3$. $D(h)=(-3,3)$.",
+        "Arrel al denominador: $9-x^2>0\\Rightarrow-3< x<3$. $D(h)=(-3,3)$.",
         "Cal $\\frac{x+1}{x-3}\\geq0$ i $x\\neq3$. Taula de signes (punts $-1$ i $3$): $+$ a $(-\\infty,-1)$ i a $(3,+\\infty)$. $D(p)=(-\\infty,-1]\\cup(3,+\\infty)$.",
         "Arrel al denominador: $x+4>0\\Rightarrow x>-4$. Fracció: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$. $D(q)=(-4,-1)\\cup(-1,1)\\cup(1,+\\infty)$.",
         "Cal $\\frac{x-2}{x+5}\\geq0$ i $x\\neq-5$. Taula de signes (punts $-5$ i $2$): $+$ a $(-\\infty,-5)$ i a $(2,+\\infty)$. $D(r)=(-\\infty,-5)\\cup[2,+\\infty)$."
@@ -1794,7 +1794,7 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$f$ és una fracció: no existeix on el denominador val $0$. Per tant, cal saber quantes solucions té l'equació \\[\n  x^2+kx+4=0.\n  \\] És una equació de segon grau amb $a=1$, $b=k$ i $c=4$. El nombre de solucions depèn del signe del discriminant: \\[\n  \\Delta=b^2-4ac=k^2-4\\cdot1\\cdot4=k^2-16.\n  \\] El discriminant val $0$ quan $k^2=16$, és a dir, quan $k=-4$ o $k=4$. Aquests dos valors separen tres casos:<br><br>  <ul> <li><strong>Cas 1: $-4<k<4$.</strong> Per exemple, si $k=0$, $\\Delta=-16<0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=4$ o $k=-4$.</strong> Ara $\\Delta=0$: el denominador s'anul·la en un sol punt (arrel doble), $x=\\dfrac{-k}{2}$. \\[\n    \\text{Si } k=4:\\quad x=-2,\\quad D(f)=\\mathbb{R}\\setminus\\{-2\\}.\n    \\] \\[\n    \\text{Si } k=-4:\\quad x=2,\\quad D(f)=\\mathbb{R}\\setminus\\{2\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k<-4$ o $k>4$.</strong> Per exemple, si $k=5$, $\\Delta=9>0$. El denominador s'anul·la en dos punts: \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-16}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-16}}{2},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\{x_1,x_2\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} & \\text{si } -4<k<4\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{-\\frac{k}{2}\\right\\} & \\text{si } k=\\pm4\\\\[1ex]\n  \\mathbb{R}\\setminus\\{x_1,x_2\\} & \\text{si } k<-4 \\text{ o } k>4\n  \\end{cases}\n  \\]",
+        "$f$ és una fracció: no existeix on el denominador val $0$. Per tant, cal saber quantes solucions té l'equació \\[\n  x^2+kx+4=0.\n  \\] És una equació de segon grau amb $a=1$, $b=k$ i $c=4$. El nombre de solucions depèn del signe del discriminant: \\[\n  \\Delta=b^2-4ac=k^2-4\\cdot1\\cdot4=k^2-16.\n  \\] El discriminant val $0$ quan $k^2=16$, és a dir, quan $k=-4$ o $k=4$. Aquests dos valors separen tres casos:<br><br>  <ul> <li><strong>Cas 1: $-4< k<4$.</strong> Per exemple, si $k=0$, $\\Delta=-16<0$. El denominador no s'anul·la mai: \\[\n    D(f)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k=4$ o $k=-4$.</strong> Ara $\\Delta=0$: el denominador s'anul·la en un sol punt (arrel doble), $x=\\dfrac{-k}{2}$. \\[\n    \\text{Si } k=4:\\quad x=-2,\\quad D(f)=\\mathbb{R}\\setminus\\{-2\\}.\n    \\] \\[\n    \\text{Si } k=-4:\\quad x=2,\\quad D(f)=\\mathbb{R}\\setminus\\{2\\}.\n    \\]<br><br>    <li><strong>Cas 3: $k<-4$ o $k>4$.</strong> Per exemple, si $k=5$, $\\Delta=9>0$. El denominador s'anul·la en dos punts: \\[\n    x_1=\\dfrac{-k-\\sqrt{k^2-16}}{2}\\quad\\text{i}\\quad x_2=\\dfrac{-k+\\sqrt{k^2-16}}{2},\n    \\] \\[\n    D(f)=\\mathbb{R}\\setminus\\{x_1,x_2\\}.\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(f)=\\begin{cases}\n  \\mathbb{R} & \\text{si } -4< k<4\\\\[1ex]\n  \\mathbb{R}\\setminus\\left\\{-\\frac{k}{2}\\right\\} & \\text{si } k=\\pm4\\\\[1ex]\n  \\mathbb{R}\\setminus\\{x_1,x_2\\} & \\text{si } k<-4 \\text{ o } k>4\n  \\end{cases}\n  \\]",
         "Per a $k=5$ (cas 3, dues arrels): \\[\n  x^2+5x+4=0\\Rightarrow x=\\dfrac{-5\\pm\\sqrt{9}}{2}=\\dfrac{-5\\pm3}{2}\\Rightarrow x=-1 \\text{ o } x=-4.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{-4,-1\\}.\n  \\] Per a $k=-4$ (cas 2, una arrel doble): \\[\n  x^2-4x+4=(x-2)^2=0\\Rightarrow x=2.\n  \\] \\[\n  D(f)=\\mathbb{R}\\setminus\\{2\\}.\n  \\]"
        ]
       },
@@ -1838,6 +1838,139 @@
        "solucioParts": [
         "És una arrel quadrada: cal que \\[\n  x^2-6x+k\\geq0.\n  \\] El radicand és una paràbola que obre cap amunt ($a=1>0$): és negativa només entre les seves arrels, si en té dues. Ho decideix el discriminant: \\[\n  \\Delta=(-6)^2-4\\cdot1\\cdot k=36-4k,\n  \\] que val $0$ quan $k=9$. Compte: el discriminant és positiu quan $k$ és petit ($k<9$).<br><br>  <ul> <li><strong>Cas 1: $k\\geq9$.</strong> Ara $\\Delta\\leq0$: el radicand no és mai negatiu. \\[\n    D(h)=\\mathbb{R}.\n    \\]<br><br>    <li><strong>Cas 2: $k<9$.</strong> Ara $\\Delta>0$: el radicand té dues arrels, \\[\n    x=\\dfrac{6\\pm\\sqrt{36-4k}}{2}=3\\pm\\sqrt{9-k},\n    \\] i és negatiu entre elles. Per tant: \\[\n    D(h)=\\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right).\n    \\] </ul><br><br>  <strong>Resum de la discussió:</strong> \\[\n  D(h)=\\begin{cases}\n  \\mathbb{R} & \\text{si } k\\geq9\\\\[1ex]\n  \\left(-\\infty,\\,3-\\sqrt{9-k}\\,\\right]\\cup\\left[\\,3+\\sqrt{9-k},+\\infty\\right) & \\text{si } k<9\n  \\end{cases}\n  \\]",
         "Per a $k=5$ (cas 2): \\[\n  x^2-6x+5=(x-1)(x-5)\\geq0.\n  \\] Les arrels són $1$ i $5$ (i $3\\pm\\sqrt{4}=3\\pm2$ ho confirma), i el radicand és negatiu només a $(1,5)$: \\[\n  D(h)=(-\\infty,1]\\cup[5,+\\infty).\n  \\] Per a $k=9$ (cas 1): \\[\n  x^2-6x+9=(x-3)^2\\geq0 \\text{ per a tot } x,\n  \\] \\[\n  D(h)=\\mathbb{R}.\n  \\]"
+       ]
+      }
+     ]
+    },
+    {
+     "titol": "Punts de tall amb els eixos",
+     "exercicis": [
+      {
+       "num": 27,
+       "nivell": 1,
+       "enunciat": "Observa les gràfiques de $f(x)=x^2-2x-3$ i de $g(x)=\\sqrt{x+1}-2$.<br><br>\\begin{minipage}{0.48\\textwidth} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\end{minipage} \\begin{minipage}{0.48\\textwidth} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\end{minipage}",
+       "parts": [
+        "Llegeix a les gràfiques els punts de tall de $f$ i de $g$ amb l'eix d'abscisses ($OX$) i amb l'eix d'ordenades ($OY$).",
+        "Comprova-ho fent els càlculs amb les expressions."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f$: talla $OX$ a $(-1,0)$ i $(3,0)$, i $OY$ a $(0,-3)$. $g$: talla $OX$ a $(3,0)$ i $OY$ a $(0,-1)$.",
+        "$f(0)=-3$; $x^2-2x-3=(x+1)(x-3)=0\\Rightarrow x=-1,\\ x=3$. $g(0)=\\sqrt{1}-2=-1$; $\\sqrt{x+1}=2\\Rightarrow x+1=4\\Rightarrow x=3$."
+       ]
+      },
+      {
+       "num": 28,
+       "nivell": 1,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions polinòmiques:",
+       "parts": [
+        "$f(x) = 3x - 6$",
+        "$g(x) = x^2 - 9$",
+        "$h(x) = x^2 + x - 2$",
+        "$p(x) = x^3 - x^2 - 6x$",
+        "$q(x) = x^4 - 5x^2 + 4$",
+        "$r(x) = x^3 - 2x^2 + x$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$OY$: $(0,-6)$. $OX$: $x=2$, punt $(2,0)$.",
+        "$OY$: $(0,-9)$. $OX$: $x=\\pm3$, punts $(\\pm3,0)$.",
+        "$OY$: $(0,-2)$. $OX$: $(x+2)(x-1)=0$, punts $(-2,0),(1,0)$.",
+        "$OY$: $(0,0)$. $OX$: $x(x-3)(x+2)=0$, punts $(-2,0),(0,0),(3,0)$.",
+        "$OY$: $(0,4)$. $OX$: $(x^2-1)(x^2-4)=0$, punts $(\\pm1,0),(\\pm2,0)$.",
+        "$OY$: $(0,0)$. $OX$: $x(x-1)^2=0$, punts $(0,0),(1,0)$."
+       ]
+      },
+      {
+       "num": 29,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos. Per trobar els talls amb $OX$, factoritza el polinomi amb la regla de Ruffini.",
+       "parts": [
+        "$f(x) = x^3 - 7x + 6$",
+        "$g(x) = x^3 + 3x^2 - 4$",
+        "$h(x) = 2x^3 + x^2 - 5x + 2$",
+        "$p(x) = x^4 - x^3 - 7x^2 + x + 6$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$OY$: $(0,6)$. $OX$: divisors de $6$; $f(1)=0$ i el quocient és $x^2+x-6=(x-2)(x+3)$. Per tant $f(x)=(x-1)(x-2)(x+3)$ i els punts són $(-3,0),(1,0),(2,0)$.",
+        "$OY$: $(0,-4)$. $OX$: $g(1)=0$ i el quocient és $x^2+4x+4=(x+2)^2$. Per tant $g(x)=(x-1)(x+2)^2$ i els punts són $(-2,0),(1,0)$.",
+        "$OY$: $(0,2)$. $OX$: $h(1)=0$ i el quocient és $2x^2+3x-2=(2x-1)(x+2)$. Per tant $h(x)=(x-1)(2x-1)(x+2)$ i els punts són $(-2,0),\\left(\\frac{1}{2},0\\right),(1,0)$.",
+        "$OY$: $(0,6)$. $OX$: $p(1)=0$ i el quocient és $x^3-7x-6$; $x=-1$ n'és arrel i el nou quocient és $x^2-x-6=(x-3)(x+2)$. Per tant $p(x)=(x-1)(x+1)(x-3)(x+2)$ i els punts són $(-2,0),(-1,0),(1,0),(3,0)$."
+       ]
+      },
+      {
+       "num": 30,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions racionals:",
+       "parts": [
+        "$f(x) = \\dfrac{x-4}{x+2}$",
+        "$g(x) = \\dfrac{x^2-1}{x-3}$",
+        "$h(x) = \\dfrac{2x+6}{x^2-4}$",
+        "$p(x) = \\dfrac{x^2-5x+6}{x^2+1}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=\\mathbb{R}\\setminus\\{-2\\}$. $OY$: $f(0)=-2$, punt $(0,-2)$. $OX$: $x-4=0\\Rightarrow x=4\\in D(f)$. Punt $(4,0)$.",
+        "$D(g)=\\mathbb{R}\\setminus\\{3\\}$. $OY$: $g(0)=\\frac{-1}{-3}=\\frac{1}{3}$, punt $\\left(0,\\frac{1}{3}\\right)$. $OX$: $x^2-1=0\\Rightarrow x=\\pm1\\in D(g)$. Punts $(\\pm1,0)$.",
+        "$D(h)=\\mathbb{R}\\setminus\\{-2,2\\}$. $OY$: $h(0)=\\frac{6}{-4}=-\\frac{3}{2}$, punt $\\left(0,-\\frac{3}{2}\\right)$. $OX$: $2x+6=0\\Rightarrow x=-3\\in D(h)$. Punt $(-3,0)$.",
+        "$D(p)=\\mathbb{R}$ ($x^2+1>0$ sempre). $OY$: $p(0)=6$, punt $(0,6)$. $OX$: $x^2-5x+6=(x-2)(x-3)=0\\Rightarrow x=2,3$. Punts $(2,0),(3,0)$."
+       ]
+      },
+      {
+       "num": 31,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos de les funcions irracionals i mixtes:",
+       "parts": [
+        "$f(x) = \\sqrt{x+4}$",
+        "$g(x) = \\sqrt{x^2-25}$",
+        "$h(x) = \\sqrt{x-1} - 3$",
+        "$p(x) = 2 - \\sqrt{4-x}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=[-4,+\\infty)$. $OY$: $f(0)=2$, punt $(0,2)$. $OX$: $\\sqrt{x+4}=0\\Rightarrow x=-4$. Punt $(-4,0)$.",
+        "$D(g)=(-\\infty,-5]\\cup[5,+\\infty)$. $OY$: $0\\notin D(g)$, no talla $OY$. $OX$: $x=\\pm5$. Punts $(\\pm5,0)$.",
+        "$D(h)=[1,+\\infty)$. $OY$: $0\\notin D(h)$, no talla $OY$. $OX$: $\\sqrt{x-1}=3\\Rightarrow x=10$. Punt $(10,0)$.",
+        "$D(p)=(-\\infty,4]$. $OY$: $p(0)=2-2=0$, punt $(0,0)$. $OX$: $2-\\sqrt{4-x}=0\\Rightarrow\\sqrt{4-x}=2\\Rightarrow x=0$. L'únic punt de tall amb els dos eixos és l'origen, $(0,0)$."
+       ]
+      },
+      {
+       "num": 32,
+       "nivell": 2,
+       "enunciat": "Determina els punts de tall amb els eixos. Compte: comprova sempre que les solucions que trobes siguin del domini i que compleixin l'equació de partida.",
+       "parts": [
+        "$f(x) = \\dfrac{x^2-4}{x-2}$",
+        "$g(x) = \\dfrac{x^2-x}{x^2-1}$",
+        "$h(x) = \\dfrac{x^2+x-6}{x^2-9}$",
+        "$p(x) = \\sqrt{x+2} - x$",
+        "$q(x) = \\sqrt{2x+3} + x$",
+        "$r(x) = 1 + \\sqrt{x-3}$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$D(f)=\\mathbb{R}\\setminus\\{2\\}$. $OY$: $f(0)=\\frac{-4}{-2}=2$, punt $(0,2)$. $OX$: $x^2-4=0\\Rightarrow x=\\pm2$, però $x=2\\notin D(f)$. Només hi ha el punt $(-2,0)$.",
+        "$D(g)=\\mathbb{R}\\setminus\\{-1,1\\}$. $OY$: $g(0)=\\frac{0}{-1}=0$, punt $(0,0)$. $OX$: $x(x-1)=0\\Rightarrow x=0,\\ x=1$, però $x=1\\notin D(g)$. Només hi ha el punt $(0,0)$.",
+        "$D(h)=\\mathbb{R}\\setminus\\{-3,3\\}$. $OY$: $h(0)=\\frac{-6}{-9}=\\frac{2}{3}$, punt $\\left(0,\\frac{2}{3}\\right)$. $OX$: $(x+3)(x-2)=0\\Rightarrow x=-3,\\ x=2$, però $x=-3\\notin D(h)$. Només hi ha el punt $(2,0)$.",
+        "$D(p)=[-2,+\\infty)$. $OY$: $p(0)=\\sqrt{2}$, punt $\\left(0,\\sqrt{2}\\right)$. $OX$: $\\sqrt{x+2}=x$; elevant al quadrat, $x+2=x^2\\Rightarrow x^2-x-2=0\\Rightarrow x=2,\\ x=-1$. Comprovem: $\\sqrt{4}=2$ sí que val; $\\sqrt{1}=1\\neq-1$, no val. Només hi ha el punt $(2,0)$.",
+        "$D(q)=\\left[-\\frac{3}{2},+\\infty\\right)$. $OY$: $q(0)=\\sqrt{3}$, punt $\\left(0,\\sqrt{3}\\right)$. $OX$: $\\sqrt{2x+3}=-x$; elevant al quadrat, $2x+3=x^2\\Rightarrow x^2-2x-3=0\\Rightarrow x=3,\\ x=-1$. Comprovem: $\\sqrt{9}=3\\neq-3$, no val; $\\sqrt{1}=1=-(-1)$, sí que val. Només hi ha el punt $(-1,0)$.",
+        "$D(r)=[3,+\\infty)$. $OY$: $0\\notin D(r)$, no talla $OY$. $OX$: $\\sqrt{x-3}=-1$ no té solució, perquè una arrel quadrada mai és negativa. No talla $OX$: la funció no talla cap dels dos eixos."
+       ]
+      },
+      {
+       "num": 33,
+       "nivell": 3,
+       "enunciat": "Troba el valor del paràmetre $k$ en cada cas:",
+       "parts": [
+        "$f(x) = \\dfrac{3x+k}{x-1}$ talla l'eix $OY$ al punt $(0, -6)$.",
+        "$g(x) = \\sqrt{x^2 + kx + 4}$ talla l'eix $OX$ en exactament un punt.",
+        "$h(x) = x^2 - kx + 2k$ passa pel punt $(1, 0)$. Amb aquest valor de $k$, troba tots els punts de tall de $h$ amb l'eix $OX$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "El tall amb $OY$ és $f(0)=\\frac{3\\cdot0+k}{0-1}=-k$. Ha de valer $-6$: $-k=-6\\Rightarrow k=6$.",
+        "$g(x)=0\\Rightarrow x^2+kx+4=0$. Els punts on el radicand val $0$ sempre són del domini, així que $g$ talla $OX$ tantes vegades com solucions té aquesta equació. Per tenir-ne exactament una, el discriminant ha de ser $0$: $k^2-16=0\\Rightarrow k=4$ o $k=-4$. Si $k=4$: $x^2+4x+4=(x+2)^2=0\\Rightarrow x=-2$, punt $(-2,0)$. Si $k=-4$: $x^2-4x+4=(x-2)^2=0\\Rightarrow x=2$, punt $(2,0)$.",
+        "$h(1)=1-k+2k=1+k=0\\Rightarrow k=-1$. Amb $k=-1$: $h(x)=x^2+x-2=(x+2)(x-1)$, que talla l'eix $OX$ en dos punts: $(-2,0)$ i $(1,0)$."
        ]
       }
      ]
