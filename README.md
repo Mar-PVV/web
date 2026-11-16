@@ -181,6 +181,9 @@ executar `publica.sh` i la web queda actualitzada.
   mateixos que al PDF.
 - Les fórmules les pinta **MathJax**; el macro `\Lim` està definit a `exercicis.html`.
   Si en crees de nous a `estil1btx.sty`, afegeix-los allà (`MathJax.tex.macros`).
+  Dins de les fórmules, el generador escapa `<`, `>` i `&` (`&lt;`, `&gt;`, `&amp;`)
+  perquè el navegador no confongui `$-1<k<3$` amb una etiqueta HTML; MathJax les
+  continua veient com a `<`, `>` i `&`.
 - Els gràfics fets amb **TikZ/pgfplots** sí que surten: `grafics.py` els compila a
   part i els desa com a SVG a `assets/grafics/`. Funciona sol quan executes
   `publica.sh`; no has de fer res.

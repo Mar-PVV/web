@@ -8,7 +8,8 @@
 #     2 Activitats/seccions/*.tex → enunciats i solucions
 #  i escriu web/assets/exercicis-batx.json
 #
-#  Les fórmules es deixen tal com són ($...$) perquè les pinti MathJax.
+#  Les fórmules es deixen tal com són ($...$) perquè les pinti MathJax;
+#  només s'hi escapen < > & (&lt; &gt; &amp;) perquè l'HTML no es trenqui.
 #  El LaTeX continua sent l'única font: per actualitzar la web, torna a
 #  executar publica.sh.
 # ─────────────────────────────────────────────────────────────────────────────
@@ -132,6 +133,10 @@ def recorre(x, fets):
     return x
 
 
+def escapa(t):
+    return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def html(t):
     if t is None:
         return ""
@@ -152,7 +157,7 @@ def html(t):
             trossos.append(tros)
     t = "".join(trossos)
 
-    t = t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    t = escapa(t)
     t = ordre(t, "textbf", "strong")
     t = ordre(t, "textit", "em")
     t = ordre(t, "emph", "em")
@@ -174,9 +179,11 @@ def html(t):
     t = re.sub(r"^(?:<br>|\s)+", "", t)
     t = re.sub(r"(?:<br>|\s)+$", "", t)
 
-    # torna a posar les mates
+    # torna a posar les mates, amb < > & escapats: si no, el navegador llegeix
+    # $-1<k<3$ com l'inici d'una etiqueta i es menja el text que ve després.
+    # MathJax treballa amb el text ja descodificat, o sigui que hi veu < > &.
     for k, m in enumerate(guardat):
-        t = t.replace("\x00%d\x00" % k, m)
+        t = t.replace("\x00%d\x00" % k, escapa(m))
     return t.strip()
 
 # ── Títols de secció ───────────────────────────────────────────────────────
