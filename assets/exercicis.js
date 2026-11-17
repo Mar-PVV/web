@@ -89,7 +89,7 @@
   const ENLLAC_PDF = document.getElementById('baixa');
 
   Promise.all([
-    fetch('assets/exercicis-batx.json?v=59316c54')
+    fetch('assets/exercicis-batx.json?v=f0272346')
       .then(r => { if (!r.ok) throw new Error(); return r.json(); }),
     videos,
   ])
