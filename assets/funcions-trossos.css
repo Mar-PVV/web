@@ -1,0 +1,152 @@
+/* Funcions a trossos · 1r de batxillerat, tema 2 */
+
+.embolcall.ft { max-width: 1320px; padding-bottom: 36px; }
+
+.ft-titol { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding: 34px 0 22px; }
+.ft-tema {
+  font-family: var(--titol); font-weight: 700; font-size: 11px !important;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--blau) !important; margin: 0 0 6px !important;
+}
+.ft-barra { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.ft-graella {
+  display: grid; grid-template-columns: minmax(380px, 440px) 1fr; gap: 20px; align-items: start;
+}
+.ft-panell {
+  background: var(--blanc); border: 1px solid var(--vora);
+  border-radius: var(--radi); box-shadow: var(--ombra);
+}
+.ft-editor { padding: 18px 18px 16px; }
+.ft-grafica { padding: 14px 16px 16px; position: sticky; top: calc(var(--alt-capcalera, 70px) + 14px); }
+
+/* Definició amb la clau */
+.ft-def {
+  min-height: 74px; display: flex; align-items: center; justify-content: center;
+  background: var(--fons); border-radius: var(--radi-petit);
+  padding: 6px 12px; margin-bottom: 16px; overflow-x: auto;
+  font-size: 17px;
+}
+.ft-def mjx-container[display="true"] { margin: .4em 0 !important; }
+
+/* Cada tros */
+.ft-tros {
+  border: 1px solid var(--vora); border-left: 5px solid var(--c);
+  border-radius: var(--radi-petit); padding: 10px 10px 10px 12px; margin-bottom: 10px;
+  background: var(--blanc);
+}
+.ft-fila { display: flex; align-items: center; gap: 8px; }
+.ft-fila + .ft-fila { margin-top: 8px; }
+.ft-num {
+  flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--c); color: #fff; display: grid; place-items: center;
+  font-family: var(--titol); font-weight: 700; font-size: 12px;
+}
+.ft-fx { flex-shrink: 0; font-size: 16px; white-space: nowrap; }
+.ft-fx i, .ft-xvar i, .ft-calcula i { font-family: 'Times New Roman', Times, serif; font-size: 1.12em; }
+.ft-tros input, .ft-calcula input {
+  font: inherit; font-size: 16px; color: var(--text);
+  border: 1px solid var(--vora); border-radius: 8px; background: var(--fons);
+  padding: 7px 10px; min-width: 0;
+  transition: border-color .14s, background .14s, box-shadow .14s;
+}
+.ft-tros input:focus, .ft-calcula input:focus {
+  outline: none; border-color: var(--blau); background: #fff; box-shadow: 0 0 0 3px var(--blau-fons);
+}
+.ft-tros input.malament { border-color: #C73B3B; background: #FCEDED; }
+.ft-expr { flex: 1; font-family: ui-monospace, Menlo, Consolas, monospace !important; font-size: 15.5px !important; }
+.ft-fila-int { padding-left: 32px; }
+.ft-si { color: var(--suau); font-size: 14.5px; margin-right: 2px; }
+.ft-lim { width: 76px; text-align: center; }
+.ft-xvar { font-size: 16px; padding: 0 2px; }
+.ft-op {
+  width: 38px; height: 36px; flex-shrink: 0;
+  font: 600 18px/1 var(--cos); color: var(--blau);
+  background: var(--blau-fons); border: 1px solid #C8DAE8; border-radius: 8px; cursor: pointer;
+  transition: background .14s;
+}
+.ft-op:hover:not(:disabled) { background: #DCE9F5; }
+.ft-op:disabled { color: var(--tenue); background: var(--fons); border-color: var(--vora); cursor: default; }
+.ft-treu {
+  flex-shrink: 0; width: 36px; height: 36px; display: grid; place-items: center;
+  border: 1px solid transparent; border-radius: 8px; background: none; color: var(--tenue); cursor: pointer;
+}
+.ft-treu svg { width: 18px; height: 18px; }
+.ft-treu:hover:not(:disabled) { color: #C73B3B; background: #FCEDED; }
+.ft-treu:disabled { opacity: .35; cursor: default; }
+.ft-err { margin: 8px 0 0 32px; font-size: 13.5px; color: #B03030; line-height: 1.45; }
+
+.ft-accions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 4px; }
+.ft-accions .boto:disabled { opacity: .5; cursor: default; }
+.ft-select {
+  font-family: var(--titol); font-weight: 600; font-size: 13px;
+  padding: 9px 12px; border-radius: 22px; border: 1px solid var(--vora);
+  background: var(--blanc); color: var(--text); cursor: pointer; max-width: 100%;
+}
+.ft-petit { padding: 8px 13px; font-size: 13px; }
+
+.ft-avis { margin: 10px 0 0; padding: 9px 12px; border-radius: var(--radi-petit); font-size: 14px; line-height: 1.5; }
+.ft-avis-error { background: #FCEDED; color: #8E2626; border: 1px solid #F2C9C9; }
+.ft-avis-info { background: var(--blau-fons); color: var(--blau-fosc); border: 1px solid #C8DAE8; }
+
+.ft-ajuda { margin-top: 16px; border-top: 1px solid var(--vora); padding-top: 12px; font-size: 14px; }
+.ft-ajuda summary { cursor: pointer; font-family: var(--titol); font-weight: 600; font-size: 13.5px; color: var(--blau); }
+.ft-ajuda table { border-collapse: collapse; margin: 10px 0; width: 100%; }
+.ft-ajuda td { padding: 5px 8px 5px 0; vertical-align: top; border-bottom: 1px solid var(--vora); }
+.ft-ajuda td:last-child { color: var(--suau); font-size: 13px; }
+.ft-ajuda code { font-size: 13px; background: var(--fons); padding: 1px 5px; border-radius: 4px; white-space: nowrap; }
+.ft-ajuda p { margin: 8px 0 0; color: var(--suau); }
+
+/* Gràfica */
+.ft-eines { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ft-eines .creix { flex: 1; }
+.ft-icona { width: 38px; height: 36px; padding: 0; justify-content: center; font-size: 19px; }
+.ft-llegenda { font-size: 13px; color: var(--suau); display: inline-flex; align-items: center; gap: 6px; }
+.ft-ple, .ft-buit { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--blau); }
+.ft-ple { background: var(--blau); }
+.ft-buit { background: #fff; margin-left: 8px; }
+
+.ft-plot {
+  position: relative; height: clamp(360px, calc(100vh - 400px), 680px);
+  border: 1px solid var(--vora); border-radius: var(--radi-petit); overflow: hidden; background: #fff;
+}
+#ft-svg { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; user-select: none; -webkit-user-select: none; }
+#ft-svg.movent { cursor: grabbing; }
+#ft-svg .quadricula line { stroke: #ECE8E1; stroke-width: 1; }
+#ft-svg .eixos line { stroke: #6B6B6B; stroke-width: 1.4; }
+#ft-svg .eixos .fletxa { fill: #6B6B6B; }
+#ft-svg .numeros text { font: 12px var(--cos); fill: #8A867F; }
+#ft-svg .nom-eix { font: italic 16px 'Times New Roman', Times, serif; fill: #6B6B6B; }
+#ft-svg .corba { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+#ft-svg circle.punt-ple, #ft-svg circle.punt-buit { stroke-width: 2.5; }
+#ft-svg .tria line { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: .7; }
+#ft-svg .tria circle { fill: var(--text); stroke: #fff; stroke-width: 2.5; }
+#ft-svg .tria text { font: 600 14px var(--cos); fill: var(--text); paint-order: stroke; stroke: #fff; stroke-width: 4px; }
+.ft-ajuda-graf { margin: 7px 2px 0; font-size: 12.5px; color: var(--tenue); }
+
+.ft-calcula {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  margin-top: 12px; padding: 12px 14px; background: var(--fons); border-radius: var(--radi-petit);
+}
+.ft-calcula label { font-size: 15px; white-space: nowrap; }
+.ft-calcula input { width: 90px; text-align: center; background: #fff; }
+.ft-res { flex: 1; min-width: min(220px, 100%); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-height: 38px; font-size: 15.5px; }
+.ft-quin {
+  font-family: var(--titol); font-weight: 600; font-size: 12px; color: var(--c);
+  border: 1px solid var(--c); border-radius: 20px; padding: 2px 10px; white-space: nowrap;
+}
+.ft-pista { color: var(--tenue); font-size: 14px; }
+.ft-mal { color: #B03030; font-size: 14px; }
+
+@media (max-width: 960px) {
+  .ft-graella { grid-template-columns: minmax(0, 1fr); }
+  .ft-grafica { position: static; }
+  .ft-plot { height: clamp(320px, 62vh, 520px); }
+}
+@media (max-width: 620px) {
+  .embolcall.ft { padding-left: 12px; padding-right: 12px; }
+  .ft-editor, .ft-grafica { padding: 12px; }
+  .ft-fila-int { padding-left: 0; flex-wrap: wrap; }
+  .ft-err { margin-left: 0; }
+  .ft-lim { width: 64px; }
+  .ft-llegenda { display: none; }
+}

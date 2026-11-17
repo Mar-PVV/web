@@ -1848,7 +1848,7 @@
       {
        "num": 27,
        "nivell": 1,
-       "enunciat": "Observa les gràfiques de $f(x)=x^2-2x-3$ i de $g(x)=\\sqrt{x+1}-2$.<br><br>\\begin{minipage}{0.48\\textwidth} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\end{minipage} \\begin{minipage}{0.48\\textwidth} <span class=\"avis-grafic\">gràfic — mira’l al PDF</span> \\end{minipage}",
+       "enunciat": "Observa les gràfiques de $f(x)=x^2-2x-3$ i de $g(x)=\\sqrt{x+1}-2$.<br><br><span class=\"avis-grafic\">gràfic — mira’l al PDF</span> <span class=\"avis-grafic\">gràfic — mira’l al PDF</span>",
        "parts": [
         "Llegeix a les gràfiques els punts de tall de $f$ i de $g$ amb l'eix d'abscisses ($OX$) i amb l'eix d'ordenades ($OY$).",
         "Comprova-ho fent els càlculs amb les expressions."

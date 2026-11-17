@@ -89,7 +89,7 @@
   const ENLLAC_PDF = document.getElementById('baixa');
 
   Promise.all([
-    fetch('assets/exercicis-batx.json?v=59316c54')
+    fetch('assets/exercicis-batx.json?v=f0272346')
       .then(r => { if (!r.ok) throw new Error(); return r.json(); }),
     videos,
   ])
@@ -130,6 +130,10 @@
           })
           .catch(() => {});
       }
+
+      // Aplicatiu de funcions a trossos (s'obre en una pestanya nova), només al tema 2
+      const botoTrossos = document.getElementById('trossos');
+      if (botoTrossos && numTema === 2) botoTrossos.hidden = false;
 
       // ── Contingut ───────────────────────────────────────────────────────
       cont.innerHTML = tema.seccions.map((sec, i) => `

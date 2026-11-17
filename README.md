@@ -57,6 +57,7 @@ web/
 ├── batx.html           selector de temes de 1r de batxillerat
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
+├── funcions-trossos.html  aplicatiu: dibuixar funcions definides a trossos (1r BTX, tema 2)
 ├── distribucions/
 │   ├── index.html      eina per a docents: distribucions de l'aula (/distribucions)
 │   └── tutorial/       vídeo tutorial de l'eina (/distribucions/tutorial)
@@ -72,6 +73,7 @@ web/
 │   ├── web.js          munta el selector de temes
 │   ├── exercicis.js    munta la pàgina d'activitats
 │   ├── test.js         fa funcionar el test de límits
+│   ├── funcions-trossos.css, funcions-trossos.js  l'aplicatiu de funcions a trossos
 │   ├── decimal-fraccio.css, decimal-fraccio.js  l'aplicatiu de decimal a fracció
 │   │                   (el CSS també té els estils comuns de tots els aplicatius)
 │   ├── suma-resta-fraccions.css, suma-resta-fraccions.js  l'aplicatiu de suma i resta
@@ -94,6 +96,7 @@ web/
 ├── pdf/                ← GENERAT per publica.sh · no editar a mà
 ├── proves/
 │   ├── prova-repas-racionals.js  prova automàtica del repàs (node proves/prova-repas-racionals.js)
+│   ├── prova-funcions-trossos.js  prova de l'aplicatiu de funcions a trossos
 │   └── prova-*-polinomis.js (també la del repàs), prova-factor-comu.js, prova-identitats-notables.js  proves dels aplicatius del tema 2 (node proves/<fitxer>)
 ├── publica.sh          decideix què es publica, copia els PDF i regenera dades.js
 ├── genera-exercicis.py converteix les activitats .tex en JSON
@@ -331,6 +334,33 @@ s'ha de tocar cap HTML.
 > El CSV es publica amb la resta de la web, o sigui que un alumne espavilat el pot
 > obrir i veure les respostes. És inevitable en una pàgina sense servidor, i per a
 > practicar no té importància — però no el facis servir per avaluar.
+
+---
+
+## Funcions a trossos (`funcions-trossos.html`)
+
+Aplicatiu del tema 2 de batxillerat. S'hi arriba amb el botó **Funcions a trossos** de la
+barra de les activitats del tema 2 (`exercicis.html?tema=2`), que l'obre en una pestanya
+nova. L'alumne escriu l'expressió i l'interval de cada tros i la gràfica es dibuixa sola.
+
+- Pot **afegir i treure trossos** (fins a 8) i canviar expressions i límits. Un límit en
+  blanc vol dir −∞ o +∞; el botó `<` canvia a `≤` (punt inclòs). Per a un sol punt, el
+  mateix nombre als dos costats amb `≤`.
+- A dalt es veu la definició amb la clau (MathJax), amb el color de cada tros.
+- Les expressions es llegeixen amb un analitzador propi (sense `eval`): `2x`, `x^2`,
+  `(x+1)/(x-2)`, `sqrt()` o `arrel()`, `cbrt()`, `|x|` o `abs()`, `ln`, `log` (base 10),
+  `exp`, `sin`, `cos`, `tan`, `pi`, `e`, decimals amb coma o punt.
+- **Avisos:** si dos trossos es trepitgen (també si comparteixen un extrem amb `≤` als
+  dos), i quins valors de x no són a cap tros.
+- **Gràfica:** punts plens i buits als extrems; arrossegar per moure, roda o dos dits per
+  fer zoom, «Centra la gràfica» per tornar a ajustar-la. Un clic tria una x.
+- **Calcula f(x):** diu a quin tros és la x i escriu la substitució (`f(−2) = 2·(−2) − 10 = −14`).
+- La funció queda a l'adreça (`funcions-trossos.html#f=…`): amb «Copia l'enllaç» es pot
+  passar una funció concreta. No es desa res més.
+- Els exemples del desplegable són a `EXEMPLES`, al principi de la part 2 de
+  `assets/funcions-trossos.js`.
+- **Prova automàtica:** `node proves/prova-funcions-trossos.js` (lectura i càlcul de les
+  expressions, TeX i revisió d'intervals).
 
 ---
 
