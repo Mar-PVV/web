@@ -76,6 +76,7 @@ versions = {n: empremta(n)
               "decimal-fraccio.css", "decimal-fraccio.js",
               "suma-resta-fraccions.css", "suma-resta-fraccions.js",
               "repas-racionals.css", "repas-racionals.js",
-              "polinomis.css", "suma-resta-polinomis.js", "multiplica-polinomis.js", "factor-comu.js", "identitats-notables.js", "monomis-polinomis.js", "repas-polinomis.css", "repas-polinomis.js")}
+              "polinomis.css", "suma-resta-polinomis.js", "multiplica-polinomis.js", "factor-comu.js", "identitats-notables.js", "monomis-polinomis.js", "repas-polinomis.css", "repas-polinomis.js",
+              "funcions-trossos.css", "funcions-trossos.js")}
 tocats = posa(versions)
 print("  · " + (", ".join(tocats) if tocats else "cap canvi"))

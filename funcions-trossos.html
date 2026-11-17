@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funcions a trossos · Matemàtiques · INS Pere Vives</title>
+<meta name="description" content="Escriu una funció definida a trossos i mira'n la gràfica: afegeix o treu trossos i canvia les expressions i els intervals.">
+<link rel="icon" href="assets/icona-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/icona-180.png">
+<meta name="apple-mobile-web-app-title" content="Matemàtiques">
+<meta name="theme-color" content="#39698C">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estil.css?v=af0daac1">
+<link rel="stylesheet" href="assets/funcions-trossos.css?v=b7992526">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'input'] },
+    chtml: { scale: 1.0 }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body data-curs="batx">
+
+<header class="capcalera">
+  <div class="embolcall">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="INS Pere Vives">
+      <span class="marca-text">
+        <span class="marca-titol">Matemàtiques · INS Pere Vives</span>
+        <span class="marca-sub">Mar Vidal Segura · Curs 2026-27</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inici</a>
+      <a href="eso.html">3r d'ESO</a>
+      <a href="batx.html" aria-current="page">1r de batxillerat</a>
+    </nav>
+  </div>
+</header>
+
+<main class="embolcall ft">
+  <div class="titol-curs ft-titol">
+    <div>
+      <p class="ft-tema">Tema 2 · Funcions</p>
+      <h1>Funcions a trossos</h1>
+      <p>Escriu l'expressió i l'interval de cada tros: la gràfica es dibuixa sola.</p>
+    </div>
+    <div class="ft-barra">
+      <a class="boto" href="exercicis.html?tema=2">← Activitats del tema 2</a>
+    </div>
+  </div>
+
+  <div class="ft-graella">
+    <!-- ── Definició ──────────────────────────────────────────────────── -->
+    <section class="ft-panell ft-editor" aria-label="Definició de la funció">
+      <div class="ft-def" id="ft-def" aria-live="polite"></div>
+
+      <div id="ft-trossos"></div>
+
+      <div class="ft-accions">
+        <button class="boto boto-principal" id="ft-afegeix" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Afegeix un tros
+        </button>
+        <select class="ft-select" id="ft-exemples" aria-label="Exemples"></select>
+        <button class="boto ft-petit" id="ft-nova" type="button">Comença de zero</button>
+      </div>
+
+      <div id="ft-avisos"></div>
+
+      <details class="ft-ajuda">
+        <summary>Com s'escriuen les expressions?</summary>
+        <table>
+          <tr><td><code>2x - 1</code></td><td>2<i>x</i> − 1</td><td>el punt de multiplicar no cal</td></tr>
+          <tr><td><code>x^2</code></td><td><i>x</i>²</td><td>potència amb <code>^</code></td></tr>
+          <tr><td><code>(x+1)/(x-2)</code></td><td>fracció</td><td>posa parèntesis al numerador i al denominador</td></tr>
+          <tr><td><code>sqrt(x+4)</code></td><td>√(<i>x</i> + 4)</td><td>també <code>arrel(x+4)</code>; arrel cúbica: <code>cbrt(x)</code></td></tr>
+          <tr><td><code>|x-3|</code></td><td>|<i>x</i> − 3|</td><td>valor absolut (també <code>abs(x-3)</code>)</td></tr>
+          <tr><td><code>2,5</code></td><td>2,5</td><td>decimals amb coma o amb punt</td></tr>
+          <tr><td><code>ln(x)</code>, <code>exp(x)</code>, <code>sin(x)</code></td><td></td><td>també <code>log</code>, <code>cos</code>, <code>tan</code>, <code>pi</code>, <code>e</code></td></tr>
+        </table>
+        <p>Als límits dels intervals hi va un nombre. Si el deixes en blanc, vol dir −∞ o +∞.
+           Clica el <strong>&lt;</strong> per canviar-lo per <strong>≤</strong> (el punt hi és inclòs).
+           Per a un sol punt, posa el mateix nombre als dos costats amb ≤.</p>
+      </details>
+    </section>
+
+    <!-- ── Gràfica ────────────────────────────────────────────────────── -->
+    <section class="ft-panell ft-grafica" aria-label="Gràfica">
+      <div class="ft-eines">
+        <span class="ft-llegenda"><span class="ft-ple"></span> inclòs <span class="ft-buit"></span> no inclòs</span>
+        <span class="creix"></span>
+        <button class="boto ft-icona" id="ft-menys" type="button" title="Allunya" aria-label="Allunya">−</button>
+        <button class="boto ft-icona" id="ft-mes" type="button" title="Apropa" aria-label="Apropa">+</button>
+        <button class="boto ft-petit" id="ft-ajusta" type="button">Centra la gràfica</button>
+        <button class="boto ft-petit" id="ft-enllac" type="button" title="Copia un enllaç a aquesta funció">Copia l'enllaç</button>
+      </div>
+      <div class="ft-plot" id="ft-plot">
+        <svg id="ft-svg" role="img" aria-label="Gràfica de la funció a trossos"></svg>
+      </div>
+      <p class="ft-ajuda-graf">Arrossega per moure la gràfica · roda del ratolí (o dos dits) per fer zoom · clic per triar una <i>x</i></p>
+      <div class="ft-calcula">
+        <label for="ft-x">Calcula <span class="ft-fxx"><i>f</i>(<i>x</i>)</span> per a <i>x</i> =</label>
+        <input id="ft-x" type="text" inputmode="decimal" autocomplete="off" placeholder="p. ex. 2">
+        <div class="ft-res" id="ft-res" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="peu">
+  <div class="embolcall">
+    <span>© Curs 2026-27 · <strong>Mar Vidal Segura</strong> · Departament de Matemàtiques · INS Pere Vives</span>
+    <span><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/funcions-trossos.js?v=d401c289"></script>
+</body>
+</html>
