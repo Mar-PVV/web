@@ -521,6 +521,21 @@ if (typeof document !== 'undefined') (function () {
     espera = setTimeout(pintaDefinicio, 180);
   }
 
+  // MathJax: un sol typeset alhora i només quan ja ha acabat de carregar (amb l'extensió
+  // de colors precarregada). Si no, en una connexió lenta es barregen i surt l'error
+  // «You can't use 'macro parameter character #'».
+  let cuaMJ = null;
+  const mjLlest = () => window.MathJax && MathJax.typesetPromise && MathJax.startup && MathJax.startup.promise;
+  function composa(elem) {
+    if (!mjLlest()) return false;
+    if (!cuaMJ) cuaMJ = MathJax.startup.promise;
+    cuaMJ = cuaMJ.then(() => {
+      if (MathJax.typesetClear) MathJax.typesetClear([elem]);
+      return MathJax.typesetPromise([elem]);
+    }).catch(() => {});
+    return true;
+  }
+
   // Definició amb clau, amb MathJax (si no ha carregat, en text pla)
   function pintaDefinicio() {
     const files = trossos.map((t, i) => {
@@ -530,10 +545,9 @@ if (typeof document !== 'undefined') (function () {
       return '{\\color{' + COLORS[i % COLORS.length] + '}' + e + '} & \\text{si } ' + c;
     });
     const tex = 'f(x)=' + (files.length === 1 ? files[0].replace(' & ', '\\quad ') : '\\begin{cases}' + files.join('\\\\[4pt]') + '\\end{cases}');
-    if (window.MathJax && MathJax.typesetPromise) {
+    if (mjLlest()) {
       def.innerHTML = '\\[' + tex + '\\]';
-      MathJax.typesetClear && MathJax.typesetClear([def]);
-      MathJax.typesetPromise([def]).catch(() => {});
+      composa(def);
     } else {
       def.textContent = 'f(x) = ' + trossos.map((t, i) => t.expr + ' si ' + (revisio.trossos[i].I ? M.textCondicio(revisio.trossos[i].I) : '…')).join(' ; ');
     }
@@ -751,8 +765,7 @@ if (typeof document !== 'undefined') (function () {
       resEl.innerHTML = quin + '<span class="ft-calc">\\(' + tex + '\\)</span>';
     }
     if (bons.length > 1) resEl.innerHTML += '<span class="ft-mal">Compte: x = ' + M.fmt(x) + ' és a més d\'un tros.</span>';
-    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([resEl]).catch(() => {});
-    else resEl.querySelectorAll('.ft-calc').forEach(s => { s.textContent = 'f(' + M.fmt(x) + ') = ' + M.fmt(y); });
+    if (!composa(resEl)) resEl.querySelectorAll('.ft-calc').forEach(s => { s.textContent = 'f(' + M.fmt(x) + ') = ' + M.fmt(y); });
   }
   xin.addEventListener('input', calcula);
 
@@ -843,7 +856,7 @@ if (typeof document !== 'undefined') (function () {
   carrega(delHash || EXEMPLES[0].t.map(([expr, a, ai, b, bi]) => ({ expr, a, ai: !!ai, b, bi: !!bi })));
   // MathJax es carrega amb defer: quan estigui a punt, repintem les fórmules
   const quanMJ = setInterval(() => {
-    if (window.MathJax && MathJax.typesetPromise) { clearInterval(quanMJ); pintaDefinicio(); calcula(); }
+    if (mjLlest()) { clearInterval(quanMJ); MathJax.startup.promise.then(() => { pintaDefinicio(); calcula(); }); }
   }, 150);
   setTimeout(() => clearInterval(quanMJ), 15000);
 })();
