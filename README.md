@@ -192,7 +192,7 @@ executar `publica.sh` i la web queda actualitzada.
   `publica.sh`; no has de fer res.
   - El nom del fitxer és el hash del codi TikZ, així que un gràfic que no has
     tocat no es torna a dibuixar (i els que ja no surten enlloc s'esborren).
-  - Necessita `pdflatex` i `dvisvgm`, que vénen amb MacTeX i amb MiKTeX/TeX Live.
+  - Necessita `pdflatex`, `latex` i `dvisvgm`, que vénen amb MacTeX i amb MiKTeX/TeX Live. Primer prova pdflatex + `dvisvgm --pdf`; si no surt (dvisvgm necessita Ghostscript < 10.01 o mutool per llegir PDF), ho torna a provar per DVI (latex + controlador dvisvgm de TikZ).
     Si no hi fossin, aquell gràfic es queda amb l'avís «gràfic — mira'l al PDF»
     i la resta de la web segueix igual.
   - Els colors i l'estil `btxplot` surten de `estil1btx.sty`, o sigui que el

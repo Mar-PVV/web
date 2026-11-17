@@ -12,7 +12,9 @@
 #    3. Els SVG es desen a web/assets/grafics/g-<clau>.svg. Com que la clau
 #       és el hash del codi, un gràfic que no ha canviat no es torna a dibuixar.
 #
-#  Requisits: pdflatex i dvisvgm (tots dos venen amb MacTeX i amb MiKTeX/TeX Live).
+#  Requisits: pdflatex, latex i dvisvgm (venen amb MacTeX i amb MiKTeX/TeX Live).
+#  Si dvisvgm no pot llegir el PDF (Ghostscript >= 10.01 sense mutool), es
+#  dibuixa per DVI amb el controlador dvisvgm de TikZ.
 #  Si no hi són, no passa res: els gràfics es queden amb l'avís "mira'l al PDF".
 # ─────────────────────────────────────────────────────────────────────────────
 import hashlib, os, re, shutil, subprocess, tempfile
@@ -97,31 +99,54 @@ def dibuixa_tot():
         return set()
 
     print("  · dibuixant %d gràfic(s)…" % len(falten))
+    # 1r intent: pdflatex + dvisvgm --pdf (el de sempre). dvisvgm necessita
+    # Ghostscript < 10.01 o mutool per llegir PDF; amb un Ghostscript més nou
+    # no converteix res. Per això, el que no surti es torna a provar per DVI
+    # (latex + controlador dvisvgm de TikZ), que no necessita cap de les dues.
+    _dibuixa(falten, "pdf")
+    queden = [c for c in falten if not _fet(c)]
+    if queden:
+        _dibuixa(queden, "dvi")
+    n = len([c for c in falten if not _fet(c)])
+    if n:
+        avisos.append("%d gràfic(s) no s'han pogut dibuixar" % n)
+    return {c for c in _pendents if _fet(c)}
+
+
+def _dibuixa(claus, via):
+    """Compila els gràfics de claus (una pàgina per gràfic) i en desa els SVG."""
     with tempfile.TemporaryDirectory() as tmp:
-        cos = "\n".join(_pendents[c] for c in falten)
-        tex = preambul() + "\n\\begin{document}\n" + cos + "\n\\end{document}\n"
+        cos = "\n".join(_pendents[c] for c in claus)
+        cap = "\\def\\pgfsysdriver{pgfsys-dvisvgm.def}\n" if via == "dvi" else ""
+        tex = cap + preambul() + "\n\\begin{document}\n" + cos + "\n\\end{document}\n"
         open(os.path.join(tmp, "g.tex"), "w", encoding="utf-8").write(tex)
-        r = subprocess.run(["pdflatex", "-interaction=nonstopmode", "g.tex"],
-                           cwd=tmp, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        pdf = os.path.join(tmp, "g.pdf")
-        if not os.path.isfile(pdf):
-            avisos.append("el document dels gràfics no compila; es deixen amb l'avís")
-            return set()
-        subprocess.run(["dvisvgm", "--pdf", "--page=1-", "--no-fonts",
-                        "--optimize", "--output=%f-%p", "g.pdf"],
+        motor = "pdflatex" if via == "pdf" else "latex"
+        if not shutil.which(motor):
+            return
+        subprocess.run([motor, "-interaction=nonstopmode", "g.tex"],
                        cwd=tmp, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        n = 0
-        for i, clau in enumerate(falten, start=1):
-            amp = "g-%0*d.svg" % (len(str(len(falten))), i)
+        doc = os.path.join(tmp, "g." + via)
+        if not os.path.isfile(doc):
+            errors = [l.rstrip() for l in open(os.path.join(tmp, "g.log"),
+                      encoding="utf-8", errors="replace") if l.startswith("!")]
+            avisos.append("el document dels gràfics (%s) no compila: %s"
+                          % (motor, "; ".join(errors[:3]) or "mira el .log"))
+            return
+        ordre = ["dvisvgm"] + (["--pdf"] if via == "pdf" else []) + [
+                 "--page=1-", "--no-fonts", "--optimize", "--output=%f-%p", "g." + via]
+        r = subprocess.run(ordre, cwd=tmp, stdout=subprocess.DEVNULL,
+                           stderr=subprocess.PIPE, text=True, errors="replace")
+        for i, clau in enumerate(claus, start=1):
+            amp = "g-%0*d.svg" % (len(str(len(claus))), i)
             orig = os.path.join(tmp, amp)
             if not os.path.isfile(orig):
                 orig = os.path.join(tmp, "g-%d.svg" % i)
             if os.path.isfile(orig):
                 shutil.move(orig, os.path.join(DESTI, "g-%s.svg" % clau))
-                n += 1
-        if n < len(falten):
-            avisos.append("%d gràfic(s) no s'han pogut dibuixar" % (len(falten) - n))
-    return {c for c in _pendents if _fet(c)}
+        if via == "pdf" and any(not _fet(c) for c in claus):
+            err = [l for l in r.stderr.splitlines() if l.strip()]
+            if err:
+                print("  · dvisvgm --pdf no ha pogut (%s); provo per DVI" % err[0].strip())
 
 
 def _neteja_orfes():
