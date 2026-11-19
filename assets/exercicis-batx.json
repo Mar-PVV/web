@@ -1987,11 +1987,11 @@
         "$g(x) = \\begin{cases} x+2 &amp; \\text{si } x &lt; 0 \\\\ 2x-1 &amp; \\text{si } 0\\leq x &lt; 2 \\\\ 3-x &amp; \\text{si } x \\geq 2 \\end{cases}$ Calcula $g(-3)$, $g(0)$, $g(1)$, $g(2)$ i $g(5)$.",
         "$h(x) = \\begin{cases} \\dfrac{4x}{x+2} &amp; \\text{si } -5 \\leq x &lt; 0 \\\\[4pt] \\sqrt{x+1} &amp; \\text{si } x \\geq 0 \\end{cases}$ Calcula $h(-4)$, $h(-2)$, $h(0)$ i $h(8)$."
        ],
-       "solucio": "",
+       "solucio": "Per calcular cada imatge, primer mirem a quin interval és el valor de $x$, i després fem servir l'expressió d'aquell interval.",
        "solucioParts": [
-        "$f(-2)=3(-2)+6=0$;  $f(0)=0^2-3\\cdot0=0$;  $f(1)=1-3=-2$;  $f(3)=9-9=0$.",
-        "$g(-3)=-1$;  $g(0)=-1$;  $g(1)=1$;  $g(2)=1$;  $g(5)=-2$.",
-        "$h(-4)=\\frac{-16}{-2}=8$;  $h(-2)$ no existeix ($-2$ és del primer tros, però anul·la el denominador);  $h(0)=\\sqrt{1}=1$;  $h(8)=\\sqrt{9}=3$."
+        "<ul> <li>$x=-2$ és de l'interval $x&lt;0$: $f(-2)=3\\cdot(-2)+6=0$. <li>$x=0$ és de l'interval $x\\geq0$: $f(0)=0^2-3\\cdot0=0$. <li>$x=1$ és de l'interval $x\\geq0$: $f(1)=1^2-3\\cdot1=-2$. <li>$x=3$ és de l'interval $x\\geq0$: $f(3)=3^2-3\\cdot3=0$. </ul>",
+        "<ul> <li>$x=-3$ és de l'interval $x&lt;0$: $g(-3)=-3+2=-1$. <li>$x=0$ és de l'interval $0\\leq x&lt;2$: $g(0)=2\\cdot0-1=-1$. <li>$x=1$ és de l'interval $0\\leq x&lt;2$: $g(1)=2\\cdot1-1=1$. <li>$x=2$ és de l'interval $x\\geq2$: $g(2)=3-2=1$. <li>$x=5$ és de l'interval $x\\geq2$: $g(5)=3-5=-2$. </ul>",
+        "<ul> <li>$x=-4$ és de l'interval $-5\\leq x&lt;0$: $h(-4)=\\dfrac{4\\cdot(-4)}{-4+2}=\\dfrac{-16}{-2}=8$. <li>$x=-2$ és de l'interval $-5\\leq x&lt;0$, però anul·la el denominador: $h(-2)$ no existeix. <li>$x=0$ és de l'interval $x\\geq0$: $h(0)=\\sqrt{0+1}=1$. <li>$x=8$ és de l'interval $x\\geq0$: $h(8)=\\sqrt{8+1}=3$. </ul>"
        ]
       },
       {
@@ -2003,11 +2003,11 @@
         "$g$",
         "$h$"
        ],
-       "solucio": "",
+       "solucio": "A cada interval igualem l'expressió a $0$, i només ens quedem amb les solucions que són d'aquell interval.",
        "solucioParts": [
-        "Tros 1: $3x+6=0\\Rightarrow x=-2&lt;0$ ✓. Tros 2: $x^2-3x=x(x-3)=0\\Rightarrow x=0$ i $x=3$, tots dos $\\geq0$ ✓. Antiimatges: $-2$, $0$ i $3$.",
-        "Tros 1: $x+2=0\\Rightarrow x=-2&lt;0$ ✓. Tros 2: $2x-1=0\\Rightarrow x=\\frac{1}{2}\\in[0,2)$ ✓. Tros 3: $3-x=0\\Rightarrow x=3\\geq2$ ✓. Antiimatges: $-2$, $\\frac{1}{2}$ i $3$.",
-        "Tros 1: $\\frac{4x}{x+2}=0\\Rightarrow x=0$, però $0\\notin[-5,0)$. Tros 2: $\\sqrt{x+1}=0\\Rightarrow x=-1$, però $-1&lt;0$. El $0$ no té cap antiimatge."
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> $3x+6=0\\Rightarrow x=-2$. Com que $-2&lt;0$, sí que és de l'interval ✓. <li><strong>Interval $x\\geq0$:</strong> $x^2-3x=x(x-3)=0\\Rightarrow x=0$ i $x=3$. Tots dos són $\\geq0$ ✓. </ul> Les antiimatges de $0$ són $x=-2$, $x=0$ i $x=3$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> $x+2=0\\Rightarrow x=-2&lt;0$ ✓. <li><strong>Interval $0\\leq x&lt;2$:</strong> $2x-1=0\\Rightarrow x=\\frac{1}{2}$, que és de $[0,2)$ ✓. <li><strong>Interval $x\\geq2$:</strong> $3-x=0\\Rightarrow x=3\\geq2$ ✓. </ul> Les antiimatges de $0$ són $x=-2$, $x=\\frac{1}{2}$ i $x=3$.",
+        "<ul> <li><strong>Interval $-5\\leq x&lt;0$:</strong> $\\dfrac{4x}{x+2}=0\\Rightarrow 4x=0\\Rightarrow x=0$, però $0$ no és de l'interval $[-5,0)$. <li><strong>Interval $x\\geq0$:</strong> $\\sqrt{x+1}=0\\Rightarrow x+1=0\\Rightarrow x=-1$, però $-1$ no és de l'interval $x\\geq0$. </ul> El $0$ no té cap antiimatge."
        ]
       },
       {
@@ -2020,12 +2020,12 @@
         "$h(x) = \\begin{cases} x^2-1 &amp; \\text{si } x \\leq -2 \\\\[2pt] \\dfrac{1}{x} &amp; \\text{si } -2 &lt; x &lt; 2 \\\\[4pt] \\sqrt{x-2} &amp; \\text{si } x \\geq 2 \\end{cases}$",
         "$p(x) = \\begin{cases} \\dfrac{3}{x+1} &amp; \\text{si } x &lt; 0 \\\\[4pt] \\sqrt{4-x} &amp; \\text{si } x \\geq 0 \\end{cases}$"
        ],
-       "solucio": "",
+       "solucio": "A cada interval mirem quins valors no es poden fer servir, i després ajuntem els resultats.",
        "solucioParts": [
-        "Tros 1: $x\\neq2$, que no és de $(-\\infty,0)$: tot $(-\\infty,0)$. Tros 2: polinomi, tot $[0,+\\infty)$. $D(f)=\\mathbb{R}$.",
-        "Tros 1: $x\\geq-4$: $[-4,1)$. Tros 2: $x\\neq3$: $[1,3)\\cup(3,+\\infty)$. $D(g)=[-4,3)\\cup(3,+\\infty)$.",
-        "Tros 1 i tros 3: definits a tot el seu interval. Tros 2: $x\\neq0$. $D(h)=\\mathbb{R}\\setminus\\{0\\}$.",
-        "Tros 1: $x\\neq-1$: $(-\\infty,-1)\\cup(-1,0)$. Tros 2: $4-x\\geq0\\Rightarrow x\\leq4$: $[0,4]$. $D(p)=(-\\infty,-1)\\cup(-1,4]$."
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la a $x=2$, que no és d'aquest interval. Tot $(-\\infty,0)$ és del domini. <li><strong>Interval $x\\geq0$:</strong> és un polinomi. Tot $[0,+\\infty)$ és del domini. </ul> $D(f)=\\mathbb{R}$.",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> cal $x+4\\geq0\\Rightarrow x\\geq-4$. Queda $[-4,1)$. <li><strong>Interval $x\\geq1$:</strong> el denominador s'anul·la a $x=3$, que sí que és d'aquest interval. Queda $[1,3)\\cup(3,+\\infty)$. </ul> $D(g)=[-4,3)\\cup(3,+\\infty)$.",
+        "<ul> <li><strong>Interval $x\\leq-2$:</strong> és un polinomi. Tot $(-\\infty,-2]$ és del domini. <li><strong>Interval $-2&lt; x&lt;2$:</strong> el denominador s'anul·la a $x=0$, que sí que és d'aquest interval. Queda $(-2,0)\\cup(0,2)$. <li><strong>Interval $x\\geq2$:</strong> cal $x-2\\geq0\\Rightarrow x\\geq2$, que es compleix a tot l'interval. Queda $[2,+\\infty)$. </ul> $D(h)=\\mathbb{R}\\setminus\\{0\\}$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la a $x=-1$, que sí que és d'aquest interval. Queda $(-\\infty,-1)\\cup(-1,0)$. <li><strong>Interval $x\\geq0$:</strong> cal $4-x\\geq0\\Rightarrow x\\leq4$. Amb $x\\geq0$ queda $[0,4]$. </ul> $D(p)=(-\\infty,-1)\\cup(-1,4]$."
        ]
       },
       {
@@ -2039,9 +2039,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Tros 1: $x&lt;0$ i $x\\neq-5$: $(-\\infty,-5)\\cup(-5,0)$. Tros 2: $x\\geq0$ i $x\\neq-1$, que no és de $[0,+\\infty)$: $[0,+\\infty)$. $D(f)=\\mathbb{R}\\setminus\\{-5\\}$.",
-        "Tros 1: $x&lt;0$ i $x+3\\geq0\\Rightarrow x\\geq-3$: $[-3,0)$. Tros 2: $x\\geq0$ i $x^2-9\\neq0\\Rightarrow x\\neq3$ ($x=-3$ no és d'aquest tros): $[0,3)\\cup(3,+\\infty)$. $D(g)=[-3,3)\\cup(3,+\\infty)$.",
-        "Tros 1: $x&lt;-1$ i $x\\neq-2$: $(-\\infty,-2)\\cup(-2,-1)$. Tros 2: polinomi, tot $[-1,3)$. Tros 3: $x\\geq3$ i $x\\neq5$: $[3,5)\\cup(5,+\\infty)$. $D(h)=\\mathbb{R}\\setminus\\{-2,5\\}$."
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la a $x=-5$, que sí que és d'aquest interval. Queda $(-\\infty,-5)\\cup(-5,0)$. <li><strong>Interval $x\\geq0$:</strong> el denominador s'anul·la a $x=-1$, que no és d'aquest interval. Tot $[0,+\\infty)$ és del domini. </ul> $D(f)=\\mathbb{R}\\setminus\\{-5\\}$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> cal $x+3\\geq0\\Rightarrow x\\geq-3$. Amb $x&lt;0$ queda $[-3,0)$. <li><strong>Interval $x\\geq0$:</strong> el denominador s'anul·la si $x^2-9=0$, és a dir, a $x=3$ i $x=-3$. Només $x=3$ és d'aquest interval. Queda $[0,3)\\cup(3,+\\infty)$. </ul> $D(g)=[-3,3)\\cup(3,+\\infty)$.",
+        "<ul> <li><strong>Interval $x&lt;-1$:</strong> el denominador s'anul·la a $x=-2$, que sí que és d'aquest interval. Queda $(-\\infty,-2)\\cup(-2,-1)$. <li><strong>Interval $-1\\leq x&lt;3$:</strong> és un polinomi. Tot $[-1,3)$ és del domini. <li><strong>Interval $x\\geq3$:</strong> el denominador s'anul·la a $x=5$, que sí que és d'aquest interval. Queda $[3,5)\\cup(5,+\\infty)$. </ul> $D(h)=\\mathbb{R}\\setminus\\{-2,5\\}$."
        ]
       },
       {
@@ -2056,14 +2056,14 @@
         "$q(x) = \\begin{cases} \\dfrac{x+2}{x^2+4} &amp; \\text{si } x \\leq 0 \\\\[6pt] \\dfrac{1}{\\sqrt{x^2-3x-4}} &amp; \\text{si } x &gt; 0 \\end{cases}$",
         "$r(x) = \\begin{cases} \\dfrac{x}{x^2-9} &amp; \\text{si } x &lt; 0 \\\\[6pt] \\sqrt{4x-x^3} &amp; \\text{si } 0\\leq x &lt; 4 \\\\[4pt] \\dfrac{5}{x^3-8x^2+16x} &amp; \\text{si } x \\geq 4 \\end{cases}$"
        ],
-       "solucio": "",
+       "solucio": "A cada interval resolem l'equació o la inequació que calgui, i només ens quedem amb les solucions que són d'aquell interval.",
        "solucioParts": [
-        "Tros 1 ($x&lt;2$): el denominador s'anul·la si $x^2-5x+6=(x-2)(x-3)=0$, és a dir, a $x=2$ i $x=3$. Cap dels dos és menor que $2$, així que el tros 1 està definit a tot $(-\\infty,2)$. Tros 2 ($x\\geq2$): cal $x^2-4x+3=(x-1)(x-3)\\geq0$. És una paràbola que obre cap amunt i talla l'eix $OX$ a $1$ i a $3$, per tant és $\\geq0$ si $x\\leq1$ o $x\\geq3$. Amb $x\\geq2$ queda $[3,+\\infty)$. $D(f)=(-\\infty,2)\\cup[3,+\\infty)$.",
-        "Tros 1 ($x&lt;0$): cal $x^2+x-6=(x+3)(x-2)\\geq0$, que es compleix si $x\\leq-3$ o $x\\geq2$. Amb $x&lt;0$ queda $(-\\infty,-3]$. Tros 2 ($x\\geq0$): el denominador s'anul·la si $x^2-2x-8=(x-4)(x+2)=0$, és a dir, a $x=4$ i $x=-2$. Només $x=4$ és del tros: $[0,4)\\cup(4,+\\infty)$. $D(g)=(-\\infty,-3]\\cup[0,4)\\cup(4,+\\infty)$.",
-        "Tros 1 ($x&lt;0$): el denominador s'anul·la si $x^3-4x=x(x-2)(x+2)=0$, és a dir, a $x=0$ i $x=\\pm2$. Només $x=-2$ és del tros: $(-\\infty,-2)\\cup(-2,0)$. Tros 2 ($x\\geq0$): factoritzem amb Ruffini ($x=1$ és arrel): $x^3-x^2-4x+4=(x-1)(x-2)(x+2)$. A $[0,+\\infty)$ el factor $x+2$ és positiu, i el signe depèn de $(x-1)(x-2)$: és $\\geq0$ si $x\\leq1$ o $x\\geq2$. Amb $x\\geq0$ queda $[0,1]\\cup[2,+\\infty)$. $D(h)=(-\\infty,-2)\\cup(-2,1]\\cup[2,+\\infty)$.",
-        "Tros 1 ($x&lt;-1$): cal $x^2-4\\geq0$, que es compleix si $x\\leq-2$ o $x\\geq2$. Amb $x&lt;-1$ queda $(-\\infty,-2]$. Tros 2 ($-1\\leq x&lt;3$): el denominador s'anul·la si $x^2+x-2=(x+2)(x-1)=0$, és a dir, a $x=-2$ i $x=1$. Només $x=1$ és del tros: $[-1,1)\\cup(1,3)$. Tros 3 ($x\\geq3$): cal $x^2-6x+5=(x-1)(x-5)\\geq0$, que es compleix si $x\\leq1$ o $x\\geq5$. Amb $x\\geq3$ queda $[5,+\\infty)$. $D(p)=(-\\infty,-2]\\cup[-1,1)\\cup(1,3)\\cup[5,+\\infty)$.",
-        "Tros 1 ($x\\leq0$): $x^2+4&gt;0$ sempre, així que el tros 1 està definit a tot $(-\\infty,0]$. Tros 2 ($x&gt;0$): l'arrel és al denominador, així que el radicand ha de ser estrictament positiu: $x^2-3x-4=(x-4)(x+1)&gt;0$, que es compleix si $x&lt; -1$ o $x&gt;4$. Amb $x&gt;0$ queda $(4,+\\infty)$. $D(q)=(-\\infty,0]\\cup(4,+\\infty)$.",
-        "Tros 1 ($x&lt;0$): el denominador s'anul·la si $x^2-9=0$, és a dir, a $x=\\pm3$. Només $x=-3$ és del tros: $(-\\infty,-3)\\cup(-3,0)$. Tros 2 ($0\\leq x&lt;4$): cal $4x-x^3=x(2-x)(2+x)\\geq0$. En aquest tros $x\\geq0$ i $2+x&gt;0$, així que el signe és el de $2-x$: és $\\geq0$ si $x\\leq2$. Queda $[0,2]$. Tros 3 ($x\\geq4$): el denominador s'anul·la si $x^3-8x^2+16x=x(x-4)^2=0$, és a dir, a $x=0$ i $x=4$. Només $x=4$ és del tros: $(4,+\\infty)$. $D(r)=(-\\infty,-3)\\cup(-3,2]\\cup(4,+\\infty)$."
+        "<ul> <li><strong>Interval $x&lt;2$:</strong> el denominador s'anul·la si \\[\n    x^2-5x+6=(x-2)(x-3)=0\\Rightarrow x=2 \\text{ i } x=3.\n    \\] Cap dels dos és menor que $2$, així que tot $(-\\infty,2)$ és del domini. <li><strong>Interval $x\\geq2$:</strong> cal \\[\n    x^2-4x+3=(x-1)(x-3)\\geq0.\n    \\] És una paràbola que obre cap amunt i talla l'eix $OX$ a $1$ i a $3$, per tant és $\\geq0$ si $x\\leq1$ o $x\\geq3$. Amb $x\\geq2$ queda $[3,+\\infty)$. </ul> $D(f)=(-\\infty,2)\\cup[3,+\\infty)$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> cal \\[\n    x^2+x-6=(x+3)(x-2)\\geq0,\n    \\] que es compleix si $x\\leq-3$ o $x\\geq2$. Amb $x&lt;0$ queda $(-\\infty,-3]$. <li><strong>Interval $x\\geq0$:</strong> el denominador s'anul·la si \\[\n    x^2-2x-8=(x-4)(x+2)=0\\Rightarrow x=4 \\text{ i } x=-2.\n    \\] Només $x=4$ és d'aquest interval. Queda $[0,4)\\cup(4,+\\infty)$. </ul> $D(g)=(-\\infty,-3]\\cup[0,4)\\cup(4,+\\infty)$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la si \\[\n    x^3-4x=x(x-2)(x+2)=0\\Rightarrow x=0,\\ x=2 \\text{ i } x=-2.\n    \\] Només $x=-2$ és d'aquest interval. Queda $(-\\infty,-2)\\cup(-2,0)$. <li><strong>Interval $x\\geq0$:</strong> cal $x^3-x^2-4x+4\\geq0$. Factoritzem amb Ruffini ($x=1$ és arrel): \\[\n    x^3-x^2-4x+4=(x-1)(x-2)(x+2).\n    \\] Si $x\\geq0$, el factor $x+2$ és positiu, i el signe depèn de $(x-1)(x-2)$: és $\\geq0$ si $x\\leq1$ o $x\\geq2$. Amb $x\\geq0$ queda $[0,1]\\cup[2,+\\infty)$. </ul> $D(h)=(-\\infty,-2)\\cup(-2,1]\\cup[2,+\\infty)$.",
+        "<ul> <li><strong>Interval $x&lt;-1$:</strong> cal $x^2-4\\geq0$, que es compleix si $x\\leq-2$ o $x\\geq2$. Amb $x&lt;-1$ queda $(-\\infty,-2]$. <li><strong>Interval $-1\\leq x&lt;3$:</strong> el denominador s'anul·la si \\[\n    x^2+x-2=(x+2)(x-1)=0\\Rightarrow x=-2 \\text{ i } x=1.\n    \\] Només $x=1$ és d'aquest interval. Queda $[-1,1)\\cup(1,3)$. <li><strong>Interval $x\\geq3$:</strong> cal \\[\n    x^2-6x+5=(x-1)(x-5)\\geq0,\n    \\] que es compleix si $x\\leq1$ o $x\\geq5$. Amb $x\\geq3$ queda $[5,+\\infty)$. </ul> $D(p)=(-\\infty,-2]\\cup[-1,1)\\cup(1,3)\\cup[5,+\\infty)$.",
+        "<ul> <li><strong>Interval $x\\leq0$:</strong> $x^2+4&gt;0$ sempre, així que tot $(-\\infty,0]$ és del domini. <li><strong>Interval $x&gt;0$:</strong> l'arrel és al denominador, així que el radicand ha de ser estrictament positiu: \\[\n    x^2-3x-4=(x-4)(x+1)&gt;0,\n    \\] que es compleix si $x&lt; -1$ o $x&gt;4$. Amb $x&gt;0$ queda $(4,+\\infty)$. </ul> $D(q)=(-\\infty,0]\\cup(4,+\\infty)$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la si $x^2-9=0$, és a dir, a $x=3$ i $x=-3$. Només $x=-3$ és d'aquest interval. Queda $(-\\infty,-3)\\cup(-3,0)$. <li><strong>Interval $0\\leq x&lt;4$:</strong> cal \\[\n    4x-x^3=x(2-x)(2+x)\\geq0.\n    \\] En aquest interval $x\\geq0$ i $2+x&gt;0$, així que el signe és el de $2-x$: és $\\geq0$ si $x\\leq2$. Queda $[0,2]$. <li><strong>Interval $x\\geq4$:</strong> el denominador s'anul·la si \\[\n    x^3-8x^2+16x=x(x-4)^2=0\\Rightarrow x=0 \\text{ i } x=4.\n    \\] Només $x=4$ és d'aquest interval. Queda $(4,+\\infty)$. </ul> $D(r)=(-\\infty,-3)\\cup(-3,2]\\cup(4,+\\infty)$."
        ]
       },
       {
@@ -2075,11 +2075,11 @@
         "$g(x) = \\begin{cases} \\dfrac{x+3}{x-1} &amp; \\text{si } x \\leq 0 \\\\[4pt] \\sqrt{x} - 2 &amp; \\text{si } x &gt; 0 \\end{cases}$",
         "$h(x) = \\begin{cases} x^2-4 &amp; \\text{si } x &lt; 0 \\\\ 2x+1 &amp; \\text{si } 0\\leq x &lt; 3 \\\\ x-4 &amp; \\text{si } x \\geq 3 \\end{cases}$"
        ],
-       "solucio": "",
+       "solucio": "Tall amb $OY$: mirem a quin interval és $x=0$ i calculem la imatge de $0$. Talls amb $OX$: a cada interval igualem l'expressió a $0$, i només ens quedem amb les solucions que són d'aquell interval.",
        "solucioParts": [
-        "$OY$: $0\\geq-1$, $f(0)=0^2-1=-1$. Punt $(0,-1)$. $OX$: tros 1: $2x+4=0\\Rightarrow x=-2&lt;-1$ ✓. Punt $(-2,0)$. Tros 2: $x^2-1=0\\Rightarrow x=\\pm1$; $1\\geq-1$ ✓, $-1\\geq-1$ ✓. Punts $(-1,0),(1,0)$.",
-        "$OY$: $0\\leq0$, $g(0)=\\frac{3}{-1}=-3$. Punt $(0,-3)$. $OX$: tros 1: $x+3=0\\Rightarrow x=-3\\leq0$ ✓. Punt $(-3,0)$. Tros 2: $\\sqrt{x}=2\\Rightarrow x=4&gt;0$ ✓. Punt $(4,0)$.",
-        "$OY$: $0\\leq0&lt;3$, $h(0)=1$. Punt $(0,1)$. $OX$: tros 1: $x^2=4\\Rightarrow x=-2&lt;0$ ✓ (i $x=2\\not&lt;0$). Punt $(-2,0)$. Tros 2: $2x+1=0\\Rightarrow x=-\\frac{1}{2}\\not\\in[0,3)$. Cap punt. Tros 3: $x-4=0\\Rightarrow x=4\\geq3$ ✓. Punt $(4,0)$."
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\geq-1$: $f(0)=0^2-1=-1$. Punt $(0,-1)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;-1$:</strong> $2x+4=0\\Rightarrow x=-2&lt;-1$ ✓. Punt $(-2,0)$. <li><strong>Interval $x\\geq-1$:</strong> $x^2-1=0\\Rightarrow x=1$ i $x=-1$. Tots dos són $\\geq-1$ ✓. Punts $(-1,0)$ i $(1,0)$. </ul>",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\leq0$: $g(0)=\\dfrac{3}{-1}=-3$. Punt $(0,-3)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x\\leq0$:</strong> $x+3=0\\Rightarrow x=-3\\leq0$ ✓. Punt $(-3,0)$. <li><strong>Interval $x&gt;0$:</strong> $\\sqrt{x}=2\\Rightarrow x=4&gt;0$ ✓. Punt $(4,0)$. </ul>",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $0\\leq x&lt;3$: $h(0)=2\\cdot0+1=1$. Punt $(0,1)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $x^2-4=0\\Rightarrow x=-2$ i $x=2$. Només $x=-2$ és d'aquest interval. Punt $(-2,0)$. <li><strong>Interval $0\\leq x&lt;3$:</strong> $2x+1=0\\Rightarrow x=-\\frac{1}{2}$, que no és de $[0,3)$. Cap punt. <li><strong>Interval $x\\geq3$:</strong> $x-4=0\\Rightarrow x=4\\geq3$ ✓. Punt $(4,0)$. </ul>"
        ]
       },
       {
@@ -2093,9 +2093,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$OY$: $0\\geq0$, $f(0)=3$. Punt $(0,3)$. $OX$: tros 1: $x^2+2x-3=(x+3)(x-1)=0\\Rightarrow x=-3&lt;0$ ✓; $x=1$ no és d'aquest tros. Tros 2: $3-x=0\\Rightarrow x=3\\geq0$ ✓. Punts $(-3,0)$ i $(3,0)$.",
-        "$OY$: $0\\leq2$, $g(0)=\\frac{2}{-1}=-2$. Punt $(0,-2)$. $OX$: tros 1: $x+2=0\\Rightarrow x=-2\\leq2$ ✓. Tros 2: $\\sqrt{x-2}=1\\Rightarrow x=3&gt;2$ ✓. Punts $(-2,0)$ i $(3,0)$.",
-        "$OY$: $-2\\leq0\\leq1$, $h(0)=0$. Punt $(0,0)$. $OX$: tros 1: $x=-4&lt;-2$ ✓. Tros 2: $x^2=0\\Rightarrow x=0\\in[-2,1]$ ✓. Tros 3: $x=2&gt;1$ ✓. Punts $(-4,0)$, $(0,0)$ i $(2,0)$."
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\geq0$: $f(0)=3-0=3$. Punt $(0,3)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $x^2+2x-3=(x+3)(x-1)=0\\Rightarrow x=-3$ i $x=1$. Només $x=-3$ és d'aquest interval. Punt $(-3,0)$. <li><strong>Interval $x\\geq0$:</strong> $3-x=0\\Rightarrow x=3\\geq0$ ✓. Punt $(3,0)$. </ul>",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\leq2$: $g(0)=\\dfrac{2}{-1}=-2$. Punt $(0,-2)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x\\leq2$:</strong> $x+2=0\\Rightarrow x=-2\\leq2$ ✓. Punt $(-2,0)$. <li><strong>Interval $x&gt;2$:</strong> $\\sqrt{x-2}=1\\Rightarrow x-2=1\\Rightarrow x=3&gt;2$ ✓. Punt $(3,0)$. </ul>",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $-2\\leq x\\leq1$: $h(0)=0^2=0$. Punt $(0,0)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;-2$:</strong> $x+4=0\\Rightarrow x=-4&lt;-2$ ✓. Punt $(-4,0)$. <li><strong>Interval $-2\\leq x\\leq1$:</strong> $x^2=0\\Rightarrow x=0$, que és de $[-2,1]$ ✓. Punt $(0,0)$. <li><strong>Interval $x&gt;1$:</strong> $2-x=0\\Rightarrow x=2&gt;1$ ✓. Punt $(2,0)$. </ul>"
        ]
       },
       {
@@ -2108,8 +2108,8 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Domini: tros 1: $x+6\\geq0\\Rightarrow x\\geq-6$: $[-6,0)$. Tros 2: $x\\neq5$: $[0,5)\\cup(5,+\\infty)$. $D(f)=[-6,5)\\cup(5,+\\infty)$. $OY$: $f(0)=\\frac{0}{-5}=0$. Punt $(0,0)$. $OX$: tros 1: $\\sqrt{x+6}=2\\Rightarrow x=-2\\in[-6,0)$ ✓. Tros 2: $x(x-4)=0\\Rightarrow x=0$ i $x=4$, tots dos del tros i del domini ✓. Punts $(-2,0)$, $(0,0)$ i $(4,0)$.",
-        "Domini: tros 1: $x^2-1\\neq0\\Rightarrow x\\neq\\pm1$; només $-1$ és del tros: $(-\\infty,-1)\\cup(-1,0]$. Tros 2: $9-x^2\\geq0\\Rightarrow-3\\leq x\\leq3$, i amb $x&gt;0$: $(0,3]$. $D(g)=(-\\infty,-1)\\cup(-1,3]$. $OY$: $g(0)=\\frac{6}{-1}=-6$. Punt $(0,-6)$. $OX$: tros 1: $2x+6=0\\Rightarrow x=-3\\leq0$ ✓. Tros 2: $9-x^2=0\\Rightarrow x=\\pm3$; només $x=3&gt;0$ ✓. Punts $(-3,0)$ i $(3,0)$."
+        "<strong>Domini:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> cal $x+6\\geq0\\Rightarrow x\\geq-6$. Queda $[-6,0)$. <li><strong>Interval $x\\geq0$:</strong> el denominador s'anul·la a $x=5$, que sí que és d'aquest interval. Queda $[0,5)\\cup(5,+\\infty)$. </ul> $D(f)=[-6,5)\\cup(5,+\\infty)$.<br><br>  <strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\geq0$: $f(0)=\\dfrac{0}{-5}=0$. Punt $(0,0)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $\\sqrt{x+6}=2\\Rightarrow x+6=4\\Rightarrow x=-2$, que és de $[-6,0)$ ✓. Punt $(-2,0)$. <li><strong>Interval $x\\geq0$:</strong> $x^2-4x=x(x-4)=0\\Rightarrow x=0$ i $x=4$. Tots dos són de l'interval i del domini ✓. Punts $(0,0)$ i $(4,0)$. </ul>",
+        "<strong>Domini:</strong> <ul> <li><strong>Interval $x\\leq0$:</strong> el denominador s'anul·la si $x^2-1=0$, és a dir, a $x=1$ i $x=-1$. Només $x=-1$ és d'aquest interval. Queda $(-\\infty,-1)\\cup(-1,0]$. <li><strong>Interval $x&gt;0$:</strong> cal $9-x^2\\geq0$, que es compleix si $-3\\leq x\\leq3$. Amb $x&gt;0$ queda $(0,3]$. </ul> $D(g)=(-\\infty,-1)\\cup(-1,3]$.<br><br>  <strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x\\leq0$: $g(0)=\\dfrac{6}{-1}=-6$. Punt $(0,-6)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x\\leq0$:</strong> $2x+6=0\\Rightarrow x=-3\\leq0$ ✓. Punt $(-3,0)$. <li><strong>Interval $x&gt;0$:</strong> $9-x^2=0\\Rightarrow x=3$ i $x=-3$. Només $x=3$ és d'aquest interval. Punt $(3,0)$. </ul>"
        ]
       },
       {
@@ -2124,10 +2124,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$f(-4)=\\frac{0}{-6}=0$;  $f(0)=\\frac{4}{-2}=-2$;  $f(1)=\\sqrt{4}-1=1$;  $f(13)=\\sqrt{16}-1=3$.",
-        "Tros 1: $x&lt;1$ i $x\\neq2$, que no és d'aquest tros: $(-\\infty,1)$. Tros 2: $x\\geq1$ i $x+3\\geq0\\Rightarrow x\\geq-3$, que es compleix sempre: $[1,+\\infty)$. $D(f)=\\mathbb{R}$.",
-        "$OY$: $f(0)=-2$, punt $(0,-2)$. $OX$: tros 1: $x+4=0\\Rightarrow x=-4&lt;1$ ✓, punt $(-4,0)$. Tros 2: $\\sqrt{x+3}=1\\Rightarrow x+3=1\\Rightarrow x=-2$, però $-2&lt;1$: no és d'aquest tros. Només hi ha un punt de tall amb $OX$: $(-4,0)$.",
-        "Tros 1: $\\frac{x+4}{x-2}=2\\Rightarrow x+4=2x-4\\Rightarrow x=8$, però $8\\geq1$: no és d'aquest tros. Tros 2: $\\sqrt{x+3}-1=2\\Rightarrow\\sqrt{x+3}=3\\Rightarrow x=6\\geq1$ ✓. L'única antiimatge de $2$ és $x=6$."
+        "<ul> <li>$x=-4$ és de l'interval $x&lt;1$: $f(-4)=\\dfrac{0}{-6}=0$. <li>$x=0$ és de l'interval $x&lt;1$: $f(0)=\\dfrac{4}{-2}=-2$. <li>$x=1$ és de l'interval $x\\geq1$: $f(1)=\\sqrt{4}-1=1$. <li>$x=13$ és de l'interval $x\\geq1$: $f(13)=\\sqrt{16}-1=3$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> el denominador s'anul·la a $x=2$, que no és d'aquest interval. Tot $(-\\infty,1)$ és del domini. <li><strong>Interval $x\\geq1$:</strong> cal $x+3\\geq0\\Rightarrow x\\geq-3$, que es compleix a tot l'interval. Tot $[1,+\\infty)$ és del domini. </ul> $D(f)=\\mathbb{R}$.",
+        "<strong>Tall amb $OY$:</strong> $f(0)=-2$. Punt $(0,-2)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;1$:</strong> $x+4=0\\Rightarrow x=-4&lt;1$ ✓. Punt $(-4,0)$. <li><strong>Interval $x\\geq1$:</strong> $\\sqrt{x+3}=1\\Rightarrow x+3=1\\Rightarrow x=-2$, però $-2$ no és d'aquest interval. </ul> Només hi ha un punt de tall amb $OX$: $(-4,0)$.",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> \\[\n    \\frac{x+4}{x-2}=2\\Rightarrow x+4=2x-4\\Rightarrow x=8,\n    \\] però $8$ no és d'aquest interval. <li><strong>Interval $x\\geq1$:</strong> \\[\n    \\sqrt{x+3}-1=2\\Rightarrow\\sqrt{x+3}=3\\Rightarrow x+3=9\\Rightarrow x=6\\geq1~\\checkmark.\n    \\] </ul> L'única antiimatge de $2$ és $x=6$."
        ]
       },
       {
@@ -2142,10 +2142,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$f(-3)=\\frac{12}{-1}=-12$;  $f(-2)$ no existeix ($-2$ és del primer tros, però anul·la el denominador);  $f(0)=\\frac{0}{2}=0$;  $f(1)=3-\\sqrt{4}=1$;  $f(6)=3-\\sqrt{9}=0$.",
-        "Tros 1: $x&lt;1$ i $x\\neq-2$: $(-\\infty,-2)\\cup(-2,1)$. Tros 2: $x\\geq1$ i $x+3\\geq0\\Rightarrow x\\geq-3$, que es compleix sempre: $[1,+\\infty)$. $D(f)=\\mathbb{R}\\setminus\\{-2\\}$.",
-        "$OY$: $f(0)=0$, punt $(0,0)$. $OX$: tros 1: $x^2-x=x(x-1)=0\\Rightarrow x=0&lt;1$ ✓; $x=1$ no és d'aquest tros. Tros 2: $\\sqrt{x+3}=3\\Rightarrow x=6\\geq1$ ✓. Punts $(0,0)$ i $(6,0)$.",
-        "Tros 1: $\\frac{x^2-x}{x+2}=2\\Rightarrow x^2-x=2x+4\\Rightarrow x^2-3x-4=(x-4)(x+1)=0$. $x=-1&lt;1$ ✓; $x=4$ no és d'aquest tros. Tros 2: $3-\\sqrt{x+3}=2\\Rightarrow\\sqrt{x+3}=1\\Rightarrow x=-2$, però $-2&lt;1$: no és d'aquest tros. L'única antiimatge de $2$ és $x=-1$."
+        "<ul> <li>$x=-3$ és de l'interval $x&lt;1$: $f(-3)=\\dfrac{9+3}{-1}=-12$. <li>$x=-2$ és de l'interval $x&lt;1$, però anul·la el denominador: $f(-2)$ no existeix. <li>$x=0$ és de l'interval $x&lt;1$: $f(0)=\\dfrac{0}{2}=0$. <li>$x=1$ és de l'interval $x\\geq1$: $f(1)=3-\\sqrt{4}=1$. <li>$x=6$ és de l'interval $x\\geq1$: $f(6)=3-\\sqrt{9}=0$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> el denominador s'anul·la a $x=-2$, que sí que és d'aquest interval. Queda $(-\\infty,-2)\\cup(-2,1)$. <li><strong>Interval $x\\geq1$:</strong> cal $x+3\\geq0\\Rightarrow x\\geq-3$, que es compleix a tot l'interval. Queda $[1,+\\infty)$. </ul> $D(f)=\\mathbb{R}\\setminus\\{-2\\}$.",
+        "<strong>Tall amb $OY$:</strong> $f(0)=0$. Punt $(0,0)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;1$:</strong> $x^2-x=x(x-1)=0\\Rightarrow x=0$ i $x=1$. Només $x=0$ és d'aquest interval. Punt $(0,0)$. <li><strong>Interval $x\\geq1$:</strong> $\\sqrt{x+3}=3\\Rightarrow x+3=9\\Rightarrow x=6\\geq1$ ✓. Punt $(6,0)$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> \\[\n    \\frac{x^2-x}{x+2}=2\\Rightarrow x^2-x=2x+4\\Rightarrow x^2-3x-4=(x-4)(x+1)=0.\n    \\] $x=-1$ és d'aquest interval ✓; $x=4$ no. <li><strong>Interval $x\\geq1$:</strong> \\[\n    3-\\sqrt{x+3}=2\\Rightarrow\\sqrt{x+3}=1\\Rightarrow x=-2,\n    \\] però $-2$ no és d'aquest interval. </ul> L'única antiimatge de $2$ és $x=-1$."
        ]
       },
       {
@@ -2160,10 +2160,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$h(-4)=\\frac{0}{-3}=0$;  $h(-1)$ no existeix ($-1$ és del primer tros, però anul·la el denominador);  $h(0)=3$ (segon tros);  $h(4)=16-16+3=3$ (segon tros);  $h(11)=5-\\sqrt{16}=1$.",
-        "Tros 1: $x&lt;0$ i $x\\neq-1$: $(-\\infty,-1)\\cup(-1,0)$. Tros 2: polinomi, tot $[0,4]$. Tros 3: $x&gt;4$ i $x+5\\geq0\\Rightarrow x\\geq-5$, que es compleix sempre: $(4,+\\infty)$. $D(h)=\\mathbb{R}\\setminus\\{-1\\}$.",
-        "$OY$: $0\\in[0,4]$, $h(0)=3$. Punt $(0,3)$. $OX$: tros 1: $2x+8=0\\Rightarrow x=-4&lt;0$ ✓. Tros 2: $x^2-4x+3=(x-1)(x-3)=0\\Rightarrow x=1$ i $x=3$, tots dos de $[0,4]$ ✓. Tros 3: $\\sqrt{x+5}=5\\Rightarrow x=20&gt;4$ ✓. Punts $(-4,0)$, $(1,0)$, $(3,0)$ i $(20,0)$.",
-        "Tros 1: $\\frac{2x+8}{x+1}=3\\Rightarrow 2x+8=3x+3\\Rightarrow x=5$, però $5\\geq0$: no és d'aquest tros. Tros 2: $x^2-4x+3=3\\Rightarrow x(x-4)=0\\Rightarrow x=0$ i $x=4$, tots dos de $[0,4]$ ✓. Tros 3: $5-\\sqrt{x+5}=3\\Rightarrow\\sqrt{x+5}=2\\Rightarrow x=-1$, però $-1\\leq4$: no és d'aquest tros. Les antiimatges de $3$ són $x=0$ i $x=4$."
+        "<ul> <li>$x=-4$ és de l'interval $x&lt;0$: $h(-4)=\\dfrac{0}{-3}=0$. <li>$x=-1$ és de l'interval $x&lt;0$, però anul·la el denominador: $h(-1)$ no existeix. <li>$x=0$ és de l'interval $0\\leq x\\leq4$: $h(0)=3$. <li>$x=4$ és de l'interval $0\\leq x\\leq4$: $h(4)=16-16+3=3$. <li>$x=11$ és de l'interval $x&gt;4$: $h(11)=5-\\sqrt{16}=1$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la a $x=-1$, que sí que és d'aquest interval. Queda $(-\\infty,-1)\\cup(-1,0)$. <li><strong>Interval $0\\leq x\\leq4$:</strong> és un polinomi. Tot $[0,4]$ és del domini. <li><strong>Interval $x&gt;4$:</strong> cal $x+5\\geq0\\Rightarrow x\\geq-5$, que es compleix a tot l'interval. Queda $(4,+\\infty)$. </ul> $D(h)=\\mathbb{R}\\setminus\\{-1\\}$.",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $0\\leq x\\leq4$: $h(0)=3$. Punt $(0,3)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $2x+8=0\\Rightarrow x=-4&lt;0$ ✓. Punt $(-4,0)$. <li><strong>Interval $0\\leq x\\leq4$:</strong> $x^2-4x+3=(x-1)(x-3)=0\\Rightarrow x=1$ i $x=3$. Tots dos són de $[0,4]$ ✓. Punts $(1,0)$ i $(3,0)$. <li><strong>Interval $x&gt;4$:</strong> $\\sqrt{x+5}=5\\Rightarrow x+5=25\\Rightarrow x=20&gt;4$ ✓. Punt $(20,0)$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> \\[\n    \\frac{2x+8}{x+1}=3\\Rightarrow 2x+8=3x+3\\Rightarrow x=5,\n    \\] però $5$ no és d'aquest interval. <li><strong>Interval $0\\leq x\\leq4$:</strong> \\[\n    x^2-4x+3=3\\Rightarrow x(x-4)=0\\Rightarrow x=0 \\text{ i } x=4.\n    \\] Tots dos són de $[0,4]$ ✓. <li><strong>Interval $x&gt;4$:</strong> \\[\n    5-\\sqrt{x+5}=3\\Rightarrow\\sqrt{x+5}=2\\Rightarrow x=-1,\n    \\] però $-1$ no és d'aquest interval. </ul> Les antiimatges de $3$ són $x=0$ i $x=4$."
        ]
       },
       {
@@ -2178,10 +2178,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$g(-2)=-8+6=-2$;  $g(0)=0$;  $g(1)=\\frac{4}{-1}=-4$ (segon tros);  $g(2)$ no existeix ($2$ és del segon tros, però anul·la el denominador);  $g(3)=\\frac{6}{1}=6$.",
-        "Tros 1: polinomi, tot $(-\\infty,1)$. Tros 2: $x-2\\neq0\\Rightarrow x\\neq2$, que sí que és d'aquest tros: $[1,2)\\cup(2,+\\infty)$. $D(g)=\\mathbb{R}\\setminus\\{2\\}$.",
-        "$OY$: $0&lt;1$, $g(0)=0$. Punt $(0,0)$. $OX$: tros 1: $x^3-3x=x(x^2-3)=0\\Rightarrow x=0$ i $x=\\pm\\sqrt{3}$. Els valors $x=0$ i $x=-\\sqrt{3}$ són menors que $1$ ✓; $x=\\sqrt{3}$ no, perquè $\\sqrt{3}&gt;1$. Tros 2: $x+3=0\\Rightarrow x=-3$, però $-3&lt;1$: no és d'aquest tros. Punts $\\left(-\\sqrt{3},0\\right)$ i $(0,0)$.",
-        "Tros 1: $x^3-3x=2\\Rightarrow x^3-3x-2=0$. Els divisors de $-2$ són $\\pm1,\\pm2$, i $x=-1$ n'és arrel: \\[\n  \\begin{array}{r|rrrr}\n   &amp; 1 &amp; 0 &amp; -3 &amp; -2\\\\\n  -1 &amp;  &amp; -1 &amp; 1 &amp; 2\\\\ \\hline\n   &amp; 1 &amp; -1 &amp; -2 &amp; 0\n  \\end{array}\n  \\] $x^2-x-2=(x-2)(x+1)$, per tant $x^3-3x-2=(x+1)^2(x-2)$. $x=-1&lt;1$ ✓; $x=2$ no és d'aquest tros. Tros 2: $\\frac{x+3}{x-2}=2\\Rightarrow x+3=2x-4\\Rightarrow x=7\\geq1$ ✓. Les antiimatges de $2$ són $x=-1$ i $x=7$."
+        "<ul> <li>$x=-2$ és de l'interval $x&lt;1$: $g(-2)=-8+6=-2$. <li>$x=0$ és de l'interval $x&lt;1$: $g(0)=0$. <li>$x=1$ és de l'interval $x\\geq1$: $g(1)=\\dfrac{4}{-1}=-4$. <li>$x=2$ és de l'interval $x\\geq1$, però anul·la el denominador: $g(2)$ no existeix. <li>$x=3$ és de l'interval $x\\geq1$: $g(3)=\\dfrac{6}{1}=6$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> és un polinomi. Tot $(-\\infty,1)$ és del domini. <li><strong>Interval $x\\geq1$:</strong> el denominador s'anul·la a $x=2$, que sí que és d'aquest interval. Queda $[1,2)\\cup(2,+\\infty)$. </ul> $D(g)=\\mathbb{R}\\setminus\\{2\\}$.",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x&lt;1$: $g(0)=0$. Punt $(0,0)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;1$:</strong> \\[\n    x^3-3x=x(x^2-3)=0\\Rightarrow x=0,\\ x=-\\sqrt{3} \\text{ i } x=\\sqrt{3}.\n    \\] $x=0$ i $x=-\\sqrt{3}$ són d'aquest interval ✓; $x=\\sqrt{3}$ no, perquè $\\sqrt{3}&gt;1$. <li><strong>Interval $x\\geq1$:</strong> $x+3=0\\Rightarrow x=-3$, però $-3$ no és d'aquest interval. </ul> Punts $\\left(-\\sqrt{3},0\\right)$ i $(0,0)$.",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> $x^3-3x=2\\Rightarrow x^3-3x-2=0$. Els divisors de $-2$ són $\\pm1,\\pm2$, i $x=-1$ n'és arrel: \\[\n    \\begin{array}{r|rrrr}\n     &amp; 1 &amp; 0 &amp; -3 &amp; -2\\\\\n    -1 &amp;  &amp; -1 &amp; 1 &amp; 2\\\\ \\hline\n     &amp; 1 &amp; -1 &amp; -2 &amp; 0\n    \\end{array}\n    \\] $x^2-x-2=(x-2)(x+1)$, per tant $x^3-3x-2=(x+1)^2(x-2)$. $x=-1$ és d'aquest interval ✓; $x=2$ no. <li><strong>Interval $x\\geq1$:</strong> \\[\n    \\frac{x+3}{x-2}=2\\Rightarrow x+3=2x-4\\Rightarrow x=7\\geq1~\\checkmark.\n    \\] </ul> Les antiimatges de $2$ són $x=-1$ i $x=7$."
        ]
       },
       {
@@ -2196,10 +2196,10 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "$p(-2)=\\sqrt{4+4-8}=0$;  $p(-1)=\\sqrt{1+2-8}=\\sqrt{-5}$, no existeix;  $p(0)=\\frac{-4}{-1}=4$;  $p(1)$ no existeix ($1$ és del segon tros, però anul·la el denominador);  $p(2)=\\frac{0}{1}=0$;  $p(3)=3-1-\\sqrt{4}=0$ (tercer tros).",
-        "Tros 1 ($x&lt;0$): cal $x^2-2x-8=(x-4)(x+2)\\geq0$, que es compleix si $x\\leq-2$ o $x\\geq4$. Amb $x&lt;0$ queda $(-\\infty,-2]$. Tros 2 ($0\\leq x&lt;3$): $x-1\\neq0\\Rightarrow x\\neq1$, que sí que és d'aquest tros: $[0,1)\\cup(1,3)$. Tros 3 ($x\\geq3$): cal $x+1\\geq0\\Rightarrow x\\geq-1$, que es compleix sempre: $[3,+\\infty)$. $D(p)=(-\\infty,-2]\\cup[0,1)\\cup(1,+\\infty)$.",
-        "$OY$: $0\\in[0,3)$, $p(0)=4$. Punt $(0,4)$. $OX$: tros 1: $x^2-2x-8=0\\Rightarrow x=4$ i $x=-2$; només $x=-2&lt;0$ ✓. Tros 2: $x^2-4=0\\Rightarrow x=\\pm2$; només $x=2\\in[0,3)$ ✓. Tros 3: $\\sqrt{x+1}=x-1$; elevant al quadrat, $x+1=x^2-2x+1\\Rightarrow x^2-3x=0\\Rightarrow x=0$ i $x=3$. $x=0$ no és d'aquest tros (i tampoc compleix l'equació: $\\sqrt{1}\\neq-1$); $x=3$: $\\sqrt{4}=2$ ✓. Punts $(-2,0)$, $(2,0)$ i $(3,0)$.",
-        "Tros 1: $\\sqrt{x^2-2x-8}=4\\Rightarrow x^2-2x-8=16\\Rightarrow x^2-2x-24=(x-6)(x+4)=0$. $x=-4&lt;0$ ✓; $x=6$ no és d'aquest tros. Tros 2: $\\frac{x^2-4}{x-1}=4\\Rightarrow x^2-4=4x-4\\Rightarrow x(x-4)=0$. $x=0\\in[0,3)$ ✓; $x=4$ no és d'aquest tros. Tros 3: $x-1-\\sqrt{x+1}=4\\Rightarrow\\sqrt{x+1}=x-5$; elevant al quadrat, $x+1=x^2-10x+25\\Rightarrow x^2-11x+24=(x-3)(x-8)=0$. $x=3$: $\\sqrt{4}=2\\neq-2$, no val. $x=8$: $\\sqrt{9}=3=8-5$ ✓. Les antiimatges de $4$ són $x=-4$, $x=0$ i $x=8$."
+        "<ul> <li>$x=-2$ és de l'interval $x&lt;0$: $p(-2)=\\sqrt{4+4-8}=0$. <li>$x=-1$ és de l'interval $x&lt;0$: $p(-1)=\\sqrt{1+2-8}=\\sqrt{-5}$, que no existeix. <li>$x=0$ és de l'interval $0\\leq x&lt;3$: $p(0)=\\dfrac{-4}{-1}=4$. <li>$x=1$ és de l'interval $0\\leq x&lt;3$, però anul·la el denominador: $p(1)$ no existeix. <li>$x=2$ és de l'interval $0\\leq x&lt;3$: $p(2)=\\dfrac{0}{1}=0$. <li>$x=3$ és de l'interval $x\\geq3$: $p(3)=3-1-\\sqrt{4}=0$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> cal \\[\n    x^2-2x-8=(x-4)(x+2)\\geq0,\n    \\] que es compleix si $x\\leq-2$ o $x\\geq4$. Amb $x&lt;0$ queda $(-\\infty,-2]$. <li><strong>Interval $0\\leq x&lt;3$:</strong> el denominador s'anul·la a $x=1$, que sí que és d'aquest interval. Queda $[0,1)\\cup(1,3)$. <li><strong>Interval $x\\geq3$:</strong> cal $x+1\\geq0\\Rightarrow x\\geq-1$, que es compleix a tot l'interval. Queda $[3,+\\infty)$. </ul> $D(p)=(-\\infty,-2]\\cup[0,1)\\cup(1,+\\infty)$.",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $0\\leq x&lt;3$: $p(0)=4$. Punt $(0,4)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $x^2-2x-8=0\\Rightarrow x=4$ i $x=-2$. Només $x=-2$ és d'aquest interval. Punt $(-2,0)$. <li><strong>Interval $0\\leq x&lt;3$:</strong> $x^2-4=0\\Rightarrow x=2$ i $x=-2$. Només $x=2$ és d'aquest interval. Punt $(2,0)$. <li><strong>Interval $x\\geq3$:</strong> $\\sqrt{x+1}=x-1$. Elevem al quadrat: \\[\n    x+1=x^2-2x+1\\Rightarrow x^2-3x=0\\Rightarrow x=0 \\text{ i } x=3.\n    \\] $x=0$ no és d'aquest interval (i tampoc compleix l'equació: $\\sqrt{1}\\neq-1$). $x=3$: $\\sqrt{4}=2=3-1$ ✓. Punt $(3,0)$. </ul>",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> \\[\n    \\sqrt{x^2-2x-8}=4\\Rightarrow x^2-2x-8=16\\Rightarrow x^2-2x-24=(x-6)(x+4)=0.\n    \\] $x=-4$ és d'aquest interval ✓; $x=6$ no. <li><strong>Interval $0\\leq x&lt;3$:</strong> \\[\n    \\frac{x^2-4}{x-1}=4\\Rightarrow x^2-4=4x-4\\Rightarrow x(x-4)=0.\n    \\] $x=0$ és d'aquest interval ✓; $x=4$ no. <li><strong>Interval $x\\geq3$:</strong> $x-1-\\sqrt{x+1}=4\\Rightarrow\\sqrt{x+1}=x-5$. Elevem al quadrat: \\[\n    x+1=x^2-10x+25\\Rightarrow x^2-11x+24=(x-3)(x-8)=0.\n    \\] $x=3$: $\\sqrt{4}=2\\neq-2$, no val. $x=8$: $\\sqrt{9}=3=8-5$ ✓. </ul> Les antiimatges de $4$ són $x=-4$, $x=0$ i $x=8$."
        ]
       },
       {
@@ -2213,9 +2213,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Com que $-2&lt;0$, el punt $(-2,0)$ és del primer tros: $f(-2)=-2+k=0\\Rightarrow k=2$. Com que $1\\geq0$, el punt $(1,0)$ és del segon tros: $f(1)=1+m+3=0\\Rightarrow m=-4$. Per tant $f(x)=x+2$ si $x&lt;0$ i $f(x)=x^2-4x+3$ si $x\\geq0$.",
-        "Tros 1: $x+2=0\\Rightarrow x=-2&lt;0$ ✓. Tros 2: $x^2-4x+3=(x-1)(x-3)=0\\Rightarrow x=1$ i $x=3$, tots dos $\\geq0$ ✓. $f$ talla l'eix $OX$ en exactament tres punts: $(-2,0)$, $(1,0)$ i $(3,0)$.",
-        "$0\\geq0$, per tant $f(0)=0^2-4\\cdot0+3=3$. Punt $(0,3)$."
+        "Com que $-2&lt;0$, el punt $(-2,0)$ és de l'interval $x&lt;0$: \\[\n  f(-2)=-2+k=0\\Rightarrow k=2.\n  \\] Com que $1\\geq0$, el punt $(1,0)$ és de l'interval $x\\geq0$: \\[\n  f(1)=1+m+3=0\\Rightarrow m=-4.\n  \\] Per tant $f(x)=x+2$ si $x&lt;0$ i $f(x)=x^2-4x+3$ si $x\\geq0$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> $x+2=0\\Rightarrow x=-2&lt;0$ ✓. <li><strong>Interval $x\\geq0$:</strong> $x^2-4x+3=(x-1)(x-3)=0\\Rightarrow x=1$ i $x=3$. Tots dos són $\\geq0$ ✓. </ul> $f$ talla l'eix $OX$ en exactament tres punts: $(-2,0)$, $(1,0)$ i $(3,0)$.",
+        "$x=0$ és de l'interval $x\\geq0$: $f(0)=0^2-4\\cdot0+3=3$. Punt $(0,3)$."
        ]
       },
       {
@@ -2229,9 +2229,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Com que $-3&lt;1$, el punt $(-3,0)$ és del primer tros: $f(-3)=9-3k=0\\Rightarrow k=3$. Com que $3\\geq1$, el punt $(3,2)$ és del segon tros: $f(3)=3m-4=2\\Rightarrow m=2$. Per tant $f(x)=x^2+3x$ si $x&lt;1$ i $f(x)=2x-4$ si $x\\geq1$.",
-        "$OY$: $0&lt;1$, per tant $f(0)=0$. Punt $(0,0)$. $OX$: tros 1: $x^2+3x=x(x+3)=0\\Rightarrow x=0$ i $x=-3$, tots dos $&lt;1$ ✓. Tros 2: $2x-4=0\\Rightarrow x=2\\geq1$ ✓. Punts $(-3,0)$, $(0,0)$ i $(2,0)$.",
-        "Tros 1: $x^2+3x=-2\\Rightarrow x^2+3x+2=(x+1)(x+2)=0\\Rightarrow x=-1$ i $x=-2$, tots dos $&lt;1$ ✓. Tros 2: $2x-4=-2\\Rightarrow x=1\\geq1$ ✓. Les antiimatges de $-2$ són $x=-2$, $x=-1$ i $x=1$."
+        "Com que $-3&lt;1$, el punt $(-3,0)$ és de l'interval $x&lt;1$: \\[\n  f(-3)=9-3k=0\\Rightarrow k=3.\n  \\] Com que $3\\geq1$, el punt $(3,2)$ és de l'interval $x\\geq1$: \\[\n  f(3)=3m-4=2\\Rightarrow m=2.\n  \\] Per tant $f(x)=x^2+3x$ si $x&lt;1$ i $f(x)=2x-4$ si $x\\geq1$.",
+        "<strong>Tall amb $OY$:</strong> $x=0$ és de l'interval $x&lt;1$: $f(0)=0$. Punt $(0,0)$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;1$:</strong> $x^2+3x=x(x+3)=0\\Rightarrow x=0$ i $x=-3$. Tots dos són $&lt;1$ ✓. <li><strong>Interval $x\\geq1$:</strong> $2x-4=0\\Rightarrow x=2\\geq1$ ✓. </ul> Punts $(-3,0)$, $(0,0)$ i $(2,0)$.",
+        "<ul> <li><strong>Interval $x&lt;1$:</strong> \\[\n    x^2+3x=-2\\Rightarrow x^2+3x+2=(x+1)(x+2)=0\\Rightarrow x=-1 \\text{ i } x=-2.\n    \\] Tots dos són $&lt;1$ ✓. <li><strong>Interval $x\\geq1$:</strong> $2x-4=-2\\Rightarrow x=1\\geq1$ ✓. </ul> Les antiimatges de $-2$ són $x=-2$, $x=-1$ i $x=1$."
        ]
       },
       {
@@ -2245,9 +2245,9 @@
        ],
        "solucio": "",
        "solucioParts": [
-        "Com que $-4&lt;0$, el punt $(-4,0)$ és del primer tros: $g(-4)=\\frac{-4+k}{-6}=0\\Rightarrow k=4$. Com que $0\\in[0,6)$, el punt $(0,1)$ és del segon tros: $g(0)=\\sqrt{m}-2=1\\Rightarrow\\sqrt{m}=3\\Rightarrow m=9$. Per tant $g(x)=\\frac{x+4}{x-2}$ si $x&lt;0$, $g(x)=\\sqrt{x+9}-2$ si $0\\leq x&lt;6$ i $g(x)=10-x$ si $x\\geq6$.",
-        "Domini: tros 1: $x\\neq2$, que no és d'aquest tros: tot $(-\\infty,0)$. Tros 2: $x+9\\geq0\\Rightarrow x\\geq-9$, que es compleix sempre: tot $[0,6)$. Tros 3: polinomi, tot $[6,+\\infty)$. $D(g)=\\mathbb{R}$. $OX$: tros 1: $x+4=0\\Rightarrow x=-4&lt;0$ ✓. Tros 2: $\\sqrt{x+9}=2\\Rightarrow x=-5$, però $-5\\notin[0,6)$. Tros 3: $10-x=0\\Rightarrow x=10\\geq6$ ✓. Punts $(-4,0)$ i $(10,0)$.",
-        "Tros 1: $\\frac{x+4}{x-2}=3\\Rightarrow x+4=3x-6\\Rightarrow x=5$, però $5\\geq0$: no és d'aquest tros. Tros 2: $\\sqrt{x+9}-2=3\\Rightarrow\\sqrt{x+9}=5\\Rightarrow x=16$, però $16\\geq6$: no és d'aquest tros. Tros 3: $10-x=3\\Rightarrow x=7\\geq6$ ✓. L'única antiimatge de $3$ és $x=7$."
+        "Com que $-4&lt;0$, el punt $(-4,0)$ és de l'interval $x&lt;0$: \\[\n  g(-4)=\\frac{-4+k}{-6}=0\\Rightarrow k=4.\n  \\] Com que $0\\in[0,6)$, el punt $(0,1)$ és de l'interval $0\\leq x&lt;6$: \\[\n  g(0)=\\sqrt{m}-2=1\\Rightarrow\\sqrt{m}=3\\Rightarrow m=9.\n  \\] Per tant $g(x)=\\dfrac{x+4}{x-2}$ si $x&lt;0$, $g(x)=\\sqrt{x+9}-2$ si $0\\leq x&lt;6$ i $g(x)=10-x$ si $x\\geq6$.",
+        "<strong>Domini:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> el denominador s'anul·la a $x=2$, que no és d'aquest interval. Tot $(-\\infty,0)$ és del domini. <li><strong>Interval $0\\leq x&lt;6$:</strong> cal $x+9\\geq0\\Rightarrow x\\geq-9$, que es compleix a tot l'interval. Tot $[0,6)$ és del domini. <li><strong>Interval $x\\geq6$:</strong> és un polinomi. Tot $[6,+\\infty)$ és del domini. </ul> $D(g)=\\mathbb{R}$.<br><br>  <strong>Talls amb $OX$:</strong> <ul> <li><strong>Interval $x&lt;0$:</strong> $x+4=0\\Rightarrow x=-4&lt;0$ ✓. <li><strong>Interval $0\\leq x&lt;6$:</strong> $\\sqrt{x+9}=2\\Rightarrow x+9=4\\Rightarrow x=-5$, però $-5$ no és d'aquest interval. <li><strong>Interval $x\\geq6$:</strong> $10-x=0\\Rightarrow x=10\\geq6$ ✓. </ul> Punts $(-4,0)$ i $(10,0)$.",
+        "<ul> <li><strong>Interval $x&lt;0$:</strong> \\[\n    \\frac{x+4}{x-2}=3\\Rightarrow x+4=3x-6\\Rightarrow x=5,\n    \\] però $5$ no és d'aquest interval. <li><strong>Interval $0\\leq x&lt;6$:</strong> \\[\n    \\sqrt{x+9}-2=3\\Rightarrow\\sqrt{x+9}=5\\Rightarrow x+9=25\\Rightarrow x=16,\n    \\] però $16$ no és d'aquest interval. <li><strong>Interval $x\\geq6$:</strong> $10-x=3\\Rightarrow x=7\\geq6$ ✓. </ul> L'única antiimatge de $3$ és $x=7$."
        ]
       }
      ]
