@@ -1,6 +1,6 @@
 /* Generat per publica.sh — no editar a mà */
 window.DADES = {
-  "generat": "19/11/2026",
+  "generat": "21/11/2026",
   "cursos": {
     "3eso": {
       "nom": "3r d'ESO",
@@ -31,7 +31,7 @@ window.DADES = {
             {
               "tipus": "Activitats",
               "fitxer": "pdf/batx/2 Funcions/Activitats - Funcions.pdf",
-              "mida": "314 kB"
+              "mida": "302 kB"
             }
           ],
           "enLinia": 49
