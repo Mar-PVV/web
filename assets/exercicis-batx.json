@@ -2432,38 +2432,6 @@
         "$(I\\circ D)(100)=121-12{,}1=108{,}90$ euros. $(D\\circ I)(100)=121-10=111$ euros.",
         "Al client li convé $I\\circ D$ (fer primer el descompte), perquè paga $1{,}21x-12{,}1$, que sempre és $2{,}10$ euros menys que $1{,}21x-10$. No és el mateix: la composició de funcions no és commutativa."
        ]
-      },
-      {
-       "num": 60,
-       "nivell": 2,
-       "enunciat": "Donades $f(x) = \\sqrt{x}$ i $g(x) = 4-x^2$:",
-       "parts": [
-        "Calcula $D(f)$ i $D(g)$.",
-        "Calcula $(f\\circ g)(x)$ i el seu domini. Explica per què hi ha valors de $x$ que no hi són.",
-        "Calcula $(g\\circ f)(x)$ i simplifica-la. L'expressió que obtens està definida per a tots els nombres reals: és $D(g\\circ f)=\\mathbb{R}$? Explica-ho."
-       ],
-       "solucio": "Per calcular $(f\\circ g)(x)=f[g(x)]$, primer cal calcular $g(x)$ i després aplicar $f$ al resultat. Per tant, $x$ és del domini de $f\\circ g$ si $x$ és del domini de $g$ i, a més, $g(x)$ és del domini de $f$.",
-       "solucioParts": [
-        "$f$ és una arrel quadrada: $D(f)=[0,+\\infty)$. $g$ és un polinomi: $D(g)=\\mathbb{R}$.",
-        "\\[\n  (f\\circ g)(x)=f\\left(4-x^2\\right)=\\sqrt{4-x^2}.\n  \\] <ul> <li>$g(x)$ es pot calcular per a qualsevol $x$, perquè $D(g)=\\mathbb{R}$. <li>Però $f$ només es pot aplicar a nombres $\\geq0$, així que cal $4-x^2\\geq0$, és a dir, $-2\\leq x\\leq2$. </ul> $D(f\\circ g)=[-2,2]$. Per exemple, $x=3$ no hi és: $g(3)=-5$, i $f(-5)=\\sqrt{-5}$ no existeix.",
-        "\\[\n  (g\\circ f)(x)=g\\left(\\sqrt{x}\\right)=4-\\left(\\sqrt{x}\\right)^2=4-x.\n  \\] No: tot i que $4-x$ està definida a tot $\\mathbb{R}$, per calcular $g\\left(f(x)\\right)$ primer cal calcular $f(x)=\\sqrt{x}$, i això només es pot fer si $x\\geq0$. Després, $g$ es pot aplicar a qualsevol nombre.<br><br>  $D(g\\circ f)=[0,+\\infty)$. Per exemple, $(g\\circ f)(-5)$ no existeix, perquè $f(-5)=\\sqrt{-5}$ no existeix."
-       ]
-      },
-      {
-       "num": 61,
-       "nivell": 3,
-       "enunciat": "Donades $f(x) = \\dfrac{1}{x}$ i $g(x) = \\dfrac{1}{x-2}$:",
-       "parts": [
-        "Calcula $D(f)$ i $D(g)$.",
-        "Calcula $(f\\circ g)(x)$ i simplifica-la. Existeix $(f\\circ g)(2)$? Quin és $D(f\\circ g)$? Explica-ho.",
-        "Calcula $(g\\circ f)(x)$ i el seu domini. Explica quins valors de $x$ cal treure i per què."
-       ],
-       "solucio": "Recorda: $x$ és del domini de $f\\circ g$ si $x$ és del domini de $g$ i, a més, $g(x)$ és del domini de $f$. El domini no es pot llegir només a l'expressió simplificada.",
-       "solucioParts": [
-        "$D(f)=\\mathbb{R}\\setminus\\{0\\}$ i $D(g)=\\mathbb{R}\\setminus\\{2\\}$.",
-        "\\[\n  (f\\circ g)(x)=f\\!\\left[\\frac{1}{x-2}\\right]=\\dfrac{1}{\\dfrac{1}{x-2}}=x-2.\n  \\] $(f\\circ g)(2)$ no existeix: per calcular-lo primer cal $g(2)=\\frac{1}{0}$, que no existeix. Per tant, $x=2$ no és del domini, encara que l'expressió simplificada $x-2$ sí que es pugui calcular a $x=2$. <ul> <li>Cal $x\\in D(g)$: $x\\neq2$. <li>Cal $g(x)\\in D(f)$, és a dir, $g(x)\\neq0$. Però $\\frac{1}{x-2}$ no val mai $0$, així que això no treu cap valor. </ul> $D(f\\circ g)=\\mathbb{R}\\setminus\\{2\\}$.",
-        "\\[\n  (g\\circ f)(x)=g\\!\\left[\\frac{1}{x}\\right]=\\dfrac{1}{\\dfrac{1}{x}-2}=\\dfrac{1}{\\dfrac{1-2x}{x}}=\\dfrac{x}{1-2x}.\n  \\] <ul> <li>Cal $x\\in D(f)$: $x\\neq0$. Encara que $\\frac{x}{1-2x}$ valdria $0$ a $x=0$, $f(0)=\\frac{1}{0}$ no existeix. <li>Cal $f(x)\\in D(g)$, és a dir, $f(x)\\neq2$: $\\frac{1}{x}=2\\Rightarrow x=\\frac{1}{2}$. Cal treure $x=\\frac{1}{2}$, perquè $f\\left(\\frac{1}{2}\\right)=2$ i $g(2)$ no existeix. </ul> $D(g\\circ f)=\\mathbb{R}\\setminus\\left\\{0,\\frac{1}{2}\\right\\}$."
-       ]
       }
      ]
     }
