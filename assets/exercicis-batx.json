@@ -2251,6 +2251,221 @@
        ]
       }
      ]
+    },
+    {
+     "titol": "Funció composta",
+     "exercicis": [
+      {
+       "num": 50,
+       "nivell": 1,
+       "enunciat": "Donades $f(x) = 2x + 1$ i $g(x) = x^2 - 3$, calcula:",
+       "parts": [
+        "$(f \\circ g)(x)$",
+        "$(g \\circ f)(x)$",
+        "$(f \\circ f)(x)$",
+        "$(g \\circ g)(x)$",
+        "$(f \\circ g)(2)$",
+        "$(g \\circ f)(-1)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$f[g(x)]=2(x^2-3)+1=2x^2-5$.",
+        "$g[f(x)]=(2x+1)^2-3=4x^2+4x-2$.",
+        "$f[f(x)]=2(2x+1)+1=4x+3$.",
+        "$g[g(x)]=(x^2-3)^2-3=x^4-6x^2+6$.",
+        "$(f\\circ g)(2)=2\\cdot2^2-5=3$ (o bé: $g(2)=1$ i $f(1)=3$).",
+        "$(g\\circ f)(-1)=4\\cdot(-1)^2+4\\cdot(-1)-2=-2$ (o bé: $f(-1)=-1$ i $g(-1)=-2$)."
+       ]
+      },
+      {
+       "num": 51,
+       "nivell": 1,
+       "enunciat": "Donades les funcions \\[\nf(x)=2x+1,\\qquad g(x)=x^2,\\qquad h(x)=\\sqrt{x},\\qquad p(x)=x-3,\\qquad q(x)=\\dfrac{1}{x},\n\\] calcula:",
+       "parts": [
+        "$(f \\circ g)(x)$",
+        "$(g \\circ f)(x)$",
+        "$(h \\circ p)(x)$",
+        "$(g \\circ q)(x)$",
+        "$(f \\circ h \\circ p)(x)$",
+        "$(q \\circ g \\circ f)(x)$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$2x^2+1$.",
+        "$(2x+1)^2=4x^2+4x+1$.",
+        "$\\sqrt{x-3}$.",
+        "$\\frac{1}{x^2}$.",
+        "$f[h[p(x)]]=f[\\sqrt{x-3}]=2\\sqrt{x-3}+1$.",
+        "$q[g[f(x)]]=q[(2x+1)^2]=\\frac{1}{(2x+1)^2}$."
+       ]
+      },
+      {
+       "num": 52,
+       "nivell": 2,
+       "enunciat": "Donades $f(x) = \\dfrac{x+2}{x-1}$ i $g(x) = \\dfrac{2x}{x+3}$, calcula i simplifica:",
+       "parts": [
+        "$(f \\circ g)(x)$",
+        "$(g \\circ f)(x)$"
+       ],
+       "solucio": "Per calcular $f\\circ g$, a l'expressió de $f$ posem $g(x)$ allà on hi ha la $x$. Després sumem les fraccions del numerador i del denominador i simplifiquem.",
+       "solucioParts": [
+        "\\[\n  (f\\circ g)(x)=f\\!\\left[\\frac{2x}{x+3}\\right]=\\dfrac{\\dfrac{2x}{x+3}+2}{\\dfrac{2x}{x+3}-1}\n  =\\dfrac{\\dfrac{2x+2x+6}{x+3}}{\\dfrac{2x-x-3}{x+3}}\n  =\\dfrac{4x+6}{x-3}.\n  \\]",
+        "\\[\n  (g\\circ f)(x)=g\\!\\left[\\frac{x+2}{x-1}\\right]=\\dfrac{2\\cdot\\dfrac{x+2}{x-1}}{\\dfrac{x+2}{x-1}+3}\n  =\\dfrac{\\dfrac{2x+4}{x-1}}{\\dfrac{x+2+3x-3}{x-1}}\n  =\\dfrac{2x+4}{4x-1}.\n  \\]"
+       ]
+      },
+      {
+       "num": 53,
+       "nivell": 3,
+       "enunciat": "Donades $f(x) = \\dfrac{2x-1}{x+1}$ i $g(x) = \\dfrac{x+3}{x-2}$:",
+       "parts": [
+        "Calcula $(f\\circ g)(x)$ i simplifica.",
+        "Calcula $(g\\circ f)(x)$ i simplifica.",
+        "Comprova que $(f\\circ g) \\neq (g\\circ f)$.",
+        "Troba $x$ tal que $(f\\circ g)(x) = 1$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(f\\circ g)(x)=f\\!\\left[\\frac{x+3}{x-2}\\right]=\\dfrac{2\\cdot\\frac{x+3}{x-2}-1}{\\frac{x+3}{x-2}+1}=\\dfrac{\\frac{2x+6-x+2}{x-2}}{\\frac{x+3+x-2}{x-2}}=\\dfrac{x+8}{2x+1}$.",
+        "$(g\\circ f)(x)=g\\!\\left[\\frac{2x-1}{x+1}\\right]=\\dfrac{\\frac{2x-1}{x+1}+3}{\\frac{2x-1}{x+1}-2}=\\dfrac{\\frac{2x-1+3x+3}{x+1}}{\\frac{2x-1-2x-2}{x+1}}=\\dfrac{5x+2}{-3}=\\dfrac{-(5x+2)}{3}$.",
+        "Són expressions diferents. Per exemple, a $x=0$: $(f\\circ g)(0)=8$ i $(g\\circ f)(0)=-\\frac{2}{3}$. Per tant, $f\\circ g\\neq g\\circ f$ (la composició no és commutativa).",
+        "$\\frac{x+8}{2x+1}=1\\Rightarrow x+8=2x+1\\Rightarrow x=7$. Comprovació: $g(7)=\\frac{10}{5}=2$ i $f(2)=\\frac{3}{3}=1$ ✓."
+       ]
+      },
+      {
+       "num": 54,
+       "nivell": 1,
+       "enunciat": "La taula dona alguns valors de dues funcions $f$ i $g$: \\[\n\\begin{array}{c|ccccc}\nx &amp; 0 &amp; 1 &amp; 2 &amp; 3 &amp; 4\\\\ \\hline\nf(x) &amp; 2 &amp; 4 &amp; 1 &amp; 0 &amp; 5\\\\\ng(x) &amp; 3 &amp; 0 &amp; 4 &amp; 2 &amp; 1\n\\end{array}\n\\] Calcula:",
+       "parts": [
+        "$(f\\circ g)(0)$",
+        "$(g\\circ f)(0)$",
+        "$(f\\circ f)(2)$",
+        "$(g\\circ g)(1)$",
+        "$(f\\circ g)(2)$",
+        "Es pot calcular $(g\\circ f)(4)$ amb la taula? Explica-ho."
+       ],
+       "solucio": "Per calcular $(f\\circ g)(a)=f[g(a)]$, primer busquem $g(a)$ a la fila de $g$, i després busquem la imatge d'aquest valor a la fila de $f$.",
+       "solucioParts": [
+        "$g(0)=3$ i $f(3)=0$. Per tant, $(f\\circ g)(0)=0$.",
+        "$f(0)=2$ i $g(2)=4$. Per tant, $(g\\circ f)(0)=4$.",
+        "$f(2)=1$ i $f(1)=4$. Per tant, $(f\\circ f)(2)=4$.",
+        "$g(1)=0$ i $g(0)=3$. Per tant, $(g\\circ g)(1)=3$.",
+        "$g(2)=4$ i $f(4)=5$. Per tant, $(f\\circ g)(2)=5$.",
+        "No: $f(4)=5$, però per calcular $g(5)$ caldria saber la imatge de $5$ per $g$, i a la taula no hi és."
+       ]
+      },
+      {
+       "num": 55,
+       "nivell": 2,
+       "enunciat": "Aquestes són les gràfiques de les funcions $f$ i $g$:<br><br><div class=\"graella-grafics\"><img class=\"grafic\" src=\"assets/grafics/g-2eedd2622bb5.svg\" alt=\"gràfic\" loading=\"lazy\"><img class=\"grafic\" src=\"assets/grafics/g-98cd7ed749ba.svg\" alt=\"gràfic\" loading=\"lazy\"></div>",
+       "parts": [
+        "Calcula $(f\\circ g)(3)$, $(g\\circ f)(3)$, $(f\\circ f)(1)$ i $(g\\circ g)(0)$.",
+        "Troba tots els valors de $x$ que compleixen $(f\\circ g)(x)=0$."
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "Llegim cada imatge a la gràfica corresponent: <ul> <li>$(f\\circ g)(3)$: $g(3)=2$ i $f(2)=0$. Per tant, $(f\\circ g)(3)=0$. <li>$(g\\circ f)(3)$: $f(3)=3$ i $g(3)=2$. Per tant, $(g\\circ f)(3)=2$. <li>$(f\\circ f)(1)$: $f(1)=-1$ i $f(-1)=3$. Per tant, $(f\\circ f)(1)=3$. <li>$(g\\circ g)(0)$: $g(0)=-1$ i $g(-1)=-2$. Per tant, $(g\\circ g)(0)=-2$. </ul>",
+        "$(f\\circ g)(x)=f[g(x)]=0$. A la gràfica de $f$ veiem que $f$ val $0$ a $0$ i a $2$, així que cal que $g(x)=0$ o $g(x)=2$: <ul> <li>$g(x)=0$ si $x=1$. <li>$g(x)=2$ si $x=3$. </ul> Els valors són $x=1$ i $x=3$."
+       ]
+      },
+      {
+       "num": 56,
+       "nivell": 2,
+       "enunciat": "Descompon cada funció en forma $f\\circ g$ (és a dir, troba $f$ i $g$ senzilles tal que $h = f\\circ g$):",
+       "parts": [
+        "$h(x) = (2x-3)^5$",
+        "$h(x) = \\sqrt{x^2+1}$",
+        "$h(x) = \\dfrac{1}{x^2-4}$",
+        "$h(x) = \\left(\\dfrac{x+1}{x-1}\\right)^3$"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$g(x)=2x-3$, $f(x)=x^5$.",
+        "$g(x)=x^2+1$, $f(x)=\\sqrt{x}$.",
+        "$g(x)=x^2-4$, $f(x)=\\frac{1}{x}$.",
+        "$g(x)=\\frac{x+1}{x-1}$, $f(x)=x^3$."
+       ]
+      },
+      {
+       "num": 57,
+       "nivell": 2,
+       "enunciat": "Una fàbrica de bolígrafs té $200$ bolígrafs en estoc i en fabrica $50$ cada hora, de manera que al cap de $t$ hores en té $b(t) = 50t + 200$. Si els ven tots, el guany (en euros) és $G(b) = 0{,}5b - 100$, on $b$ és el nombre de bolígrafs.",
+       "parts": [
+        "Troba la funció $(G\\circ b)(t)$, que dona el guany en funció de les hores de producció.",
+        "Calcula el guany després de $4$ hores de producció.",
+        "Quantes hores de producció calen perquè el guany superi els $500$ euros?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(G\\circ b)(t)=G[b(t)]=G(50t+200)=0{,}5(50t+200)-100=25t+100-100=25t$.",
+        "$(G\\circ b)(4)=25\\cdot4=100$. Després de $4$ hores el guany és de $100$ euros.",
+        "$25t&gt;500\\Rightarrow t&gt;20$. Calen més de $20$ hores de producció perquè el guany superi els $500$ euros."
+       ]
+      },
+      {
+       "num": 58,
+       "nivell": 2,
+       "enunciat": "Una taca d'oli circular creix de manera que, al cap de $t$ minuts, el seu radi és $r(t)=2t+1$ metres. L'àrea d'un cercle de radi $r$ és $A(r)=\\pi r^2$.",
+       "parts": [
+        "Troba la funció $(A\\circ r)(t)$, que dona l'àrea de la taca en funció del temps.",
+        "Calcula l'àrea de la taca al cap de $3$ minuts.",
+        "Quan farà la taca $81\\pi$ metres quadrats?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(A\\circ r)(t)=A[r(t)]=A(2t+1)=\\pi(2t+1)^2$.",
+        "$(A\\circ r)(3)=\\pi\\cdot7^2=49\\pi$. Al cap de $3$ minuts, la taca fa $49\\pi\\approx153{,}94$ metres quadrats.",
+        "\\[\n  \\pi(2t+1)^2=81\\pi\\Rightarrow(2t+1)^2=81\\Rightarrow 2t+1=9 \\text{ o } 2t+1=-9.\n  \\] La solució negativa no té sentit (el temps és positiu), així que $2t+1=9\\Rightarrow t=4$. Al cap de $4$ minuts."
+       ]
+      },
+      {
+       "num": 59,
+       "nivell": 2,
+       "enunciat": "En una botiga, l'IVA és del $21\\,\\%$: un producte que val $x$ euros sense IVA en val $I(x)=1{,}21x$ amb IVA. Aquesta setmana, a més, fan un descompte de $10$ euros: $D(x)=x-10$.",
+       "parts": [
+        "Calcula $(I\\circ D)(x)$ i $(D\\circ I)(x)$. Explica què vol dir cadascuna.",
+        "Per a un producte de $100$ euros sense IVA, quant paga el client en cada cas?",
+        "Quin dels dos ordres li convé més al client? És el mateix fer $I\\circ D$ que $D\\circ I$?"
+       ],
+       "solucio": "",
+       "solucioParts": [
+        "$(I\\circ D)(x)=I(x-10)=1{,}21(x-10)=1{,}21x-12{,}1$. Primer es fa el descompte i després s'aplica l'IVA. $(D\\circ I)(x)=D(1{,}21x)=1{,}21x-10$. Primer s'aplica l'IVA i després es fa el descompte.",
+        "$(I\\circ D)(100)=121-12{,}1=108{,}90$ euros. $(D\\circ I)(100)=121-10=111$ euros.",
+        "Al client li convé $I\\circ D$ (fer primer el descompte), perquè paga $1{,}21x-12{,}1$, que sempre és $2{,}10$ euros menys que $1{,}21x-10$. No és el mateix: la composició de funcions no és commutativa."
+       ]
+      },
+      {
+       "num": 60,
+       "nivell": 2,
+       "enunciat": "Donades $f(x) = \\sqrt{x}$ i $g(x) = 4-x^2$:",
+       "parts": [
+        "Calcula $D(f)$ i $D(g)$.",
+        "Calcula $(f\\circ g)(x)$ i el seu domini. Explica per què hi ha valors de $x$ que no hi són.",
+        "Calcula $(g\\circ f)(x)$ i simplifica-la. L'expressió que obtens està definida per a tots els nombres reals: és $D(g\\circ f)=\\mathbb{R}$? Explica-ho."
+       ],
+       "solucio": "Per calcular $(f\\circ g)(x)=f[g(x)]$, primer cal calcular $g(x)$ i després aplicar $f$ al resultat. Per tant, $x$ és del domini de $f\\circ g$ si $x$ és del domini de $g$ i, a més, $g(x)$ és del domini de $f$.",
+       "solucioParts": [
+        "$f$ és una arrel quadrada: $D(f)=[0,+\\infty)$. $g$ és un polinomi: $D(g)=\\mathbb{R}$.",
+        "\\[\n  (f\\circ g)(x)=f\\left(4-x^2\\right)=\\sqrt{4-x^2}.\n  \\] <ul> <li>$g(x)$ es pot calcular per a qualsevol $x$, perquè $D(g)=\\mathbb{R}$. <li>Però $f$ només es pot aplicar a nombres $\\geq0$, així que cal $4-x^2\\geq0$, és a dir, $-2\\leq x\\leq2$. </ul> $D(f\\circ g)=[-2,2]$. Per exemple, $x=3$ no hi és: $g(3)=-5$, i $f(-5)=\\sqrt{-5}$ no existeix.",
+        "\\[\n  (g\\circ f)(x)=g\\left(\\sqrt{x}\\right)=4-\\left(\\sqrt{x}\\right)^2=4-x.\n  \\] No: tot i que $4-x$ està definida a tot $\\mathbb{R}$, per calcular $g\\left(f(x)\\right)$ primer cal calcular $f(x)=\\sqrt{x}$, i això només es pot fer si $x\\geq0$. Després, $g$ es pot aplicar a qualsevol nombre.<br><br>  $D(g\\circ f)=[0,+\\infty)$. Per exemple, $(g\\circ f)(-5)$ no existeix, perquè $f(-5)=\\sqrt{-5}$ no existeix."
+       ]
+      },
+      {
+       "num": 61,
+       "nivell": 3,
+       "enunciat": "Donades $f(x) = \\dfrac{1}{x}$ i $g(x) = \\dfrac{1}{x-2}$:",
+       "parts": [
+        "Calcula $D(f)$ i $D(g)$.",
+        "Calcula $(f\\circ g)(x)$ i simplifica-la. Existeix $(f\\circ g)(2)$? Quin és $D(f\\circ g)$? Explica-ho.",
+        "Calcula $(g\\circ f)(x)$ i el seu domini. Explica quins valors de $x$ cal treure i per què."
+       ],
+       "solucio": "Recorda: $x$ és del domini de $f\\circ g$ si $x$ és del domini de $g$ i, a més, $g(x)$ és del domini de $f$. El domini no es pot llegir només a l'expressió simplificada.",
+       "solucioParts": [
+        "$D(f)=\\mathbb{R}\\setminus\\{0\\}$ i $D(g)=\\mathbb{R}\\setminus\\{2\\}$.",
+        "\\[\n  (f\\circ g)(x)=f\\!\\left[\\frac{1}{x-2}\\right]=\\dfrac{1}{\\dfrac{1}{x-2}}=x-2.\n  \\] $(f\\circ g)(2)$ no existeix: per calcular-lo primer cal $g(2)=\\frac{1}{0}$, que no existeix. Per tant, $x=2$ no és del domini, encara que l'expressió simplificada $x-2$ sí que es pugui calcular a $x=2$. <ul> <li>Cal $x\\in D(g)$: $x\\neq2$. <li>Cal $g(x)\\in D(f)$, és a dir, $g(x)\\neq0$. Però $\\frac{1}{x-2}$ no val mai $0$, així que això no treu cap valor. </ul> $D(f\\circ g)=\\mathbb{R}\\setminus\\{2\\}$.",
+        "\\[\n  (g\\circ f)(x)=g\\!\\left[\\frac{1}{x}\\right]=\\dfrac{1}{\\dfrac{1}{x}-2}=\\dfrac{1}{\\dfrac{1-2x}{x}}=\\dfrac{x}{1-2x}.\n  \\] <ul> <li>Cal $x\\in D(f)$: $x\\neq0$. Encara que $\\frac{x}{1-2x}$ valdria $0$ a $x=0$, $f(0)=\\frac{1}{0}$ no existeix. <li>Cal $f(x)\\in D(g)$, és a dir, $f(x)\\neq2$: $\\frac{1}{x}=2\\Rightarrow x=\\frac{1}{2}$. Cal treure $x=\\frac{1}{2}$, perquè $f\\left(\\frac{1}{2}\\right)=2$ i $g(2)$ no existeix. </ul> $D(g\\circ f)=\\mathbb{R}\\setminus\\left\\{0,\\frac{1}{2}\\right\\}$."
+       ]
+      }
+     ]
     }
    ]
   }
