@@ -1,199 +1,203 @@
 /* Calculadora de notes de 1r de batxillerat.
    Tot es calcula al navegador: no es desa ni s'envia res.
-   Els criteris d'avaluació són aquí dalt: si canvien, només cal tocar CRITERIS. */
+   Els criteris d'avaluació són a CRITERIS: si canvien, només cal tocar-los aquí
+   (i el text de «Com es calcula?» a calculadora-notes.html).
+   Prova: node proves/prova-calculadora-notes.js */
 (function () {
   'use strict';
 
   const CRITERIS = {
-    pesExamens: 0.9,          // part de la nota del trimestre que són els exàmens
-    pesTests: 0.1,            // part que són els tests (mitjana si n'hi ha dos)
-    examensInicials: 2,       // quantes caselles d'examen surten al principi
-    maxExamens: 6,
-    pesosTrimestres: [1, 1, 1],     // nota final: mitjana ponderada dels trimestres
-    finalAmbArrodonides: false      // la final es fa amb les notes de trimestre sense arrodonir
+    pesosExamens: [1, 2],           // examen 1 ×1, examen 2 ×2
+    unTest:   { examens: 0.9, test: 0.1 },   // trimestre amb 1 test
+    dosTests: { examens: 0.8, test: 0.1 },   // trimestre amb 2 tests (cada test)
+    pesosTrimestres: [1, 2, 3]      // nota final, amb les notes sense arrodonir
   };
 
-  const NOMS = ['1r trimestre', '2n trimestre', '3r trimestre'];
-  const cont = document.getElementById('trimestres');
-  if (!cont) return;
+  // ── Càlculs (sense pantalla, per poder-los provar amb node) ────────────
+  const net = x => Math.round(x * 1e6) / 1e6;
 
-  // ── Utilitats ───────────────────────────────────────────────────────────
-  const pct = x => Math.round(x * 100) + ' %';
-  // "sense arrodonir": es talla a dues xifres decimals, no s'arrodoneix
-  const talla = x => Math.floor(x * 100 + 1e-9) / 100;
+  /* Arrodoniment de matemàtiques: per sota de 5 es trunca; a partir de 5 es
+     puja a l'enter següent si la part decimal arriba a ,75. */
+  function arrodoneix(x) {
+    x = net(x);
+    const e = Math.floor(x);
+    if (x < 5) return e;
+    return net(x - e) >= 0.75 ? e + 1 : e;
+  }
+
+  // nota sense arrodonir mínima perquè l'arrodonida sigui com a mínim n
+  const llindar = n => (n <= 5 ? n : n - 0.25);
+
+  // «sense arrodonir»: tallada a dues xifres decimals
+  const talla = x => Math.floor(net(x) * 100) / 100;
+
+  function coeficientsTrimestre(tests) {
+    const p = CRITERIS.pesosExamens, s = p[0] + p[1];
+    const c = tests === 2 ? CRITERIS.dosTests : CRITERIS.unTest;
+    const ex = [c.examens * p[0] / s, c.examens * p[1] / s];
+    return tests === 2 ? ex.concat([c.test, c.test]) : ex.concat([c.test]);
+  }
+
+  function coeficientsFinal() {
+    const p = CRITERIS.pesosTrimestres, s = p.reduce((a, b) => a + b, 0);
+    return p.map(x => x / s);
+  }
+
+  /* Nota amb els valors que hi ha (null = encara no la té).
+     Si en falta alguna, es fa la mitjana ponderada del que hi ha (provisional). */
+  function nota(coef, valors) {
+    let s = 0, c = 0;
+    valors.forEach((v, i) => { if (v !== null) { s += coef[i] * v; c += coef[i]; } });
+    if (!c) return null;
+    return { nota: s / c, provisional: c < coef.reduce((a, b) => a + b, 0) - 1e-9 };
+  }
+
+  /* Quina nota cal treure a les caselles buides (la mateixa a totes) perquè la
+     nota arrodonida sigui com a mínim `objectiu`. */
+  function necessita(coef, valors, objectiu) {
+    let s = 0, c = 0;
+    const buides = [];
+    valors.forEach((v, i) => {
+      if (v === null) { c += coef[i]; buides.push(i); } else s += coef[i] * v;
+    });
+    if (!buides.length) return { cap: true };
+    const x = (llindar(objectiu) - s) / c;
+    if (net(x) <= 0) return { buides, assegurat: true };
+    const cal = Math.ceil(net(x) * 100) / 100;
+    if (cal > 10) {
+      const max = s + 10 * c;
+      return { buides, impossible: true, max, maxArrodonida: arrodoneix(max) };
+    }
+    return { buides, cal };
+  }
+
+  const Notes = { CRITERIS, arrodoneix, llindar, talla, coeficientsTrimestre,
+    coeficientsFinal, nota, necessita };
+  if (typeof module !== 'undefined' && module.exports) module.exports = Notes;
+  if (typeof document === 'undefined') return;
+
+  // ── Pantalla ────────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
   const mostra = x => talla(x).toFixed(2).replace('.', ',');
-  const arrodoneix = x => Math.floor(x + 0.5 + 1e-9);
-  const mitjana = v => v.reduce((a, b) => a + b, 0) / v.length;
+  const pct = x => Math.round(x * 100) + ' %';
 
   function llegeix(input) {
     const t = input.value.trim().replace(',', '.');
     if (t === '') { input.classList.remove('cn-malament'); return null; }
-    const x = Number(t);
-    const bo = /^\d{1,2}(\.\d*)?$|^\.\d+$/.test(t) && x >= 0 && x <= 10;
+    const bo = /^(\d{1,2}(\.\d*)?|\.\d+)$/.test(t) && Number(t) <= 10;
     input.classList.toggle('cn-malament', !bo);
-    return bo ? x : NaN;
+    return bo ? Number(t) : NaN;
   }
 
-  // ── Construcció de les targetes ─────────────────────────────────────────
-  function filaNota(etiqueta, classe) {
-    const id = 'n' + Math.random().toString(36).slice(2, 9);
-    return `<div class="cn-fila ${classe}">
-      <label for="${id}">${etiqueta}</label>
-      <input id="${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="—" aria-label="${etiqueta}">
-    </div>`;
+  function lleva(llista) {
+    return llista.length < 2 ? llista.join('')
+      : llista.slice(0, -1).join(', ') + ' i ' + llista[llista.length - 1];
   }
 
-  NOMS.forEach((nom, t) => {
-    const art = document.createElement('section');
-    art.className = 'cn-trim';
-    art.dataset.t = t;
-    art.innerHTML = `
-      <h2 class="cn-trim-titol"><span class="cn-trim-num">${t + 1}</span>${nom}</h2>
-      <div class="cn-bloc">
-        <div class="cn-bloc-cap"><span>Exàmens</span><span class="cn-pes">${pct(CRITERIS.pesExamens)}</span></div>
-        <div class="cn-examens"></div>
-        <div class="cn-examens-botons">
-          <button type="button" class="cn-mes">+ Afegeix un examen</button>
-          <button type="button" class="cn-menys">− Treu-ne un</button>
-        </div>
-      </div>
-      <div class="cn-bloc">
-        <div class="cn-bloc-cap"><span>Tests</span><span class="cn-pes">${pct(CRITERIS.pesTests)}</span></div>
-        <div class="cn-tria" role="radiogroup" aria-label="Quants tests hi ha aquest trimestre">
-          <button type="button" role="radio" data-n="1" aria-checked="true">1 test</button>
-          <button type="button" role="radio" data-n="2" aria-checked="false">2 tests</button>
-        </div>
-        <div class="cn-tests">${filaNota('Test 1', 'cn-test')}${filaNota('Test 2', 'cn-test cn-test2')}</div>
-      </div>
-      <div class="cn-resultat" aria-live="polite">
-        <div class="cn-res-linia"><span>Sense arrodonir</span><strong class="cn-exacta">—</strong></div>
-        <div class="cn-res-linia cn-res-gran"><span>Arrodonida</span><strong class="cn-arrodonida">—</strong></div>
-        <p class="cn-avis" hidden></p>
-      </div>`;
-    cont.appendChild(art);
-
-    const llista = art.querySelector('.cn-examens');
-    const afegeix = () => {
-      const n = llista.children.length + 1;
-      llista.insertAdjacentHTML('beforeend', filaNota('Examen ' + n, 'cn-examen'));
-    };
-    for (let i = 0; i < CRITERIS.examensInicials; i++) afegeix();
-    art.dataset.tests = '1';
-
-    art.querySelector('.cn-mes').addEventListener('click', () => {
-      if (llista.children.length < CRITERIS.maxExamens) afegeix();
-      llista.lastElementChild.querySelector('input').focus();
-      calcula();
-    });
-    art.querySelector('.cn-menys').addEventListener('click', () => {
-      if (llista.children.length > 1) llista.lastElementChild.remove();
-      calcula();
-    });
-    art.querySelectorAll('.cn-tria button').forEach(b => b.addEventListener('click', () => {
-      art.dataset.tests = b.dataset.n;
-      art.querySelectorAll('.cn-tria button').forEach(c =>
-        c.setAttribute('aria-checked', String(c === b)));
-      calcula();
-    }));
+  // selectors d'objectiu
+  ['t-objectiu', 'f-objectiu'].forEach(id => {
+    const sel = $(id);
+    sel.innerHTML = '<option value="5">un 5 (aprovar)</option>'
+      + [6, 7, 8, 9, 10].map(n => `<option value="${n}">un ${n}</option>`).join('');
   });
+  $('t-objectiu').value = '8';
+  $('f-objectiu').value = '5';
 
-  cont.addEventListener('input', calcula);
+  // pestanyes (amb #final a l'adreça, per poder-hi enllaçar)
+  const pestanyes = [['pes-trimestre', 'panell-trimestre'], ['pes-final', 'panell-final']];
+  function obre(quina, desa) {
+    pestanyes.forEach(([b, p]) => {
+      const si = b === quina;
+      $(b).setAttribute('aria-selected', String(si));
+      $(p).hidden = !si;
+    });
+    if (desa) history.replaceState(null, '', quina === 'pes-final' ? '#final' : location.pathname + location.search);
+  }
+  pestanyes.forEach(([b]) => $(b).addEventListener('click', () => obre(b, true)));
+  obre(location.hash === '#final' ? 'pes-final' : 'pes-trimestre', false);
 
-  document.getElementById('buida').addEventListener('click', () => {
-    document.querySelectorAll('.cn-trim input, .cn-final input').forEach(i => { i.value = ''; });
+  // 1 o 2 tests
+  let tests = 1;
+  document.querySelectorAll('.cn-tria button').forEach(b => b.addEventListener('click', () => {
+    tests = Number(b.dataset.n);
+    document.querySelectorAll('.cn-tria button').forEach(c =>
+      c.setAttribute('aria-checked', String(c === b)));
+    $('fila-te2').hidden = tests !== 2;
     calcula();
-  });
+  }));
 
-  // ── Càlcul ──────────────────────────────────────────────────────────────
-  function notaTrimestre(art) {
-    const examens = [...art.querySelectorAll('.cn-examen input')].map(llegeix);
-    const dosTests = art.dataset.tests === '2';
-    art.querySelector('.cn-test2').hidden = !dosTests;
-    const tests = [...art.querySelectorAll('.cn-test input')]
-      .slice(0, dosTests ? 2 : 1).map(llegeix);
+  function pinta(pre, coef, inputs, noms, quin) {
+    const valors = inputs.map(llegeix);
+    const avis = $(pre + '-avis'), nec = $(pre + '-necessito');
+    const caixa = $(pre + '-exacta').closest('.cn-resultat');
+    avis.hidden = true; avis.classList.remove('cn-avis-error');
+    caixa.classList.remove('cn-amb-nota');
 
-    const totes = examens.concat(tests);
-    if (totes.some(Number.isNaN)) return { error: 'Hi ha alguna nota mal escrita: han de ser números del 0 al 10.' };
+    if (valors.some(Number.isNaN)) {
+      $(pre + '-exacta').textContent = $(pre + '-arrodonida').textContent = '—';
+      avis.textContent = 'Hi ha alguna nota mal escrita: han de ser números del 0 al 10.';
+      avis.classList.add('cn-avis-error'); avis.hidden = false;
+      nec.textContent = '';
+      return;
+    }
 
-    const ex = examens.filter(x => x !== null);
-    const te = tests.filter(x => x !== null);
-    if (!ex.length && !te.length) return { buit: true };
-
-    const falten = [];
-    if (ex.length < examens.length) falten.push(examens.length - ex.length === 1 ? 'un examen' : 'algun examen');
-    if (te.length < tests.length) falten.push(tests.length - te.length === 1 ? 'un test' : 'els tests');
-
-    // Si falta una part sencera, es calcula amb el que hi ha (nota provisional)
-    let nota;
-    if (ex.length && te.length) nota = CRITERIS.pesExamens * mitjana(ex) + CRITERIS.pesTests * mitjana(te);
-    else nota = ex.length ? mitjana(ex) : mitjana(te);
-
-    return { nota, provisional: falten.length > 0, falten };
-  }
-
-  function calcula() {
-    const notes = [];
-    document.querySelectorAll('.cn-trim').forEach(art => {
-      const r = notaTrimestre(art);
-      const ex = art.querySelector('.cn-exacta');
-      const ar = art.querySelector('.cn-arrodonida');
-      const avis = art.querySelector('.cn-avis');
-      art.querySelector('.cn-menys').disabled = art.querySelectorAll('.cn-examen').length <= 1;
-      art.querySelector('.cn-mes').disabled = art.querySelectorAll('.cn-examen').length >= CRITERIS.maxExamens;
-      avis.hidden = true;
-      art.classList.toggle('cn-amb-nota', !!(r.nota !== undefined));
-      if (r.error) {
-        ex.textContent = ar.textContent = '—';
-        avis.textContent = r.error; avis.hidden = false; avis.classList.add('cn-avis-error');
-        return;
-      }
-      avis.classList.remove('cn-avis-error');
-      if (r.buit) { ex.textContent = ar.textContent = '—'; return; }
-      ex.textContent = mostra(r.nota);
-      ar.textContent = arrodoneix(r.nota);
-      notes[art.dataset.t] = r.nota;
+    const r = nota(coef, valors);
+    if (r) {
+      $(pre + '-exacta').textContent = mostra(r.nota);
+      $(pre + '-arrodonida').textContent = arrodoneix(r.nota);
+      caixa.classList.add('cn-amb-nota');
       if (r.provisional) {
-        avis.textContent = 'Provisional: encara falta ' + r.falten.join(' i ') + '.';
+        const falten = valors.map((v, i) => (v === null ? noms[i].nom : null)).filter(Boolean);
+        avis.textContent = 'Provisional: encara falta ' + lleva(falten)
+          + '. Ara és la nota amb el que ja tens.';
         avis.hidden = false;
       }
-    });
-    calculaFinal(notes);
-  }
-
-  function calculaFinal(notes) {
-    const exacta = document.getElementById('final-exacta');
-    const arrod = document.getElementById('final-arrodonida');
-    const avis = document.getElementById('final-avis');
-    const p = CRITERIS.pesosTrimestres;
-    let suma = 0, pes = 0, quants = 0;
-    for (let t = 0; t < 3; t++) {
-      if (notes[t] === undefined) continue;
-      const n = CRITERIS.finalAmbArrodonides ? arrodoneix(notes[t]) : notes[t];
-      suma += p[t] * n; pes += p[t]; quants++;
+    } else {
+      $(pre + '-exacta').textContent = $(pre + '-arrodonida').textContent = '—';
     }
-    avis.hidden = true;
-    if (!quants) { exacta.textContent = arrod.textContent = '—'; return; }
-    const f = suma / pes;
-    exacta.textContent = mostra(f);
-    arrod.textContent = arrodoneix(f);
-    if (quants < 3) {
-      avis.textContent = 'Provisional: només hi ha ' + (quants === 1 ? 'un trimestre' : 'dos trimestres')
-        + ' amb nota. Quan hi siguin tots tres, aquesta serà la nota final.';
-      avis.hidden = false;
+
+    const obj = Number($(pre + '-objectiu').value);
+    const n = necessita(coef, valors, obj);
+    const fita = `un ${obj}${quin}`;
+    if (n.cap) {
+      nec.innerHTML = 'Ja tens totes les notes. Deixa en blanc la que encara no tens i et diré quina necessites.';
+    } else {
+      const on = lleva(n.buides.map(i => noms[i].a));
+      const totes = n.buides.length > 1 ? ' (la mateixa nota a cadascun)' : '';
+      if (n.assegurat) {
+        nec.innerHTML = `Ja tens assegurat ${fita}, encara que treguis un 0 ${on}.`;
+      } else if (n.impossible) {
+        nec.innerHTML = `No hi arribes: encara que treguis un 10 ${on}, la nota seria `
+          + `<strong>${mostra(n.max)}</strong> (arrodonida, ${n.maxArrodonida}).`;
+      } else {
+        nec.innerHTML = `Per treure ${fita} necessites com a mínim un `
+          + `<strong>${mostra(n.cal)}</strong> ${on}${totes}.`;
+      }
     }
   }
 
-  // ── Text que explica com es calcula ─────────────────────────────────────
-  (function () {
-    const p = CRITERIS.pesosTrimestres;
-    const iguals = p.every(x => x === p[0]);
-    const com = iguals
-      ? 'És la mitjana dels tres trimestres'
-      : 'Es fa amb els tres trimestres: ' + p.map((x, i) => NOMS[i] + ' ' + pct(x / p.reduce((a, b) => a + b, 0))).join(', ');
-    document.getElementById('final-explica').textContent = com
-      + (CRITERIS.finalAmbArrodonides ? ', amb les notes arrodonides.' : ', amb les notes sense arrodonir.')
-      + ' Cada trimestre: exàmens ' + pct(CRITERIS.pesExamens) + ' i tests ' + pct(CRITERIS.pesTests) + '.';
-  })();
+  const NOMS_T = [
+    { nom: "l'examen 1", a: "a l'examen 1" }, { nom: "l'examen 2", a: "a l'examen 2" },
+    { nom: 'el test 1', a: 'al test 1' }, { nom: 'el test 2', a: 'al test 2' }];
+  const NOMS_F = [
+    { nom: 'el 1r trimestre', a: 'al 1r trimestre' }, { nom: 'el 2n trimestre', a: 'al 2n trimestre' },
+    { nom: 'el 3r trimestre', a: 'al 3r trimestre' }];
 
+  function calcula() {
+    const c = coeficientsTrimestre(tests);
+    const ex = tests === 2 ? CRITERIS.dosTests : CRITERIS.unTest;
+    $('pes-examens').textContent = pct(ex.examens);
+    $('pes-tests').textContent = tests === 2 ? pct(ex.test) + ' cada un' : pct(ex.test);
+    const inT = ['ex1', 'ex2', 'te1', 'te2'].slice(0, 2 + tests).map($);
+    pinta('t', c, inT, NOMS_T, ' al trimestre');
+    pinta('f', coeficientsFinal(), ['tr1', 'tr2', 'tr3'].map($), NOMS_F, ' a la final');
+  }
+
+  document.querySelector('main').addEventListener('input', calcula);
+  document.querySelector('main').addEventListener('change', calcula);
+  $('buida').addEventListener('click', () => {
+    document.querySelectorAll('.cn-panell input').forEach(i => { i.value = ''; });
+    calcula();
+  });
   calcula();
 })();

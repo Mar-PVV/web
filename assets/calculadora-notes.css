@@ -8,52 +8,57 @@
 }
 .cn-torna:hover { background: #DCE8F1; }
 
-.cn-trimestres {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-  margin-bottom: 18px;
+/* pestanyes */
+.cn-pestanyes {
+  display: inline-flex; gap: 4px; margin-bottom: 18px;
+  background: var(--blanc); border: 1px solid var(--vora); border-radius: 24px; padding: 4px;
+  box-shadow: var(--ombra);
 }
-.cn-trim {
-  display: flex; flex-direction: column; gap: 14px;
+.cn-pestanyes button {
+  font: 600 14.5px var(--titol); color: var(--suau); cursor: pointer;
+  background: none; border: 0; border-radius: 20px; padding: 8px 20px;
+}
+.cn-pestanyes button:hover { color: var(--blau); }
+.cn-pestanyes button[aria-selected="true"] { background: var(--blau); color: #fff; }
+
+.cn-panell {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px;
+  align-items: start; margin-bottom: 16px;
+}
+.cn-columna { display: flex; flex-direction: column; gap: 16px; }
+
+.cn-caixa {
   background: var(--blanc); border: 1px solid var(--vora);
   border-radius: var(--radi); box-shadow: var(--ombra);
-  padding: 18px 18px 16px;
+  padding: 20px 22px;
 }
-.cn-trim-titol {
-  display: flex; align-items: center; gap: 10px; margin: 0;
-  font-family: var(--titol); font-weight: 700; font-size: 17px; letter-spacing: -.01em;
+.cn-caixa h2 {
+  margin: 0 0 6px; font-family: var(--titol); font-weight: 700; font-size: 17px; letter-spacing: -.01em;
 }
-.cn-trim-num {
-  width: 30px; height: 30px; border-radius: 10px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--blau); color: #fff; font-weight: 800; font-size: 14px;
-}
+.cn-ajuda { margin: 0 0 14px; font-size: 13.5px; color: var(--suau); }
 
 .cn-bloc { display: flex; flex-direction: column; gap: 8px; }
+.cn-bloc + .cn-bloc { margin-top: 18px; }
 .cn-bloc-cap {
   display: flex; justify-content: space-between; align-items: baseline;
-  font-family: var(--titol); font-weight: 600; font-size: 13px; color: var(--suau);
+  font-family: var(--titol); font-weight: 600; font-size: 12.5px; color: var(--suau);
   text-transform: uppercase; letter-spacing: .05em;
 }
-.cn-pes { font-size: 12px; color: var(--tenue); letter-spacing: 0; }
+.cn-pes { font-size: 12px; color: var(--tenue); letter-spacing: 0; text-transform: none; }
 
-.cn-examens, .cn-tests { display: flex; flex-direction: column; gap: 6px; }
 .cn-fila { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.cn-fila label { font-size: 14.5px; }
+.cn-fila label { font-size: 15px; }
+.cn-x {
+  margin-left: 6px; padding: 1px 8px; border-radius: 10px;
+  background: var(--fons); color: var(--suau); font-size: 12px; font-weight: 600;
+}
 .cn-fila input {
-  width: 84px; padding: 7px 10px; text-align: center;
+  width: 92px; padding: 7px 10px; text-align: center;
   font: 600 16px var(--cos); color: var(--text);
   border: 1.5px solid var(--vora); border-radius: var(--radi-petit); background: #FCFBF9;
 }
 .cn-fila input:focus { outline: none; border-color: var(--blau); background: #fff; box-shadow: 0 0 0 3px var(--blau-fons); }
 .cn-fila input.cn-malament { border-color: #B5473A; background: #FBEDEB; }
-
-.cn-examens-botons { display: flex; gap: 6px; flex-wrap: wrap; }
-.cn-examens-botons button, .cn-boto-buida {
-  font: 600 12.5px var(--titol); color: var(--blau); cursor: pointer;
-  background: none; border: 1px dashed #B9CBDA; border-radius: 20px; padding: 4px 11px;
-}
-.cn-examens-botons button:hover:not(:disabled), .cn-boto-buida:hover { background: var(--blau-fons); }
-.cn-examens-botons button:disabled { opacity: .4; cursor: default; }
 
 .cn-tria {
   display: inline-flex; align-self: flex-start;
@@ -65,49 +70,52 @@
 }
 .cn-tria button[aria-checked="true"] { background: var(--blau); color: #fff; }
 
-.cn-resultat {
-  margin-top: auto; padding: 12px 14px; border-radius: var(--radi-petit);
-  background: var(--fons); display: flex; flex-direction: column; gap: 2px;
+/* resultat */
+.cn-xifres { display: flex; gap: 12px; margin-top: 8px; }
+.cn-xifra {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 12px 14px; border-radius: var(--radi-petit); background: var(--fons);
 }
-.cn-amb-nota .cn-resultat { background: var(--blau-fons); }
-.cn-res-linia { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--suau); }
-.cn-res-linia strong { font-family: var(--titol); font-weight: 700; font-size: 17px; color: var(--text); }
-.cn-res-gran strong { font-size: 26px; color: var(--blau-fosc); }
+.cn-xifra-gran { background: #DDE3E8; }
+.cn-amb-nota .cn-xifra-gran { background: var(--blau); color: #fff; }
+.cn-xifra-etiq { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; opacity: .8; }
+.cn-xifra-num { font-family: var(--titol); font-weight: 800; font-size: 34px; line-height: 1.2; }
 
-.cn-avis { margin: 6px 0 0; font-size: 13px; color: #8A6A1F; line-height: 1.4; }
+.cn-avis { margin: 10px 0 0; font-size: 13.5px; color: #8A6A1F; line-height: 1.45; }
 .cn-avis-error { color: #B5473A; }
 
-/* ── Nota final ────────────────────────────────────────────────────────── */
+/* quina nota necessito */
+.cn-objectiu { border-left: 6px solid #7AD5CC; }
+.cn-vull { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 10px; }
+.cn-vull label { font-size: 15px; }
+.cn-select {
+  font: 600 15px var(--cos); color: var(--text); cursor: pointer;
+  padding: 6px 10px; border: 1.5px solid var(--vora); border-radius: var(--radi-petit); background: #FCFBF9;
+}
+.cn-select:focus { outline: none; border-color: var(--blau); box-shadow: 0 0 0 3px var(--blau-fons); }
+.cn-necessito { margin: 0; font-size: 15px; line-height: 1.5; }
+.cn-necessito strong { font-family: var(--titol); font-size: 18px; color: var(--blau-fosc); }
 
-.cn-final {
-  display: grid; grid-template-columns: 1fr auto; gap: 8px 28px; align-items: center;
-  background: var(--blanc); border: 1px solid var(--vora); border-left: 6px solid var(--blau);
-  border-radius: var(--radi); box-shadow: var(--ombra);
-  padding: 20px 26px;
+/* com es calcula */
+.cn-com {
+  background: var(--blanc); border: 1px solid var(--vora); border-radius: var(--radi);
+  padding: 12px 22px; margin-bottom: 14px;
 }
-.cn-final h2 { margin: 0 0 4px; font-family: var(--titol); font-weight: 700; font-size: 20px; }
-.cn-final-cap p { margin: 0; color: var(--suau); font-size: 14px; max-width: 52ch; }
-.cn-final-notes { display: flex; gap: 14px; }
-.cn-xifra {
-  display: flex; flex-direction: column; align-items: center; min-width: 120px;
-  padding: 10px 16px; border-radius: var(--radi-petit); background: var(--fons);
-}
-.cn-xifra-gran { background: var(--blau); color: #fff; }
-.cn-xifra-etiq { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; opacity: .8; }
-.cn-xifra-num { font-family: var(--titol); font-weight: 800; font-size: 30px; line-height: 1.2; }
-.cn-final .cn-avis { grid-column: 1 / -1; margin: 0; }
+.cn-com summary { cursor: pointer; font-family: var(--titol); font-weight: 600; font-size: 14.5px; color: var(--blau); }
+.cn-com ul { margin: 10px 0 4px; padding-left: 20px; font-size: 14px; color: var(--text); }
+.cn-com li + li { margin-top: 4px; }
 
-.cn-peu-eines {
-  display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap;
-  margin: 16px 0 34px;
+.cn-peu-eines { display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap; margin: 0 0 34px; }
+.cn-boto-buida {
+  font: 600 12.5px var(--titol); color: var(--blau); cursor: pointer;
+  background: none; border: 1px dashed #B9CBDA; border-radius: 20px; padding: 4px 11px;
 }
+.cn-boto-buida:hover { background: var(--blau-fons); }
 .cn-privadesa { margin: 0; flex: 1; min-width: 240px; font-size: 13px; color: var(--tenue); }
 
-@media (max-width: 900px) {
-  .cn-trimestres { grid-template-columns: 1fr; }
-}
-@media (max-width: 620px) {
-  .cn-final { grid-template-columns: 1fr; padding: 18px; }
-  .cn-final-notes { width: 100%; }
-  .cn-xifra { flex: 1; min-width: 0; }
+@media (max-width: 760px) {
+  .cn-panell { grid-template-columns: 1fr; }
+  .cn-pestanyes { display: flex; }
+  .cn-pestanyes button { flex: 1; padding: 8px 10px; }
+  .cn-caixa { padding: 16px; }
 }

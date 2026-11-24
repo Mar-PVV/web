@@ -37,31 +37,98 @@
   <a class="cn-torna" href="batx.html">← Tornar a 1r de batxillerat</a>
   <div class="titol-curs">
     <h1>Calculadora de notes</h1>
-    <p>Escriu les notes que tens dels exàmens i dels tests de cada trimestre i et calculo la nota del trimestre i la final.</p>
+    <p>Calcula la nota d'un trimestre o la nota final, i mira quina nota necessites per arribar on vols.</p>
   </div>
 
-  <div class="cn-trimestres" id="trimestres"></div>
+  <div class="cn-pestanyes" role="tablist" aria-label="Què vols calcular">
+    <button type="button" role="tab" id="pes-trimestre" aria-controls="panell-trimestre" aria-selected="true">Nota d'un trimestre</button>
+    <button type="button" role="tab" id="pes-final" aria-controls="panell-final" aria-selected="false">Nota final</button>
+  </div>
 
-  <section class="cn-final" aria-live="polite">
-    <div class="cn-final-cap">
-      <h2>Nota final</h2>
-      <p id="final-explica"></p>
-    </div>
-    <div class="cn-final-notes">
-      <div class="cn-xifra">
-        <span class="cn-xifra-etiq">Sense arrodonir</span>
-        <span class="cn-xifra-num" id="final-exacta">—</span>
+  <!-- ── Nota d'un trimestre ─────────────────────────────────────────── -->
+  <section class="cn-panell" id="panell-trimestre" role="tabpanel" aria-labelledby="pes-trimestre">
+    <div class="cn-caixa cn-entrada">
+      <h2>Les teves notes del trimestre</h2>
+      <p class="cn-ajuda">Escriu-les amb decimals si en tenen (6,75). Deixa en blanc les que encara no tens.</p>
+      <div class="cn-bloc">
+        <div class="cn-bloc-cap"><span>Exàmens</span><span class="cn-pes" id="pes-examens"></span></div>
+        <div class="cn-fila"><label for="ex1">Examen 1 <span class="cn-x">val ×1</span></label><input id="ex1" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
+        <div class="cn-fila"><label for="ex2">Examen 2 <span class="cn-x">val ×2</span></label><input id="ex2" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
       </div>
-      <div class="cn-xifra cn-xifra-gran">
-        <span class="cn-xifra-etiq">Arrodonida</span>
-        <span class="cn-xifra-num" id="final-arrodonida">—</span>
+      <div class="cn-bloc">
+        <div class="cn-bloc-cap"><span>Tests</span><span class="cn-pes" id="pes-tests"></span></div>
+        <div class="cn-tria" role="radiogroup" aria-label="Quants tests hi ha aquest trimestre">
+          <button type="button" role="radio" data-n="1" aria-checked="true">1 test</button>
+          <button type="button" role="radio" data-n="2" aria-checked="false">2 tests</button>
+        </div>
+        <div class="cn-fila"><label for="te1">Test 1</label><input id="te1" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
+        <div class="cn-fila" id="fila-te2" hidden><label for="te2">Test 2</label><input id="te2" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
       </div>
     </div>
-    <p class="cn-avis" id="final-avis" hidden></p>
+    <div class="cn-columna">
+      <div class="cn-caixa cn-resultat" aria-live="polite">
+        <h2>Nota del trimestre</h2>
+        <div class="cn-xifres">
+          <div class="cn-xifra"><span class="cn-xifra-etiq">Sense arrodonir</span><span class="cn-xifra-num" id="t-exacta">—</span></div>
+          <div class="cn-xifra cn-xifra-gran"><span class="cn-xifra-etiq">Arrodonida</span><span class="cn-xifra-num" id="t-arrodonida">—</span></div>
+        </div>
+        <p class="cn-avis" id="t-avis" hidden></p>
+      </div>
+      <div class="cn-caixa cn-objectiu">
+        <h2>Quina nota necessito?</h2>
+        <div class="cn-vull">
+          <label for="t-objectiu">Vull treure al trimestre</label>
+          <select id="t-objectiu" class="cn-select"></select>
+        </div>
+        <p class="cn-necessito" id="t-necessito" aria-live="polite"></p>
+      </div>
+    </div>
   </section>
 
+  <!-- ── Nota final ──────────────────────────────────────────────────── -->
+  <section class="cn-panell" id="panell-final" role="tabpanel" aria-labelledby="pes-final" hidden>
+    <div class="cn-caixa cn-entrada">
+      <h2>Les notes dels trimestres</h2>
+      <p class="cn-ajuda">Escriu la nota de cada trimestre <strong>sense arrodonir</strong> (la calcules a l'altra pestanya). Deixa en blanc les que encara no tens.</p>
+      <div class="cn-bloc">
+        <div class="cn-fila"><label for="tr1">1r trimestre <span class="cn-x">val ×1</span></label><input id="tr1" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
+        <div class="cn-fila"><label for="tr2">2n trimestre <span class="cn-x">val ×2</span></label><input id="tr2" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
+        <div class="cn-fila"><label for="tr3">3r trimestre <span class="cn-x">val ×3</span></label><input id="tr3" type="text" inputmode="decimal" autocomplete="off" placeholder="—"></div>
+      </div>
+    </div>
+    <div class="cn-columna">
+      <div class="cn-caixa cn-resultat" aria-live="polite">
+        <h2>Nota final</h2>
+        <div class="cn-xifres">
+          <div class="cn-xifra"><span class="cn-xifra-etiq">Sense arrodonir</span><span class="cn-xifra-num" id="f-exacta">—</span></div>
+          <div class="cn-xifra cn-xifra-gran"><span class="cn-xifra-etiq">Arrodonida</span><span class="cn-xifra-num" id="f-arrodonida">—</span></div>
+        </div>
+        <p class="cn-avis" id="f-avis" hidden></p>
+      </div>
+      <div class="cn-caixa cn-objectiu">
+        <h2>Quina nota necessito?</h2>
+        <div class="cn-vull">
+          <label for="f-objectiu">Vull treure a la final</label>
+          <select id="f-objectiu" class="cn-select"></select>
+        </div>
+        <p class="cn-necessito" id="f-necessito" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <details class="cn-com">
+    <summary>Com es calcula?</summary>
+    <ul>
+      <li><strong>Exàmens:</strong> n'hi ha dos per trimestre; el primer val ×1 i el segon ×2.</li>
+      <li><strong>Trimestre amb 1 test:</strong> exàmens 90&nbsp;% i test 10&nbsp;%. <strong>Amb 2 tests:</strong> exàmens 80&nbsp;% i cada test 10&nbsp;%.</li>
+      <li><strong>Nota final:</strong> amb les notes dels trimestres sense arrodonir; el 1r val ×1, el 2n ×2 i el 3r ×3.</li>
+      <li><strong>Arrodoniment:</strong> per sota de 5 la nota es trunca (4,9 → 4). A partir de 5, puja a l'enter següent si els decimals arriben a ,75 (6,75 → 7; 6,74 → 6).</li>
+      <li><strong>Quina nota necessito:</strong> deixa en blanc el que encara no tens. Si en falta més d'una, et dic la nota que hauries de treure a cadascuna (la mateixa a totes).</li>
+    </ul>
+  </details>
+
   <div class="cn-peu-eines">
-    <button type="button" class="cn-boto-buida" id="buida">Esborra totes les notes</button>
+    <button type="button" class="cn-boto-buida" id="buida">Esborra les notes</button>
     <p class="cn-privadesa">Les notes només són en aquesta pantalla: no es desen ni s'envien enlloc. És una calculadora orientativa: la nota oficial és la que surt al butlletí.</p>
   </div>
 </main>

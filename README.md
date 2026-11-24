@@ -486,13 +486,19 @@ El full d'estil és `assets/estil.css` i les variables de color són a `:root`.
 ## Calculadora de notes (1r de batxillerat)
 
 `calculadora-notes.html` (+ `assets/calculadora-notes.{css,js}`), enllaçada amb una
-targeta a sota dels temes de `batx.html`. Per a cada trimestre l'alumne escriu les
-notes dels exàmens (en pot afegir o treure) i d'1 o 2 tests, i veu la nota sense
-arrodonir (tallada a dues xifres decimals) i arrodonida. A sota hi ha la nota final.
+targeta a sota dels temes de `batx.html`. Dues pestanyes (`#final` obre la segona):
+
+- **Nota d'un trimestre:** examen 1 (×1), examen 2 (×2) i 1 o 2 tests. Amb 1 test,
+  exàmens 90 % i test 10 %; amb 2 tests, exàmens 80 % i cada test 10 %.
+- **Nota final:** l'alumne escriu la nota de cada trimestre sense arrodonir;
+  1r ×1, 2n ×2, 3r ×3.
+
+Totes dues mostren la nota sense arrodonir (tallada a dues xifres) i arrodonida amb
+la regla de matemàtiques: per sota de 5 es trunca; a partir de 5 puja a l'enter
+següent si els decimals arriben a ,75. «Quina nota necessito?» diu la nota mínima a
+les caselles buides (la mateixa a totes) per arribar a l'objectiu triat.
 Tot es calcula al navegador: no es desa ni s'envia res.
 
-Els criteris (pes dels exàmens i dels tests, pesos dels trimestres a la final, si la
-final es fa amb notes arrodonides o no) són a l'objecte `CRITERIS` al principi de
-`assets/calculadora-notes.js`: si canvien, només cal tocar-lo. El text explicatiu de
-la pàgina es munta a partir d'aquests valors.
-
+Els criteris són a l'objecte `CRITERIS` al principi de `assets/calculadora-notes.js`
+(si canvien, cal tocar també el text de «Com es calcula?» de l'HTML).
+Prova: `node proves/prova-calculadora-notes.js`.
