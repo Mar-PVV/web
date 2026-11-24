@@ -58,6 +58,7 @@ web/
 ├── exercicis.html      activitats d'un tema · ?tema=N
 ├── test-limits.html    test ràpid de límits (1r BTX, tema 1)
 ├── funcions-trossos.html  aplicatiu: dibuixar funcions definides a trossos (1r BTX, tema 2)
+├── calculadora-notes.html  calculadora de la nota de trimestre i final (1r BTX), enllaçada des de batx.html
 ├── distribucions/
 │   ├── index.html      eina per a docents: distribucions de l'aula (/distribucions)
 │   └── tutorial/       vídeo tutorial de l'eina (/distribucions/tutorial)
@@ -481,3 +482,17 @@ El full d'estil és `assets/estil.css` i les variables de color són a `:root`.
 2. *Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save.*
 3. La web quedarà a `https://mar-pvv.github.io/web/`
    (si el repositori es diu `Mar-PVV.github.io`, la URL serà `https://mar-pvv.github.io/`).
+
+## Calculadora de notes (1r de batxillerat)
+
+`calculadora-notes.html` (+ `assets/calculadora-notes.{css,js}`), enllaçada amb una
+targeta a sota dels temes de `batx.html`. Per a cada trimestre l'alumne escriu les
+notes dels exàmens (en pot afegir o treure) i d'1 o 2 tests, i veu la nota sense
+arrodonir (tallada a dues xifres decimals) i arrodonida. A sota hi ha la nota final.
+Tot es calcula al navegador: no es desa ni s'envia res.
+
+Els criteris (pes dels exàmens i dels tests, pesos dels trimestres a la final, si la
+final es fa amb notes arrodonides o no) són a l'objecte `CRITERIS` al principi de
+`assets/calculadora-notes.js`: si canvien, només cal tocar-lo. El text explicatiu de
+la pàgina es munta a partir d'aquests valors.
+

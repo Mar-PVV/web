@@ -505,6 +505,25 @@ a.tema-targeta:hover {
   text-transform: uppercase; font-weight: 700;
 }
 
+/* enllaç a la calculadora de notes (batx.html) */
+.eina-enllac {
+  display: flex; align-items: center; gap: 14px; margin: 18px 0 34px;
+  background: var(--blanc); border: 1px solid var(--vora); border-radius: var(--radi);
+  box-shadow: var(--ombra); padding: 14px 20px; text-decoration: none; color: inherit;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s;
+}
+a.eina-enllac:hover { transform: translateY(-2px); box-shadow: var(--ombra-alta); border-color: #CFD9E2; }
+.eina-icona {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--blau-fons); color: var(--blau);
+}
+.eina-icona svg { width: 22px; height: 22px; }
+.eina-text { flex: 1; min-width: 0; }
+.eina-nom { display: block; font-family: var(--titol); font-weight: 700; font-size: 15.5px; }
+.eina-desc { display: block; font-size: 13.5px; color: var(--suau); }
+.eina-enllac > svg { width: 16px; height: 16px; color: var(--blau); flex-shrink: 0; }
+
 [hidden] { display: none !important; }
 
 /* ── Test ràpid de límits ──────────────────────────────────────────────── */
